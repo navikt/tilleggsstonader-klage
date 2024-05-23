@@ -1,10 +1,10 @@
-package no.nav.familie.klage.vedlegg
+package no.nav.tilleggsstonader.klage.vedlegg
 
-import no.nav.familie.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.familie.klage.testutil.BrukerContextUtil
-import no.nav.familie.klage.testutil.DomainUtil
-import no.nav.familie.klage.testutil.DomainUtil.tilFagsak
-import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
+import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

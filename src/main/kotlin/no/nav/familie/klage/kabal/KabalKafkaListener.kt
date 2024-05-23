@@ -1,12 +1,12 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.familie.klage.infrastruktur.exception.Feil
-import no.nav.familie.klage.kabal.event.BehandlingEventService
-import no.nav.familie.kontrakter.felles.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.BehandlingEventType
-import no.nav.familie.kontrakter.felles.klage.KlageinstansUtfall
-import no.nav.familie.kontrakter.felles.objectMapper
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.listener.ConsumerSeekAware

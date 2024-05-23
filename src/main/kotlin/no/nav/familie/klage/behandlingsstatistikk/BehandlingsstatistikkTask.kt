@@ -1,12 +1,12 @@
-package no.nav.familie.klage.behandlingsstatistikk
+package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.familie.klage.infrastruktur.featuretoggle.FeatureToggleService
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.familie.kontrakter.felles.objectMapper
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
+import no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle.FeatureToggleService
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
+import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
+import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
+import no.nav.tilleggsstonader.prosessering.domene.Task
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.Properties

@@ -1,4 +1,4 @@
-package no.nav.familie.klage.personopplysninger.pdl
+package no.nav.tilleggsstonader.klage.personopplysninger.pdl
 
 fun Navn.visningsnavn(): String {
     return if (mellomnavn == null) {

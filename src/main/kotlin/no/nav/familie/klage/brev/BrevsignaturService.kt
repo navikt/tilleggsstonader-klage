@@ -1,8 +1,8 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.brev.dto.SignaturDto
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.familie.klage.personopplysninger.dto.PersonopplysningerDto
+import no.nav.tilleggsstonader.klage.brev.dto.SignaturDto
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
 import org.springframework.stereotype.Service
 
 @Service

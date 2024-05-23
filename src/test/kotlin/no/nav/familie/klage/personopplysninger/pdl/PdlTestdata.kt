@@ -1,4 +1,4 @@
-package no.nav.familie.klage.personopplysninger.pdl
+package no.nav.tilleggsstonader.klage.personopplysninger.pdl
 
 import java.time.LocalDate
 import java.time.LocalDateTime

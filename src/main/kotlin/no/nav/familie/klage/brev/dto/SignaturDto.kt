@@ -1,3 +1,3 @@
-package no.nav.familie.klage.brev.dto
+package no.nav.tilleggsstonader.klage.brev.dto
 
 data class SignaturDto(val navn: String, val enhet: String)

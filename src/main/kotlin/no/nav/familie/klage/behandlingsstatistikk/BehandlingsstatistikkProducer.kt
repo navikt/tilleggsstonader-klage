@@ -1,7 +1,7 @@
-package no.nav.familie.klage.behandlingsstatistikk
+package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
-import no.nav.familie.eksterne.kontrakter.saksstatistikk.klage.BehandlingsstatistikkKlage
-import no.nav.familie.kontrakter.felles.objectMapper
+import no.nav.tilleggsstonader.eksterne.kontrakter.saksstatistikk.klage.BehandlingsstatistikkKlage
+import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate

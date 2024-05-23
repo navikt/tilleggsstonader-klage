@@ -1,14 +1,14 @@
-package no.nav.familie.klage.behandlingsstatistikk
+package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
-import no.nav.familie.eksterne.kontrakter.saksstatistikk.klage.BehandlingsstatistikkKlage
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.personopplysninger.PersonopplysningerService
-import no.nav.familie.klage.vurdering.VurderingService
-import no.nav.familie.klage.vurdering.domain.Vurdering
-import no.nav.familie.kontrakter.felles.Regelverk
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.eksterne.kontrakter.saksstatistikk.klage.BehandlingsstatistikkKlage
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
+import no.nav.tilleggsstonader.klage.vurdering.VurderingService
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

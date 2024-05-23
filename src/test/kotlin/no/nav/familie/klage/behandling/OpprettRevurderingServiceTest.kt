@@ -1,17 +1,17 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.familie.klage.behandling.domain.PåklagetVedtak
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakstype
-import no.nav.familie.klage.integrasjoner.FagsystemVedtakService
-import no.nav.familie.klage.testutil.DomainUtil
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.påklagetVedtakDetaljer
-import no.nav.familie.klage.testutil.DomainUtil.tilFagsak
-import no.nav.familie.kontrakter.felles.klage.FagsystemType
-import no.nav.familie.kontrakter.felles.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
+import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

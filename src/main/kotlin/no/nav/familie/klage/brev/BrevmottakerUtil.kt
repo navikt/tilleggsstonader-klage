@@ -1,8 +1,8 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.brev.domain.Brevmottakere
-import no.nav.familie.klage.infrastruktur.exception.brukerfeilHvisIkke
-import no.nav.familie.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 
 object BrevmottakerUtil {
 

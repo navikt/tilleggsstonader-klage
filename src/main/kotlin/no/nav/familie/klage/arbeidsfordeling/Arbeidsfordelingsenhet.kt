@@ -1,3 +1,3 @@
-package no.nav.familie.klage.arbeidsfordeling
+package no.nav.tilleggsstonader.klage.arbeidsfordeling
 
 data class Arbeidsfordelingsenhet(val enhetId: String, val enhetNavn: String)

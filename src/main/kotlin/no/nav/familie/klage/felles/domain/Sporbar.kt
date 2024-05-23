@@ -1,6 +1,6 @@
-package no.nav.familie.klage.felles.domain
+package no.nav.tilleggsstonader.klage.felles.domain
 
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.relational.core.mapping.Embedded
 import java.time.LocalDateTime

@@ -1,15 +1,15 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.domain.StegType
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.familie.klage.infrastruktur.exception.Feil
-import no.nav.familie.klage.testutil.BrukerContextUtil
-import no.nav.familie.klage.testutil.DomainUtil
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.tilFagsak
-import no.nav.familie.kontrakter.felles.klage.BehandlingStatus
-import no.nav.familie.kontrakter.felles.klage.OpprettKlagebehandlingRequest
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

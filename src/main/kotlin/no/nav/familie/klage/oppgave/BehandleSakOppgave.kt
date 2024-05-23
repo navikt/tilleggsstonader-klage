@@ -1,6 +1,6 @@
-package no.nav.familie.klage.oppgave
+package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.familie.klage.felles.domain.Sporbar
+import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Embedded
 import java.util.UUID

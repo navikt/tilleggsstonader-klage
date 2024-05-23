@@ -1,6 +1,6 @@
-package no.nav.familie.klage.oppgave
+package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.familie.util.VirkedagerProvider.nesteVirkedag
+import no.nav.tilleggsstonader.util.VirkedagerProvider.nesteVirkedag
 import java.time.LocalDate
 import java.time.LocalDateTime
 

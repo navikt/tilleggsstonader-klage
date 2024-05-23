@@ -1,15 +1,15 @@
-package no.nav.familie.klage.journalpost
+package no.nav.tilleggsstonader.klage.journalpost
 
-import no.nav.familie.klage.infrastruktur.exception.brukerfeilHvisIkke
-import no.nav.familie.klage.infrastruktur.exception.feilHvis
-import no.nav.familie.klage.integrasjoner.FamilieIntegrasjonerClient
-import no.nav.familie.kontrakter.felles.BrukerIdType
-import no.nav.familie.kontrakter.felles.journalpost.Bruker
-import no.nav.familie.kontrakter.felles.journalpost.Dokumentvariantformat
-import no.nav.familie.kontrakter.felles.journalpost.Journalpost
-import no.nav.familie.kontrakter.felles.journalpost.JournalposterForBrukerRequest
-import no.nav.familie.kontrakter.felles.journalpost.Journalposttype
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Bruker
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Dokumentvariantformat
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalpost
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.JournalposterForBrukerRequest
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalposttype
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.springframework.stereotype.Service
 
 @Service

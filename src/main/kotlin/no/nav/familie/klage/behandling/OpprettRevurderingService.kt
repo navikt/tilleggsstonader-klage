@@ -1,8 +1,8 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.OpprettRevurderingUtil.skalOppretteRevurderingAutomatisk
-import no.nav.familie.klage.integrasjoner.FagsystemVedtakService
-import no.nav.familie.kontrakter.felles.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.klage.behandling.OpprettRevurderingUtil.skalOppretteRevurderingAutomatisk
+import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
 import org.springframework.stereotype.Service
 import java.util.UUID
 

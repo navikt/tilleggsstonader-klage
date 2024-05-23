@@ -1,8 +1,8 @@
-package no.nav.familie.klage.vurdering
+package no.nav.tilleggsstonader.klage.vurdering
 
-import no.nav.familie.klage.infrastruktur.exception.feilHvis
-import no.nav.familie.klage.vurdering.domain.Vedtak
-import no.nav.familie.klage.vurdering.dto.VurderingDto
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
+import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 
 object VurderingValidator {
 

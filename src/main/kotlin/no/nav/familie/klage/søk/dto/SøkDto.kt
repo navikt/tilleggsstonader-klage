@@ -1,4 +1,4 @@
-package no.nav.familie.klage.søk.dto
+package no.nav.tilleggsstonader.klage.søk.dto
 
 import java.util.UUID
 

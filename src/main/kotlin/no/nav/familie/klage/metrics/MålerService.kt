@@ -1,9 +1,9 @@
-package no.nav.familie.klage.metrics
+package no.nav.tilleggsstonader.klage.metrics
 
 import io.micrometer.core.instrument.Metrics
 import io.micrometer.core.instrument.MultiGauge
 import io.micrometer.core.instrument.Tags
-import no.nav.familie.klage.metrics.domain.MålerRepository
+import no.nav.tilleggsstonader.klage.metrics.domain.MålerRepository
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service

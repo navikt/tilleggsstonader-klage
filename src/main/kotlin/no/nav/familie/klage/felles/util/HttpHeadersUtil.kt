@@ -1,4 +1,4 @@
-package no.nav.familie.klage.felles.util
+package no.nav.tilleggsstonader.klage.felles.util
 
 import org.springframework.http.HttpHeaders
 

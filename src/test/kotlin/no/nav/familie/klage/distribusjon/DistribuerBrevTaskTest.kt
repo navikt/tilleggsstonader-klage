@@ -1,16 +1,16 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifyOrder
-import no.nav.familie.klage.brev.BrevService
-import no.nav.familie.klage.brev.domain.Brev
-import no.nav.familie.klage.brev.domain.BrevmottakereJournalpost
-import no.nav.familie.klage.brev.domain.BrevmottakereJournalposter
-import no.nav.familie.klage.felles.domain.Fil
-import no.nav.familie.prosessering.domene.Task
+import no.nav.tilleggsstonader.klage.brev.BrevService
+import no.nav.tilleggsstonader.klage.brev.domain.Brev
+import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
+import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
+import no.nav.tilleggsstonader.klage.felles.domain.Fil
+import no.nav.tilleggsstonader.prosessering.domene.Task
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested

@@ -1,13 +1,13 @@
-package no.nav.familie.klage.fagsak
+package no.nav.tilleggsstonader.klage.fagsak
 
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.fagsak.domain.FagsakDomain
-import no.nav.familie.klage.fagsak.domain.FagsakPerson
-import no.nav.familie.klage.infrastruktur.exception.Feil
-import no.nav.familie.klage.personopplysninger.pdl.PdlClient
-import no.nav.familie.klage.repository.findByIdOrThrow
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
+import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID

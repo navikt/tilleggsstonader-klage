@@ -1,8 +1,8 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
-import no.nav.familie.klage.brev.domain.Brevmottakere
-import no.nav.familie.kontrakter.felles.BrukerIdType
-import no.nav.familie.kontrakter.felles.dokarkiv.AvsenderMottaker
+import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
+import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.AvsenderMottaker
 
 object JournalføringUtil {
 

@@ -1,7 +1,7 @@
-package no.nav.familie.klage.personopplysninger.pdl
+package no.nav.tilleggsstonader.klage.personopplysninger.pdl
 
-import no.nav.familie.klage.infrastruktur.exception.PdlNotFoundException
-import no.nav.familie.klage.infrastruktur.exception.PdlRequestException
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.PdlNotFoundException
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.PdlRequestException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

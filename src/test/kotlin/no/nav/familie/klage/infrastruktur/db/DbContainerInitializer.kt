@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.db
+package no.nav.tilleggsstonader.klage.infrastruktur.db
 
 import org.springframework.boot.test.util.TestPropertyValues
 import org.springframework.context.ApplicationContextInitializer

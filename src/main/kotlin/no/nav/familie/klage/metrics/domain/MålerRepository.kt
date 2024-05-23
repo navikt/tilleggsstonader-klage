@@ -1,6 +1,6 @@
-package no.nav.familie.klage.metrics.domain
+package no.nav.tilleggsstonader.klage.metrics.domain
 
-import no.nav.familie.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository

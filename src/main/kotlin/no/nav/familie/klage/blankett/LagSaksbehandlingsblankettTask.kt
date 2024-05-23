@@ -1,11 +1,11 @@
-package no.nav.familie.klage.blankett
+package no.nav.tilleggsstonader.klage.blankett
 
-import no.nav.familie.klage.distribusjon.DistribusjonService
-import no.nav.familie.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
+import no.nav.tilleggsstonader.klage.distribusjon.DistribusjonService
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
+import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
+import no.nav.tilleggsstonader.prosessering.domene.Task
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.Properties

@@ -5,7 +5,7 @@
 
     <groupId>no.nav</groupId>
     <packaging>jar</packaging>
-    <artifactId>familie-klage</artifactId>
+    <artifactId>tilleggsstonader-klage</artifactId>
     <version>${revision}${sha1}${changelist}</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,7 +20,7 @@
         </repository>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/navikt/familie-felles</url>
+            <url>https://maven.pkg.github.com/navikt/tilleggsstonader-libs</url>
         </repository>
     </repositories>
 
@@ -34,8 +34,8 @@
         <mockk-jvm.version>1.13.10</mockk-jvm.version>
         <felles.version>3.20240515152313_9dd5659</felles.version>
         <prosessering.version>2.20240426120029_490d299</prosessering.version>
-        <start-class>no.nav.familie.klage.ApplicationKt</start-class>
-        <kontrakter.version>3.0_20240515103524_00490ae</kontrakter.version>
+        <start-class>no.nav.tilleggsstonader.klage.ApplicationKt</start-class>
+        <kontrakter.version>2024.05.23-11.14.64b14cd5c6e4</kontrakter.version>
         <saksstatistikk-klage.version>2.0_20230214104704_706e9c0</saksstatistikk-klage.version>
         <nav.security.version>4.1.7</nav.security.version> <!-- Denne burde være samme versjon som i felles -->
         <okhttp3.version>4.9.1
@@ -106,43 +106,13 @@
             <version>${springdoc.version}</version>
         </dependency>
         <dependency>
-            <groupId>no.nav.familie.felles</groupId>
-            <artifactId>unleash</artifactId>
-            <version>${felles.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
         <dependency>
-            <groupId>no.nav.familie.felles</groupId>
-            <artifactId>util</artifactId>
-            <version>${felles.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.felles</groupId>
-            <artifactId>http-client</artifactId>
-            <version>${felles.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie</groupId>
-            <artifactId>prosessering-core</artifactId>
-            <version>${prosessering.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.kontrakter</groupId>
-            <artifactId>felles</artifactId>
+            <groupId>no.nav.tilleggsstonader.kontrakter</groupId>
+            <artifactId>tilleggsstonader-kontrakter</artifactId>
             <version>${kontrakter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.eksterne.kontrakter</groupId>
-            <artifactId>saksstatistikk-klage</artifactId>
-            <version>${saksstatistikk-klage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.felles</groupId>
-            <artifactId>kafka</artifactId>
-            <version>${felles.version}</version>
         </dependency>
         <!-- Logging og metrikker -->
         <dependency>
@@ -157,11 +127,6 @@
             <groupId>com.papertrailapp</groupId>
             <artifactId>logback-syslog4j</artifactId>
             <version>1.0.0</version> <!-- August, 2014, men det er den som blir brukt på NAV -->
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.felles</groupId>
-            <artifactId>log</artifactId>
-            <version>${felles.version}</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -189,11 +154,6 @@
             <artifactId>wiremock-jre8-standalone</artifactId>
             <version>2.35.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.kontrakter</groupId>
-            <artifactId>enslig-forsorger-test</artifactId>
-            <version>${kontrakter.version}</version>
         </dependency>
         <dependency>
             <groupId>io.mockk</groupId>

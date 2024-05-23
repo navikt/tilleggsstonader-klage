@@ -1,13 +1,13 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.brev.BrevInnhold.lagFormkravAvvistBrev
-import no.nav.familie.klage.brev.BrevInnhold.lagFormkravAvvistBrevIkkePåklagetVedtak
-import no.nav.familie.klage.brev.BrevInnhold.lagOpprettholdelseBrev
-import no.nav.familie.klage.formkrav.domain.FormVilkår
-import no.nav.familie.klage.testutil.DomainUtil.oppfyltForm
-import no.nav.familie.klage.testutil.DomainUtil.påklagetVedtakDetaljer
-import no.nav.familie.kontrakter.felles.klage.FagsystemType
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagFormkravAvvistBrev
+import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagFormkravAvvistBrevIkkePåklagetVedtak
+import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagOpprettholdelseBrev
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate

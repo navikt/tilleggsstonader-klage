@@ -1,13 +1,11 @@
-package no.nav.familie.klage.vedlegg
+package no.nav.tilleggsstonader.klage.vedlegg
 
-import no.nav.familie.klage.felles.domain.AuditLoggerEvent
-import no.nav.familie.klage.infrastruktur.sikkerhet.TilgangService
-import no.nav.familie.klage.journalpost.JournalpostService
-import no.nav.familie.klage.personopplysninger.pdl.PdlClient
-import no.nav.familie.kontrakter.felles.BrukerIdType
-import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.felles.Tema
-import no.nav.familie.kontrakter.felles.journalpost.Journalpost
+import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
+import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
+import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
+import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated

@@ -1,12 +1,12 @@
-package no.nav.familie.klage.journalpost
+package no.nav.tilleggsstonader.klage.journalpost
 
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.klage.infrastruktur.exception.ApiFeil
-import no.nav.familie.klage.infrastruktur.exception.Feil
-import no.nav.familie.klage.integrasjoner.FamilieIntegrasjonerClient
-import no.nav.familie.klage.testutil.DomainUtil.journalpost
-import no.nav.familie.klage.testutil.DomainUtil.journalpostDokument
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.journalpost
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.journalpostDokument
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

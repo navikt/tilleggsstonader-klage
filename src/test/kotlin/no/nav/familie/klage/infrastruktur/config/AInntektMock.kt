@@ -1,8 +1,8 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.klage.amelding.ekstern.AMeldingInntektClient
+import no.nav.tilleggsstonader.klage.amelding.ekstern.AMeldingInntektClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary

@@ -1,6 +1,6 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
-import no.nav.familie.klage.infrastruktur.sikkerhet.TilgangInterceptor
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangInterceptor
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer

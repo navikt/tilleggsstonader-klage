@@ -1,11 +1,11 @@
-package no.nav.familie.klage.behandling.domain
+package no.nav.tilleggsstonader.klage.behandling.domain
 
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
-import no.nav.familie.kontrakter.felles.klage.BehandlingStatus
-import no.nav.familie.kontrakter.felles.klage.HenlagtÅrsak
-import no.nav.familie.kontrakter.felles.klage.KlagebehandlingDto
-import no.nav.familie.kontrakter.felles.klage.KlageinstansResultatDto
-import no.nav.familie.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansResultatDto
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
 import org.springframework.data.relational.core.mapping.Column
 import java.time.LocalDate
 import java.time.LocalDateTime

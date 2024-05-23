@@ -1,11 +1,11 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.klage.søk.ereg.EregClient
-import no.nav.familie.klage.søk.ereg.Navn
-import no.nav.familie.klage.søk.ereg.OrganisasjonDetaljer
-import no.nav.familie.klage.søk.ereg.OrganisasjonDto
+import no.nav.tilleggsstonader.klage.søk.ereg.EregClient
+import no.nav.tilleggsstonader.klage.søk.ereg.Navn
+import no.nav.tilleggsstonader.klage.søk.ereg.OrganisasjonDetaljer
+import no.nav.tilleggsstonader.klage.søk.ereg.OrganisasjonDto
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary

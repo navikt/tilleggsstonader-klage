@@ -1,9 +1,9 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.http.client.AbstractPingableRestClient
-import no.nav.familie.klage.blankett.BlankettPdfRequest
-import no.nav.familie.klage.brev.dto.FritekstBrevRequestDto
-import no.nav.familie.klage.felles.util.medContentTypeJsonUTF8
+import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.tilleggsstonader.klage.blankett.BlankettPdfRequest
+import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
+import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders

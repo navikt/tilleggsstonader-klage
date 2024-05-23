@@ -1,14 +1,14 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.familie.klage.felles.domain.SporbarUtils
-import no.nav.familie.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
-import no.nav.familie.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.familie.klage.kabal.domain.KlageinstansResultat
-import no.nav.familie.klage.repository.findByIdOrThrow
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.fagsak
-import no.nav.familie.kontrakter.felles.klage.BehandlingEventType
-import no.nav.familie.kontrakter.felles.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
+import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
+import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

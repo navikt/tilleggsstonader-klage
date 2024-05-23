@@ -1,8 +1,8 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.familie.klage.kabal.domain.KlageinstansResultat
-import no.nav.familie.klage.repository.InsertUpdateRepository
-import no.nav.familie.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
+import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
 import org.springframework.stereotype.Repository
 import java.util.UUID
 

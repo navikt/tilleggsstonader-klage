@@ -1,17 +1,17 @@
-package no.nav.familie.klage.vurdering
+package no.nav.tilleggsstonader.klage.vurdering
 
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.familie.klage.behandling.StegService
-import no.nav.familie.klage.behandling.domain.StegType
-import no.nav.familie.klage.brev.BrevRepository
-import no.nav.familie.klage.testutil.DomainUtil.vurdering
-import no.nav.familie.klage.vurdering.domain.Hjemmel
-import no.nav.familie.klage.vurdering.domain.Vedtak
-import no.nav.familie.klage.vurdering.dto.tilDto
-import no.nav.familie.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.klage.behandling.StegService
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.brev.BrevRepository
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull

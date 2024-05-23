@@ -1,14 +1,14 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.behandling.domain.PåklagetVedtak
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.fagsak.domain.tilYtelse
-import no.nav.familie.klage.infrastruktur.config.LenkeConfig
-import no.nav.familie.klage.integrasjoner.FamilieIntegrasjonerClient
-import no.nav.familie.klage.vurdering.domain.Vurdering
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.fagsak.domain.tilYtelse
+import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
+import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
 import org.springframework.stereotype.Service
 
 @Service

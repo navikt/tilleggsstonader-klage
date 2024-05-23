@@ -1,4 +1,4 @@
-package no.nav.familie.klage
+package no.nav.tilleggsstonader.klage
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,13 +1,13 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.dto.BehandlingDto
-import no.nav.familie.klage.behandling.dto.HenlagtDto
-import no.nav.familie.klage.felles.domain.AuditLoggerEvent
-import no.nav.familie.klage.infrastruktur.sikkerhet.TilgangService
-import no.nav.familie.klage.integrasjoner.FagsystemVedtakService
-import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.felles.klage.FagsystemVedtak
-import no.nav.familie.kontrakter.felles.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.klage.behandling.dto.BehandlingDto
+import no.nav.tilleggsstonader.klage.behandling.dto.HenlagtDto
+import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
+import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
+import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.exception
+package no.nav.tilleggsstonader.klage.infrastruktur.exception
 
 import org.springframework.http.HttpStatus
 import kotlin.contracts.ExperimentalContracts

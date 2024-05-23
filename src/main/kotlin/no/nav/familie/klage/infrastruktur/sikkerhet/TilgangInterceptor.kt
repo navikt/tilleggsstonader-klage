@@ -1,9 +1,9 @@
-package no.nav.familie.klage.infrastruktur.sikkerhet
+package no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import no.nav.familie.klage.felles.domain.BehandlerRolle
-import no.nav.familie.klage.infrastruktur.exception.ManglerTilgang
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlerRolle
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.AsyncHandlerInterceptor

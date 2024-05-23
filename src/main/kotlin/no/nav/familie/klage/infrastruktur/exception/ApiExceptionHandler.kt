@@ -1,6 +1,6 @@
-package no.nav.familie.klage.infrastruktur.exception
+package no.nav.tilleggsstonader.klage.infrastruktur.exception
 
-import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.exceptions.JwtTokenMissingException
 import org.slf4j.LoggerFactory
 import org.springframework.core.NestedExceptionUtils

@@ -1,13 +1,13 @@
-package no.nav.familie.klage.repository
+package no.nav.tilleggsstonader.klage.repository
 
-import no.nav.familie.klage.behandling.BehandlingRepository
-import no.nav.familie.klage.fagsak.FagsakRepository
-import no.nav.familie.klage.fagsak.domain.PersonIdent
-import no.nav.familie.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.fagsakDomain
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
+import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

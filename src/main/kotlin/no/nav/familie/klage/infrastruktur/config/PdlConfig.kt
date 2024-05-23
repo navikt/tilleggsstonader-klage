@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Value

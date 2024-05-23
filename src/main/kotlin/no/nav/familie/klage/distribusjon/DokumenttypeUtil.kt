@@ -1,7 +1,7 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
-import no.nav.familie.kontrakter.felles.dokarkiv.Dokumenttype
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.Dokumenttype
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 
 object DokumenttypeUtil {
 

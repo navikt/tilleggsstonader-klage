@@ -1,10 +1,10 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.klage.personopplysninger.dto.Adressebeskyttelse
-import no.nav.familie.klage.personopplysninger.dto.PersonopplysningerDto
-import no.nav.familie.klage.testutil.BrukerContextUtil.testWithBrukerContext
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
+import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

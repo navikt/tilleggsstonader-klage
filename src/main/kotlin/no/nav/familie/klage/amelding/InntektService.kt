@@ -1,7 +1,7 @@
-package no.nav.familie.klage.amelding
+package no.nav.tilleggsstonader.klage.amelding
 
-import no.nav.familie.klage.amelding.ekstern.AMeldingInntektClient
-import no.nav.familie.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.amelding.ekstern.AMeldingInntektClient
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import org.springframework.stereotype.Service
 import java.util.UUID
 

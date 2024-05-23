@@ -1,8 +1,8 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.domain.PåklagetVedtak
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakstype
-import no.nav.familie.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
 
 object OpprettRevurderingUtil {
 

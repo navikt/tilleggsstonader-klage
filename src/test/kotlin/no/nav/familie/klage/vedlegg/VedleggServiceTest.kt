@@ -1,12 +1,12 @@
-package no.nav.familie.klage.vedlegg
+package no.nav.tilleggsstonader.klage.vedlegg
 
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.journalpost.JournalpostService
-import no.nav.familie.klage.testutil.DomainUtil
-import no.nav.familie.klage.testutil.DomainUtil.tilFagsak
-import no.nav.familie.kontrakter.felles.journalpost.RelevantDato
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
+import no.nav.tilleggsstonader.kontrakter.felles.journalpost.RelevantDato
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

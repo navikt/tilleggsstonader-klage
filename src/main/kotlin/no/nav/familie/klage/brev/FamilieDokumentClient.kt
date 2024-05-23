@@ -1,6 +1,6 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.http.client.AbstractRestClient
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders

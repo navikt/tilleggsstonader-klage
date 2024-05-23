@@ -1,8 +1,8 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.brev.domain.Avsnitt
-import no.nav.familie.klage.repository.InsertUpdateRepository
-import no.nav.familie.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.brev.domain.Avsnitt
+import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
 import org.springframework.data.jdbc.repository.query.Modifying
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.stereotype.Repository

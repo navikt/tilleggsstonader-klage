@@ -1,4 +1,4 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
 // Se Kabals kodeverk som dette er hentet fra: https://github.com/navikt/klage-kodeverk/blob/main/src/main/kotlin/no/nav/klage/kodeverk/hjemmel/Hjemmel.kt
 

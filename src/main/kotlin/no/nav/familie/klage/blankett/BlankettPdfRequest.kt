@@ -1,12 +1,12 @@
-package no.nav.familie.klage.blankett
+package no.nav.tilleggsstonader.klage.blankett
 
-import no.nav.familie.klage.formkrav.domain.FormVilkår
-import no.nav.familie.klage.formkrav.domain.FormkravFristUnntak
-import no.nav.familie.klage.vurdering.domain.Hjemmel
-import no.nav.familie.klage.vurdering.domain.Vedtak
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
-import no.nav.familie.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
 import java.time.LocalDate
 import java.time.LocalDateTime
 

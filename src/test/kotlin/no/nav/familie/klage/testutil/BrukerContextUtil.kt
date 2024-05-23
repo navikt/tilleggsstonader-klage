@@ -1,4 +1,4 @@
-package no.nav.familie.klage.testutil
+package no.nav.tilleggsstonader.klage.testutil
 
 import com.nimbusds.jwt.JWTClaimsSet
 import io.mockk.every

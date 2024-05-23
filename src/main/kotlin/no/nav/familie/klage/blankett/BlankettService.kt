@@ -1,15 +1,15 @@
-package no.nav.familie.klage.blankett
+package no.nav.tilleggsstonader.klage.blankett
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.brev.BrevClient
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.formkrav.FormService
-import no.nav.familie.klage.formkrav.dto.FormkravDto
-import no.nav.familie.klage.personopplysninger.PersonopplysningerService
-import no.nav.familie.klage.vurdering.VurderingService
-import no.nav.familie.klage.vurdering.dto.VurderingDto
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.brev.BrevClient
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.formkrav.FormService
+import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
+import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
+import no.nav.tilleggsstonader.klage.vurdering.VurderingService
+import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import org.springframework.stereotype.Service
 import java.util.UUID
 

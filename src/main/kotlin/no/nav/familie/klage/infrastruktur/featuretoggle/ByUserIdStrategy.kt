@@ -1,7 +1,7 @@
-package no.nav.familie.klage.infrastruktur.featuretoggle
+package no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle
 
 import io.getunleash.strategy.Strategy
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 
 class ByUserIdStrategy : Strategy {
 

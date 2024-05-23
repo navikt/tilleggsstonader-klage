@@ -1,10 +1,10 @@
-package no.nav.familie.klage.oppgave
+package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.familie.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
-import no.nav.familie.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.prosessering.domene.Task
+import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import java.util.Properties
 import java.util.UUID

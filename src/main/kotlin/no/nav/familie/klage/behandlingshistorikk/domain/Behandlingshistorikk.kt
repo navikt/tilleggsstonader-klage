@@ -1,7 +1,7 @@
-package no.nav.familie.klage.behandlingshistorikk.domain
+package no.nav.tilleggsstonader.klage.behandlingshistorikk.domain
 
-import no.nav.familie.klage.behandling.domain.StegType
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.springframework.data.annotation.Id
 import java.time.LocalDateTime
 import java.util.UUID

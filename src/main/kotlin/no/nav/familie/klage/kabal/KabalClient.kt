@@ -1,6 +1,6 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.familie.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.http.client.AbstractRestClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier

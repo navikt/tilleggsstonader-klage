@@ -1,7 +1,7 @@
-package no.nav.familie.klage.personopplysninger.dto
+package no.nav.tilleggsstonader.klage.personopplysninger.dto
 
 import java.time.LocalDate
-import no.nav.familie.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus
 
 data class PersonopplysningerDto(
     val personIdent: String,

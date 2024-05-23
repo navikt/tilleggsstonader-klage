@@ -1,4 +1,4 @@
-package no.nav.familie.klage.felles.dto
+package no.nav.tilleggsstonader.klage.felles.dto
 
 data class Tilgang(
     val harTilgang: Boolean,

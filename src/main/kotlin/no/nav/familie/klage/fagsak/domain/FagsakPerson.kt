@@ -1,9 +1,9 @@
-package no.nav.familie.klage.fagsak.domain
+package no.nav.tilleggsstonader.klage.fagsak.domain
 
-import no.nav.familie.klage.felles.domain.Endret
-import no.nav.familie.klage.felles.domain.Sporbar
-import no.nav.familie.klage.felles.domain.SporbarUtils
-import no.nav.familie.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.klage.felles.domain.Endret
+import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
+import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Embedded
 import org.springframework.data.relational.core.mapping.MappedCollection

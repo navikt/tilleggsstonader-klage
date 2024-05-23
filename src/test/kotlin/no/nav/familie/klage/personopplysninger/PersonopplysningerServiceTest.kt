@@ -1,37 +1,37 @@
-package no.nav.familie.klage.personopplysninger
+package no.nav.tilleggsstonader.klage.personopplysninger
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.personopplysninger.dto.Adressebeskyttelse
-import no.nav.familie.klage.personopplysninger.dto.Folkeregisterpersonstatus
-import no.nav.familie.klage.personopplysninger.dto.Kjønn
-import no.nav.familie.klage.personopplysninger.pdl.Dødsfall
-import no.nav.familie.klage.personopplysninger.pdl.Fullmakt
-import no.nav.familie.klage.personopplysninger.pdl.KjønnType
-import no.nav.familie.klage.personopplysninger.pdl.MotpartsRolle
-import no.nav.familie.klage.personopplysninger.pdl.Navn
-import no.nav.familie.klage.personopplysninger.pdl.PdlClient
-import no.nav.familie.klage.personopplysninger.pdl.PdlNavn
-import no.nav.familie.klage.personopplysninger.pdl.Personnavn
-import no.nav.familie.klage.personopplysninger.pdl.VergeEllerFullmektig
-import no.nav.familie.klage.personopplysninger.pdl.VergemaalEllerFremtidsfullmakt
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.defaultIdenter
-import no.nav.familie.klage.testutil.DomainUtil.fagsak
-import no.nav.familie.klage.testutil.PdlTestdataHelper.lagNavn
-import no.nav.familie.klage.testutil.PdlTestdataHelper.metadataGjeldende
-import no.nav.familie.klage.testutil.PdlTestdataHelper.pdlSøker
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
+import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Dødsfall
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Navn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlNavn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Personnavn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.VergeEllerFullmektig
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.VergemaalEllerFremtidsfullmakt
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.defaultIdenter
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
+import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.lagNavn
+import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.metadataGjeldende
+import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.pdlSøker
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
-import no.nav.familie.klage.personopplysninger.pdl.Adressebeskyttelse as PdlAdressebeskyttelse
-import no.nav.familie.klage.personopplysninger.pdl.AdressebeskyttelseGradering as PdlAdressebeskyttelseGradering1
-import no.nav.familie.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus1
-import no.nav.familie.klage.personopplysninger.pdl.Kjønn as PdlKjønn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse as PdlAdressebeskyttelse
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGradering as PdlAdressebeskyttelseGradering1
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus1
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Kjønn as PdlKjønn
 
 internal class PersonopplysningerServiceTest {
 

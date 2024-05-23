@@ -1,11 +1,11 @@
-package no.nav.familie.klage.repository
+package no.nav.tilleggsstonader.klage.repository
 
-import no.nav.familie.klage.fagsak.FagsakRepository
-import no.nav.familie.klage.fagsak.domain.FagsakPerson
-import no.nav.familie.klage.felles.domain.Endret
-import no.nav.familie.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.familie.klage.testutil.BrukerContextUtil
-import no.nav.familie.klage.testutil.DomainUtil.fagsakDomain
+import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
+import no.nav.tilleggsstonader.klage.felles.domain.Endret
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test

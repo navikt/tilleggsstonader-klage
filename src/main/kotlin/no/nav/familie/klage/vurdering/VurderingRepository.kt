@@ -1,8 +1,8 @@
-package no.nav.familie.klage.vurdering
+package no.nav.tilleggsstonader.klage.vurdering
 
-import no.nav.familie.klage.repository.InsertUpdateRepository
-import no.nav.familie.klage.repository.RepositoryInterface
-import no.nav.familie.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import org.springframework.stereotype.Repository
 import java.util.UUID
 

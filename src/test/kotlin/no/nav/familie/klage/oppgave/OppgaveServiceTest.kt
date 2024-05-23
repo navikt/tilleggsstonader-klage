@@ -1,14 +1,14 @@
-package no.nav.familie.klage.oppgave
+package no.nav.tilleggsstonader.klage.oppgave
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.kontrakter.felles.Behandlingstema
-import no.nav.familie.kontrakter.felles.klage.BehandlingStatus
-import no.nav.familie.kontrakter.felles.oppgave.Oppgave
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.felles.oppgave.Oppgave
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.util.UUID

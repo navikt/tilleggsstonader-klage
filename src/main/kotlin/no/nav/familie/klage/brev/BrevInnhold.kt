@@ -1,16 +1,16 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakDetaljer
-import no.nav.familie.klage.brev.FormBrevUtil.utledIkkeOppfylteFormkrav
-import no.nav.familie.klage.brev.FormBrevUtil.utledLovtekst
-import no.nav.familie.klage.brev.FormBrevUtil.utledÅrsakTilAvvisningstekst
-import no.nav.familie.klage.brev.dto.AvsnittDto
-import no.nav.familie.klage.brev.dto.FritekstBrevRequestDto
-import no.nav.familie.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
-import no.nav.familie.klage.felles.util.TekstUtil.norskFormat
-import no.nav.familie.klage.formkrav.domain.Form
-import no.nav.familie.kontrakter.felles.klage.FagsystemType
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledIkkeOppfylteFormkrav
+import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledLovtekst
+import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledÅrsakTilAvvisningstekst
+import no.nav.tilleggsstonader.klage.brev.dto.AvsnittDto
+import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
+import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
+import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.norskFormat
+import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import java.time.LocalDate
 
 object BrevInnhold {

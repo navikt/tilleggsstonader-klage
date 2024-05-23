@@ -1,7 +1,7 @@
-package no.nav.familie.klage.infrastruktur.health
+package no.nav.tilleggsstonader.klage.infrastruktur.health
 
-import no.nav.familie.http.health.AbstractHealthIndicator
-import no.nav.familie.klage.personopplysninger.PersonopplysningerIntegrasjonerClient
+import no.nav.tilleggsstonader.http.health.AbstractHealthIndicator
+import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegrasjonerClient
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 

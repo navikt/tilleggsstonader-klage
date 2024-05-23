@@ -1,13 +1,13 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.behandling.domain.Klagebehandlingsresultat
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakDetaljer
-import no.nav.familie.klage.behandling.domain.StegType
-import no.nav.familie.klage.repository.InsertUpdateRepository
-import no.nav.familie.klage.repository.RepositoryInterface
-import no.nav.familie.kontrakter.felles.klage.BehandlingStatus
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import org.springframework.data.jdbc.repository.query.Modifying
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.data.repository.query.Param

@@ -1,6 +1,6 @@
-package no.nav.familie.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import java.time.LocalDate
 
 // objektet som skal sendes til kabal

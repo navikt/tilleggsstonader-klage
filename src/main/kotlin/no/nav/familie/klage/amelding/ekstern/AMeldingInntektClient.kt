@@ -1,7 +1,7 @@
-package no.nav.familie.klage.amelding.ekstern
+package no.nav.tilleggsstonader.klage.amelding.ekstern
 
-import no.nav.familie.http.client.AbstractRestClient
-import no.nav.familie.kontrakter.felles.PersonIdent
+import no.nav.tilleggsstonader.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.kontrakter.felles.PersonIdent
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders

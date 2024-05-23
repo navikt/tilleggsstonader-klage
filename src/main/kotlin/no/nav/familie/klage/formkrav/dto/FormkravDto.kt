@@ -1,9 +1,9 @@
-package no.nav.familie.klage.formkrav.dto
+package no.nav.tilleggsstonader.klage.formkrav.dto
 
-import no.nav.familie.klage.behandling.dto.PåklagetVedtakDto
-import no.nav.familie.klage.formkrav.domain.Form
-import no.nav.familie.klage.formkrav.domain.FormVilkår
-import no.nav.familie.klage.formkrav.domain.FormkravFristUnntak
+import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
+import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
 import java.time.LocalDateTime
 import java.util.UUID
 

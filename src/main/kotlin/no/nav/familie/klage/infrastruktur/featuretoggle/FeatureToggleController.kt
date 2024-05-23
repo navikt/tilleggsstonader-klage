@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.featuretoggle
+package no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle
 
 import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.http.MediaType

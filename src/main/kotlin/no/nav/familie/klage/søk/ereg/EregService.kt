@@ -1,7 +1,7 @@
-package no.nav.familie.klage.søk.ereg
+package no.nav.tilleggsstonader.klage.søk.ereg
 
-import no.nav.familie.klage.infrastruktur.exception.ApiFeil
-import no.nav.familie.kontrakter.felles.organisasjon.Organisasjon
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
+import no.nav.tilleggsstonader.kontrakter.felles.organisasjon.Organisasjon
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service

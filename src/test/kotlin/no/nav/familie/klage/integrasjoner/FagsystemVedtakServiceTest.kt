@@ -1,13 +1,13 @@
-package no.nav.familie.klage.integrasjoner
+package no.nav.tilleggsstonader.klage.integrasjoner
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.testutil.DomainUtil.behandling
-import no.nav.familie.klage.testutil.DomainUtil.fagsak
-import no.nav.familie.klage.testutil.DomainUtil.fagsystemVedtak
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach

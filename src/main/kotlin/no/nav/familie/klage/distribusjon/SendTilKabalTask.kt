@@ -1,13 +1,13 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.felles.util.TaskMetadata
-import no.nav.familie.klage.kabal.KabalService
-import no.nav.familie.klage.vurdering.VurderingService
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata
+import no.nav.tilleggsstonader.klage.kabal.KabalService
+import no.nav.tilleggsstonader.klage.vurdering.VurderingService
+import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
+import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
+import no.nav.tilleggsstonader.prosessering.domene.Task
 import org.springframework.stereotype.Service
 import java.util.UUID
 

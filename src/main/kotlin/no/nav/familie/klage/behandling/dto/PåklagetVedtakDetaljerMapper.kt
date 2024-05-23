@@ -1,9 +1,9 @@
-package no.nav.familie.klage.behandling.dto
+package no.nav.tilleggsstonader.klage.behandling.dto
 
-import no.nav.familie.klage.behandling.domain.PåklagetVedtak
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakDetaljer
-import no.nav.familie.klage.behandling.domain.harManuellVedtaksdato
-import no.nav.familie.kontrakter.felles.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
 
 fun FagsystemVedtak.tilPåklagetVedtakDetaljer() = PåklagetVedtakDetaljer(
     behandlingstype = this.behandlingstype,

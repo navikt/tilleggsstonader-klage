@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.cache.Cache

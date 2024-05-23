@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.sikkerhet
+package no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet
 
 import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 

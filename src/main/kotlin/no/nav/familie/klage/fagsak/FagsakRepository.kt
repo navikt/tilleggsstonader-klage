@@ -1,10 +1,10 @@
-package no.nav.familie.klage.fagsak
+package no.nav.tilleggsstonader.klage.fagsak
 
-import no.nav.familie.klage.fagsak.domain.FagsakDomain
-import no.nav.familie.klage.repository.InsertUpdateRepository
-import no.nav.familie.klage.repository.RepositoryInterface
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
+import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.stereotype.Repository
 import java.util.UUID

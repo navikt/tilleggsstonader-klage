@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur
+package no.nav.tilleggsstonader.klage.infrastruktur
 
 import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.http.ResponseEntity

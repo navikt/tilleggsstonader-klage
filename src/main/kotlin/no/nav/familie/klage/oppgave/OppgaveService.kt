@@ -1,9 +1,9 @@
-package no.nav.familie.klage.oppgave
+package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.behandling.domain.erUnderArbeidAvSaksbehandler
-import no.nav.familie.kontrakter.felles.Behandlingstema
-import no.nav.familie.kontrakter.felles.oppgave.Oppgave
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.behandling.domain.erUnderArbeidAvSaksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.felles.oppgave.Oppgave
 import org.springframework.stereotype.Service
 import java.util.UUID
 

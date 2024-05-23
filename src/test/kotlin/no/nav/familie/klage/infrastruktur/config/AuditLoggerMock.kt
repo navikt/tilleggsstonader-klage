@@ -1,7 +1,7 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import io.mockk.mockk
-import no.nav.familie.klage.felles.domain.AuditLogger
+import no.nav.tilleggsstonader.klage.felles.domain.AuditLogger
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary

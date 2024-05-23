@@ -1,4 +1,4 @@
-package no.nav.familie.klage.felles.domain
+package no.nav.tilleggsstonader.klage.felles.domain
 
 enum class BehandlerRolle(val nivå: Int) {
     SYSTEM(4),

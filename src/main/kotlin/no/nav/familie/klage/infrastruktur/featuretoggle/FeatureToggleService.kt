@@ -1,6 +1,6 @@
-package no.nav.familie.klage.infrastruktur.featuretoggle
+package no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle
 
-import no.nav.familie.unleash.UnleashService
+import no.nav.tilleggsstonader.unleash.UnleashService
 import org.springframework.stereotype.Service
 
 @Service

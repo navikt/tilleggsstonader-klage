@@ -1,15 +1,15 @@
-package no.nav.familie.klage.behandling
+package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.behandling.domain.StegType
-import no.nav.familie.klage.behandling.domain.erLåstForVidereBehandling
-import no.nav.familie.klage.behandlingshistorikk.BehandlingshistorikkService
-import no.nav.familie.klage.felles.domain.BehandlerRolle
-import no.nav.familie.klage.infrastruktur.exception.feilHvis
-import no.nav.familie.klage.infrastruktur.exception.feilHvisIkke
-import no.nav.familie.klage.infrastruktur.sikkerhet.TilgangService
-import no.nav.familie.klage.repository.findByIdOrThrow
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
+import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlerRolle
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvisIkke
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
+import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID

@@ -1,9 +1,9 @@
-package no.nav.familie.klage.brev
+package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.klage.formkrav.domain.Form
-import no.nav.familie.klage.formkrav.domain.FormVilkår.IKKE_OPPFYLT
-import no.nav.familie.klage.infrastruktur.exception.Feil
-import no.nav.familie.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår.IKKE_OPPFYLT
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 
 object FormBrevUtil {
 

@@ -1,20 +1,20 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.brev.BrevService
-import no.nav.familie.klage.brev.BrevmottakerUtil.validerMinimumEnMottaker
-import no.nav.familie.klage.brev.domain.Brev
-import no.nav.familie.klage.brev.domain.Brevmottakere
-import no.nav.familie.klage.brev.domain.BrevmottakereJournalpost
-import no.nav.familie.klage.brev.domain.BrevmottakereJournalposter
-import no.nav.familie.klage.distribusjon.JournalføringUtil.mapAvsenderMottaker
-import no.nav.familie.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
-import no.nav.familie.klage.personopplysninger.pdl.logger
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.brev.BrevService
+import no.nav.tilleggsstonader.klage.brev.BrevmottakerUtil.validerMinimumEnMottaker
+import no.nav.tilleggsstonader.klage.brev.domain.Brev
+import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
+import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
+import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
+import no.nav.tilleggsstonader.klage.distribusjon.JournalføringUtil.mapAvsenderMottaker
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.logger
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
+import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
+import no.nav.tilleggsstonader.prosessering.domene.Task
+import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import java.util.UUID
 

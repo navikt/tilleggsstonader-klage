@@ -1,4 +1,4 @@
-package no.nav.familie.klage.infrastruktur.featuretoggle
+package no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle
 
 import io.getunleash.UnleashContext
 import io.getunleash.strategy.Strategy

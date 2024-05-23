@@ -1,6 +1,6 @@
-package no.nav.familie.klage.kabal.domain
+package no.nav.tilleggsstonader.klage.kabal.domain
 
-import no.nav.familie.klage.testutil.DomainUtil.klageresultat
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.klageresultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -1,4 +1,4 @@
-package no.nav.familie.klage.felles.domain
+package no.nav.tilleggsstonader.klage.felles.domain
 
 data class Fil(val bytes: ByteArray) {
 

@@ -1,13 +1,13 @@
-package no.nav.familie.klage.formkrav
+package no.nav.tilleggsstonader.klage.formkrav
 
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakstype
-import no.nav.familie.klage.behandling.dto.PåklagetVedtakDto
-import no.nav.familie.klage.formkrav.FormUtil.alleVilkårOppfylt
-import no.nav.familie.klage.formkrav.FormUtil.utledFormresultat
-import no.nav.familie.klage.formkrav.domain.Form
-import no.nav.familie.klage.formkrav.domain.FormVilkår
-import no.nav.familie.klage.formkrav.domain.FormkravFristUnntak
-import no.nav.familie.klage.testutil.DomainUtil.oppfyltForm
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
+import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
+import no.nav.tilleggsstonader.klage.formkrav.FormUtil.alleVilkårOppfylt
+import no.nav.tilleggsstonader.klage.formkrav.FormUtil.utledFormresultat
+import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
+import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

@@ -1,15 +1,15 @@
-package no.nav.familie.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.familie.klage.behandling.domain.FagsystemRevurdering
-import no.nav.familie.klage.behandling.domain.PåklagetVedtakDetaljer
-import no.nav.familie.klage.brev.domain.Brevmottakere
-import no.nav.familie.klage.brev.domain.BrevmottakereJournalposter
-import no.nav.familie.klage.felles.domain.Endret
-import no.nav.familie.klage.felles.domain.Fil
-import no.nav.familie.kontrakter.felles.objectMapper
-import no.nav.familie.prosessering.PropertiesWrapperTilStringConverter
-import no.nav.familie.prosessering.StringTilPropertiesWrapperConverter
+import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
+import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
+import no.nav.tilleggsstonader.klage.felles.domain.Endret
+import no.nav.tilleggsstonader.klage.felles.domain.Fil
+import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
+import no.nav.tilleggsstonader.prosessering.PropertiesWrapperTilStringConverter
+import no.nav.tilleggsstonader.prosessering.StringTilPropertiesWrapperConverter
 import org.apache.commons.lang3.StringUtils
 import org.postgresql.util.PGobject
 import org.springframework.beans.factory.annotation.Value

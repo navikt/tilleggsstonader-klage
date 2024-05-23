@@ -1,13 +1,13 @@
-package no.nav.familie.klage.testutil
+package no.nav.tilleggsstonader.klage.testutil
 
-import no.nav.familie.klage.behandling.BehandlingRepository
-import no.nav.familie.klage.behandling.domain.Behandling
-import no.nav.familie.klage.fagsak.FagsakPersonRepository
-import no.nav.familie.klage.fagsak.FagsakRepository
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.fagsak.domain.FagsakDomain
-import no.nav.familie.klage.fagsak.domain.FagsakPerson
-import no.nav.familie.klage.fagsak.domain.PersonIdent
+import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonRepository
+import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
+import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import org.springframework.context.annotation.Profile
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

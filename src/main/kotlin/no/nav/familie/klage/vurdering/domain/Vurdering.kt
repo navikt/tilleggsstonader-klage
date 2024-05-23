@@ -1,9 +1,9 @@
-package no.nav.familie.klage.vurdering.domain
+package no.nav.tilleggsstonader.klage.vurdering.domain
 
-import no.nav.familie.klage.felles.domain.Sporbar
-import no.nav.familie.klage.kabal.KabalHjemmel
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
-import no.nav.familie.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
+import no.nav.tilleggsstonader.klage.kabal.KabalHjemmel
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Embedded

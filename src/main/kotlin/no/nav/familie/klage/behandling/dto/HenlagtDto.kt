@@ -1,5 +1,5 @@
-package no.nav.familie.klage.behandling.dto
+package no.nav.tilleggsstonader.klage.behandling.dto
 
-import no.nav.familie.kontrakter.felles.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
 
 data class HenlagtDto(val årsak: HenlagtÅrsak)

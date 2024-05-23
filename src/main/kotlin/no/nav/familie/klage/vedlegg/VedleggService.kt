@@ -1,10 +1,10 @@
-package no.nav.familie.klage.vedlegg
+package no.nav.tilleggsstonader.klage.vedlegg
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.journalpost.JournalpostService
-import no.nav.familie.kontrakter.felles.journalpost.DokumentInfo
-import no.nav.familie.kontrakter.felles.journalpost.Dokumentvariantformat
-import no.nav.familie.kontrakter.felles.journalpost.Journalpost
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
+import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo
+import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.UUID

@@ -1,4 +1,4 @@
-package no.nav.familie.klage.søk.ereg
+package no.nav.tilleggsstonader.klage.søk.ereg
 
 import java.time.LocalDate
 

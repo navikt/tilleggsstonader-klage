@@ -1,13 +1,13 @@
-package no.nav.familie.klage.integrasjoner
+package no.nav.tilleggsstonader.klage.integrasjoner
 
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.kontrakter.felles.klage.Fagsystem
-import no.nav.familie.kontrakter.felles.klage.FagsystemVedtak
-import no.nav.familie.kontrakter.felles.klage.IkkeOpprettet
-import no.nav.familie.kontrakter.felles.klage.IkkeOpprettetÅrsak
-import no.nav.familie.kontrakter.felles.klage.KanOppretteRevurderingResponse
-import no.nav.familie.kontrakter.felles.klage.OpprettRevurderingResponse
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.IkkeOpprettet
+import no.nav.tilleggsstonader.kontrakter.felles.klage.IkkeOpprettetÅrsak
+import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettRevurderingResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service

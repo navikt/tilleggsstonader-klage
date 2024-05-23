@@ -1,20 +1,20 @@
-package no.nav.familie.klage.distribusjon
+package no.nav.tilleggsstonader.klage.distribusjon
 
-import no.nav.familie.klage.behandling.BehandlingService
-import no.nav.familie.klage.distribusjon.DokumenttypeUtil.dokumenttypeBrev
-import no.nav.familie.klage.distribusjon.DokumenttypeUtil.dokumenttypeSaksbehandlingsblankett
-import no.nav.familie.klage.fagsak.FagsakService
-import no.nav.familie.klage.fagsak.domain.Fagsak
-import no.nav.familie.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
-import no.nav.familie.klage.felles.util.TekstUtil.storForbokstav
-import no.nav.familie.klage.integrasjoner.FamilieIntegrasjonerClient
-import no.nav.familie.kontrakter.felles.dokarkiv.AvsenderMottaker
-import no.nav.familie.kontrakter.felles.dokarkiv.Dokumenttype
-import no.nav.familie.kontrakter.felles.dokarkiv.v2.ArkiverDokumentRequest
-import no.nav.familie.kontrakter.felles.dokarkiv.v2.Dokument
-import no.nav.familie.kontrakter.felles.dokarkiv.v2.Filtype
-import no.nav.familie.kontrakter.felles.dokdist.Distribusjonstype
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeBrev
+import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeSaksbehandlingsblankett
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
+import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
+import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.AvsenderMottaker
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.Dokumenttype
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.v2.ArkiverDokumentRequest
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.v2.Dokument
+import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.v2.Filtype
+import no.nav.tilleggsstonader.kontrakter.felles.dokdist.Distribusjonstype
+import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import java.util.UUID
 

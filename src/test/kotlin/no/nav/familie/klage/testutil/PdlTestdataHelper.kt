@@ -1,16 +1,16 @@
-package no.nav.familie.klage.testutil
+package no.nav.tilleggsstonader.klage.testutil
 
-import no.nav.familie.klage.personopplysninger.pdl.Adressebeskyttelse
-import no.nav.familie.klage.personopplysninger.pdl.Dødsfall
-import no.nav.familie.klage.personopplysninger.pdl.Folkeregisterpersonstatus
-import no.nav.familie.klage.personopplysninger.pdl.Fullmakt
-import no.nav.familie.klage.personopplysninger.pdl.Kjønn
-import no.nav.familie.klage.personopplysninger.pdl.KjønnType
-import no.nav.familie.klage.personopplysninger.pdl.Metadata
-import no.nav.familie.klage.personopplysninger.pdl.Navn
-import no.nav.familie.klage.personopplysninger.pdl.PdlNavn
-import no.nav.familie.klage.personopplysninger.pdl.PdlSøker
-import no.nav.familie.klage.personopplysninger.pdl.VergemaalEllerFremtidsfullmakt
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Dødsfall
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersonstatus
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Kjønn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Metadata
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Navn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlNavn
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlSøker
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.VergemaalEllerFremtidsfullmakt
 
 object PdlTestdataHelper {
 

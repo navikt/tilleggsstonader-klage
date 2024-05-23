@@ -1,4 +1,4 @@
-package no.nav.familie.klage.behandling.domain
+package no.nav.tilleggsstonader.klage.behandling.domain
 
 import org.junit.jupiter.api.Test
 
