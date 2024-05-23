@@ -8,13 +8,13 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDT
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansResultatDto
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID

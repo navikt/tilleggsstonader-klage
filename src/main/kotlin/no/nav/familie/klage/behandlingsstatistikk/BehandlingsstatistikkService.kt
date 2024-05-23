@@ -8,7 +8,7 @@ import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerServic
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

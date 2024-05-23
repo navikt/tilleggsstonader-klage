@@ -4,6 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import no.nav.tilleggsstonader.klage.Saksbehandler
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
@@ -21,9 +22,8 @@ import no.nav.tilleggsstonader.klage.kabal.Type
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.prosessering.domene.Task
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat

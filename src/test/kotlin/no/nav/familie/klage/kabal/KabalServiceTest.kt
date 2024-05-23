@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
+import no.nav.tilleggsstonader.klage.Saksbehandler
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
@@ -15,9 +16,8 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

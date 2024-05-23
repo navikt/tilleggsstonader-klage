@@ -10,8 +10,8 @@ import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.KlagebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping

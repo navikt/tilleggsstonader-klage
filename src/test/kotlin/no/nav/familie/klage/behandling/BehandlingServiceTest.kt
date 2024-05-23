@@ -22,10 +22,10 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.mockBrukerContex
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsystemVedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak.TRUKKET_TILBAKE
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.prosessering.domene.Task
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat

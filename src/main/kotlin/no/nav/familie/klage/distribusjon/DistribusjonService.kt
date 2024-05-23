@@ -8,13 +8,13 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
 import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
-import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
-import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokumenttype
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokument
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokumenttype
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Filtype
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import java.util.UUID
 

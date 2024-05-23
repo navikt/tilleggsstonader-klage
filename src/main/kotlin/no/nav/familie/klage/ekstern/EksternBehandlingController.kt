@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
 import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
 import org.slf4j.LoggerFactory

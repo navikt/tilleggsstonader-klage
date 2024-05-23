@@ -7,8 +7,8 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.tilYtelse
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
 import org.springframework.stereotype.Service
 
 @Service

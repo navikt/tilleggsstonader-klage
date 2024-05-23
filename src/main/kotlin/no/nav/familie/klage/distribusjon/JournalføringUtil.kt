@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.distribusjon
 
 import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
-import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
+import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 
 object JournalføringUtil {
 

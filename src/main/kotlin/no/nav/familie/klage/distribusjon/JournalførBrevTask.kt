@@ -10,7 +10,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.distribusjon.JournalføringUtil.mapAvsenderMottaker
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.logger
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
 import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
 import no.nav.tilleggsstonader.prosessering.domene.Task

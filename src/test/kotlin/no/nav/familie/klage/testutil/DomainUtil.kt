@@ -26,14 +26,11 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
@@ -45,6 +42,9 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalstatus
 import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID

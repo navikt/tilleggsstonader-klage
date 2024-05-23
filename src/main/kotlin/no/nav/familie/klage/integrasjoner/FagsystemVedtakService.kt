@@ -2,12 +2,12 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.IkkeOpprettet
-import no.nav.tilleggsstonader.kontrakter.felles.klage.IkkeOpprettetÅrsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
+import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettetÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -37,9 +37,7 @@ class FagsystemVedtakService(
     }
 
     private fun hentFagsystemVedtak(fagsak: Fagsak): List<FagsystemVedtak> = when (fagsak.fagsystem) {
-        Fagsystem.EF -> familieEFSakClient.hentVedtak(fagsak.eksternId)
-        Fagsystem.KS -> familieKSSakClient.hentVedtak(fagsak.eksternId)
-        Fagsystem.BA -> familieBASakClient.hentVedtak(fagsak.eksternId)
+        Fagsystem.TILLEGGSSTONADER -> familieEFSakClient.hentVedtak(fagsak.eksternId)
     }
 
     fun hentFagsystemVedtakForPåklagetBehandlingId(
@@ -53,9 +51,7 @@ class FagsystemVedtakService(
     fun kanOppretteRevurdering(behandlingId: UUID): KanOppretteRevurderingResponse {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return when (fagsak.fagsystem) {
-            Fagsystem.EF -> familieEFSakClient.kanOppretteRevurdering(fagsak.eksternId)
-            Fagsystem.KS -> familieKSSakClient.kanOppretteRevurdering(fagsak.eksternId)
-            Fagsystem.BA -> familieBASakClient.kanOppretteRevurdering(fagsak.eksternId)
+            Fagsystem.TILLEGGSSTONADER -> familieEFSakClient.kanOppretteRevurdering(fagsak.eksternId)
         }
     }
 
@@ -63,9 +59,7 @@ class FagsystemVedtakService(
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return try {
             when (fagsak.fagsystem) {
-                Fagsystem.EF -> familieEFSakClient.opprettRevurdering(fagsak.eksternId)
-                Fagsystem.KS -> familieKSSakClient.opprettRevurdering(fagsak.eksternId)
-                Fagsystem.BA -> familieBASakClient.opprettRevurdering(fagsak.eksternId)
+                Fagsystem.TILLEGGSSTONADER -> familieEFSakClient.opprettRevurdering(fagsak.eksternId)
             }
         } catch (e: Exception) {
             val errorSuffix = "Feilet opprettelse av revurdering for behandling=$behandlingId eksternFagsakId=${fagsak.eksternId}"

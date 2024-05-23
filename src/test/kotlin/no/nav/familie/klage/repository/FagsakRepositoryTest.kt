@@ -6,8 +6,8 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

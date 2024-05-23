@@ -2,21 +2,21 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.RessursException
-import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.familie.log.NavHttpHeaders
 import no.nav.tilleggsstonader.klage.Ressurs
+import no.nav.tilleggsstonader.klage.Saksbehandler
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
+import no.nav.tilleggsstonader.klage.getDataOrThrow
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
-import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
-import no.nav.tilleggsstonader.klage.getDataOrThrow
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
-import no.nav.familie.log.NavHttpHeaders
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier

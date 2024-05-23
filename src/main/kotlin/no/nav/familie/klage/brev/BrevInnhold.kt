@@ -9,8 +9,8 @@ import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
 import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.norskFormat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
 import java.time.LocalDate
 
 object BrevInnhold {

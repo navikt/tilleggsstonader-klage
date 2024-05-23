@@ -16,8 +16,8 @@ import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgaveIdentV2

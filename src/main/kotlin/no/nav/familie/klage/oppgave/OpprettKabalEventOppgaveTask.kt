@@ -7,7 +7,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
 import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.IdentGruppe

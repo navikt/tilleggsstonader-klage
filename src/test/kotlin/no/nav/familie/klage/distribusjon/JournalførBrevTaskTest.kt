@@ -17,9 +17,9 @@ import no.nav.tilleggsstonader.klage.brev.domain.MottakerRolle
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
-import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.prosessering.domene.Task
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat

@@ -16,8 +16,8 @@ import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

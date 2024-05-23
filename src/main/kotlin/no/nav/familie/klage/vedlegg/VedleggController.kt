@@ -45,11 +45,10 @@ class VedleggController(
     private fun finnJournalpostOgPersonIdent(journalpostId: String): Pair<Journalpost, String> {
         val journalpost = journalpostService.hentJournalpost(journalpostId)
         val personIdent = journalpost.bruker?.let {
-            when (it.idType) {
+            when (it.type) {
                 BrukerIdType.FNR -> it.id
                 BrukerIdType.AKTOERID -> pdlClient.hentPersonidenter(it.id, Tema.valueOf(journalpost.tema ?: error("Tema er null for journalpostId=$journalpostId"))).identer.first().ident
                 BrukerIdType.ORGNR -> error("Kan ikke hente journalpost=$journalpostId for orgnr")
-                else -> {}
             }
         } ?: error("Kan ikke hente journalpost=$journalpostId uten bruker")
         return Pair(journalpost, personIdent)

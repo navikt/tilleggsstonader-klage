@@ -12,12 +12,12 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.klageresultat
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.VurderingRepository
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled

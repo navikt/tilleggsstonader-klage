@@ -3,9 +3,9 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.getDataOrThrow
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

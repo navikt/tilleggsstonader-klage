@@ -3,7 +3,7 @@ package no.nav.tilleggsstonader.klage.behandling.dto
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 
 fun FagsystemVedtak.tilPåklagetVedtakDetaljer() = PåklagetVedtakDetaljer(
     behandlingstype = this.behandlingstype,

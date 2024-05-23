@@ -26,7 +26,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation

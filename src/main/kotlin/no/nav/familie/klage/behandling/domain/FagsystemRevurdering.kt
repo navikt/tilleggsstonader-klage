@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling.domain
 
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettRevurderingResponse
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
 import java.time.LocalDateTime
 
 data class FagsystemRevurdering(

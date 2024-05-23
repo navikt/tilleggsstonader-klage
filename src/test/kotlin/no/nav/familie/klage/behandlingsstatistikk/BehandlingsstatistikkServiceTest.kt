@@ -19,8 +19,8 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.personopplysningerDto
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

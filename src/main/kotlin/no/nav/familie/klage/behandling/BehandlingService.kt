@@ -27,11 +27,11 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.tilDto
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus.FERDIGSTILT
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansResultatDto
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus.FERDIGSTILT
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -5,8 +5,8 @@ import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import java.time.LocalDate
 import java.time.LocalDateTime
 

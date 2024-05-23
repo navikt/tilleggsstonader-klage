@@ -11,11 +11,11 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.clearBrukerConte
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.mockBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
-import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
