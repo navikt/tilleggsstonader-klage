@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.felles.util
 
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 
 object StønadstypeVisningsnavn {
 

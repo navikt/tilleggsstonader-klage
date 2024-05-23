@@ -6,7 +6,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.RelevantDato
+import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

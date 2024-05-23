@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.fagsak.dto
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import java.util.UUID
 
 data class FagsakDto(

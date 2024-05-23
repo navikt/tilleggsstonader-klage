@@ -4,12 +4,13 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Bruker
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Dokumentvariantformat
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalpost
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.JournalposterForBrukerRequest
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalposttype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.tilTema
+import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
+import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
+import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import org.springframework.stereotype.Service
 
 @Service

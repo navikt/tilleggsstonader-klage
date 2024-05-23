@@ -1,5 +1,7 @@
 package no.nav.tilleggsstonader.klage.ekstern
 
+import no.nav.tilleggsstonader.klage.Ressurs
+import no.nav.tilleggsstonader.klage.Ressurs.Status
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
@@ -10,13 +12,11 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.klageresultat
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.VurderingRepository
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs.Status
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

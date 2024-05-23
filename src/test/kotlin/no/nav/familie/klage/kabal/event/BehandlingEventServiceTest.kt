@@ -23,7 +23,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.felles.saksbehandler.Saksbehandler
+import no.nav.tilleggsstonader.klage.Saksbehandler
 import no.nav.tilleggsstonader.prosessering.domene.Task
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat

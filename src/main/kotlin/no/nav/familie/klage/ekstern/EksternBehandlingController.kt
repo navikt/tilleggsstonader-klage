@@ -1,5 +1,7 @@
 package no.nav.tilleggsstonader.klage.ekstern
 
+import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.tilEksternKlagebehandlingDto
@@ -7,11 +9,9 @@ import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
 import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
-import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.slf4j.LoggerFactory
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping

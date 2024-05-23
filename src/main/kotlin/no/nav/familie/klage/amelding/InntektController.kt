@@ -1,10 +1,10 @@
 package no.nav.tilleggsstonader.klage.amelding
 
+import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.tilleggsstonader.klage.Ressurs
+import no.nav.tilleggsstonader.klage.Ressurs.Companion.success
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs.Companion.success
-import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

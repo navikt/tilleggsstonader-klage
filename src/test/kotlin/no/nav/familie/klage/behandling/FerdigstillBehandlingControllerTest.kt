@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.brev.BrevService
@@ -18,7 +19,6 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import no.nav.tilleggsstonader.prosessering.domene.Status
 import no.nav.tilleggsstonader.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat

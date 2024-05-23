@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.personopplysninger.pdl
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdlConfig
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpHeaders

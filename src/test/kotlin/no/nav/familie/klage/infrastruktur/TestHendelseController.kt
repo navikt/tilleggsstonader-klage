@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.infrastruktur
 
+import no.nav.security.token.support.core.api.Unprotected
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingAvsluttetDetaljer
@@ -12,7 +13,6 @@ import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
-import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalposttype
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalstatus
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalstatus
 import java.time.LocalDateTime
 
 data class DokumentinfoDto(

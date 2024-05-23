@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.metrics.domain
 
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 
 data class ÅpneBehandlingerFraUke(
     val år: Int,

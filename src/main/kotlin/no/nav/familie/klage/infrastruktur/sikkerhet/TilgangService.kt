@@ -14,7 +14,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegrasjonerClient
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.cache.CacheManager
 import org.springframework.stereotype.Service
 import java.util.UUID

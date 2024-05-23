@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegr
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested

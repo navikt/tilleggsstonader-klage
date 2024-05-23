@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.test
 
+import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.klage.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
-import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping

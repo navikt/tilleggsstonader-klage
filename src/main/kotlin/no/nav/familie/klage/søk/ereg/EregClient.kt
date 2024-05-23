@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.søk.ereg
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

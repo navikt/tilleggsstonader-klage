@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
-import no.nav.tilleggsstonader.http.client.AbstractRestClient
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
-import no.nav.tilleggsstonader.kontrakter.felles.getDataOrThrow
+import no.nav.familie.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.klage.Ressurs
+import no.nav.tilleggsstonader.klage.getDataOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.felles.klage.KanOppretteRevurderingResponse
 import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettRevurderingResponse

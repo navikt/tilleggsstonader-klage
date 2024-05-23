@@ -1,21 +1,22 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
-import no.nav.tilleggsstonader.http.client.RessursException
+import no.nav.familie.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.RessursException
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
-import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.ArkiverDokumentResponse
-import no.nav.tilleggsstonader.kontrakter.felles.dokarkiv.v2.ArkiverDokumentRequest
-import no.nav.tilleggsstonader.kontrakter.felles.dokdist.DistribuerJournalpostRequest
-import no.nav.tilleggsstonader.kontrakter.felles.dokdist.Distribusjonstype
-import no.nav.tilleggsstonader.kontrakter.felles.getDataOrThrow
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Dokumentvariantformat
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.Journalpost
-import no.nav.tilleggsstonader.kontrakter.felles.journalpost.JournalposterForBrukerRequest
-import no.nav.tilleggsstonader.kontrakter.felles.saksbehandler.Saksbehandler
-import no.nav.tilleggsstonader.log.NavHttpHeaders
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
+import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
+import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
+import no.nav.tilleggsstonader.klage.getDataOrThrow
+import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
+import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
+import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
+import no.nav.familie.log.NavHttpHeaders
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -65,7 +66,7 @@ class FamilieIntegrasjonerClient(
     fun distribuerBrev(journalpostId: String, distribusjonstype: Distribusjonstype): String {
         val journalpostRequest = DistribuerJournalpostRequest(
             journalpostId = journalpostId,
-            bestillendeFagsystem = no.nav.familie.kontrakter.felles.Fagsystem.EF,
+            bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
             dokumentProdApp = "FAMILIE_KLAGE",
             distribusjonstype = distribusjonstype,
         )

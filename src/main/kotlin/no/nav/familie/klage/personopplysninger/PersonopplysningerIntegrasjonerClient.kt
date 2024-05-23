@@ -1,12 +1,12 @@
 package no.nav.tilleggsstonader.klage.personopplysninger
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
+import no.nav.tilleggsstonader.klage.PersonIdent
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
-import no.nav.tilleggsstonader.kontrakter.felles.PersonIdent
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component

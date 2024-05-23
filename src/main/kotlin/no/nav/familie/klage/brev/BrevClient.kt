@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.tilleggsstonader.klage.blankett.BlankettPdfRequest
 import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8

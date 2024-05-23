@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.exception
 
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.exceptions.JwtTokenMissingException
+import no.nav.tilleggsstonader.klage.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.core.NestedExceptionUtils
 import org.springframework.http.HttpStatus

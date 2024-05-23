@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlSøker
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.gjeldende
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.gjelende
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.visningsnavn
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import java.util.UUID

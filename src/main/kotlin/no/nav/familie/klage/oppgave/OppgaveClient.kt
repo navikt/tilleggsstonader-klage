@@ -1,10 +1,10 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.tilleggsstonader.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.IntegrasjonException
-import no.nav.tilleggsstonader.kontrakter.felles.Ressurs
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgaveResponse
 import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OpprettOppgaveRequest

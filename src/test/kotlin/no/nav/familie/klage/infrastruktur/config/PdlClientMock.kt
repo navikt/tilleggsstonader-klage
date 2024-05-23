@@ -19,7 +19,7 @@ import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.lagNavn
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.metadataGjeldende
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.pdlNavn
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.pdlSøker
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
