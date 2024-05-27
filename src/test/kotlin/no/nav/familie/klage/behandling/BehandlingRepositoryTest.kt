@@ -12,9 +12,9 @@ import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
-import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

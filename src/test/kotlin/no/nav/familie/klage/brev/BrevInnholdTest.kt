@@ -6,7 +6,7 @@ import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagOpprettholdelseBrev
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

@@ -25,8 +25,8 @@ import no.nav.tilleggsstonader.kontrakter.ef.sak.DokumentBrevkode
 import no.nav.tilleggsstonader.kontrakter.ef.søknad.Testsøknad
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.navkontor.NavKontorEnhet
-import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgaveResponse
+import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
 import no.nav.tilleggsstonader.kontrakter.felles.personopplysning.ADRESSEBESKYTTELSEGRADERING
 import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
 import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo

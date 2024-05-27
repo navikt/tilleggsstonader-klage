@@ -11,7 +11,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull

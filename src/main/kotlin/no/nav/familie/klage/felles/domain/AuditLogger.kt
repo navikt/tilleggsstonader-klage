@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.felles.domain
 
 import jakarta.servlet.http.HttpServletRequest
+import no.nav.familie.log.mdc.MDCConstants
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.tilleggsstonader.log.mdc.MDCConstants
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 import org.springframework.beans.factory.annotation.Value

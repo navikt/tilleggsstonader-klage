@@ -7,7 +7,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
 import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping

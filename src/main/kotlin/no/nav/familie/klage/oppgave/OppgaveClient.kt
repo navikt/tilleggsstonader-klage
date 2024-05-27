@@ -5,13 +5,14 @@ import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.IntegrasjonException
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.Oppgave
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgaveResponse
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
+import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
+import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Component
@@ -46,6 +47,13 @@ class OppgaveClient(
         return pakkUtRespons(respons, uri, "oppdaterOppgave").oppgaveId
     }
 
+    fun finnOppgaveMedId(oppgaveId: Long): Oppgave {
+        val uri = URI.create("$oppgaveUri/$oppgaveId")
+
+        val respons = getForEntity<Ressurs<Oppgave>>(uri)
+        return pakkUtRespons(respons, uri, "finnOppgaveMedId")
+    }
+
     private fun <T> pakkUtRespons(
         respons: Ressurs<T>,
         uri: URI?,
@@ -65,4 +73,6 @@ class OppgaveClient(
             )
         }
     }
+
+    private fun oppgaveIdUriVariables(oppgaveId: Long): Map<String, String> = mapOf("id" to oppgaveId.toString())
 }

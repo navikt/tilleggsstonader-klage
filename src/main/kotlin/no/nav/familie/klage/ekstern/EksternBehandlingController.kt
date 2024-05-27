@@ -10,8 +10,8 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
+import no.nav.tilleggsstonader.kontrakter.klage.KlagebehandlingDto
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
 import org.slf4j.LoggerFactory
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping

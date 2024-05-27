@@ -18,11 +18,11 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.IdentGruppe
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgaveIdentV2
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OppgavePrioritet
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgavePrioritet
+import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

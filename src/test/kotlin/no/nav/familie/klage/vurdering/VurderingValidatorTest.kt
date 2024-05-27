@@ -4,7 +4,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.VurderingValidator.validerVurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

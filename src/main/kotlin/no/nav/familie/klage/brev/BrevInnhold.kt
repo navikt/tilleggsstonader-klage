@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
 import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.norskFormat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import java.time.LocalDate
 
@@ -158,20 +158,10 @@ object BrevInnhold {
         }
 
     private fun Stønadstype.lesMerUrl() = when (this) {
-        Stønadstype.OVERGANGSSTØNAD,
-        Stønadstype.BARNETILSYN,
-        Stønadstype.SKOLEPENGER,
-        -> "nav.no/alene-med-barn"
-        Stønadstype.BARNETRYGD -> "nav.no/barnetrygd"
-        Stønadstype.KONTANTSTØTTE -> "nav.no/kontantstotte"
+        Stønadstype.BARNETILSYN, -> "nav.no/alene-med-barn" //TODO: Tilpass til tilleggsstønader
     }
 
     private fun Stønadstype.klageUrl() = when (this) {
-        Stønadstype.OVERGANGSSTØNAD,
-        Stønadstype.BARNETILSYN,
-        Stønadstype.SKOLEPENGER,
-        -> "klage.nav.no/familie/enslig-mor-eller-far"
-        Stønadstype.BARNETRYGD -> "klage.nav.no/familie/barnetrygd"
-        Stønadstype.KONTANTSTØTTE -> "klage.nav.no/familie/kontantstotte"
+        Stønadstype.BARNETILSYN, -> "klage.nav.no/familie/enslig-mor-eller-far" //TODO: Tilpass til tilleggsstønader
     }
 }

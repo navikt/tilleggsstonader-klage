@@ -11,6 +11,7 @@ import org.springframework.web.client.RestOperations
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
+//TODO: Fjern denne klienten
 @Component
 class AMeldingInntektClient(
     @Value("\${FAMILIE_EF_PROXY_URL}") private val uri: URI,

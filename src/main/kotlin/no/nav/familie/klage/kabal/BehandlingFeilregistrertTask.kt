@@ -7,10 +7,10 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
-import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
-import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
-import no.nav.tilleggsstonader.prosessering.domene.Task
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.familie.prosessering.AsyncTaskStep
+import no.nav.familie.prosessering.TaskStepBeskrivelse
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import java.util.UUID
 

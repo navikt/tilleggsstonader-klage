@@ -2,9 +2,9 @@ package no.nav.tilleggsstonader.klage.behandling.domain
 
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
-import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.springframework.data.annotation.Id

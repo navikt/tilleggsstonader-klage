@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.behandling.domain
 
-import no.nav.tilleggsstonader.kontrakter.felles.klage.HenlagtÅrsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlagebehandlingDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansResultatDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.KlagebehandlingDto
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.springframework.data.relational.core.mapping.Column

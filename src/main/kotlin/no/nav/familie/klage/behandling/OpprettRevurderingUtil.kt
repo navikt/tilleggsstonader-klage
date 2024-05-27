@@ -2,7 +2,7 @@ package no.nav.tilleggsstonader.klage.behandling
 
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 
 object OpprettRevurderingUtil {
 

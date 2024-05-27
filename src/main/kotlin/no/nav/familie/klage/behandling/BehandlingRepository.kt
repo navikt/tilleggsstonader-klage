@@ -54,10 +54,4 @@ interface BehandlingRepository : RepositoryInterface<Behandling, UUID>, InsertUp
         @Param("eksternFagsakId") eksternFagsakId: String,
         @Param("fagsystem") fagsystem: Fagsystem,
     ): List<Klagebehandlingsresultat>
-
-    fun findByFagsakId(fagsakId: UUID): List<Behandling>
-
-    @Modifying
-    @Query("UPDATE behandling SET paklaget_vedtak_detaljer=:detaljer WHERE id=:id")
-    fun oppdaterPåklagetVedtakDetaljer(detaljer: PåklagetVedtakDetaljer, id: UUID)
 }

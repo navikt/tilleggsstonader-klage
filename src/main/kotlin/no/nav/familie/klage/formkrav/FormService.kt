@@ -14,7 +14,7 @@ import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID

@@ -24,8 +24,8 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Årsak
-import no.nav.tilleggsstonader.kontrakter.felles.objectMapper
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
+import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

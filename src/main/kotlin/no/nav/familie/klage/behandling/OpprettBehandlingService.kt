@@ -10,8 +10,8 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
-import no.nav.tilleggsstonader.kontrakter.felles.klage.OpprettKlagebehandlingRequest
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
+import no.nav.familie.prosessering.internal.TaskService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

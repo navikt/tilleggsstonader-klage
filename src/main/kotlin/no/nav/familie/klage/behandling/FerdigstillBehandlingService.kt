@@ -13,7 +13,6 @@ import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
-import no.nav.tilleggsstonader.klage.infrastruktur.featuretoggle.FeatureToggleService
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
@@ -24,8 +23,8 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_MEDHOLD
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_SATT
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.MEDHOLD
-import no.nav.tilleggsstonader.prosessering.domene.Task
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Properties
@@ -41,7 +40,6 @@ class FerdigstillBehandlingService(
     private val oppgaveTaskService: OppgaveTaskService,
     private val brevService: BrevService,
     private val fagsystemVedtakService: FagsystemVedtakService,
-    private val featureToggleService: FeatureToggleService,
 ) {
 
     /**

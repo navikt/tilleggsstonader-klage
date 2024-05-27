@@ -4,10 +4,10 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.integrasjoner.FamilieEFSakClient
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.felles.Regelverk
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KanIkkeOppretteRevurderingÅrsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Opprettet
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.kontrakter.klage.KanIkkeOppretteRevurderingÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.Opprettet
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettetÅrsak

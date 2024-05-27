@@ -64,8 +64,8 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
         val data = målerRepository.finnBehandlingerPerStatus()
 
         assertThat(data).containsExactlyInAnyOrder(
-            BehandlingerPerStatus(Stønadstype.OVERGANGSSTØNAD, BehandlingStatus.FERDIGSTILT, 2),
-            BehandlingerPerStatus(Stønadstype.OVERGANGSSTØNAD, BehandlingStatus.OPPRETTET, 1),
+            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 2),
+            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.OPPRETTET, 1),
             BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 1),
         )
     }
@@ -75,7 +75,7 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
         val data = målerRepository.finnÅpneBehandlingerPerUke()
 
         assertThat(data).containsExactlyInAnyOrder(
-            ÅpneBehandlingerFraUke(år, uke, Stønadstype.OVERGANGSSTØNAD, 1),
+            ÅpneBehandlingerFraUke(år, uke, Stønadstype.BARNETILSYN, 1),
         )
     }
 
@@ -84,8 +84,8 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
         val data = målerRepository.antallVedtak()
 
         assertThat(data).containsExactlyInAnyOrder(
-            AntallVedtak(Stønadstype.OVERGANGSSTØNAD, BehandlingResultat.MEDHOLD, 1),
-            AntallVedtak(Stønadstype.OVERGANGSSTØNAD, BehandlingResultat.IKKE_MEDHOLD, 1),
+            AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 1),
+            AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.IKKE_MEDHOLD, 1),
             AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 1),
         )
     }

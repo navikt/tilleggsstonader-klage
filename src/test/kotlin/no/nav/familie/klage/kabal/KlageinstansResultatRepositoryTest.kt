@@ -7,8 +7,8 @@ import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.tilleggsstonader.prosessering.AsyncTaskStep
-import no.nav.tilleggsstonader.prosessering.TaskStepBeskrivelse
-import no.nav.tilleggsstonader.prosessering.domene.Task
+import no.nav.familie.prosessering.AsyncTaskStep
+import no.nav.familie.prosessering.TaskStepBeskrivelse
+import no.nav.familie.prosessering.domene.Task
 import org.springframework.stereotype.Service
 import java.util.UUID
 

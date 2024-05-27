@@ -6,12 +6,6 @@ object StønadstypeVisningsnavn {
 
     fun Stønadstype.visningsnavn() = when (this) {
         Stønadstype.BARNETILSYN,
-        Stønadstype.SKOLEPENGER,
         -> "stønad til ${this.name.lowercase()}"
-
-        Stønadstype.OVERGANGSSTØNAD,
-        Stønadstype.KONTANTSTØTTE,
-        Stønadstype.BARNETRYGD,
-        -> this.name.lowercase()
     }
 }

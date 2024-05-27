@@ -21,11 +21,11 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.Type
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.tilleggsstonader.prosessering.domene.Task
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

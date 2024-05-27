@@ -11,9 +11,9 @@ import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetad
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.Oppgavetype
-import no.nav.tilleggsstonader.kontrakter.felles.oppgave.OpprettOppgaveRequest
-import no.nav.tilleggsstonader.prosessering.domene.Task
+import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
+import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.familie.prosessering.domene.Task
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

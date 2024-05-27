@@ -17,7 +17,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

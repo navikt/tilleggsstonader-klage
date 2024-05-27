@@ -71,7 +71,7 @@ enum class MottakDokumentType {
     ANNET,
 }
 
-enum class Ytelse {
+enum class Ytelse { //TODO: Snakk med kabal om ny Ytelses-enum for tilleggsstønader
     ENF_ENF,
     BAR_BAR,
     KON_KON,

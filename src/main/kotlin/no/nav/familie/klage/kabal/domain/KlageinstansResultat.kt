@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.kabal.domain
 
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
-import no.nav.tilleggsstonader.kontrakter.felles.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansResultatDto
-import no.nav.tilleggsstonader.kontrakter.felles.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table

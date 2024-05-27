@@ -4,6 +4,7 @@ import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdlConfig
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
+import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpHeaders
@@ -34,7 +35,7 @@ class PdlClient(
         val pdlResponse: PdlResponse<PdlSøkerData> = postForEntity(
             pdlConfig.pdlUri,
             pdlPersonRequest,
-            httpHeaders(mapTilTema(stønadstype)),
+            httpHeaders(stønadstype.tilTema()),
         )
         return feilsjekkOgReturnerData(personIdent, pdlResponse) { it.person }
     }
@@ -49,7 +50,7 @@ class PdlClient(
         val pdlResponse: PdlBolkResponse<PdlNavn> = postForEntity(
             pdlConfig.pdlUri,
             pdlPersonRequest,
-            httpHeaders(mapTilTema(stønadstype)),
+            httpHeaders(stønadstype.tilTema()),
         )
         return feilsjekkOgReturnerData(pdlResponse)
     }
@@ -74,23 +75,13 @@ class PdlClient(
     }
 
     fun hentPersonidenter(ident: String, stønadstype: Stønadstype, historikk: Boolean = false): PdlIdenter {
-        return hentPersonidenter(ident, mapTilTema(stønadstype), historikk)
+        return hentPersonidenter(ident, stønadstype.tilTema(), historikk)
     }
 
     private fun httpHeaders(tema: Tema): HttpHeaders {
         return HttpHeaders().apply {
             add("Tema", tema.name)
-            add("behandlingsnummer", tema.behandlingsnummer)
-        }
-    }
-
-    private fun mapTilTema(stønadstype: Stønadstype): Tema {
-        return when (stønadstype) {
-            Stønadstype.OVERGANGSSTØNAD -> Tema.ENF
-            Stønadstype.SKOLEPENGER -> Tema.ENF
-            Stønadstype.BARNETILSYN -> Tema.ENF
-            Stønadstype.BARNETRYGD -> Tema.BAR
-            Stønadstype.KONTANTSTØTTE -> Tema.KON
+            add("behandlingsnummer", "B289") // Behandlingsnummer: B289
         }
     }
 }

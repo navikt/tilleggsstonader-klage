@@ -30,12 +30,12 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.testutil.mockFeatureToggleService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
-import no.nav.tilleggsstonader.kontrakter.felles.klage.Opprettet
+import no.nav.tilleggsstonader.kontrakter.klage.Opprettet
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
-import no.nav.tilleggsstonader.prosessering.domene.Task
-import no.nav.tilleggsstonader.prosessering.internal.TaskService
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
