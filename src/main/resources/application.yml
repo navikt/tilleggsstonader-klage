@@ -1,5 +1,5 @@
 application:
-  name: familie-klage
+  name: tilleggsstonader-klage
 server:
   servlet:
     context-path: /
@@ -8,7 +8,7 @@ server:
       max-request-size: 200MB
 
 springdoc:
-  packagesToScan: no.nav.familie.klage
+  packagesToScan: no.nav.familie.klage # //TODO  endre når bygg er over til gradle og rett pakkestruktur
   pathsToMatch: /v3/api-docs,/api/**
   swagger-ui:
     disable-swagger-default-url: true
@@ -19,20 +19,20 @@ no.nav.security.jwt:
     accepted_audience: ${AZURE_APP_CLIENT_ID}
   client:
     registration:
-      familie-integrasjoner:
-        resource-url: ${FAMILIE_INTEGRASJONER_URL}
+      tilleggstonader-integrasjoner:
+        resource-url: ${TILLEGGSTONADER_INTEGRASJONER_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${FAMILIE_INTEGRASJONER_SCOPE}
+        scope: ${TILLEGGSTONADER_INTEGRASJONER_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      familie-integrasjoner-clientcredentials:
-        resource-url: ${FAMILIE_INTEGRASJONER_URL}
+      tilleggstoander-integrasjoner-clientcredentials:
+        resource-url: ${TILLEGGSTONADER_INTEGRASJONER_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
-        scope: ${FAMILIE_INTEGRASJONER_SCOPE}
+        scope: ${TILLEGGSSTONADER_INTEGRASJONER_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
@@ -73,20 +73,20 @@ no.nav.security.jwt:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      familie-ef-sak:
-        resource-url: ${FAMILIE_EF_SAK_URL}
+      tilleggstonader-sak:
+        resource-url: ${TILLEGGSTONADER_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${FAMILIE_EF_SAK_SCOPE}
+        scope: ${TILLEGGGSTONADER_SAK_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      familie-ef-sak-clientcredentials:
-        resource-url: ${FAMILIE_EF_SAK_URL}
+      tilleggstonadder-sak-clientcredentials:
+        resource-url: ${TILLEGGSTONADER_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
-        scope: ${FAMILIE_EF_SAK_SCOPE}
+        scope: ${TILLEGGSTONADER_SAK_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
@@ -100,35 +100,15 @@ no.nav.security.jwt:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      familie-ks-sak:
-        resource-url: ${FAMILIE_KS_SAK_URL}
-        token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
-        grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${FAMILIE_KS_SAK_SCOPE}
-        authentication:
-          client-id: ${AZURE_APP_CLIENT_ID}
-          client-secret: ${AZURE_APP_CLIENT_SECRET}
-          client-auth-method: client_secret_basic
-      familie-ba-sak:
-        resource-url: ${FAMILIE_BA_SAK_URL}
-        token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
-        grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${FAMILIE_BA_SAK_SCOPE}
-        authentication:
-          client-id: ${AZURE_APP_CLIENT_ID}
-          client-secret: ${AZURE_APP_CLIENT_SECRET}
-          client-auth-method: client_secret_basic
 
 
 
 
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-FAMILIE_EF_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.teamfamilie.familie-ef-sak/.default
-FAMILIE_EF_PROXY_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-ef-proxy/.default
-FAMILIE_KS_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.teamfamilie.familie-ks-sak/.default
-FAMILIE_BA_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.teamfamilie.familie-ba-sak/.default
-FAMILIE_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-integrasjoner/.default
+TILLEGGSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamfamilie.familie-ef-sak/.default
+FAMILIE_EF_PROXY_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-ef-proxy/.default # //TODO valider om behov for
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-integrasjoner/.default
 
 
 spring:
@@ -149,7 +129,7 @@ spring:
     placeholders:
       ignoreIfProd:
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/familie-klage
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/tilleggsstonader-klage
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     hikari:
@@ -174,7 +154,7 @@ spring:
     producer:
       acks: all
     consumer:
-      group-id: familie-klage
+      group-id: tilleggstonader-klage
       max-poll-records: 1
       auto-offset-reset: latest
       enable-auto-commit: false
@@ -192,37 +172,27 @@ ON_PREM_URL_ENV: prod
 
 AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT_ID}/oauth2/v2.0/token
 
-FAMILIE_BREV_API_URL: http://familie-brev
-FAMILIE_DOKUMENT_URL: http://familie-dokument
+TILLEGGSSTONADER_BREV_API_URL: http://tilleggsstonader-brev # //TODO valider om korrekt
+TILLEGGSSTONADER_DOKUMENT_URL: http://tilleggsstonader-dokument # //TODO valider om korrekt
 
-FAMILIE_INTEGRASJONER_URL: https://familie-integrasjoner.${ON_PREM_URL_ENV}-fss-pub.nais.io
+TILLEGGSSTONADER_INTEGRASJONER_URL: https://tilleggsstonader-integrasjoner.${ON_PREM_URL_ENV}-fss-pub.nais.io
 PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 KABAL_URL: http://kabal-api.klage
 
-FAMILIE_EF_SAK_URL: http://familie-ef-sak
+TILLEGGSSTONADER_SAK_URL: http://tilleggstonader-sak
 
-FAMILIE_EF_PROXY_URL: https://familie-ef-proxy.${ON_PREM_URL_ENV}-fss-pub.nais.io
+FAMILIE_EF_PROXY_URL: https://familie-ef-proxy.${ON_PREM_URL_ENV}-fss-pub.nais.io # //TODO vurder om denne er nødenvdig i vår løsning (gcp-onprem-kryssing)
 
-FAMILIE_KS_SAK_URL: http://familie-ks-sak
-
-FAMILIE_BA_SAK_URL: http://familie-ba-sak
 
 rolle:
-  ba:
-    saksbehandler: "847e3d72-9dc1-41c3-80ff-f5d4acdd5d46"
-    beslutter: "7a271f87-39fb-468b-a9ee-6cf3c070f548"
-    veileder: "199c2b39-e535-4ae8-ac59-8ccbee7991ae"
-  ef:
-    saksbehandler: "6406aba2-b930-41d3-a85b-dd13731bc974"
-    beslutter: "5fcc0e1d-a4c2-49f0-93dc-27c9fea41e54"
-    veileder: "31778fd8-3b71-4867-8db6-a81235fbe001"
-  ks:
-    saksbehandler: "e40090eb-c2fb-400e-b412-e9084019a73b"
-    beslutter: "4e7f23d9-5db1-45c0-acec-89c86a9ec678"
-    veileder: "54cd86b8-2e23-48b2-8852-b05b5827bb0f"
+  tilleggstonader: #//TODO legge inn idene på gruppene
+    saksbehandler: ""
+    beslutter: ""
+    veileder: ""
 
-prosessering.rolle: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # Gruppen teamfamilie
+
+prosessering.rolle: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # Gruppen teamfamilie //TODO endre dette
 unleash:
   enabled: true
 
@@ -236,8 +206,7 @@ prosessering:
       weeks: 16
 
 lenker:
-  EF_SAK_FRONTEND_URL: "https://ensligmorellerfar.intern.nav.no/ekstern"
-  BA_SAK_FRONTEND_URL: "https://barnetrygd.intern.nav.no"
-  KS_SAK_FRONTEND_URL: "https://kontantstotte.intern.nav.no"
+  TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggstonader.intern.nav.no/"
 
-BEHANDLINGSSTATISTIKK_TOPIC: teamfamilie.aapen-klage-behandlingsstatistikk
+
+BEHANDLINGSSTATISTIKK_TOPIC: teamtilleggstonader.aapen-klage-behandlingsstatistikk
