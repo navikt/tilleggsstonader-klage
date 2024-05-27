@@ -91,24 +91,15 @@ no.nav.security.jwt:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      ef-proxy:
-        resource-url: ${FAMILIE_EF_PROXY_URL}
-        token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
-        grant-type: client_credentials
-        scope: ${FAMILIE_EF_PROXY_SCOPE}
-        authentication:
-          client-id: ${AZURE_APP_CLIENT_ID}
-          client-secret: ${AZURE_APP_CLIENT_SECRET}
-          client-auth-method: client_secret_basic
+
 
 
 
 
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamfamilie.familie-ef-sak/.default
-FAMILIE_EF_PROXY_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-ef-proxy/.default # //TODO valider om behov for
-TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamfamilie.familie-integrasjoner/.default
+TILLEGGSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamtilleggstonader.tilleggsstonader-integrasjoner/.default
 
 
 spring:
@@ -181,8 +172,6 @@ PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 KABAL_URL: http://kabal-api.klage
 
 TILLEGGSSTONADER_SAK_URL: http://tilleggstonader-sak
-
-FAMILIE_EF_PROXY_URL: https://familie-ef-proxy.${ON_PREM_URL_ENV}-fss-pub.nais.io # //TODO vurder om denne er nødenvdig i vår løsning (gcp-onprem-kryssing)
 
 
 rolle:
