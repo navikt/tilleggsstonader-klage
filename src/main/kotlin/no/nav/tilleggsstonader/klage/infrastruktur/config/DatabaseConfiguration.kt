@@ -34,7 +34,7 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJdbcAuditing
-@EnableJdbcRepositories("no.nav.familie")
+@EnableJdbcRepositories("no.nav.tilleggsstonader")
 class DatabaseConfiguration : AbstractJdbcConfiguration() {
 
     @Bean

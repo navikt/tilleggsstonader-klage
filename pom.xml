@@ -33,7 +33,7 @@
         <springdoc.version>2.5.0</springdoc.version>
         <mockk-jvm.version>1.13.10</mockk-jvm.version>
         <felles.version>3.20240515152313_9dd5659</felles.version>
-        <prosessering.version>2.20240426120029_490d299</prosessering.version>
+        <prosessering.version>2.20240522090805_0e9c7a6</prosessering.version>
         <start-class>no.nav.tilleggsstonader.klage.ApplicationKt</start-class>
         <kontrakter.version>1.0-SNAPSHOT</kontrakter.version>
         <tilleggstonader-libs.version>2024.05.27-10.56.b9a67bfd6080</tilleggstonader-libs.version>

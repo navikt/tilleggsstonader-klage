@@ -13,7 +13,7 @@ class ApplicationLocalPostgres
 
 fun main(args: Array<String>) {
     val properties = Properties()
-    properties["DATASOURCE_URL"] = "jdbc:postgresql://localhost:5433/familie-klage"
+    properties["DATASOURCE_URL"] = "jdbc:postgresql://localhost:5433/tilleggsstonader-klage"
     properties["DATASOURCE_USERNAME"] = "postgres"
     properties["DATASOURCE_PASSWORD"] = "test"
     properties["DATASOURCE_DRIVER"] = "org.postgresql.Driver"
