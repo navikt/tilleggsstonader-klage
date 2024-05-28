@@ -37,6 +37,7 @@ enum class Vedtak {
     }
 }
 
+// TODO: Her må lovler og hjemler for tilleggsstønader legges til
 enum class Hjemmel(val kabalHjemmel: KabalHjemmel) {
     FT_FEMTEN_TO(KabalHjemmel.FTRL_15_2),
     FT_FEMTEN_TRE(KabalHjemmel.FTRL_15_3),

@@ -8,8 +8,8 @@ import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.felles.domain.Endret
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
-import no.nav.tilleggsstonader.prosessering.PropertiesWrapperTilStringConverter
-import no.nav.tilleggsstonader.prosessering.StringTilPropertiesWrapperConverter
+import no.nav.familie.prosessering.PropertiesWrapperTilStringConverter
+import no.nav.familie.prosessering.StringTilPropertiesWrapperConverter
 import org.apache.commons.lang3.StringUtils
 import org.postgresql.util.PGobject
 import org.springframework.beans.factory.annotation.Value

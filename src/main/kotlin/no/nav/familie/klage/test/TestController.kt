@@ -52,7 +52,7 @@ class TestController(
     data class DummybehandlingRequest(
         val ident: String,
         val stønadstype: Stønadstype,
-        val fagsystem: Fagsystem = Fagsystem.EF,
+        val fagsystem: Fagsystem = Fagsystem.TILLEGGSSTONADER,
         val klageMottatt: LocalDate = LocalDate.now(),
         val behandlendeEnhet: String = "4489",
     )

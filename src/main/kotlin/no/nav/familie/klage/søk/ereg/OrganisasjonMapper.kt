@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.søk.ereg
 
-import no.nav.tilleggsstonader.kontrakter.felles.organisasjon.Organisasjon
+import no.nav.familie.kontrakter.felles.organisasjon.Organisasjon
 
 fun mapOrganisasjonDto(organisasjonDto: OrganisasjonDto): Organisasjon = organisasjonDto.let {
     Organisasjon(

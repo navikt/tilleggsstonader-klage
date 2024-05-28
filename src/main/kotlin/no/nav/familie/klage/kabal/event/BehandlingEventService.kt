@@ -138,11 +138,7 @@ class BehandlingEventService(
 
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {
-            Stønadstype.BARNETRYGD -> Behandlingstema.Barnetrygd
-            Stønadstype.OVERGANGSSTØNAD -> Behandlingstema.Overgangsstønad
-            Stønadstype.BARNETILSYN -> Behandlingstema.Barnetilsyn
-            Stønadstype.SKOLEPENGER -> Behandlingstema.Skolepenger
-            Stønadstype.KONTANTSTØTTE -> Behandlingstema.Kontantstøtte
+            Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
         }
     }
 

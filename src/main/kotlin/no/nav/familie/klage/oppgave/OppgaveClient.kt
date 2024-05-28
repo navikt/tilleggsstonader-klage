@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
-import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Component

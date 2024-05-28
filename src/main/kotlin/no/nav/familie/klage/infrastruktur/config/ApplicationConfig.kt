@@ -12,9 +12,9 @@ import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.tilleggsstonader.log.filter.LogFilter
-import no.nav.tilleggsstonader.log.filter.RequestTimeFilter
-import no.nav.tilleggsstonader.prosessering.config.ProsesseringInfoProvider
+import no.nav.tilleggsstonader.libs.log.filter.LogFilter
+import no.nav.tilleggsstonader.libs.log.filter.RequestTimeFilter
+import no.nav.familie.prosessering.config.ProsesseringInfoProvider
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration

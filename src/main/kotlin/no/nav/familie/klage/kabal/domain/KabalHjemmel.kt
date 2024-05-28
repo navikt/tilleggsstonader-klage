@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.kabal
 
 // Se Kabals kodeverk som dette er hentet fra: https://github.com/navikt/klage-kodeverk/blob/main/src/main/kotlin/no/nav/klage/kodeverk/hjemmel/Hjemmel.kt
-
+// TODO: Her må lovler og hjemler for tilleggsstønader legges til
 enum class KabalHjemmel(
     val id: String,
     val lovKilde: LovKilde,

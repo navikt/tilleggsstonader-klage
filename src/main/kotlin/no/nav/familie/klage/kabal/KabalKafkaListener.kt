@@ -18,7 +18,7 @@ import java.util.UUID
 class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : ConsumerSeekAware {
 
     private val secureLogger = LoggerFactory.getLogger("secureLogger")
-    val STØTTEDE_FAGSYSTEMER = listOf(Fagsystem.BA.name, Fagsystem.EF.name, Fagsystem.KONT.name)
+    val STØTTEDE_FAGSYSTEMER = listOf(Fagsystem.TILLEGGSSTONADER.navn)
 
     @KafkaListener(
         id = "familie-klage",

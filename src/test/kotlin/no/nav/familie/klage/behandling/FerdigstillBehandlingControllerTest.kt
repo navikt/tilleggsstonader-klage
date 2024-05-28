@@ -19,7 +19,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.tilleggsstonader.prosessering.domene.Status
+import no.nav.familie.prosessering.domene.Status
 import no.nav.familie.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
