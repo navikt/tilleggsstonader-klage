@@ -20,7 +20,7 @@ internal class BrevInnholdTest {
     private val vedtakstidspunkt = LocalDateTime.of(2021, 11, 5, 14, 56, 22)
 
     @Test
-    internal fun `brev for opprettholdelse skal inneholde blant annat dato og stønadstype`() {
+    internal fun `brev for opprettholdelse skal inneholde blant annet dato og stønadstype`() {
         val brev = lagOpprettholdelseBrev(
             "123456789",
             "Innstilling abc",
@@ -31,7 +31,7 @@ internal class BrevInnholdTest {
         )
 
         assertThat(brev.avsnitt.first().innhold).isEqualTo(
-            "Vi har 01.01.2020 fått klagen din på vedtaket om overgangsstønad som ble gjort 05.11.2021, " +
+            "Vi har 01.01.2020 fått klagen din på vedtaket om stønad til barnetilsyn som ble gjort 05.11.2021, " +
                 "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
         )
     }
@@ -49,7 +49,7 @@ internal class BrevInnholdTest {
             mottattDato,
         )
         assertThat(brev.avsnitt.first().innhold).isEqualTo(
-            "Vi har 01.01.2020 fått klagen din på vedtaket om tilbakebetaling av overgangsstønad som ble gjort 05.11.2021, " +
+            "Vi har 01.01.2020 fått klagen din på vedtaket om tilbakebetaling av stønad til barnetilsyn som ble gjort 05.11.2021, " +
                 "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
         )
     }
@@ -73,7 +73,7 @@ internal class BrevInnholdTest {
     }
 
     @Test
-    internal fun `brev for avvist formkrav skal inneholde blant annat dato og stønadstype`() {
+    internal fun `brev for avvist formkrav skal inneholde blant annet dato og stønadstype`() {
         val brev = lagFormkravAvvistBrev(
             "123456789",
             "Innstilling abc",
@@ -83,7 +83,7 @@ internal class BrevInnholdTest {
         )
 
         assertThat(brev.overskrift).isEqualTo(
-            "Vi har avvist klagen din på vedtaket om stønad til skolepenger",
+            "Vi har avvist klagen din på vedtaket om stønad til barnetilsyn",
         )
     }
 

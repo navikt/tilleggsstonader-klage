@@ -60,7 +60,7 @@ internal class KabalServiceTest {
 
         val oversendelse = oversendelseSlot.captured
         assertThat(oversendelse.fagsak?.fagsakId).isEqualTo(fagsak.eksternId)
-        assertThat(oversendelse.fagsak?.fagsystem).isEqualTo(Fagsystem.TILLEGGSSTONADER.name)
+        assertThat(oversendelse.fagsak?.fagsystem).isEqualTo(Fagsystem.TILLEGGSSTONADER)
         assertThat(oversendelse.hjemler).containsAll(listOf(hjemmel.kabalHjemmel))
         assertThat(oversendelse.kildeReferanse).isEqualTo(behandling.eksternBehandlingId.toString())
         assertThat(oversendelse.innsynUrl)

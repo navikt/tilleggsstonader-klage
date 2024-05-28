@@ -110,7 +110,7 @@ internal class FerdigstillBehandlingServiceTest {
         assertThat(fagsystemRevurderingSlot.single()).isNull()
         assertThat(stegSlot.captured).isEqualTo(StegType.KABAL_VENTER_SVAR)
 
-        verify(exactly = 4) { taskService.save(any()) }
+        verify(exactly = 2) { taskService.save(any()) }
         // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
         assertThat(saveTaskSlot.map { it.type }).containsExactly(
             JournalførBrevTask.TYPE,
@@ -144,7 +144,7 @@ internal class FerdigstillBehandlingServiceTest {
         assertThat(behandlingsresultatSlot.captured).isEqualTo(BehandlingResultat.MEDHOLD)
         assertThat(fagsystemRevurderingSlot.single()).isNull()
 
-        verify(exactly = 2) { taskService.save(any()) }
+        verify(exactly = 1) { taskService.save(any()) }
         verify(exactly = 0) { fagsystemVedtakService.opprettRevurdering(behandling.id) }
         // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
         assertThat(saveTaskSlot.map { it.type }).containsExactly(

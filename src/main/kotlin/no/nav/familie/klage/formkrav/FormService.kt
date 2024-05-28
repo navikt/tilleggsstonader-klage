@@ -50,6 +50,7 @@ class FormService(
             brevtekst = formkrav.brevtekst,
         )
         behandlingService.oppdaterPåklagetVedtak(behandlingId, nyttPåklagetVedtak)
+
 //        opprettBehandlingsstatistikk(behandlingId)
         val formresultat = utledFormresultat(oppdaterteFormkrav, nyttPåklagetVedtak)
         when (formresultat) {
