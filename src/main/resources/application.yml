@@ -19,17 +19,17 @@ no.nav.security.jwt:
     accepted_audience: ${AZURE_APP_CLIENT_ID}
   client:
     registration:
-      tilleggstonader-integrasjoner:
-        resource-url: ${TILLEGGSTONADER_INTEGRASJONER_URL}
+      tilleggsstonader-integrasjoner:
+        resource-url: ${TILLEGGSSTONADER_INTEGRASJONER_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${TILLEGGSTONADER_INTEGRASJONER_SCOPE}
+        scope: ${TILLEGGSSTONADER_INTEGRASJONER_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      tilleggstoander-integrasjoner-clientcredentials:
-        resource-url: ${TILLEGGSTONADER_INTEGRASJONER_URL}
+      tilleggsstonader-integrasjoner-clientcredentials:
+        resource-url: ${TILLEGGSSTONADER_INTEGRASJONER_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
         scope: ${TILLEGGSSTONADER_INTEGRASJONER_SCOPE}
@@ -73,20 +73,20 @@ no.nav.security.jwt:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      tilleggstonader-sak:
-        resource-url: ${TILLEGGSTONADER_SAK_URL}
+      tilleggsstonader-sak:
+        resource-url: ${TILLEGGSSTONADER_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${TILLEGGGSTONADER_SAK_SCOPE}
+        scope: ${TILLEGGGSSTONADER_SAK_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
-      tilleggstonadder-sak-clientcredentials:
-        resource-url: ${TILLEGGSTONADER_SAK_URL}
+      tilleggsstonadder-sak-clientcredentials:
+        resource-url: ${TILLEGGSSTONADER_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
-        scope: ${TILLEGGSTONADER_SAK_SCOPE}
+        scope: ${TILLEGGSSTONADER_SAK_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
@@ -98,8 +98,8 @@ no.nav.security.jwt:
 
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
-TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamtilleggstonader.tilleggsstonader-integrasjoner/.default
+TILLEGGSSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamtilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 
 spring:
@@ -145,7 +145,7 @@ spring:
     producer:
       acks: all
     consumer:
-      group-id: tilleggstonader-klage
+      group-id: tilleggsstonader-klage
       max-poll-records: 1
       auto-offset-reset: latest
       enable-auto-commit: false
@@ -171,7 +171,7 @@ PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 KABAL_URL: http://kabal-api.klage
 
-TILLEGGSSTONADER_SAK_URL: http://tilleggstonader-sak
+TILLEGGSSTONADER_SAK_URL: http://tilleggsstonader-sak
 
 
 rolle:
@@ -198,4 +198,4 @@ lenker:
   TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggstonader.intern.nav.no/"
 
 
-BEHANDLINGSSTATISTIKK_TOPIC: teamtilleggstonader.aapen-klage-behandlingsstatistikk
+BEHANDLINGSSTATISTIKK_TOPIC: teamtilleggsstonader.aapen-klage-behandlingsstatistikk
