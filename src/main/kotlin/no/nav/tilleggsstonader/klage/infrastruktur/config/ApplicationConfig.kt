@@ -37,7 +37,7 @@ import java.time.temporal.ChronoUnit
 @ConfigurationPropertiesScan
 @ComponentScan(
     "no.nav.familie.prosessering",
-    "no.nav.familie.klage",
+    "no.nav.tilleggsstonader.klage",
     "no.nav.familie.sikkerhet",
 )
 @EnableJwtTokenValidation(ignore = ["org.springframework", "org.springdoc"])

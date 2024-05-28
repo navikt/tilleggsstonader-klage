@@ -50,7 +50,7 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
      */
 }
 
-// se no.nav.familie.klage.kabal.OversendtKlageAnkeV3
+// se no.nav.tilleggsstonader.klage.kabal.OversendtKlageAnkeV3
 data class BehandlingEvent(
     val eventId: UUID,
     val kildeReferanse: String,
