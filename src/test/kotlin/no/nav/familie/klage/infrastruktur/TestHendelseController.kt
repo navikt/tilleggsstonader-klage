@@ -49,7 +49,7 @@ class TestHendelseController(
             BehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
-                kilde = Fagsystem.EF.name,
+                kilde = Fagsystem.TILLEGGSSTONADER.name,
                 kabalReferanse = UUID.randomUUID().toString(),
                 type = BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET,
                 detaljer = BehandlingDetaljer(
@@ -70,7 +70,7 @@ class TestHendelseController(
             BehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
-                kilde = Fagsystem.EF.name,
+                kilde = Fagsystem.TILLEGGSSTONADER.name,
                 kabalReferanse = UUID.randomUUID().toString(),
                 type = BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
                 detaljer = BehandlingDetaljer(
@@ -89,7 +89,7 @@ class TestHendelseController(
             BehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
-                kilde = Fagsystem.EF.name,
+                kilde = Fagsystem.TILLEGGSSTONADER.name,
                 kabalReferanse = UUID.randomUUID().toString(),
                 type = BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
                 detaljer = BehandlingDetaljer(

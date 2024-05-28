@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.distribusjon
 
+import no.nav.familie.prosessering.AsyncTaskStep
+import no.nav.familie.prosessering.TaskStepBeskrivelse
+import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
 import org.springframework.stereotype.Service
 import java.util.UUID
 

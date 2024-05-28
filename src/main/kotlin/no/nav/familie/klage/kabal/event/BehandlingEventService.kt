@@ -1,6 +1,7 @@
 package no.nav.tilleggsstonader.klage.kabal.event
 
 import no.nav.familie.http.client.RessursException
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
@@ -19,7 +20,6 @@ import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.familie.prosessering.internal.TaskService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -2,8 +2,8 @@ package no.nav.tilleggsstonader.klage.vurdering.domain
 
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.kabal.KabalHjemmel
-import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Embedded

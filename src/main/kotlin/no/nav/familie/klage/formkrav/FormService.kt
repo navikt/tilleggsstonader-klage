@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.formkrav
 
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
@@ -13,7 +14,6 @@ import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID

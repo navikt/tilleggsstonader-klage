@@ -5,12 +5,12 @@ import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifyOrder
+import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
-import no.nav.familie.prosessering.domene.Task
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested

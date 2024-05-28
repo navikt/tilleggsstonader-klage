@@ -54,7 +54,7 @@ internal class FagsakRepositoryTest : OppslagSpringRunnerTest() {
     @Test
     internal fun findByEksternIdAndFagsystemAndStønadstype() {
         val eksternId = Random.nextInt().toString()
-        val fagsystem = Fagsystem.EF
+        val fagsystem = Fagsystem.TILLEGGSSTONADER
         val stønadstype = Stønadstype.BARNETILSYN
 
         val lagretFagsak = testoppsettService.lagreFagsak(

@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
@@ -15,7 +16,6 @@ import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
-import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
@@ -28,11 +28,10 @@ import no.nav.tilleggsstonader.klage.kabal.domain.tilDto
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus.FERDIGSTILT
-import no.nav.familie.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -171,7 +170,8 @@ class BehandlingService(
         behandlinghistorikkService.opprettBehandlingshistorikk(behandlingId, BEHANDLING_FERDIGSTILT)
         oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id)
         behandlingRepository.update(henlagtBehandling)
-        taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
+        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
+//        taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
     }
 
     private fun validerKanHenleggeBehandling(behandling: Behandling) {

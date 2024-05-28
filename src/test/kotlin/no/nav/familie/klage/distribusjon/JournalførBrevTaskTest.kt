@@ -5,6 +5,8 @@ import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifyOrder
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
@@ -20,8 +22,6 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested

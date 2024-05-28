@@ -60,7 +60,7 @@ internal class KabalServiceTest {
 
         val oversendelse = oversendelseSlot.captured
         assertThat(oversendelse.fagsak?.fagsakId).isEqualTo(fagsak.eksternId)
-        assertThat(oversendelse.fagsak?.fagsystem).isEqualTo(Fagsystem.EF)
+        assertThat(oversendelse.fagsak?.fagsystem).isEqualTo(Fagsystem.TILLEGGSSTONADER.name)
         assertThat(oversendelse.hjemler).containsAll(listOf(hjemmel.kabalHjemmel))
         assertThat(oversendelse.kildeReferanse).isEqualTo(behandling.eksternBehandlingId.toString())
         assertThat(oversendelse.innsynUrl)
@@ -70,7 +70,7 @@ internal class KabalServiceTest {
         assertThat(oversendelse.innsendtTilNav).isEqualTo(behandling.klageMottatt)
         assertThat(oversendelse.klager.id.verdi).isEqualTo(fagsak.hentAktivIdent())
         assertThat(oversendelse.sakenGjelder).isNull()
-        assertThat(oversendelse.kilde).isEqualTo(Fagsystem.EF)
+        assertThat(oversendelse.kilde).isEqualTo(Fagsystem.TILLEGGSSTONADER)
         assertThat(oversendelse.ytelse).isEqualTo(Ytelse.ENF_ENF)
         assertThat(oversendelse.kommentar).isNull()
         assertThat(oversendelse.dvhReferanse).isNull()

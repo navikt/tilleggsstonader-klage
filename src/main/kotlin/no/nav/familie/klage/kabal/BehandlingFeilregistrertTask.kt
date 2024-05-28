@@ -1,5 +1,9 @@
 package no.nav.tilleggsstonader.klage.kabal
 
+import no.nav.familie.prosessering.AsyncTaskStep
+import no.nav.familie.prosessering.TaskStepBeskrivelse
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
@@ -7,10 +11,6 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import java.util.UUID
 

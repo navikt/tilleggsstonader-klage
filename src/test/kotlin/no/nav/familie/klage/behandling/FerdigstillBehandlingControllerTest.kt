@@ -1,5 +1,7 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.familie.prosessering.domene.Status
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
@@ -19,8 +21,6 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
-import no.nav.familie.prosessering.domene.Status
-import no.nav.familie.prosessering.internal.TaskService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

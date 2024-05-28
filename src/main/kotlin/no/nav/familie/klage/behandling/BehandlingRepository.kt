@@ -2,7 +2,6 @@ package no.nav.tilleggsstonader.klage.behandling
 
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
-import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
 import no.nav.tilleggsstonader.klage.repository.RepositoryInterface

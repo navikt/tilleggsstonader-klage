@@ -16,6 +16,7 @@ class EregClient(
     private val restOperations: RestOperations,
 ) : AbstractPingableRestClient(restOperations, "familie.proxy.ereg") {
 
+    // TODO: Trenger ikke gå gjennom familie-ef-proxy her, fas ut familie-ef-proxy
     fun hentOrganisasjoner(organisasjonsnumre: List<String>): List<OrganisasjonDto> {
         val uriBuilder = UriComponentsBuilder.fromUri(familieEfProxyUri)
             .pathSegment("api/ereg")

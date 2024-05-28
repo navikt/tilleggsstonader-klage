@@ -1,17 +1,16 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
-import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
-import no.nav.familie.prosessering.internal.TaskService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -65,9 +64,10 @@ class OpprettBehandlingService(
         formService.opprettInitielleFormkrav(behandlingId)
 
         oppgaveTaskService.opprettBehandleSakOppgave(behandlingId, opprettKlagebehandlingRequest.klageGjelderTilbakekreving)
-        taskService.save(
-            BehandlingsstatistikkTask.opprettMottattTask(behandlingId = behandlingId),
-        )
+        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
+//        taskService.save(
+//            BehandlingsstatistikkTask.opprettMottattTask(behandlingId = behandlingId),
+//        )
         logger.info(
             "Opprettet behandling=$behandlingId for stønadstype=$stønadstype " +
                 "eksternFagsakId=$eksternFagsakId klageMottatt=$klageMottatt",

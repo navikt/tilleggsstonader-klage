@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage
 
 import jakarta.validation.constraints.Pattern
-import no.nav.tilleggsstonader.klage.infrastruktur.config.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.*

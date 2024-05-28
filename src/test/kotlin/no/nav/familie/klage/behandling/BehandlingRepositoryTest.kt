@@ -12,10 +12,10 @@ import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
-import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -134,7 +134,7 @@ class BehandlingRepositoryTest : OppslagSpringRunnerTest() {
 
         @Test
         internal fun `skal returnere tom liste når det ikke finnes noen behandlinger`() {
-            assertThat(behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.EF))
+            assertThat(behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER))
                 .isEmpty()
         }
 
@@ -143,15 +143,7 @@ class BehandlingRepositoryTest : OppslagSpringRunnerTest() {
             val fagsak2 = testoppsettService.lagreFagsak(fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("2"))))
             behandlingRepository.insert(behandling(fagsak2))
 
-            assertThat(behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.EF))
-                .isEmpty()
-        }
-
-        @Test
-        internal fun `skal returnere tom liste når det kun finnes behandlinger et annet fagsystem`() {
-            behandlingRepository.insert(behandling(fagsak))
-
-            assertThat(behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.BA))
+            assertThat(behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER))
                 .isEmpty()
         }
 
@@ -160,7 +152,7 @@ class BehandlingRepositoryTest : OppslagSpringRunnerTest() {
             val behandling = behandlingRepository.insert(behandling(fagsak))
             val behandling2 = behandlingRepository.insert(behandling(fagsak))
 
-            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.EF)
+            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
             assertThat(behandlinger).hasSize(2)
             assertThat(behandlinger.map { it.id }).containsExactlyInAnyOrder(behandling.id, behandling2.id)
         }
@@ -170,7 +162,7 @@ class BehandlingRepositoryTest : OppslagSpringRunnerTest() {
             val behandling = behandlingRepository.insert(behandling(fagsak))
             val behandling2 = behandlingRepository.insert(behandling(fagsak))
 
-            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.EF)
+            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
             assertThat(behandlinger).hasSize(2)
             assertThat(behandlinger.map { it.id }).containsExactlyInAnyOrder(behandling.id, behandling2.id)
         }

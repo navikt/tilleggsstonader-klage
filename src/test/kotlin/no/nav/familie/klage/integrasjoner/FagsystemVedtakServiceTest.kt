@@ -27,13 +27,9 @@ internal class FagsystemVedtakServiceTest {
         fagsakService = fagsakService,
     )
 
-    private val fagsakEF = fagsak(stønadstype = Stønadstype.OVERGANGSSTØNAD)
-    private val fagsakBA = fagsak(stønadstype = Stønadstype.BARNETRYGD)
-    private val fagsakKS = fagsak(stønadstype = Stønadstype.KONTANTSTØTTE)
+    private val fagsakEF = fagsak(stønadstype = Stønadstype.BARNETILSYN)
 
     private val behandlingEF = behandling(fagsakEF)
-    private val behandlingBA = behandling(fagsakBA)
-    private val behandlingKS = behandling(fagsakKS)
 
     private val påklagetBehandlingId = "påklagetBehandlingId"
 
@@ -42,12 +38,8 @@ internal class FagsystemVedtakServiceTest {
     @BeforeEach
     internal fun setUp() {
         every { fagsakService.hentFagsakForBehandling(behandlingEF.id) } returns fagsakEF
-        every { fagsakService.hentFagsakForBehandling(behandlingBA.id) } returns fagsakBA
-        every { fagsakService.hentFagsakForBehandling(behandlingKS.id) } returns fagsakKS
 
         every { efSakClient.hentVedtak(fagsakEF.eksternId) } returns listOf(vedtak)
-        every { ksSakClient.hentVedtak(fagsakKS.eksternId) } returns listOf(vedtak)
-        every { baSakClient.hentVedtak(fagsakBA.eksternId) } returns listOf(vedtak)
     }
 
     @Nested
@@ -58,20 +50,6 @@ internal class FagsystemVedtakServiceTest {
             service.hentFagsystemVedtak(behandlingEF.id)
 
             verify { efSakClient.hentVedtak(any()) }
-        }
-
-        @Test
-        internal fun `har ikke lagt inn støtte for barnetrygd`() {
-            service.hentFagsystemVedtak(behandlingBA.id)
-
-            verify { baSakClient.hentVedtak(any()) }
-        }
-
-        @Test
-        internal fun `skal kalle på ks-klient for ks-behandling`() {
-            service.hentFagsystemVedtak(behandlingKS.id)
-
-            verify { ksSakClient.hentVedtak(any()) }
         }
     }
 

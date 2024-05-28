@@ -3,9 +3,9 @@ package no.nav.tilleggsstonader.klage.kabal
 import io.mockk.mockk
 import io.mockk.verify
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
+import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime

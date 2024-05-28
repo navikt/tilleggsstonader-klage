@@ -193,11 +193,6 @@
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
-            <artifactId>unleash</artifactId>
-            <version>${felles.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.felles</groupId>
             <artifactId>util</artifactId>
             <version>${felles.version}</version>
         </dependency>
@@ -210,11 +205,6 @@
             <groupId>no.nav.familie</groupId>
             <artifactId>prosessering-core</artifactId>
             <version>${prosessering.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.familie.eksterne.kontrakter</groupId>
-            <artifactId>saksstatistikk-klage</artifactId>
-            <version>${saksstatistikk-klage.version}</version>
         </dependency>
         <dependency>
             <groupId>no.nav.tilleggsstonader-libs</groupId>

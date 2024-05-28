@@ -4,6 +4,7 @@ import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
@@ -13,7 +14,6 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
-import no.nav.familie.prosessering.domene.Task
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -83,8 +83,8 @@ internal class OppgaveTaskServiceTest {
             assertThat(oppgaveSlot.captured.oppgavetype).isEqualTo(Oppgavetype.BehandleSak)
             assertThat(oppgaveSlot.captured.enhetsnummer).isEqualTo("4489")
             assertThat(oppgaveSlot.captured.fristFerdigstillelse).isAfter(LocalDate.now())
-            assertThat(oppgaveSlot.captured.saksId).isEqualTo(fagsak.eksternId)
-            assertThat(oppgaveSlot.captured.tema).isEqualTo(Tema.ENF)
+            assertThat(oppgaveSlot.captured.saksreferanse).isEqualTo(fagsak.eksternId)
+            assertThat(oppgaveSlot.captured.tema).isEqualTo(Tema.TSO)
             assertThat(oppgaveSlot.captured.tilordnetRessurs).isNotNull
         }
 

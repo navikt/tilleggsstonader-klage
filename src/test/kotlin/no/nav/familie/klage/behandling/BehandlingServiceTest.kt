@@ -4,6 +4,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
@@ -22,12 +24,10 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.mockBrukerContex
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsystemVedtak
-import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
-import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak.TRUKKET_TILBAKE
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak.TRUKKET_TILBAKE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

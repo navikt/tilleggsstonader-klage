@@ -27,13 +27,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
-import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
-import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
-import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentstatus
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariant
@@ -42,9 +36,15 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalstatus
 import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID
@@ -54,9 +54,9 @@ object DomainUtil {
 
     fun fagsakDomain(
         id: UUID = UUID.randomUUID(),
-        stønadstype: Stønadstype = Stønadstype.OVERGANGSSTØNAD,
+        stønadstype: Stønadstype = Stønadstype.BARNETILSYN,
         personId: UUID = UUID.randomUUID(),
-        fagsystem: Fagsystem = Fagsystem.EF,
+        fagsystem: Fagsystem = Fagsystem.TILLEGGSSTONADER,
         eksternId: String = Random.nextInt().toString(),
     ): FagsakDomain =
         FagsakDomain(
@@ -151,7 +151,7 @@ object DomainUtil {
     val defaultIdenter = setOf(PersonIdent(defaultIdent))
     fun fagsak(
         identer: Set<PersonIdent> = defaultIdenter,
-        stønadstype: Stønadstype = Stønadstype.OVERGANGSSTØNAD,
+        stønadstype: Stønadstype = Stønadstype.BARNETILSYN,
         id: UUID = UUID.randomUUID(),
         sporbar: Sporbar = Sporbar(),
         fagsakPersonId: UUID = UUID.randomUUID(),
@@ -160,7 +160,7 @@ object DomainUtil {
     }
 
     fun fagsak(
-        stønadstype: Stønadstype = Stønadstype.OVERGANGSSTØNAD,
+        stønadstype: Stønadstype = Stønadstype.BARNETILSYN,
         id: UUID = UUID.randomUUID(),
         person: FagsakPerson,
         sporbar: Sporbar = Sporbar(),
@@ -173,12 +173,8 @@ object DomainUtil {
             sporbar = sporbar,
             eksternId = "1",
             fagsystem = when (stønadstype) {
-                Stønadstype.OVERGANGSSTØNAD,
                 Stønadstype.BARNETILSYN,
-                Stønadstype.SKOLEPENGER,
-                -> Fagsystem.EF
-                Stønadstype.BARNETRYGD -> Fagsystem.BA
-                Stønadstype.KONTANTSTØTTE -> Fagsystem.KS
+                -> Fagsystem.TILLEGGSSTONADER
             },
         )
     }

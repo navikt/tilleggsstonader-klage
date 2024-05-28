@@ -1,5 +1,9 @@
 package no.nav.tilleggsstonader.klage.distribusjon
 
+import no.nav.familie.prosessering.AsyncTaskStep
+import no.nav.familie.prosessering.TaskStepBeskrivelse
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.BrevmottakerUtil.validerMinimumEnMottaker
@@ -11,10 +15,6 @@ import no.nav.tilleggsstonader.klage.distribusjon.JournalføringUtil.mapAvsender
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.logger
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
-import no.nav.familie.prosessering.AsyncTaskStep
-import no.nav.familie.prosessering.TaskStepBeskrivelse
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import java.util.UUID
 

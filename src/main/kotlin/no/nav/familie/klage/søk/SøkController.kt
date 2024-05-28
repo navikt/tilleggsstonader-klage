@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.søk
 
-import no.nav.familie.kontrakter.felles.organisasjon.Organisasjon
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
@@ -13,6 +12,7 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.visningsnavn
 import no.nav.tilleggsstonader.klage.søk.dto.PersonIdentDto
 import no.nav.tilleggsstonader.klage.søk.dto.PersonTreffDto
 import no.nav.tilleggsstonader.klage.søk.ereg.EregService
+import no.nav.tilleggsstonader.klage.søk.ereg.OrganisasjonDto
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -49,7 +49,7 @@ class SøkController(
     @GetMapping("organisasjon/{organisasjonsnummer}")
     fun søkOrganisasjon(
         @PathVariable organisasjonsnummer: String,
-    ): Ressurs<Organisasjon> {
+    ): Ressurs<OrganisasjonDto> {
         if (!ORGNR_REGEX.matches(organisasjonsnummer)) {
             throw ApiFeil("Ugyldig organisasjonsnummer", HttpStatus.BAD_REQUEST)
         }

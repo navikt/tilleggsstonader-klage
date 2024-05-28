@@ -14,10 +14,10 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.VurderingRepository
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KlagebehandlingDto
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
-import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
@@ -40,7 +40,7 @@ internal class EksternBehandlingControllerTest : OppslagSpringRunnerTest() {
     @Autowired
     private lateinit var klageresultatRepository: KlageresultatRepository
 
-    private val fagsak = DomainUtil.fagsakDomain(eksternId = "1", stønadstype = Stønadstype.OVERGANGSSTØNAD)
+    private val fagsak = DomainUtil.fagsakDomain(eksternId = "1", stønadstype = Stønadstype.BARNETILSYN)
         .tilFagsakMedPerson(setOf(PersonIdent("1")))
 
     @BeforeEach
@@ -52,7 +52,7 @@ internal class EksternBehandlingControllerTest : OppslagSpringRunnerTest() {
     @Nested
     inner class FinnKlagebehandlingsresultat {
 
-        private val hentBehandlingUrl: String = localhost("/api/ekstern/behandling/${Fagsystem.EF}")
+        private val hentBehandlingUrl: String = localhost("/api/ekstern/behandling/${Fagsystem.TILLEGGSSTONADER}")
 
         @Test
         internal fun `skal returnere tomt svar når det ikke finnes noen behandlinger på fagsaken`() {

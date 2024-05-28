@@ -1,12 +1,13 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.familie.prosessering.domene.Task
+import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.OpprettRevurderingUtil.skalOppretteRevurderingAutomatisk
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandling.domain.tilFagsystemRevurdering
-import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
@@ -23,8 +24,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_MEDHOLD
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.IKKE_SATT
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.MEDHOLD
-import no.nav.familie.prosessering.domene.Task
-import no.nav.familie.prosessering.internal.TaskService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Properties
@@ -62,10 +61,11 @@ class FerdigstillBehandlingService(
         behandlingService.oppdaterBehandlingMedResultat(behandlingId, behandlingsresultat, opprettetRevurdering)
         stegService.oppdaterSteg(behandlingId, behandling.steg, stegForResultat(behandlingsresultat), behandlingsresultat)
         taskService.save(LagSaksbehandlingsblankettTask.opprettTask(behandlingId))
-        if (behandlingsresultat == IKKE_MEDHOLD) {
-            taskService.save(BehandlingsstatistikkTask.opprettSendtTilKATask(behandlingId = behandlingId))
-        }
-        taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId))
+        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
+//        if (behandlingsresultat == IKKE_MEDHOLD) {
+//            taskService.save(BehandlingsstatistikkTask.opprettSendtTilKATask(behandlingId = behandlingId))
+//        }
+//        taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId))
     }
 
     /**

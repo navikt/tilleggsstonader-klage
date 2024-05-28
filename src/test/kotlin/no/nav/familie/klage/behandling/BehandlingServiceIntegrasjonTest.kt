@@ -11,8 +11,8 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsystemVedtak
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach

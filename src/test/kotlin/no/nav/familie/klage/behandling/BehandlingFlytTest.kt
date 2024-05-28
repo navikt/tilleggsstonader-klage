@@ -178,9 +178,9 @@ class BehandlingFlytTest : OppslagSpringRunnerTest() {
     private val opprettKlagebehandlingRequest =
         OpprettKlagebehandlingRequest(
             "ident",
-            Stønadstype.OVERGANGSSTØNAD,
+            Stønadstype.BARNETILSYN,
             UUID.randomUUID().toString(),
-            Fagsystem.EF,
+            Fagsystem.TILLEGGSSTONADER,
             LocalDate.now(),
             "enhet",
         )

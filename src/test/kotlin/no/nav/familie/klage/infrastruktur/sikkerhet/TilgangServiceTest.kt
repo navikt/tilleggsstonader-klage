@@ -13,7 +13,6 @@ import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegr
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
-import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -40,13 +39,10 @@ internal class TilgangServiceTest {
 
     private val fagsakEf = fagsak()
     private val behandlingEf = behandling(fagsakEf)
-    private val fagsakBa = fagsak(stønadstype = Stønadstype.BARNETRYGD)
-    private val behandlingBa = behandling(fagsakBa)
 
     @BeforeEach
     internal fun setUp() {
         mockFagsakOgBehandling(fagsakEf, behandlingEf)
-        mockFagsakOgBehandling(fagsakBa, behandlingBa)
     }
 
     private fun mockFagsakOgBehandling(fagsak: Fagsak, behandling: Behandling) {
@@ -56,29 +52,6 @@ internal class TilgangServiceTest {
 
     @Nested
     inner class TilgangGittRolle {
-
-        @Test
-        internal fun `saksbehandler har tilgang til behandling av fagsystem barnetrygd`() {
-            testWithBrukerContext(groups = listOf(rolleConfig.ba.saksbehandler)) {
-                assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingBa.id, BehandlerRolle.SAKSBEHANDLER)).isTrue
-            }
-        }
-
-        @Test
-        internal fun `ef-saksbehandler har ikke tilgang til behandling av fagsystem barnetrygd`() {
-            testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
-                assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingBa.id, BehandlerRolle.SAKSBEHANDLER)).isFalse
-            }
-        }
-
-        @Test
-        internal fun `veileder har ikke tilgang som saksbehandler eller beslutter`() {
-            testWithBrukerContext(groups = listOf(rolleConfig.ba.veileder)) {
-                assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingBa.id, BehandlerRolle.VEILEDER)).isTrue
-                assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingBa.id, BehandlerRolle.SAKSBEHANDLER)).isFalse
-                assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingBa.id, BehandlerRolle.BESLUTTER)).isFalse
-            }
-        }
 
         @Test
         internal fun `saksbehandler har tilgang som veileder og saksbehandler, men ikke beslutter`() {

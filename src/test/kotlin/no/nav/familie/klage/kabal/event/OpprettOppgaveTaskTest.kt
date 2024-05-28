@@ -67,21 +67,21 @@ class OpprettOppgaveTaskTest : OppslagSpringRunnerTest() {
     fun `skal lage oppgave med riktige verdier i request`() {
         val fagsakDomain = fagsakRepository.findByIdOrNull(fagsak.id) ?: error("Finner ikke fagsak med id")
 
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.EF, null, behandlingstema = Behandlingstema.Overgangsstønad)
+        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, null, behandlingstema = Behandlingstema.TilsynBarn)
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
-        assertThat(opprettOppgaveRequestSlot.captured.tema).isEqualTo(Tema.ENF)
+        assertThat(opprettOppgaveRequestSlot.captured.tema).isEqualTo(Tema.TSO)
         assertThat(opprettOppgaveRequestSlot.captured.beskrivelse).contains("tekst")
         assertThat(opprettOppgaveRequestSlot.captured.ident).isEqualTo(OppgaveIdentV2(personIdent, IdentGruppe.FOLKEREGISTERIDENT))
-        assertThat(opprettOppgaveRequestSlot.captured.saksId).isEqualTo(fagsakDomain.eksternId)
+        assertThat(opprettOppgaveRequestSlot.captured.saksreferanse).isEqualTo(fagsakDomain.eksternId)
         assertThat(opprettOppgaveRequestSlot.captured.enhetsnummer).isEqualTo(behandling.behandlendeEnhet)
-        assertThat(opprettOppgaveRequestSlot.captured.behandlingstema).isEqualTo(Behandlingstema.Overgangsstønad.value)
+        assertThat(opprettOppgaveRequestSlot.captured.behandlingstema).isEqualTo(Behandlingstema.TilsynBarn.value)
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)
     }
 
     @Test
     fun `skal gi høy prioritet til oppgaver med klageinnstansutfall lik opphevet`() {
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.EF, KlageinstansUtfall.OPPHEVET)
+        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.OPPHEVET)
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.HOY)
@@ -89,7 +89,7 @@ class OpprettOppgaveTaskTest : OppslagSpringRunnerTest() {
 
     @Test
     fun `skal gi norm prioritet til oppgaver med klageinnstansutfall ikke lik opphevet`() {
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.EF, KlageinstansUtfall.MEDHOLD)
+        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.MEDHOLD)
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)

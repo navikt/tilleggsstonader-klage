@@ -11,7 +11,7 @@ import java.util.UUID
 class OppgaveService(
     private val behandleSakOppgaveRepository: BehandleSakOppgaveRepository,
     private val oppgaveClient: OppgaveClient,
-    private val behandlingService: BehandlingService
+    private val behandlingService: BehandlingService,
 ) {
 
     fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: UUID) {
@@ -21,13 +21,13 @@ class OppgaveService(
         if (!behandling.status.erUnderArbeidAvSaksbehandler()) return
 
         val behandleSakOppgave = behandleSakOppgaveRepository.findByBehandlingId(behandlingId)
-        //TODO: Bør sende med oppgaveId til EksternBehandlingContoller og deretter slette dette kallet
+        // TODO: Bør sende med oppgaveId til EksternBehandlingContoller og deretter slette dette kallet
         val oppgave = hentOppgave(behandleSakOppgave.oppgaveId)
 
         val oppdatertOppgave = Oppgave(
             id = behandleSakOppgave.oppgaveId,
             behandlingstema = Behandlingstema.Tilbakebetaling.value,
-            versjon = oppgave.versjon
+            versjon = oppgave.versjon,
         )
 
         oppgaveClient.oppdaterOppgave(oppdatertOppgave)
