@@ -52,10 +52,6 @@ class ApplicationConfig {
     fun kotlinModule(): KotlinModule = KotlinModule()
 
     @Bean
-    @Primary
-    fun objectMapper() = ObjectMapperProvider.objectMapper
-
-    @Bean
     fun logFilter(): FilterRegistrationBean<LogFilter> {
         logger.info("Registering LogFilter filter")
         val filterRegistration = FilterRegistrationBean<LogFilter>()
