@@ -23,8 +23,6 @@ private val ukjentFeilVedOpprettRevurdering = OpprettRevurderingResponse(
 @Service
 class FagsystemVedtakService(
     private val familieEFSakClient: FamilieEFSakClient,
-    private val familieKSSakClient: FamilieKSSakClient,
-    private val familieBASakClient: FamilieBASakClient,
     private val fagsakService: FagsakService,
 ) {
 

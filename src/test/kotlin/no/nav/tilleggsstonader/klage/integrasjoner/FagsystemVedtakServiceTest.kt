@@ -17,13 +17,9 @@ import org.junit.jupiter.api.Test
 internal class FagsystemVedtakServiceTest {
 
     private val efSakClient = mockk<FamilieEFSakClient>()
-    private val ksSakClient = mockk<FamilieKSSakClient>()
-    private val baSakClient = mockk<FamilieBASakClient>()
     private val fagsakService = mockk<FagsakService>()
     private val service = FagsystemVedtakService(
         familieEFSakClient = efSakClient,
-        familieKSSakClient = ksSakClient,
-        familieBASakClient = baSakClient,
         fagsakService = fagsakService,
     )
 
