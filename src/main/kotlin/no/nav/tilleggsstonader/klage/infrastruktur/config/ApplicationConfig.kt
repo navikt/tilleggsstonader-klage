@@ -6,13 +6,17 @@ import no.nav.familie.http.client.RetryOAuth2HttpClient
 import no.nav.familie.http.config.RestTemplateAzure
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.prosessering.config.ProsesseringInfoProvider
 import no.nav.security.token.support.client.core.http.OAuth2HttpClient
 import no.nav.security.token.support.client.core.oauth2.OAuth2AccessTokenResponse
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
+import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.libs.log.filter.LogFilter
 import no.nav.tilleggsstonader.libs.log.filter.RequestTimeFilter
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -107,4 +111,20 @@ class ApplicationConfig {
             ),
         )
     }
+
+    @Bean
+    fun prosesseringInfoProvider(@Value("\${prosessering.rolle}") prosesseringRolle: String) =
+        object : ProsesseringInfoProvider {
+
+            override fun hentBrukernavn(): String = try {
+                SpringTokenValidationContextHolder().getTokenValidationContext().getClaims("azuread")
+                    .getStringClaim("preferred_username")
+            } catch (e: Exception) {
+                throw e
+            }
+
+            override fun harTilgang(): Boolean {
+                return SikkerhetContext.harRolle(prosesseringRolle)
+            }
+        }
 }
