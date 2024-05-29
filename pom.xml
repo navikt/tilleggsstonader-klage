@@ -36,6 +36,7 @@
         <prosessering.version>2.20240426120029_490d299</prosessering.version>
         <start-class>no.nav.tilleggsstonader.klage.ApplicationKt</start-class>
         <kontrakter.version>1.0-SNAPSHOT</kontrakter.version>
+        <jackson.version>2.17.1</jackson.version>
         <tilleggstonader-libs.version>2024.05.27-10.56.b9a67bfd6080</tilleggstonader-libs.version>
         <saksstatistikk-klage.version>2.0_20230214104704_706e9c0</saksstatistikk-klage.version>
         <nav.security.version>4.1.7</nav.security.version> <!-- Denne burde være samme versjon som i felles -->
@@ -95,6 +96,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
