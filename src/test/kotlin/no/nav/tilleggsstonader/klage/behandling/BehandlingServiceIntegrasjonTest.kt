@@ -6,7 +6,7 @@ import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.infrastruktur.config.FamilieEFSakClientMock
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieEFSakClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
@@ -29,7 +29,7 @@ internal class BehandlingServiceIntegrasjonTest : OppslagSpringRunnerTest() {
     private lateinit var behandlingService: BehandlingService
 
     @Autowired
-    private lateinit var efSakClientMock: FamilieEFSakClient
+    private lateinit var efSakClientMock: TSSakClient
 
     private val fagsak = fagsak()
     private val behandling = behandling(fagsak)

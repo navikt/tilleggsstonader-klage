@@ -3,7 +3,7 @@ package no.nav.tilleggsstonader.klage.infrastruktur.config
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieEFSakClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
@@ -27,13 +27,13 @@ class FamilieEFSakClientMock {
 
     @Bean
     @Primary
-    fun hentVedtak(): FamilieEFSakClient {
+    fun hentVedtak(): TSSakClient {
         return resetMock(mockk())
     }
 
     companion object {
 
-        fun resetMock(mock: FamilieEFSakClient): FamilieEFSakClient {
+        fun resetMock(mock: TSSakClient): TSSakClient {
             clearMocks(mock)
 
             every { mock.hentVedtak(any()) } returns listOf(

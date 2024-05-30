@@ -16,16 +16,16 @@ import org.junit.jupiter.api.Test
 
 internal class FagsystemVedtakServiceTest {
 
-    private val efSakClient = mockk<FamilieEFSakClient>()
+    private val tsSakClient = mockk<TSSakClient>()
     private val fagsakService = mockk<FagsakService>()
     private val service = FagsystemVedtakService(
-        familieEFSakClient = efSakClient,
+        TSSakClient = tsSakClient,
         fagsakService = fagsakService,
     )
 
-    private val fagsakEF = fagsak(stønadstype = Stønadstype.BARNETILSYN)
+    private val fagsak = fagsak(stønadstype = Stønadstype.BARNETILSYN)
 
-    private val behandlingEF = behandling(fagsakEF)
+    private val behandling = behandling(fagsak)
 
     private val påklagetBehandlingId = "påklagetBehandlingId"
 
@@ -33,19 +33,19 @@ internal class FagsystemVedtakServiceTest {
 
     @BeforeEach
     internal fun setUp() {
-        every { fagsakService.hentFagsakForBehandling(behandlingEF.id) } returns fagsakEF
+        every { fagsakService.hentFagsakForBehandling(behandling.id) } returns fagsak
 
-        every { efSakClient.hentVedtak(fagsakEF.eksternId) } returns listOf(vedtak)
+        every { tsSakClient.hentVedtak(fagsak.eksternId) } returns listOf(vedtak)
     }
 
     @Nested
     inner class HentFagsystemVedtak {
 
         @Test
-        internal fun `skal kalle på ef-klient for ef-behandling`() {
-            service.hentFagsystemVedtak(behandlingEF.id)
+        internal fun `skal kalle på ts-klient for ts-behandling`() {
+            service.hentFagsystemVedtak(behandling.id)
 
-            verify { efSakClient.hentVedtak(any()) }
+            verify { tsSakClient.hentVedtak(any()) }
         }
     }
 
@@ -54,16 +54,16 @@ internal class FagsystemVedtakServiceTest {
 
         @Test
         internal fun `skal returnere fagsystemVedtak`() {
-            val fagsystemVedtak = service.hentFagsystemVedtakForPåklagetBehandlingId(behandlingEF.id, påklagetBehandlingId)
+            val fagsystemVedtak = service.hentFagsystemVedtakForPåklagetBehandlingId(behandling.id, påklagetBehandlingId)
 
             assertThat(fagsystemVedtak).isNotNull
-            verify { efSakClient.hentVedtak(any()) }
+            verify { tsSakClient.hentVedtak(any()) }
         }
 
         @Test
         internal fun `skal kaste feil hvis fagsystemVedtak ikke finnes med forventet eksternBehandlingId`() {
             assertThatThrownBy {
-                service.hentFagsystemVedtakForPåklagetBehandlingId(behandlingEF.id, "finnes ikke")
+                service.hentFagsystemVedtakForPåklagetBehandlingId(behandling.id, "finnes ikke")
             }.hasMessageContaining("Finner ikke vedtak for behandling")
         }
     }

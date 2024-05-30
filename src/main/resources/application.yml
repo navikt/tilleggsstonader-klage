@@ -74,7 +74,7 @@ no.nav.security.jwt:
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
       tilleggsstonader-sak:
-        resource-url: ${TILLEGGSSTONADER_SAK_URL}
+        resource-url: ${TS_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
         scope: ${TILLEGGGSSTONADER_SAK_SCOPE}
@@ -83,7 +83,7 @@ no.nav.security.jwt:
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
       tilleggsstonadder-sak-clientcredentials:
-        resource-url: ${TILLEGGSSTONADER_SAK_URL}
+        resource-url: ${TS_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
         scope: ${TILLEGGSSTONADER_SAK_SCOPE}
@@ -171,7 +171,7 @@ PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 KABAL_URL: http://kabal-api.klage
 
-TILLEGGSSTONADER_SAK_URL: http://tilleggsstonader-sak
+TS_SAK_URL: http://tilleggsstonader-sak
 
 
 rolle:
