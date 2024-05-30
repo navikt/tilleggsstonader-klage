@@ -63,7 +63,7 @@ class OpprettBehandlingService(
 
         formService.opprettInitielleFormkrav(behandlingId)
 
-        oppgaveTaskService.opprettBehandleSakOppgave(behandlingId, opprettKlagebehandlingRequest.klageGjelderTilbakekreving)
+        oppgaveTaskService.opprettBehandleSakOppgave(behandlingId)
         // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
 //        taskService.save(
 //            BehandlingsstatistikkTask.opprettMottattTask(behandlingId = behandlingId),
