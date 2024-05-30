@@ -143,7 +143,6 @@ class BrevService(
                         navn = navn,
                         formkrav = formkrav,
                         stønadstype = fagsak.stønadstype,
-                        påklagetVedtakDetaljer = påklagetVedtakDetaljer,
                     )
                 }
             }

@@ -8,19 +8,15 @@ import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 fun FagsystemVedtak.tilPåklagetVedtakDetaljer() = PåklagetVedtakDetaljer(
     behandlingstype = this.behandlingstype,
     eksternFagsystemBehandlingId = this.eksternBehandlingId,
-    fagsystemType = this.fagsystemType,
     resultat = this.resultat,
     vedtakstidspunkt = this.vedtakstidspunkt,
-    regelverk = this.regelverk,
 )
 
 fun PåklagetVedtakDetaljer.tilFagsystemVedtak() = FagsystemVedtak(
     behandlingstype = this.behandlingstype,
     eksternBehandlingId = this.eksternFagsystemBehandlingId ?: "",
-    fagsystemType = this.fagsystemType,
     resultat = this.resultat,
     vedtakstidspunkt = this.vedtakstidspunkt,
-    regelverk = this.regelverk,
 )
 
 fun PåklagetVedtak.tilDto(): PåklagetVedtakDto =
@@ -29,5 +25,4 @@ fun PåklagetVedtak.tilDto(): PåklagetVedtakDto =
         påklagetVedtakstype = this.påklagetVedtakstype,
         fagsystemVedtak = this.påklagetVedtakDetaljer?.tilFagsystemVedtak(),
         manuellVedtaksdato = if (påklagetVedtakstype.harManuellVedtaksdato()) this.påklagetVedtakDetaljer?.vedtakstidspunkt?.toLocalDate() else null,
-        regelverk = this.påklagetVedtakDetaljer?.regelverk,
     )

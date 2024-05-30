@@ -8,9 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
-import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -43,46 +41,6 @@ internal class OpprettRevurderingServiceTest {
 
         assertThat(kanOppretteRevurdering.kanOpprettes).isTrue
         verify { fagsystemVedtakService.kanOppretteRevurdering(behandlingId) }
-    }
-
-    @EnumSource(
-        value = FagsystemType::class,
-        names = ["TILBAKEKREVING", "UTESTENGELSE"],
-        mode = EnumSource.Mode.EXCLUDE,
-    )
-    @ParameterizedTest
-    internal fun `kan opprette revurdering for vedtak i fagsystem`(fagsystemType: FagsystemType) {
-        val påklagetVedtak = PåklagetVedtak(
-            PåklagetVedtakstype.VEDTAK,
-            påklagetVedtakDetaljer(fagsystemType = fagsystemType),
-        )
-        every { behandlingService.hentBehandling(behandlingId) } returns
-            behandling(fagsak = fagsak, påklagetVedtak = påklagetVedtak)
-
-        val kanOppretteRevurdering = service.kanOppretteRevurdering(behandlingId)
-
-        assertThat(kanOppretteRevurdering.kanOpprettes).isTrue
-        verify { fagsystemVedtakService.kanOppretteRevurdering(behandlingId) }
-    }
-
-    @EnumSource(
-        value = FagsystemType::class,
-        names = ["ORDNIÆR", "SANKSJON_1_MND"],
-        mode = EnumSource.Mode.EXCLUDE,
-    )
-    @ParameterizedTest
-    internal fun `skal ikke opprette revurdering for annet vedtak enn ordinær og sanksjon`(fagsystemType: FagsystemType) {
-        val påklagetVedtak = PåklagetVedtak(
-            PåklagetVedtakstype.VEDTAK,
-            påklagetVedtakDetaljer(fagsystemType = fagsystemType),
-        )
-        every { behandlingService.hentBehandling(behandlingId) } returns
-            behandling(fagsak = fagsak, påklagetVedtak = påklagetVedtak)
-
-        val kanOppretteRevurdering = service.kanOppretteRevurdering(behandlingId)
-
-        assertThat(kanOppretteRevurdering.kanOpprettes).isFalse
-        verify(exactly = 0) { fagsystemVedtakService.kanOppretteRevurdering(behandlingId) }
     }
 
     @EnumSource(

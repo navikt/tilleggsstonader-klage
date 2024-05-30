@@ -6,7 +6,6 @@ import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
-import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType.BEHANDLING_FERDIGSTILT
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
@@ -30,7 +29,6 @@ import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus.FERDIGSTILT
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -136,22 +134,11 @@ class BehandlingService(
 
     private fun tilPåklagetVedtakDetaljerMedManuellDato(påklagetVedtakDto: PåklagetVedtakDto) =
         PåklagetVedtakDetaljer(
-            fagsystemType = utledFagsystemType(påklagetVedtakDto),
             eksternFagsystemBehandlingId = null,
             behandlingstype = "",
             resultat = "",
             vedtakstidspunkt = påklagetVedtakDto.manuellVedtaksdato?.atStartOfDay() ?: error("Mangler vedtaksdato"),
-            regelverk = påklagetVedtakDto.regelverk,
         )
-
-    private fun utledFagsystemType(påklagetVedtakDto: PåklagetVedtakDto): FagsystemType {
-        return when (påklagetVedtakDto.påklagetVedtakstype) {
-            PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING -> FagsystemType.TILBAKEKREVING
-            PåklagetVedtakstype.UTESTENGELSE -> FagsystemType.UTESTENGELSE
-            PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK -> FagsystemType.ORDNIÆR
-            else -> error("Kan ikke utlede fagsystemType for påklagetVedtakType ${påklagetVedtakDto.påklagetVedtakstype}")
-        }
-    }
 
     @Transactional
     fun henleggBehandling(behandlingId: UUID, henlagt: HenlagtDto) {
@@ -171,7 +158,7 @@ class BehandlingService(
         oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id)
         behandlingRepository.update(henlagtBehandling)
         // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
-//        taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
+        // taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
     }
 
     private fun validerKanHenleggeBehandling(behandling: Behandling) {

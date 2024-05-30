@@ -39,11 +39,9 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -232,16 +230,12 @@ object DomainUtil {
 
     fun påklagetVedtakDetaljer(
         eksternFagsystemBehandlingId: String = "123",
-        fagsystemType: FagsystemType = FagsystemType.ORDNIÆR,
         vedtakstidspunkt: LocalDateTime = LocalDate.of(2022, 3, 1).atTime(8, 0),
-        regelverk: Regelverk = Regelverk.NASJONAL,
     ) = PåklagetVedtakDetaljer(
-        fagsystemType = fagsystemType,
         eksternFagsystemBehandlingId = eksternFagsystemBehandlingId,
         behandlingstype = "type",
         resultat = "resultat",
         vedtakstidspunkt = vedtakstidspunkt,
-        regelverk = regelverk,
     )
 
     fun påklagetVedtakDto(): PåklagetVedtakDto =
@@ -267,14 +261,10 @@ object DomainUtil {
         behandlingstype: String = "type",
         resultat: String = "resultat",
         vedtakstidspunkt: LocalDateTime = LocalDate.of(2022, 3, 1).atTime(8, 0),
-        fagsystemType: FagsystemType = FagsystemType.ORDNIÆR,
-        regelverk: Regelverk = Regelverk.NASJONAL,
     ) = FagsystemVedtak(
         eksternBehandlingId = eksternBehandlingId,
         behandlingstype = behandlingstype,
         resultat = resultat,
         vedtakstidspunkt = vedtakstidspunkt,
-        fagsystemType = fagsystemType,
-        regelverk = regelverk,
     )
 }

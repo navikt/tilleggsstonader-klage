@@ -14,7 +14,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
-import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID
@@ -45,7 +44,6 @@ data class PåklagetVedtakDto(
     val påklagetVedtakstype: PåklagetVedtakstype,
     val fagsystemVedtak: FagsystemVedtak? = null,
     val manuellVedtaksdato: LocalDate? = null,
-    val regelverk: Regelverk? = null,
 ) {
     fun erGyldig(): Boolean = when (eksternFagsystemBehandlingId) {
         null -> påklagetVedtakstype != VEDTAK

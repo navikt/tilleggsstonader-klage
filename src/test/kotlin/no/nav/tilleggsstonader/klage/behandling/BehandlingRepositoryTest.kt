@@ -13,9 +13,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
-import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -42,12 +40,10 @@ class BehandlingRepositoryTest : OppslagSpringRunnerTest() {
 
         val påklagetVedtakDetaljer =
             PåklagetVedtakDetaljer(
-                fagsystemType = FagsystemType.ORDNIÆR,
                 eksternFagsystemBehandlingId = "1234",
                 behandlingstype = "type",
                 resultat = "resultat",
                 vedtakstidspunkt = LocalDateTime.now(),
-                regelverk = Regelverk.NASJONAL,
             )
         val fagsystemRevurdering = FagsystemRevurdering(true, Opprettet("id", LocalDateTime.now()), null)
         val behandling = behandlingRepository.insert(

@@ -10,7 +10,6 @@ import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visnin
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.norskFormat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import java.time.LocalDate
 
 object BrevInnhold {
@@ -33,7 +32,7 @@ object BrevInnhold {
                     deloverskrift = "",
                     innhold =
                     "Vi har ${klageMottatt.norskFormat()} fått klagen din på vedtaket om " +
-                        "${visningsnavn(stønadstype, påklagetVedtakDetaljer)} som ble gjort " +
+                        "${stønadstype.visningsnavn()} som ble gjort " +
                         "${påklagetVedtakDetaljer.vedtakstidspunkt.norskFormat()}, " +
                         "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
                 ),
@@ -60,14 +59,13 @@ object BrevInnhold {
         navn: String,
         formkrav: Form,
         stønadstype: Stønadstype,
-        påklagetVedtakDetaljer: PåklagetVedtakDetaljer?,
     ): FritekstBrevRequestDto {
         val ikkeOppfylteFormkrav = utledIkkeOppfylteFormkrav(formkrav)
         val brevtekstFraSaksbehandler =
             formkrav.brevtekst ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
 
         return FritekstBrevRequestDto(
-            overskrift = "Vi har avvist klagen din på vedtaket om ${visningsnavn(stønadstype, påklagetVedtakDetaljer)}",
+            overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn()}",
             personIdent = ident,
             navn = navn,
             avsnitt =
@@ -147,15 +145,6 @@ object BrevInnhold {
             "På nav.no/kontakt kan du chatte eller skrive til oss.\n\n" +
             "Hvis du ikke finner svar på nav.no kan du ringe oss på telefon 55 55 33 33, hverdager 09.00-15.00.",
     )
-
-    private fun visningsnavn(stønadstype: Stønadstype, påklagetVedtakDetaljer: PåklagetVedtakDetaljer?): String =
-        when (påklagetVedtakDetaljer?.fagsystemType) {
-            FagsystemType.TILBAKEKREVING -> "tilbakebetaling av ${stønadstype.visningsnavn()}"
-            FagsystemType.SANKSJON_1_MND -> "sanksjon"
-            FagsystemType.UTESTENGELSE -> "utestengelse"
-            else ->
-                stønadstype.visningsnavn()
-        }
 
     private fun Stønadstype.lesMerUrl() = when (this) {
         Stønadstype.BARNETILSYN -> "nav.no/alene-med-barn" // TODO: Tilpass til tilleggsstønader

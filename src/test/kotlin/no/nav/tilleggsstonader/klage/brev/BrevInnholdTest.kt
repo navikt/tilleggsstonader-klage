@@ -7,7 +7,6 @@ import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -39,7 +38,7 @@ internal class BrevInnholdTest {
     @Test
     internal fun `brev for opprettholdelse skal ha med info om tilbakebetaling`() {
         val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt, fagsystemType = FagsystemType.TILBAKEKREVING)
+            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt)
         val brev = lagOpprettholdelseBrev(
             "123456789",
             "Innstilling abc",
@@ -57,7 +56,7 @@ internal class BrevInnholdTest {
     @Test
     internal fun `brev for opprettholdelse skal ha med info om sanksjon`() {
         val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt, fagsystemType = FagsystemType.SANKSJON_1_MND)
+            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt)
         val brev = lagOpprettholdelseBrev(
             "123456789",
             "Innstilling abc",
@@ -79,7 +78,6 @@ internal class BrevInnholdTest {
             "Innstilling abc",
             ikkeOppfyltForm(),
             Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt),
         )
 
         assertThat(brev.overskrift).isEqualTo(
@@ -89,28 +87,22 @@ internal class BrevInnholdTest {
 
     @Test
     internal fun `brev for avvist formkrav skal ha med info om tilbakebetaling`() {
-        val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt, fagsystemType = FagsystemType.TILBAKEKREVING)
         val brev = lagFormkravAvvistBrev(
             "123456789",
             "Innstilling abc",
             ikkeOppfyltForm(),
             Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer,
         )
         assertThat(brev.overskrift).isEqualTo("Vi har avvist klagen din på vedtaket om tilbakebetaling av stønad til barnetilsyn")
     }
 
     @Test
     internal fun `brev for avvist formkrav skal ha med info om sanksjon`() {
-        val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt, fagsystemType = FagsystemType.SANKSJON_1_MND)
         val brev = lagFormkravAvvistBrev(
             "123456789",
             "Innstilling abc",
             ikkeOppfyltForm(),
             Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer,
         )
         assertThat(brev.overskrift).isEqualTo("Vi har avvist klagen din på vedtaket om sanksjon")
     }
