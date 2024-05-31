@@ -15,7 +15,7 @@ metadata:
     team: tilleggsstonader
 spec:
   preAuthorizedApplications:
-    - application: tilleggsstonader-klage-frontend-lokal
+    - application: tilleggsstonader-sak-frontend-lokal
       cluster: dev-gcp
       namespace: tilleggsstonader
     - application: familie-prosessering-lokal
