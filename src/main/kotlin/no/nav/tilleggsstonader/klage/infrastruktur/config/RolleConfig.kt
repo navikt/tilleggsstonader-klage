@@ -7,6 +7,7 @@ class RolleConfig(
     val ba: FagsystemRolleConfig,
     val ef: FagsystemRolleConfig,
     val ks: FagsystemRolleConfig,
+    val ts: FagsystemRolleConfig,
 )
 
 data class FagsystemRolleConfig(
