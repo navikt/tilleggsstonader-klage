@@ -9,8 +9,7 @@ Dersom man vil gjøre autentiserte kall mot andre tjenester eller vil kjøre app
 
 #### Client id & client secret
 secret kan hentes fra cluster med
-`kubectl -n teamfamilie get secret azuread-familie-klage-lokal -o json | jq '.data | map_values(@base64d)'`
-`kubectl -n teamfamilie get secret azuread-familie-klage-frontend-lokal -o json | jq '.data | map_values(@base64d)'`
+`kubectl -n tilleggsstonader get secret azuread-tilleggsstonader-klage-lokal -o json | jq '.data | map_values(@base64d)'`
 
 * `AZURE_APP_CLIENT_ID` (fra secret)
 * `AZURE_APP_CLIENT_SECRET` (fra secret)

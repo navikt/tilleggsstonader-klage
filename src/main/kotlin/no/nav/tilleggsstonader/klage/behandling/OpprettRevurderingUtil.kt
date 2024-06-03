@@ -7,5 +7,5 @@ object OpprettRevurderingUtil {
 
     fun skalOppretteRevurderingAutomatisk(påklagetVedtak: PåklagetVedtak): Boolean =
         påklagetVedtak.påklagetVedtakstype == PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK ||
-                påklagetVedtak.påklagetVedtakstype == PåklagetVedtakstype.VEDTAK
+            påklagetVedtak.påklagetVedtakstype == PåklagetVedtakstype.VEDTAK
 }
