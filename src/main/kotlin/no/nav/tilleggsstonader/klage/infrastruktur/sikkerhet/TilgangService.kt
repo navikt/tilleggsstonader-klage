@@ -130,7 +130,7 @@ class TilgangService(
         harTilgangTilGittRolleForFagsystem(rolleConfig.ba, minimumsrolle) ||
             harTilgangTilGittRolleForFagsystem(rolleConfig.ef, minimumsrolle) ||
             harTilgangTilGittRolleForFagsystem(rolleConfig.ks, minimumsrolle) ||
-                harTilgangTilGittRolleForFagsystem(rolleConfig.ts, minimumsrolle)
+            harTilgangTilGittRolleForFagsystem(rolleConfig.ts, minimumsrolle)
 
     fun harTilgangTilBehandlingGittRolle(behandlingId: UUID, minimumsrolle: BehandlerRolle): Boolean {
         return harTilgangTilFagsakGittRolle(behandlingService.hentBehandling(behandlingId).fagsakId, minimumsrolle)
