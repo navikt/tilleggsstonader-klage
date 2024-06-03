@@ -4,8 +4,8 @@ import io.mockk.every
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
-import no.nav.tilleggsstonader.klage.infrastruktur.config.TSSakSakClientMock
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.TSSakSakClientMock
 import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling

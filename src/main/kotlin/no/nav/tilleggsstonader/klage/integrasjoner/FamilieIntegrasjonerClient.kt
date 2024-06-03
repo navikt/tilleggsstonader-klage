@@ -31,7 +31,7 @@ import java.net.URI
 @Component
 class FamilieIntegrasjonerClient(
     @Qualifier("azure") restOperations: RestOperations,
-    @Value("\${FAMILIE_INTEGRASJONER_URL}")
+    @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,
     private val integrasjonerConfig: IntegrasjonerConfig,
 

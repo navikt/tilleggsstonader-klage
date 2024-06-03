@@ -143,7 +143,7 @@ class TilgangService(
 
     private fun harTilgangTilGittRolle(stønadstype: Stønadstype, minimumsrolle: BehandlerRolle): Boolean {
         val rolleForFagsystem = when (stønadstype) {
-            Stønadstype.BARNETILSYN -> rolleConfig.ef // TODO: rolleconfig.ts
+            Stønadstype.BARNETILSYN -> rolleConfig.ts
         }
         return harTilgangTilGittRolleForFagsystem(rolleForFagsystem, minimumsrolle)
     }
