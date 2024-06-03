@@ -26,4 +26,4 @@ AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 CREDENTIAL_USERNAME: not-a-real-srvuser
 CREDENTIAL_PASSWORD: not-a-real-pw
 
-NAIS_APP_NAME: familie-klage
+NAIS_APP_NAME: tilleggsstonader-klage
