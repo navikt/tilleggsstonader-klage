@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.metrics.domain
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.time.temporal.IsoFields
 
-internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
+internal class MålerRepositoryTest : IntegrationTest() {
 
     @Autowired
     lateinit var målerRepository: MålerRepository

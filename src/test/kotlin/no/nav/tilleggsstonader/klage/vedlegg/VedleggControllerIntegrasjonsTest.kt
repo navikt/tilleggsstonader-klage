@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
 import no.nav.tilleggsstonader.klage.Ressurs
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.UUID
 
-internal class VedleggControllerIntegrasjonsTest : OppslagSpringRunnerTest() {
+internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
 
     val fagsak = DomainUtil.fagsakDomain().tilFagsak()
     val behandling = DomainUtil.behandling(fagsak = fagsak)

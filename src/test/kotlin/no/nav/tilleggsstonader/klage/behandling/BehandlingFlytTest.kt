@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.infrastruktur.TestHendelseController
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.util.UUID
 
-class BehandlingFlytTest : OppslagSpringRunnerTest() {
+class BehandlingFlytTest : IntegrationTest() {
 
     @Autowired
     private lateinit var opprettBehandlingService: OpprettBehandlingService

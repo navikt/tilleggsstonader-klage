@@ -52,7 +52,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
     "mock-inntekt",
 )
 @EnableMockOAuth2Server
-abstract class OppslagSpringRunnerTest {
+abstract class IntegrationTest {
 
     protected val listAppender = initLoggingEventListAppender()
     protected var loggingEvents: MutableList<ILoggingEvent> = listAppender.list

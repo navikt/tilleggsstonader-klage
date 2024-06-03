@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 
-class OpprettOppgaveTaskTest : OppslagSpringRunnerTest() {
+class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @Autowired lateinit var fagsakRepository: FagsakRepository
 

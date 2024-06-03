@@ -5,7 +5,7 @@ import no.nav.tilleggsstonader.klage.Ressurs.Status
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
@@ -29,7 +29,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-internal class EksternBehandlingControllerTest : OppslagSpringRunnerTest() {
+internal class EksternBehandlingControllerTest : IntegrationTest() {
 
     @Autowired
     private lateinit var behandlingRepository: BehandlingRepository
