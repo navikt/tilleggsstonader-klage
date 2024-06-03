@@ -99,7 +99,7 @@ no.nav.security.jwt:
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
 TILLEGGSSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
-TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-fss.teamtilleggsstonader.tilleggsstonader-integrasjoner/.default
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 
 spring:
@@ -166,22 +166,20 @@ AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT
 TILLEGGSSTONADER_BREV_API_URL: http://tilleggsstonader-brev # //TODO valider om korrekt
 TILLEGGSSTONADER_DOKUMENT_URL: http://tilleggsstonader-dokument # //TODO valider om korrekt
 
-TILLEGGSSTONADER_INTEGRASJONER_URL: https://tilleggsstonader-integrasjoner.${ON_PREM_URL_ENV}-fss-pub.nais.io
+TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
 PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 KABAL_URL: http://kabal-api.klage
 
 TS_SAK_URL: http://tilleggsstonader-sak
 
+prosessering.rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere - tilgang til prosessering
 
 rolle:
-  tilleggstonader: #//TODO legge inn idene på gruppene
-    saksbehandler: ""
-    beslutter: ""
-    veileder: ""
-
-
-prosessering.rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere - tilgang til prosessering
+  ts:
+    veileder: "0f841c83-0d64-407c-80d5-4eb51dfaee1e"
+    beslutter: "224b5097-d0af-462c-8d8e-49c0e8a42661"
+    saksbehandler: "c1e9edec-0c10-4df2-8c74-324ab9922220"
 
 prosessering:
   continuousRunning.enabled: true
