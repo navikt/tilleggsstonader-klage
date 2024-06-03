@@ -5,13 +5,13 @@ services:
   postgres:
     image: "postgres:14.6"
     volumes:
-      - "familie-klage-data:/var/lib/postgresql/data"
+      - "tilleggsstonader-klage-data:/var/lib/postgresql/data"
     ports:
       - "5433:5432"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "test"
-      POSTGRES_DB: "familie-klage"
+      POSTGRES_DB: "tilleggsstonader-klage"
 
   familie-brev:
     image: "ghcr.io/navikt/familie-brev:latest"
@@ -19,4 +19,4 @@ services:
       - "8002:8001"
 
 volumes:
-  familie-klage-data:
+  tilleggsstonader-klage-data:

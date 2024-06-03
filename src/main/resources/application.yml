@@ -8,7 +8,7 @@ server:
       max-request-size: 200MB
 
 springdoc:
-  packagesToScan: no.nav.familie.klage # //TODO  endre når bygg er over til gradle og rett pakkestruktur
+  packagesToScan: no.nav.tilleggsstonader.klage
   pathsToMatch: /v3/api-docs,/api/**
   swagger-ui:
     disable-swagger-default-url: true
@@ -74,7 +74,7 @@ no.nav.security.jwt:
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
       tilleggsstonader-sak:
-        resource-url: ${TILLEGGSSTONADER_SAK_URL}
+        resource-url: ${TS_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
         scope: ${TILLEGGGSSTONADER_SAK_SCOPE}
@@ -83,7 +83,7 @@ no.nav.security.jwt:
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
       tilleggsstonadder-sak-clientcredentials:
-        resource-url: ${TILLEGGSSTONADER_SAK_URL}
+        resource-url: ${TS_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: client_credentials
         scope: ${TILLEGGSSTONADER_SAK_SCOPE}
@@ -171,7 +171,7 @@ PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 KABAL_URL: http://kabal-api.klage
 
-TILLEGGSSTONADER_SAK_URL: http://tilleggsstonader-sak
+TS_SAK_URL: http://tilleggsstonader-sak
 
 
 rolle:
@@ -181,7 +181,7 @@ rolle:
     veileder: ""
 
 
-prosessering.rolle: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # Gruppen teamfamilie //TODO endre dette
+prosessering.rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere - tilgang til prosessering
 
 prosessering:
   continuousRunning.enabled: true

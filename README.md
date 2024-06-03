@@ -40,7 +40,7 @@ I `familie-dokument` må en kjøre `DevLauncherMedMockServer`.
 
 ### Dummy-svar fra kabal ved lokal kjøring
 Lokalt finnes ingen kafka, så for å kunne generere et svar fra kabal kan man bruke endepunktene i `TestHendelseController`. 
-* `POST mot http://localhost:8094/api/test/kabal/<behandling_id>/dummy`, med curl eller i postman (uten Authorization-header for å unngå at man prøver å sende inn det som saksbehandler)
+* `POST mot http://localhost:8090/api/test/kabal/<behandling_id>/dummy`, med curl eller i postman (uten Authorization-header for å unngå at man prøver å sende inn det som saksbehandler)
 
 ## Produksjonssetting
 Applikasjonen vil deployes til produksjon ved ny commit på master-branchen. Det er dermed tilstrekkelig å merge PR for å trigge produksjonsbygget.
