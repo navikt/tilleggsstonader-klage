@@ -4,12 +4,12 @@ package no.nav.familie.klage.behandlingsstatistikk
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
-
-import no.nav.familie.kontrakter.felles.klage.BehandlingResultat
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
+import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingDVH
-import no.nav.tilleggsstonader.kontrakter.saksstatistikk.VilkårsprøvingDVH
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -68,25 +68,25 @@ class BehandlingsstatistikkService(
         val påklagetVedtakDetaljer = behandling.påklagetVedtak.påklagetVedtakDetaljer
 
         return BehandlingDVH(
-            behandlingId = behandling.eksternBehandlingId,
-            behandlingUuid = behandling.behandlingUuid,
-            sakId = behandling.eksternFagsakId,
-            saksnummer = behandling.eksternFagsakId,
+            behandlingId = behandling.eksternBehandlingId.toString(),
+            behandlingUuid = behandling.eksternBehandlingId.toString(),
+            sakId = fagsak.eksternId,
+            saksnummer = fagsak.eksternId,
             aktorId = fagsak.hentAktivIdent(),
-            registrertTid = behandling.sporbar.opprettetTid.atZone(zoneIdOslo),
-            endretTid = hendelseTidspunkt.atZone(zoneIdOslo),
-            tekniskTid = ZonedDateTime.now(zoneIdOslo),
+            registrertTid =behandling.sporbar.opprettetTid,
+            endretTid = hendelseTidspunkt,
+            tekniskTid = LocalDateTime.now(),
             behandlingType = "KLAGE",
             sakYtelse = fagsak.stønadstype.name,
             relatertEksternBehandlingId = påklagetVedtakDetaljer?.eksternFagsystemBehandlingId,
             relatertFagsystemType = påklagetVedtakDetaljer?.fagsystemType?.name,
             behandlingStatus = hendelse.name,
             opprettetAv = maskerVerdiHvisStrengtFortrolig(erStrengtFortrolig, behandling.sporbar.opprettetAv),
+            ferdigBehandletTid = ferdigBehandletTid(hendelse, hendelseTidspunkt),
            // opprettetEnhet = behandlendeEnhet,
             ansvarligEnhet = behandlendeEnhet,
-            mottattTid = behandling.klageMottatt.atStartOfDay(zoneIdOslo),
-            ferdigBehandletTid = ferdigBehandletTid(hendelse, hendelseTidspunkt),
-            sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer?.regelverk.tilDVHSakNasjonalitet(),
+            mottattTid = behandling.klageMottatt.atStartOfDay(),
+            sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer.regelverk.tilDVHSakNasjonalitet(),
             behandlingResultat = behandlingResultat(hendelse, behandling),
             resultatBegrunnelse = resultatBegrunnelse(behandling, vurdering),
             behandlingMetode = "MANUELL",
@@ -123,7 +123,7 @@ class BehandlingsstatistikkService(
         hendelse: BehandlingsstatistikkHendelse,
         hendelseTidspunkt: LocalDateTime,
     ) = if (hendelse == BehandlingsstatistikkHendelse.FERDIG || hendelse == BehandlingsstatistikkHendelse.SENDT_TIL_KA) {
-        hendelseTidspunkt.atZone(zoneIdOslo)
+        hendelseTidspunkt
     } else {
         null
     }
@@ -141,6 +141,6 @@ class BehandlingsstatistikkService(
     private fun Regelverk?.tilDVHSakNasjonalitet(): String? = when (this) {
         Regelverk.NASJONAL -> "Nasjonal"
         Regelverk.EØS -> "Utland"
-        null -> null
+        null -> "Najonal"
     }
 }
