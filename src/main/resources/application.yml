@@ -118,7 +118,7 @@ spring:
     placeholders:
       ignoreIfProd:
   datasource:
-    url: {DB_JDBC_URL}
+    url: ${DB_JDBC_URL}
     hikari:
       maximum-pool-size: 20
       connection-test-query: "select 1"
