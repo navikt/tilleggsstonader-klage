@@ -60,7 +60,7 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - når man har sendt brev skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
                 vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
@@ -87,7 +87,7 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - skal kunne hoppe mellom steg`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
                 vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
@@ -122,7 +122,7 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `OMGJØR_VEDTAK - når man har ferdigstilt klagebehandling skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId))
                 vurderingService.opprettEllerOppdaterVurdering(
@@ -149,7 +149,7 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `Ikke oppfylt formkrav skal ikke vurderes`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(ikkeOppfyltFormDto(behandlingId))
                 lagEllerOppdaterBrev(behandlingId)

@@ -4,9 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("rolle")
 class RolleConfig(
-    val ba: FagsystemRolleConfig,
-    val ef: FagsystemRolleConfig,
-    val ks: FagsystemRolleConfig,
     val ts: FagsystemRolleConfig,
 )
 

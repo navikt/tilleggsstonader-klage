@@ -134,10 +134,10 @@ abstract class IntegrationTest {
 
     protected val lokalTestToken: String
         get() {
-            return onBehalfOfToken(role = rolleConfig.ef.beslutter)
+            return onBehalfOfToken(role = rolleConfig.ts.beslutter)
         }
 
-    protected fun onBehalfOfToken(role: String = rolleConfig.ef.beslutter, saksbehandler: String = "julenissen"): String {
+    protected fun onBehalfOfToken(role: String = rolleConfig.ts.beslutter, saksbehandler: String = "julenissen"): String {
         return TokenUtil.onBehalfOfToken(mockOAuth2Server, role, saksbehandler)
     }
 

@@ -62,7 +62,7 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
     @BeforeEach
     internal fun setUp() {
         headers.setBearerAuth(lokalTestToken)
-        BrukerContextUtil.mockBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler))
+        BrukerContextUtil.mockBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler))
 
         testoppsettService.lagreFagsak(fagsak)
         testoppsettService.lagreBehandling(behandling)
