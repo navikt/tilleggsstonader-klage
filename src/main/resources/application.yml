@@ -96,7 +96,7 @@ no.nav.security.jwt:
 
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGSSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
+TILLEGGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
 TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 
