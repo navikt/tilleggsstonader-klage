@@ -59,7 +59,9 @@ spec:
         - application: tilleggsstonader-sak
         - application: tilleggsstonader-integrasjoner
         - application: familie-brev
+          namespace: teamfamilie
         - application: familie-dokument
+          namespace: teamfamilie
         - application: kabal-api
           namespace: klage
   azure:
