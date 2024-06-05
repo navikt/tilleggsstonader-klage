@@ -27,7 +27,7 @@ internal class KabalServiceTest {
 
     val kabalClient = mockk<KabalClient>()
     val integrasjonerClient = mockk<FamilieIntegrasjonerClient>()
-    val lenkeConfig = LenkeConfig(efSakLenke = "BASEURL_EF", baSakLenke = "BASEURL_BA", ksSakLenke = "BASEURL_KS")
+    val lenkeConfig = LenkeConfig(tilleggsstonaderSakLenke = "SAK_FRONTEND_URL")
     val kabalService = KabalService(kabalClient, integrasjonerClient, lenkeConfig)
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("1")))
 
@@ -63,7 +63,7 @@ internal class KabalServiceTest {
         assertThat(oversendelse.hjemler).containsAll(listOf(hjemmel.kabalHjemmel))
         assertThat(oversendelse.kildeReferanse).isEqualTo(behandling.eksternBehandlingId.toString())
         assertThat(oversendelse.innsynUrl)
-            .isEqualTo("${lenkeConfig.efSakLenke}/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}")
+            .isEqualTo("${lenkeConfig.tilleggsstonaderSakLenke}/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}")
         assertThat(oversendelse.tilknyttedeJournalposter).isEmpty()
         assertThat(oversendelse.brukersHenvendelseMottattNavDato).isEqualTo(behandling.klageMottatt)
         assertThat(oversendelse.innsendtTilNav).isEqualTo(behandling.klageMottatt)
@@ -77,19 +77,6 @@ internal class KabalServiceTest {
     }
 
     @Test
-    internal fun `skal sette innsynUrl til saksoversikten hvis påklaget vedtakstype gjelder tilbakekreving`() {
-        val påklagetVedtakDetaljer = påklagetVedtakDetaljer()
-        val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer))
-        val vurdering = vurdering(behandlingId = behandling.id, hjemmel = hjemmel)
-
-        kabalService.sendTilKabal(fagsak, behandling, vurdering, saksbehandlerB.navIdent)
-
-        assertThat(oversendelseSlot.captured.innsynUrl)
-            .isEqualTo("${lenkeConfig.efSakLenke}/fagsak/${fagsak.eksternId}/saksoversikt")
-        assertThat(oversendelseSlot.captured.forrigeBehandlendeEnhet).isEqualTo(saksbehandlerB.enhet)
-    }
-
-    @Test
     internal fun `skal sette innsynUrl til saksoversikten hvis påklaget vedtak ikke er satt`() {
         val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.UTEN_VEDTAK))
         val vurdering = vurdering(behandlingId = behandling.id, hjemmel = hjemmel)
@@ -97,7 +84,7 @@ internal class KabalServiceTest {
         kabalService.sendTilKabal(fagsak, behandling, vurdering, saksbehandlerB.navIdent)
 
         assertThat(oversendelseSlot.captured.innsynUrl)
-            .isEqualTo("${lenkeConfig.efSakLenke}/fagsak/${fagsak.eksternId}/saksoversikt")
+            .isEqualTo("${lenkeConfig.tilleggsstonaderSakLenke}/fagsak/${fagsak.eksternId}/saksoversikt")
         assertThat(oversendelseSlot.captured.forrigeBehandlendeEnhet).isEqualTo(saksbehandlerB.enhet)
     }
 

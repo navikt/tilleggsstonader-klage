@@ -5,10 +5,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class LenkeConfig(
-    @Value("lenker.EF_SAK_FRONTEND_URL")
-    val efSakLenke: String,
-    @Value("lenker.BA_SAK_FRONTEND_URL")
-    val baSakLenke: String,
-    @Value("lenker.KS_SAK_FRONTEND_URL")
-    val ksSakLenke: String,
+    @Value("lenker.TILLEGGSSTONADER_SAK_FRONTEND_URL")
+    val tilleggsstonaderSakLenke: String,
 )

@@ -46,10 +46,9 @@ class KabalService(
     }
 
     private fun lagInnsynUrl(fagsak: Fagsak, påklagetVedtak: PåklagetVedtak): String {
-        val fagsystemUrl = when (fagsak.fagsystem) {
-            Fagsystem.TILLEGGSSTONADER -> lenkeConfig.efSakLenke // TODO: Bytt ut lenke
-        }
+        val fagsystemUrl = lenkeConfig.tilleggsstonaderSakLenke
         val påklagetVedtakDetaljer = påklagetVedtak.påklagetVedtakDetaljer
+
         return if (påklagetVedtakDetaljer?.eksternFagsystemBehandlingId != null) {
             "$fagsystemUrl/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}"
         } else {
