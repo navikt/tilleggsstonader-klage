@@ -4,7 +4,9 @@ import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Embedded
@@ -33,10 +35,12 @@ data class Behandling(
 )
 
 data class PåklagetVedtakDetaljer(
+    val fagsystemType: FagsystemType,
     val eksternFagsystemBehandlingId: String?,
     val behandlingstype: String,
     val resultat: String,
     val vedtakstidspunkt: LocalDateTime,
+    val regelverk: Regelverk,
 )
 
 data class PåklagetVedtak(
