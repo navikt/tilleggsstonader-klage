@@ -85,7 +85,7 @@ class BehandlingsstatistikkService(
             ferdigBehandletTid = ferdigBehandletTid(hendelse, hendelseTidspunkt),
             ansvarligEnhet = behandlendeEnhet,
             mottattTid = behandling.klageMottatt.atStartOfDay(),
-            sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer.regelverk.tilDVHSakNasjonalitet(),
+            sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer?.regelverk.tilDVHSakNasjonalitet(),
             behandlingResultat = behandlingResultat(hendelse, behandling),
             resultatBegrunnelse = resultatBegrunnelse(behandling, vurdering),
             behandlingMetode = "MANUELL",
