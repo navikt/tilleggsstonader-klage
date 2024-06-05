@@ -13,8 +13,6 @@ import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingDVH
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.UUID
 
 enum class BehandlingsstatistikkHendelse {
@@ -32,8 +30,6 @@ class BehandlingsstatistikkService(
     private val fagsakService: FagsakService,
     private val personopplysningerService: PersonopplysningerService,
 ) {
-
-    private val zoneIdOslo = ZoneId.of("Europe/Oslo")
 
     @Transactional
     fun sendBehandlingstatistikk(
@@ -140,6 +136,6 @@ class BehandlingsstatistikkService(
     private fun Regelverk?.tilDVHSakNasjonalitet(): String? = when (this) {
         Regelverk.NASJONAL -> "Nasjonal"
         Regelverk.EØS -> "Utland"
-        null -> "Najonal"
+        null -> null
     }
 }
