@@ -39,35 +39,28 @@ internal class BrevServiceTest : IntegrationTest() {
     lateinit var vurderingRepository: VurderingRepository
 
     private val fagsak = fagsak()
-    private val fagsakFerdigstiltBehandling =
-        fagsak(stønadstype = Stønadstype.BARNETILSYN, fagsakPersonId = fagsak.fagsakPersonId)
     private val påklagetVedtak = PåklagetVedtak(VEDTAK, påklagetVedtakDetaljer("123"))
     private val behandlingPåklagetVedtak = behandling(fagsak, steg = StegType.BREV, påklagetVedtak = påklagetVedtak)
     private val ferdigstiltBehandling = behandling(
-        fagsakFerdigstiltBehandling,
+        fagsak,
         status = BehandlingStatus.FERDIGSTILT,
         påklagetVedtak = påklagetVedtak,
     )
-    private val fagsakBehandlingUtenPåklagetVedtak = fagsak(identer = setOf(PersonIdent("11010199999")))
     private val behandlingUtenPåklagetVedtak =
-        behandling(fagsakBehandlingUtenPåklagetVedtak, steg = StegType.BREV, påklagetVedtak = påklagetVedtak.copy(påklagetVedtakstype = UTEN_VEDTAK))
+        behandling(fagsak, steg = StegType.BREV, påklagetVedtak = påklagetVedtak.copy(påklagetVedtakstype = UTEN_VEDTAK))
 
     @BeforeEach
     internal fun setUp() {
         testoppsettService.lagreFagsak(fagsak)
         testoppsettService.lagreBehandling(behandlingPåklagetVedtak)
-
-        testoppsettService.lagreFagsak(fagsakFerdigstiltBehandling)
         testoppsettService.lagreBehandling(ferdigstiltBehandling)
-
-        testoppsettService.lagreFagsak(fagsakBehandlingUtenPåklagetVedtak)
         testoppsettService.lagreBehandling(behandlingUtenPåklagetVedtak)
 
         formRepository.insert(DomainUtil.oppfyltForm(behandlingPåklagetVedtak.id))
         vurderingRepository.insert(DomainUtil.vurdering(behandlingPåklagetVedtak.id))
-
         formRepository.insert(DomainUtil.oppfyltForm(behandlingUtenPåklagetVedtak.id))
         vurderingRepository.insert(DomainUtil.vurdering(behandlingUtenPåklagetVedtak.id))
+
         BrukerContextUtil.mockBrukerContext()
     }
 
