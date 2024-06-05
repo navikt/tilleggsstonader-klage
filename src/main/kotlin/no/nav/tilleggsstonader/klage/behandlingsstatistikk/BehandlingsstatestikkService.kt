@@ -83,7 +83,6 @@ class BehandlingsstatistikkService(
             behandlingStatus = hendelse.name,
             opprettetAv = maskerVerdiHvisStrengtFortrolig(erStrengtFortrolig, behandling.sporbar.opprettetAv),
             ferdigBehandletTid = ferdigBehandletTid(hendelse, hendelseTidspunkt),
-           // opprettetEnhet = behandlendeEnhet,
             ansvarligEnhet = behandlendeEnhet,
             mottattTid = behandling.klageMottatt.atStartOfDay(),
             sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer.regelverk.tilDVHSakNasjonalitet(),
