@@ -12,6 +12,9 @@ rolle:
     beslutter: "dab3f549-f5f0-4a9c-9f5b-1f6a15ae8424"
     saksbehandler: "31a99292-9461-40bf-b2d0-a815697dfbb4"
 
+PDL_URL: https://pdl-api-q1.${ON_PREM_URL_ENV}-fss-pub.nais.io
+PDL_SCOPE: api://${ON_PREM_URL_ENV}-fss.pdl.pdl-api-q1/.default
+
 lenker:
   TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggsstonader.intern.dev.nav.no"
 

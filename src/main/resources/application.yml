@@ -157,13 +157,14 @@ management:
 DEPLOY_ENV: prod
 ON_PREM_URL_ENV: prod
 
+AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT_ID}/oauth2/v2.0/token
 
 FAMILIE_BREV_API_URL: http://familie-brev
 FAMILIE_DOKUMENT_URL: http://familie-dokument
 
 TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
-PDL_URL: https://pdl-api-q1.${ON_PREM_URL_ENV}-fss-pub.nais.io
+PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
 FAMILIE_EF_PROXY_URL: DUMMY_URL_TODO
 
