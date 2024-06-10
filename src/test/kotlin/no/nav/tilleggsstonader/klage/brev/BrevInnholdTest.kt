@@ -19,7 +19,7 @@ internal class BrevInnholdTest {
     private val vedtakstidspunkt = LocalDateTime.of(2021, 11, 5, 14, 56, 22)
 
     @Test
-    internal fun `brev for opprettholdelse skal inneholde blant annet dato og stønadstype`() {
+    internal fun `brev for opprettholdelse skal inneholde dato og stønadstype`() {
         val brev = lagOpprettholdelseBrev(
             "123456789",
             "Innstilling abc",
@@ -36,43 +36,7 @@ internal class BrevInnholdTest {
     }
 
     @Test
-    internal fun `brev for opprettholdelse skal ha med info om tilbakebetaling`() {
-        val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt)
-        val brev = lagOpprettholdelseBrev(
-            "123456789",
-            "Innstilling abc",
-            "Navn Navnesen",
-            Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer,
-            mottattDato,
-        )
-        assertThat(brev.avsnitt.first().innhold).isEqualTo(
-            "Vi har 01.01.2020 fått klagen din på vedtaket om tilbakebetaling av stønad til barnetilsyn som ble gjort 05.11.2021, " +
-                "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
-        )
-    }
-
-    @Test
-    internal fun `brev for opprettholdelse skal ha med info om sanksjon`() {
-        val påklagetVedtakDetaljer =
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt)
-        val brev = lagOpprettholdelseBrev(
-            "123456789",
-            "Innstilling abc",
-            "Navn Navnesen",
-            Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer,
-            mottattDato,
-        )
-        assertThat(brev.avsnitt.first().innhold).isEqualTo(
-            "Vi har 01.01.2020 fått klagen din på vedtaket om sanksjon som ble gjort 05.11.2021, " +
-                "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
-        )
-    }
-
-    @Test
-    internal fun `brev for avvist formkrav skal inneholde blant annet dato og stønadstype`() {
+    internal fun `brev for avvist formkrav skal inneholde dato og stønadstype`() {
         val brev = lagFormkravAvvistBrev(
             "123456789",
             "Innstilling abc",
@@ -83,28 +47,6 @@ internal class BrevInnholdTest {
         assertThat(brev.overskrift).isEqualTo(
             "Vi har avvist klagen din på vedtaket om stønad til barnetilsyn",
         )
-    }
-
-    @Test
-    internal fun `brev for avvist formkrav skal ha med info om tilbakebetaling`() {
-        val brev = lagFormkravAvvistBrev(
-            "123456789",
-            "Innstilling abc",
-            ikkeOppfyltForm(),
-            Stønadstype.BARNETILSYN,
-        )
-        assertThat(brev.overskrift).isEqualTo("Vi har avvist klagen din på vedtaket om tilbakebetaling av stønad til barnetilsyn")
-    }
-
-    @Test
-    internal fun `brev for avvist formkrav skal ha med info om sanksjon`() {
-        val brev = lagFormkravAvvistBrev(
-            "123456789",
-            "Innstilling abc",
-            ikkeOppfyltForm(),
-            Stønadstype.BARNETILSYN,
-        )
-        assertThat(brev.overskrift).isEqualTo("Vi har avvist klagen din på vedtaket om sanksjon")
     }
 
     @Test

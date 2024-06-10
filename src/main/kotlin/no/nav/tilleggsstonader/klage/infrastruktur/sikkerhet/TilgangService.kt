@@ -88,7 +88,14 @@ class TilgangService(
         val personIdent = hentFagsak(fagsakId).hentAktivIdent()
 
         val tilgang = harTilgangTilPersonMedRelasjoner(personIdent)
-        auditLogger.log(Sporingsdata(event, personIdent, tilgang, custom1 = CustomKeyValue("fagsak", fagsakId.toString())))
+        auditLogger.log(
+            Sporingsdata(
+                event,
+                personIdent,
+                tilgang,
+                custom1 = CustomKeyValue("fagsak", fagsakId.toString()),
+            ),
+        )
         if (!tilgang.harTilgang) {
             throw ManglerTilgang(
                 melding = "Saksbehandler ${SikkerhetContext.hentSaksbehandler()} " +
@@ -127,10 +134,7 @@ class TilgangService(
     }
 
     fun harMinimumRolleTversFagsystem(minimumsrolle: BehandlerRolle): Boolean =
-        harTilgangTilGittRolleForFagsystem(rolleConfig.ba, minimumsrolle) ||
-            harTilgangTilGittRolleForFagsystem(rolleConfig.ef, minimumsrolle) ||
-            harTilgangTilGittRolleForFagsystem(rolleConfig.ks, minimumsrolle) ||
-                harTilgangTilGittRolleForFagsystem(rolleConfig.ts, minimumsrolle)
+        harTilgangTilGittRolleForFagsystem(rolleConfig.ts, minimumsrolle)
 
     fun harTilgangTilBehandlingGittRolle(behandlingId: UUID, minimumsrolle: BehandlerRolle): Boolean {
         return harTilgangTilFagsakGittRolle(behandlingService.hentBehandling(behandlingId).fagsakId, minimumsrolle)
@@ -160,15 +164,18 @@ class TilgangService(
                 BehandlerRolle.SAKSBEHANDLER,
                 BehandlerRolle.VEILEDER,
             )
+
             rollerFraToken.contains(fagsystemRolleConfig.beslutter) -> listOf(
                 BehandlerRolle.BESLUTTER,
                 BehandlerRolle.SAKSBEHANDLER,
                 BehandlerRolle.VEILEDER,
             )
+
             rollerFraToken.contains(fagsystemRolleConfig.saksbehandler) -> listOf(
                 BehandlerRolle.SAKSBEHANDLER,
                 BehandlerRolle.VEILEDER,
             )
+
             rollerFraToken.contains(fagsystemRolleConfig.veileder) -> listOf(BehandlerRolle.VEILEDER)
             else -> listOf(BehandlerRolle.UKJENT)
         }

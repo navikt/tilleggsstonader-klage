@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.metrics.domain
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.time.temporal.IsoFields
 
-internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
+internal class MålerRepositoryTest : IntegrationTest() {
 
     @Autowired
     lateinit var målerRepository: MålerRepository
@@ -24,36 +24,43 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
 
     @BeforeEach
     internal fun setUp() {
-        val fagsak = fagsak()
-        testoppsettService.lagreFagsak(fagsak)
+        val fagsak1 = fagsak()
+        testoppsettService.lagreFagsak(fagsak1)
         testoppsettService.lagreBehandling(
             behandling(
-                fagsak,
+                fagsak1,
                 status = BehandlingStatus.FERDIGSTILT,
                 resultat = BehandlingResultat.MEDHOLD,
             ),
         )
         testoppsettService.lagreBehandling(
             behandling(
-                fagsak,
+                fagsak1,
                 status = BehandlingStatus.FERDIGSTILT,
                 resultat = BehandlingResultat.IKKE_MEDHOLD,
             ),
         )
         testoppsettService.lagreBehandling(
             behandling(
-                fagsak,
+                fagsak1,
                 status = BehandlingStatus.OPPRETTET,
                 resultat = BehandlingResultat.IKKE_SATT,
             ),
         )
 
-        val fagsakBarnetilsyn = fagsak(identer = setOf(PersonIdent("123")), stønadstype = Stønadstype.BARNETILSYN)
-        testoppsettService.lagreFagsak(fagsakBarnetilsyn)
+        val fagsak2 = fagsak(identer = setOf(PersonIdent("123")), stønadstype = Stønadstype.BARNETILSYN)
+        testoppsettService.lagreFagsak(fagsak2)
         testoppsettService.lagreBehandling(
             behandling(
-                fagsakBarnetilsyn,
+                fagsak2,
                 status = BehandlingStatus.FERDIGSTILT,
+                resultat = BehandlingResultat.MEDHOLD,
+            ),
+        )
+        testoppsettService.lagreBehandling(
+            behandling(
+                fagsak2,
+                status = BehandlingStatus.VENTER,
                 resultat = BehandlingResultat.MEDHOLD,
             ),
         )
@@ -64,9 +71,9 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
         val data = målerRepository.finnBehandlingerPerStatus()
 
         assertThat(data).containsExactlyInAnyOrder(
-            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 2),
+            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 3),
             BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.OPPRETTET, 1),
-            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 1),
+            BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.VENTER, 1),
         )
     }
 
@@ -84,9 +91,8 @@ internal class MålerRepositoryTest : OppslagSpringRunnerTest() {
         val data = målerRepository.antallVedtak()
 
         assertThat(data).containsExactlyInAnyOrder(
-            AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 1),
+            AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 3),
             AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.IKKE_MEDHOLD, 1),
-            AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 1),
         )
     }
 }

@@ -5,7 +5,7 @@ import no.nav.tilleggsstonader.klage.Ressurs.Status
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
@@ -20,7 +20,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.KlagebehandlingDto
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,7 +28,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-internal class EksternBehandlingControllerTest : OppslagSpringRunnerTest() {
+internal class EksternBehandlingControllerTest : IntegrationTest() {
 
     @Autowired
     private lateinit var behandlingRepository: BehandlingRepository
@@ -107,50 +106,6 @@ internal class EksternBehandlingControllerTest : OppslagSpringRunnerTest() {
                 .isEqualTo(klageresultat.mottattEllerAvsluttetTidspunkt)
             assertThat(klageinstansResultat[0].journalpostReferanser)
                 .containsExactlyInAnyOrderElementsOf(klageresultat.journalpostReferanser.verdier)
-        }
-
-        @Test
-        internal fun `skal returnere behandlinger til flere eksternFagsakId for samme person`() {
-            val fagsak3EksternId = "999"
-            val fagsak2 = DomainUtil.fagsakDomain(
-                personId = fagsak.fagsakPersonId,
-                eksternId = "2",
-                stønadstype = Stønadstype.BARNETILSYN,
-            ).tilFagsakMedPerson(fagsak.personIdenter)
-
-            testoppsettService.lagreFagsak(fagsak2)
-            behandlingRepository.insert(behandling(fagsak))
-            behandlingRepository.insert(behandling(fagsak2))
-
-            val url = "$hentBehandlingUrl?eksternFagsakId=${fagsak.eksternId},${fagsak2.eksternId},$fagsak3EksternId"
-            val response = hentBehandlinger(url)
-
-            assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-            val body = response.body!!
-            assertThat(body.status).isEqualTo(Status.SUKSESS)
-            val data = body.data
-            assertThat(data!!).hasSize(3)
-            assertThat(data.entries.map { it.key }).containsExactlyInAnyOrder(fagsak.eksternId, fagsak2.eksternId, fagsak3EksternId)
-            assertThat(data.getValue(fagsak.eksternId)).hasSize(1)
-            assertThat(data.getValue(fagsak2.eksternId)).hasSize(1)
-            assertThat(data.getValue(fagsak3EksternId)).isEmpty()
-        }
-
-        @Disabled
-        @Test
-        internal fun `skal feile når man spør etter fagsakIder till ulike personer`() {
-            val fagsakAnnenPerson = DomainUtil.fagsakDomain(
-                personId = fagsak.fagsakPersonId,
-                eksternId = "2",
-                stønadstype = Stønadstype.BARNETILSYN,
-            ).tilFagsakMedPerson(setOf(PersonIdent("2")))
-
-            testoppsettService.lagreFagsak(fagsakAnnenPerson)
-
-            val url = "$hentBehandlingUrl?eksternFagsakId=${fagsak.eksternId},${fagsakAnnenPerson.eksternId}"
-            val response = hentBehandlinger(url)
-            assertThat(response.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
-            assertThat(response.body!!.status).isEqualTo(Status.FEILET)
         }
 
         private fun hentBehandlinger(url: String) =

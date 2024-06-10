@@ -55,7 +55,7 @@ internal class TilgangServiceTest {
 
         @Test
         internal fun `saksbehandler har tilgang som veileder og saksbehandler, men ikke beslutter`() {
-            testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.VEILEDER)).isTrue
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.SAKSBEHANDLER)).isTrue
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.BESLUTTER)).isFalse
@@ -64,7 +64,7 @@ internal class TilgangServiceTest {
 
         @Test
         internal fun `beslutter har tilgang som saksbehandler, beslutter og veileder`() {
-            testWithBrukerContext(groups = listOf(rolleConfig.ef.beslutter)) {
+            testWithBrukerContext(groups = listOf(rolleConfig.ts.beslutter)) {
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.VEILEDER)).isTrue
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.SAKSBEHANDLER)).isTrue
                 assertThat(tilgangService.harTilgangTilBehandlingGittRolle(behandlingEf.id, BehandlerRolle.BESLUTTER)).isTrue

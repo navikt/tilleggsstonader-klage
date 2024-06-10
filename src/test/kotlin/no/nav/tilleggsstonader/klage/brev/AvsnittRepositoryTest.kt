@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.brev
 
 import no.nav.tilleggsstonader.klage.brev.domain.Avsnitt
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-internal class AvsnittRepositoryTest : OppslagSpringRunnerTest() {
+internal class AvsnittRepositoryTest : IntegrationTest() {
 
     @Autowired
     lateinit var avsnittRepository: AvsnittRepository

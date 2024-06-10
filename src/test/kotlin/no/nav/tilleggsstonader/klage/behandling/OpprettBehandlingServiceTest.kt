@@ -2,7 +2,7 @@ package no.nav.tilleggsstonader.klage.behandling
 
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -18,7 +18,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 
-internal class OpprettBehandlingServiceTest : OppslagSpringRunnerTest() {
+internal class OpprettBehandlingServiceTest : IntegrationTest() {
 
     @Autowired
     private lateinit var opprettBehandlingService: OpprettBehandlingService

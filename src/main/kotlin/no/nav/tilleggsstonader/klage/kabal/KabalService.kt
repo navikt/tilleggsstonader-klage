@@ -7,7 +7,6 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.tilYtelse
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
-import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import org.springframework.stereotype.Service
 
 @Service
@@ -46,10 +45,9 @@ class KabalService(
     }
 
     private fun lagInnsynUrl(fagsak: Fagsak, påklagetVedtak: PåklagetVedtak): String {
-        val fagsystemUrl = when (fagsak.fagsystem) {
-            Fagsystem.TILLEGGSSTONADER -> lenkeConfig.efSakLenke // TODO: Bytt ut lenke
-        }
+        val fagsystemUrl = lenkeConfig.tilleggsstonaderSakLenke
         val påklagetVedtakDetaljer = påklagetVedtak.påklagetVedtakDetaljer
+
         return if (påklagetVedtakDetaljer?.eksternFagsystemBehandlingId != null) {
             "$fagsystemUrl/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}"
         } else {

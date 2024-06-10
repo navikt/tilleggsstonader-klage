@@ -5,7 +5,12 @@ import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
-import no.nav.tilleggsstonader.kontrakter.oppgave.*
+import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
+import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
+import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
+import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.StatusEnum
 import no.nav.tilleggsstonader.libs.utils.osloDateNow
 import no.nav.tilleggsstonader.libs.utils.osloNow
 import org.springframework.context.annotation.Bean
@@ -14,7 +19,7 @@ import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Optional
 
 @Configuration
 @Profile("mock-oppgave")
@@ -30,7 +35,6 @@ class OppgaveClientConfig {
         val oppgaveClient = mockk<OppgaveClient>()
 
         opprettOppgave(journalføringsoppgaveRequest)
-
 
         every { oppgaveClient.finnOppgaveMedId(any()) } answers {
             val oppgaveId = firstArg<Long>()
@@ -109,8 +113,6 @@ class OppgaveClientConfig {
         oppgavelager[oppgave.id] = oppgave
         return oppgave
     }
-
-
 
     private val journalføringsoppgaveRequest = OpprettOppgaveRequest(
         tema = Tema.TSO,

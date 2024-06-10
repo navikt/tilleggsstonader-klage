@@ -4,7 +4,7 @@ import io.mockk.every
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.TSSakSakClientMock
 import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.time.LocalDateTime.now
 
-internal class BehandlingServiceIntegrasjonTest : OppslagSpringRunnerTest() {
+internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
 
     @Autowired
     private lateinit var behandlingService: BehandlingService

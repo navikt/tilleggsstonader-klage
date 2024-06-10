@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.infrastruktur.TestHendelseController
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.util.UUID
 
-class BehandlingFlytTest : OppslagSpringRunnerTest() {
+class BehandlingFlytTest : IntegrationTest() {
 
     @Autowired
     private lateinit var opprettBehandlingService: OpprettBehandlingService
@@ -60,7 +60,7 @@ class BehandlingFlytTest : OppslagSpringRunnerTest() {
 
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - når man har sendt brev skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
                 vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
@@ -87,7 +87,7 @@ class BehandlingFlytTest : OppslagSpringRunnerTest() {
 
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - skal kunne hoppe mellom steg`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
                 vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
@@ -122,7 +122,7 @@ class BehandlingFlytTest : OppslagSpringRunnerTest() {
 
         @Test
         internal fun `OMGJØR_VEDTAK - når man har ferdigstilt klagebehandling skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(oppfyltFormDto(behandlingId))
                 vurderingService.opprettEllerOppdaterVurdering(
@@ -149,7 +149,7 @@ class BehandlingFlytTest : OppslagSpringRunnerTest() {
 
         @Test
         internal fun `Ikke oppfylt formkrav skal ikke vurderes`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler)) {
+            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
                 val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
                 formService.oppdaterFormkrav(ikkeOppfyltFormDto(behandlingId))
                 lagEllerOppdaterBrev(behandlingId)

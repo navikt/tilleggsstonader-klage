@@ -11,7 +11,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDateTime
 import java.util.UUID
 
-class BehandlingFeilregistrertTaskTest : OppslagSpringRunnerTest() {
+class BehandlingFeilregistrertTaskTest : IntegrationTest() {
 
     @Autowired lateinit var behandlingRepository: BehandlingRepository
 

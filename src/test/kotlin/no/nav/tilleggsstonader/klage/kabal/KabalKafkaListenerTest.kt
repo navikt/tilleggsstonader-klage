@@ -23,8 +23,8 @@ class KabalKafkaListenerTest {
     }
 
     @Test
-    internal fun `skal kalle på oppgaveService for hendelse med EF som kilde`() {
-        listener.listen(lagBehandlingEvent("EF"))
+    internal fun `skal kalle på oppgaveService for hendelse med Tilleggsstønader som kilde`() {
+        listener.listen(lagBehandlingEvent("Tilleggsstønader"))
 
         verify(exactly = 1) { behandlingEventService.handleEvent(any()) }
     }

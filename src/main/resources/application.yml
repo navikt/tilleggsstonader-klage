@@ -94,11 +94,9 @@ no.nav.security.jwt:
 
 
 
-
-
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGSSTONADER_SCOPE: api://${DEPLOY_ENV}-gcp.teamtilleggsstonader.tilleggsstonader-sak/.default
+TILLEGGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
 TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 
@@ -120,9 +118,7 @@ spring:
     placeholders:
       ignoreIfProd:
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/tilleggsstonader-klage
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_JDBC_URL}
     hikari:
       maximum-pool-size: 20
       connection-test-query: "select 1"
@@ -161,13 +157,16 @@ management:
 DEPLOY_ENV: prod
 ON_PREM_URL_ENV: prod
 
+AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT_ID}/oauth2/v2.0/token
 
-TILLEGGSSTONADER_BREV_API_URL: http://tilleggsstonader-brev # //TODO valider om korrekt
-TILLEGGSSTONADER_DOKUMENT_URL: http://tilleggsstonader-dokument # //TODO valider om korrekt
+FAMILIE_BREV_API_URL: http://familie-brev
+FAMILIE_DOKUMENT_URL: http://familie-dokument
 
 TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
 PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
+
+FAMILIE_EF_PROXY_URL: DUMMY_URL_TODO
 
 KABAL_URL: http://kabal-api.klage
 
@@ -177,9 +176,9 @@ prosessering.rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstøna
 
 rolle:
   ts:
-    veileder: "0f841c83-0d64-407c-80d5-4eb51dfaee1e"
-    beslutter: "224b5097-d0af-462c-8d8e-49c0e8a42661"
-    saksbehandler: "c1e9edec-0c10-4df2-8c74-324ab9922220"
+    veileder: "3611981f-eda7-46ab-b8f2-50c3159e101c"
+    beslutter: "dab3f549-f5f0-4a9c-9f5b-1f6a15ae8424"
+    saksbehandler: "31a99292-9461-40bf-b2d0-a815697dfbb4"
 
 prosessering:
   continuousRunning.enabled: true

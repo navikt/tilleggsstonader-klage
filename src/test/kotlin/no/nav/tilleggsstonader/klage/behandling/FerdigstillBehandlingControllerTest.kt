@@ -10,7 +10,7 @@ import no.nav.tilleggsstonader.klage.distribusjon.DistribuerBrevTask
 import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
-import no.nav.tilleggsstonader.klage.infrastruktur.config.OppslagSpringRunnerTest
+import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgave
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgaveRepository
@@ -35,7 +35,7 @@ import java.util.UUID
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
-internal class FerdigstillBehandlingControllerTest : OppslagSpringRunnerTest() {
+internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
 
     @Autowired
     private lateinit var formService: FormService
@@ -62,7 +62,7 @@ internal class FerdigstillBehandlingControllerTest : OppslagSpringRunnerTest() {
     @BeforeEach
     internal fun setUp() {
         headers.setBearerAuth(lokalTestToken)
-        BrukerContextUtil.mockBrukerContext(groups = listOf(rolleConfig.ef.saksbehandler))
+        BrukerContextUtil.mockBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler))
 
         testoppsettService.lagreFagsak(fagsak)
         testoppsettService.lagreBehandling(behandling)
