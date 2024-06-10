@@ -18,18 +18,20 @@ class PersonopplysningerIntegrasjonerClient(
     @Qualifier("azure") restOperations: RestOperations,
     private val integrasjonerConfig: IntegrasjonerConfig,
 ) :
-    AbstractPingableRestClient(restOperations, "familie.integrasjoner") {
+    AbstractPingableRestClient(restOperations, "tilleggstonader.integrasjoner") {
 
     override val pingUri: URI = integrasjonerConfig.pingUri
 
     fun sjekkTilgangTilPersonMedRelasjoner(personIdent: String): Tilgang {
-        return postForEntity(
-            integrasjonerConfig.tilgangRelasjonerUri,
-            PersonIdent(personIdent),
-            HttpHeaders().also {
-                it.set(HEADER_NAV_TEMA, HEADER_NAV_TEMA_ENF)
-            },
-        )
+        return Tilgang(true)
+        //TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
+//        return postForEntity(
+//            integrasjonerConfig.tilgangRelasjonerUri,
+//            PersonIdent(personIdent),
+//            HttpHeaders().also {
+//                it.set(HEADER_NAV_TEMA, HEADER_NAV_TEMA_ENF)
+//            },
+//        )
     }
 
     fun egenAnsatt(ident: String): Boolean {
