@@ -35,10 +35,12 @@ class PersonopplysningerIntegrasjonerClient(
     }
 
     fun egenAnsatt(ident: String): Boolean {
-        return postForEntity<Ressurs<EgenAnsattResponse>>(
-            integrasjonerConfig.egenAnsattUri,
-            EgenAnsattRequest(ident),
-        ).data!!.erEgenAnsatt
+        return false
+        //TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
+//        return postForEntity<Ressurs<EgenAnsattResponse>>(
+//            integrasjonerConfig.egenAnsattUri,
+//            EgenAnsattRequest(ident),
+//        ).data!!.erEgenAnsatt
     }
 
     companion object {
