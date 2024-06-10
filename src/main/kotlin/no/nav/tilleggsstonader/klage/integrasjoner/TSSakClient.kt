@@ -21,7 +21,7 @@ class TSSakClient(
 
     fun hentVedtak(fagsystemEksternFagsakId: String): List<FagsystemVedtak> {
         val hentVedtakUri = UriComponentsBuilder.fromUri(TSSakUri)
-            .pathSegment("api/klage/ekster-fagsak/$fagsystemEksternFagsakId/vedtak")
+            .pathSegment("api/klage/ekstern-fagsak/$fagsystemEksternFagsakId/vedtak")
             .build().toUri()
         return getForEntity<Ressurs<List<FagsystemVedtak>>>(hentVedtakUri).getDataOrThrow()
     }
