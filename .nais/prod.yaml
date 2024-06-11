@@ -55,7 +55,7 @@ spec:
         - application: familie-ef-sak
         - application: familie-ks-sak
         - application: familie-ba-sak
-        - application: familie-prosessering
+        - application: tilleggsstonader-prosessering
     outbound:
       rules:
         - application: familie-tilbake
