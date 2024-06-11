@@ -45,7 +45,7 @@ class OpprettBehandleSakOppgaveTask(
             beskrivelse = "Klagebehandling i ny løsning",
             enhetsnummer = behandling.behandlendeEnhet,
             behandlingstype = Behandlingstema.Klage.value,
-            behandlesAvApplikasjon = "familie-klage",
+            behandlesAvApplikasjon = "tilleggsstonader-klage",
             tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
             behandlingstema = if (klageGjelderTilbakekreving) Behandlingstema.Tilbakebetaling.value else null,
         )

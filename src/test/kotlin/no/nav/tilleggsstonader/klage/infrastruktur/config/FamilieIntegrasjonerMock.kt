@@ -79,9 +79,9 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                     ).withStatus(200),
                 ),
             post(urlEqualTo("${integrasjonerConfig.oppgaveUri.path}/opprett"))
-                .willReturn(okJson(objectMapper.writeValueAsString(Ressurs.success(OppgaveResponse(Random.nextLong().absoluteValue))))),
+                .willReturn(okJson(objectMapper.writeValueAsString(OppgaveResponse(Random.nextLong().absoluteValue)))),
             patch(urlPathMatching("${integrasjonerConfig.oppgaveUri.path}/([0-9]*)/ferdigstill"))
-                .willReturn(okJson(objectMapper.writeValueAsString(Ressurs.success(OppgaveResponse(Random.nextLong().absoluteValue))))),
+                .willReturn(okJson(objectMapper.writeValueAsString(OppgaveResponse(Random.nextLong().absoluteValue)))),
 
         )
 
