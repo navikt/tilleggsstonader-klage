@@ -4,6 +4,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
 import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem

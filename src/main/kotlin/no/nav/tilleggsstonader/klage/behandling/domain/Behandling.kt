@@ -40,7 +40,7 @@ data class PåklagetVedtakDetaljer(
     val behandlingstype: String,
     val resultat: String,
     val vedtakstidspunkt: LocalDateTime,
-    val regelverk: Regelverk,
+    val regelverk: Regelverk? = null,
 )
 
 data class PåklagetVedtak(
@@ -52,17 +52,14 @@ data class PåklagetVedtak(
 
 enum class PåklagetVedtakstype {
     VEDTAK,
-    INFOTRYGD_TILBAKEKREVING,
+    TILBAKEKREVING,
     UTEN_VEDTAK,
     IKKE_VALGT,
-    UTESTENGELSE,
-    INFOTRYGD_ORDINÆRT_VEDTAK,
 }
 
 fun PåklagetVedtakstype.harManuellVedtaksdato(): Boolean =
-    this == PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING ||
-        this == PåklagetVedtakstype.UTESTENGELSE ||
-        this == PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK
+    this == PåklagetVedtakstype.TILBAKEKREVING ||
+        this == PåklagetVedtakstype.VEDTAK
 
 fun BehandlingStatus.erLåstForVidereBehandling() =
     when (SikkerhetContext.hentSaksbehandler()) {

@@ -38,7 +38,6 @@ class OpprettBehandleSakOppgaveTask(
 
         val oppgaveRequest = OpprettOppgaveRequest(
             ident = OppgaveIdentV2(ident = fagsak.hentAktivIdent(), gruppe = IdentGruppe.FOLKEREGISTERIDENT),
-            saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
             tema = fagsak.stønadstype.tilTema(),
             oppgavetype = Oppgavetype.BehandleSak,
             fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),

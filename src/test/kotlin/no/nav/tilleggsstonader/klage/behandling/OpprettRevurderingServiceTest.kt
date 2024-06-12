@@ -33,9 +33,9 @@ internal class OpprettRevurderingServiceTest {
     }
 
     @Test
-    internal fun `kan opprette revurdering for vedtak i infotrygd`() {
+    internal fun `kan opprette revurdering for vedtak`() {
         every { behandlingService.hentBehandling(behandlingId) } returns
-            behandling(fagsak = fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK, null))
+            behandling(fagsak = fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, null))
 
         val kanOppretteRevurdering = service.kanOppretteRevurdering(behandlingId)
 

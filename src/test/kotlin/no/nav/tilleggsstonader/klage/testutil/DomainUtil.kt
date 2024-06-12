@@ -39,6 +39,7 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
@@ -236,6 +237,7 @@ object DomainUtil {
         behandlingstype = "type",
         resultat = "resultat",
         vedtakstidspunkt = vedtakstidspunkt,
+        fagsystemType = FagsystemType.ORDNIÆR
     )
 
     fun påklagetVedtakDto(): PåklagetVedtakDto =
@@ -266,5 +268,7 @@ object DomainUtil {
         behandlingstype = behandlingstype,
         resultat = resultat,
         vedtakstidspunkt = vedtakstidspunkt,
+        fagsystemType = FagsystemType.ORDNIÆR,
+        regelverk = null
     )
 }

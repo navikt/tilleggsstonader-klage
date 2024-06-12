@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -44,6 +45,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
                 behandlingstype = "type",
                 resultat = "resultat",
                 vedtakstidspunkt = LocalDateTime.now(),
+                fagsystemType = FagsystemType.ORDNIÆR
             )
         val fagsystemRevurdering = FagsystemRevurdering(true, Opprettet("id", LocalDateTime.now()), null)
         val behandling = behandlingRepository.insert(

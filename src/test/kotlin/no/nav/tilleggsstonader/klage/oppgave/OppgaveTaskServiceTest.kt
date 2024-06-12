@@ -83,7 +83,6 @@ internal class OppgaveTaskServiceTest {
             assertThat(oppgaveSlot.captured.oppgavetype).isEqualTo(Oppgavetype.BehandleSak)
             assertThat(oppgaveSlot.captured.enhetsnummer).isEqualTo("4489")
             assertThat(oppgaveSlot.captured.fristFerdigstillelse).isAfter(LocalDate.now())
-            assertThat(oppgaveSlot.captured.saksreferanse).isEqualTo(fagsak.eksternId)
             assertThat(oppgaveSlot.captured.tema).isEqualTo(Tema.TSO)
             assertThat(oppgaveSlot.captured.tilordnetRessurs).isNotNull
         }

@@ -1,7 +1,7 @@
 package no.nav.familie.klage.behandlingsstatistikk
 
 import no.nav.tilleggsstonader.klage.infrastruktur.config.ObjectMapperProvider.objectMapper
-import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingDVH
+import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate
@@ -14,7 +14,7 @@ class BehandlingsstatistikkProducer(private val kafkaTemplate: KafkaTemplate<Str
     private val logger = LoggerFactory.getLogger(javaClass)
     private val secureLogger = LoggerFactory.getLogger("secureLogger")
 
-    fun sendBehandlingsstatistikk(statistikk: BehandlingDVH) {
+    fun sendBehandlingsstatistikk(statistikk: BehandlingKlageDvh) {
         logger.info("Sending to Kafka topic: {}", topic)
         if (secureLogger.isDebugEnabled) {
             secureLogger.debug("Sending to Kafka topic: {}\nBehandlingsstatistikkKlage: {}", topic, statistikk)

@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
-import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingDVH
+import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -48,7 +48,7 @@ class BehandlingsstatistikkService(
         hendelse: BehandlingsstatistikkHendelse,
         hendelseTidspunkt: LocalDateTime,
         gjeldendeSaksbehandler: String?,
-    ): BehandlingDVH {
+    ): BehandlingKlageDvh {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val vurdering = vurderingService.hentVurdering(behandling.id)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
@@ -63,10 +63,9 @@ class BehandlingsstatistikkService(
 
         val påklagetVedtakDetaljer = behandling.påklagetVedtak.påklagetVedtakDetaljer
 
-        return BehandlingDVH(
+        return BehandlingKlageDvh(
             behandlingId = behandling.eksternBehandlingId.toString(),
             behandlingUuid = behandling.eksternBehandlingId.toString(),
-            sakId = fagsak.eksternId,
             saksnummer = fagsak.eksternId,
             aktorId = fagsak.hentAktivIdent(),
             registrertTid =behandling.sporbar.opprettetTid,
@@ -90,8 +89,7 @@ class BehandlingsstatistikkService(
                 gjeldendeSaksbehandler ?: behandling.sporbar.endret.endretAv,
             ),
             avsender = "Tilleggsstonader Klage",
-            totrinnsbehandling = false,
-            vilkårsprøving = emptyList(),
+            versjon = null, // TODO, implmentere uthending av versjonnummer for klage backend
 
         )
     }

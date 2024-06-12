@@ -1,11 +1,13 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType.BEHANDLING_FERDIGSTILT
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
@@ -134,10 +136,12 @@ class BehandlingService(
 
     private fun tilPåklagetVedtakDetaljerMedManuellDato(påklagetVedtakDto: PåklagetVedtakDto) =
         PåklagetVedtakDetaljer(
+            fagsystemType = utledFagsystemType(påklagetVedtakDto),
             eksternFagsystemBehandlingId = null,
             behandlingstype = "",
             resultat = "",
             vedtakstidspunkt = påklagetVedtakDto.manuellVedtaksdato?.atStartOfDay() ?: error("Mangler vedtaksdato"),
+            regelverk = påklagetVedtakDto.regelverk,
         )
 
     @Transactional
@@ -159,6 +163,13 @@ class BehandlingService(
         behandlingRepository.update(henlagtBehandling)
         // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
         // taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
+    }
+    private fun utledFagsystemType(påklagetVedtakDto: PåklagetVedtakDto): FagsystemType {
+        return when (påklagetVedtakDto.påklagetVedtakstype) {
+            PåklagetVedtakstype.TILBAKEKREVING -> FagsystemType.TILBAKEKREVING
+            PåklagetVedtakstype.VEDTAK -> FagsystemType.ORDNIÆR
+            else -> error("Kan ikke utlede fagsystemType for påklagetVedtakType ${påklagetVedtakDto.påklagetVedtakstype}")
+        }
     }
 
     private fun validerKanHenleggeBehandling(behandling: Behandling) {

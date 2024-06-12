@@ -73,7 +73,6 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
         assertThat(opprettOppgaveRequestSlot.captured.tema).isEqualTo(Tema.TSO)
         assertThat(opprettOppgaveRequestSlot.captured.beskrivelse).contains("tekst")
         assertThat(opprettOppgaveRequestSlot.captured.ident).isEqualTo(OppgaveIdentV2(personIdent, IdentGruppe.FOLKEREGISTERIDENT))
-        assertThat(opprettOppgaveRequestSlot.captured.saksreferanse).isEqualTo(fagsakDomain.eksternId)
         assertThat(opprettOppgaveRequestSlot.captured.enhetsnummer).isEqualTo(behandling.behandlendeEnhet)
         assertThat(opprettOppgaveRequestSlot.captured.behandlingstema).isEqualTo(Behandlingstema.TilsynBarn.value)
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)
