@@ -80,25 +80,6 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer).isEqualTo(fagsystemVedtak.tilPåklagetVedtakDetaljer())
         }
 
-        @Test
-        internal fun `skal oppdatere påklaget vedtak som gjelder infotrygd`() {
-            val påklagetBehandlingId = "påklagetBehandlingId"
-            val fagsystemVedtak = fagsystemVedtak(eksternBehandlingId = påklagetBehandlingId)
-            every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
-
-            val vedtaksdatoInfotrygd = LocalDate.now()
-            val påklagetVedtak = PåklagetVedtakDto(
-                eksternFagsystemBehandlingId = null,
-                manuellVedtaksdato = vedtaksdatoInfotrygd,
-                påklagetVedtakstype = PåklagetVedtakstype.TILBAKEKREVING,
-            )
-            behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
-            val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
-            val oppdatertPåklagetVedtak = oppdatertBehandling.påklagetVedtak
-
-            assertThat(oppdatertPåklagetVedtak.påklagetVedtakstype).isEqualTo(påklagetVedtak.påklagetVedtakstype)
-            assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer?.vedtakstidspunkt?.toLocalDate()).isEqualTo(vedtaksdatoInfotrygd)
-        }
 
         @Test
         internal fun `skal feile hvis påklaget vedtak ikke finnes`() {

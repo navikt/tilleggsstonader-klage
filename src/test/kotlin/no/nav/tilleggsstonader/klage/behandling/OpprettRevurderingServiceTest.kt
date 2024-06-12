@@ -45,7 +45,7 @@ internal class OpprettRevurderingServiceTest {
 
     @EnumSource(
         value = PåklagetVedtakstype::class,
-        names = ["VEDTAK", "INFOTRYGD_ORDINÆRT_VEDTAK"],
+        names = ["VEDTAK"],
         mode = EnumSource.Mode.EXCLUDE,
     )
     @ParameterizedTest
