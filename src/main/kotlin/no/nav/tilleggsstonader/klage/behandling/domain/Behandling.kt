@@ -57,10 +57,6 @@ enum class PåklagetVedtakstype {
     IKKE_VALGT,
 }
 
-fun PåklagetVedtakstype.harManuellVedtaksdato(): Boolean =
-    this == PåklagetVedtakstype.TILBAKEKREVING ||
-        this == PåklagetVedtakstype.VEDTAK
-
 fun BehandlingStatus.erLåstForVidereBehandling() =
     when (SikkerhetContext.hentSaksbehandler()) {
         SikkerhetContext.SYSTEM_FORKORTELSE -> this != BehandlingStatus.VENTER

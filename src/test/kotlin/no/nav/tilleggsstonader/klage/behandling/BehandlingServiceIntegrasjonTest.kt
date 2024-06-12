@@ -70,6 +70,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             val påklagetVedtak = PåklagetVedtakDto(
                 eksternFagsystemBehandlingId = påklagetBehandlingId,
                 påklagetVedtakstype = PåklagetVedtakstype.VEDTAK,
+                manuellVedtaksdato = LocalDate.now() ,
             )
             behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
             val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
@@ -103,7 +104,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
         internal fun `skal feile hvis påklaget vedtak ikke finnes`() {
             every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns emptyList()
             val påklagetVedtak =
-                PåklagetVedtakDto(eksternFagsystemBehandlingId = "finner ikke", påklagetVedtakstype = PåklagetVedtakstype.VEDTAK)
+                PåklagetVedtakDto(eksternFagsystemBehandlingId = "finner ikke", påklagetVedtakstype = PåklagetVedtakstype.VEDTAK, manuellVedtaksdato = LocalDate.now())
             assertThatThrownBy {
                 behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
             }.hasMessageContaining("Finner ikke vedtak for behandling")

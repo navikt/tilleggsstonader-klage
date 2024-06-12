@@ -10,7 +10,6 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType.BEHANDLING_FERDIGSTILT
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
-import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.behandling.dto.BehandlingDto
 import no.nav.tilleggsstonader.klage.behandling.dto.HenlagtDto
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
@@ -106,9 +105,6 @@ class BehandlingService(
             "Påklaget vedtak er i en ugyldig tilstand: EksternFagsystemBehandlingId:${påklagetVedtakDto.eksternFagsystemBehandlingId}, PåklagetVedtakType: ${påklagetVedtakDto.påklagetVedtakstype}"
         }
 
-        feilHvis(påklagetVedtakDto.manglerVedtaksDato()) {
-            "Må fylle inn vedtaksdato når valgt vedtakstype er ${påklagetVedtakDto.påklagetVedtakstype}"
-        }
 
         val påklagetVedtakDetaljer = påklagetVedtakDetaljer(behandlingId, påklagetVedtakDto)
 
@@ -125,9 +121,6 @@ class BehandlingService(
         behandlingId: UUID,
         påklagetVedtakDto: PåklagetVedtakDto,
     ): PåklagetVedtakDetaljer? {
-        if (påklagetVedtakDto.påklagetVedtakstype.harManuellVedtaksdato()) {
-            return tilPåklagetVedtakDetaljerMedManuellDato(påklagetVedtakDto)
-        }
         return påklagetVedtakDto.eksternFagsystemBehandlingId?.let {
             fagsystemVedtakService.hentFagsystemVedtakForPåklagetBehandlingId(behandlingId, it)
                 .tilPåklagetVedtakDetaljer()

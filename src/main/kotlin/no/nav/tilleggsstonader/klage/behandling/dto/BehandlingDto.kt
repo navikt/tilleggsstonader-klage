@@ -6,8 +6,8 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.IKKE_VALGT
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
-import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
@@ -47,20 +47,14 @@ data class PåklagetVedtakDto(
     val manuellVedtaksdato: LocalDate? = null,
     val regelverk: Regelverk? = null,
 ) {
-    fun erGyldig(): Boolean = when (eksternFagsystemBehandlingId) {
-        null -> påklagetVedtakstype != VEDTAK
-        else -> påklagetVedtakstype == VEDTAK
+    fun erGyldig(): Boolean = when (påklagetVedtakstype) {
+        VEDTAK, PåklagetVedtakstype.TILBAKEKREVING -> eksternFagsystemBehandlingId != null
+        PåklagetVedtakstype.UTEN_VEDTAK, IKKE_VALGT -> eksternFagsystemBehandlingId == null
     }
 
     fun harTattStillingTil(): Boolean = påklagetVedtakstype != IKKE_VALGT
 
-    fun manglerVedtaksDato(): Boolean {
-        if (påklagetVedtakstype.harManuellVedtaksdato()) {
-            return manuellVedtaksdato == null
-        }
-        return false
     }
-}
 
 fun Behandling.tilDto(fagsak: Fagsak, klageinstansResultat: List<KlageinstansResultatDto>): BehandlingDto =
     BehandlingDto(
