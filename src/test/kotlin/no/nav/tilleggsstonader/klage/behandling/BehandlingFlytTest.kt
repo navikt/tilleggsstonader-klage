@@ -173,7 +173,7 @@ class BehandlingFlytTest : IntegrationTest() {
         }
     }
 
-    private val påklagetVedtakDto = PåklagetVedtakDto(eksternFagsystemBehandlingId = "123", VEDTAK)
+    private val påklagetVedtakDto = PåklagetVedtakDto(eksternFagsystemBehandlingId = "123", VEDTAK, manuellVedtaksdato = LocalDate.now())
 
     private val opprettKlagebehandlingRequest =
         OpprettKlagebehandlingRequest(

@@ -31,6 +31,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.LocalDate
 import java.util.UUID
 import kotlin.math.absoluteValue
 import kotlin.random.Random
@@ -68,7 +69,7 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
         testoppsettService.lagreBehandling(behandling)
 
         formService.opprettInitielleFormkrav(behandling.id)
-        formService.oppdaterFormkrav(oppfyltForm(behandling.id).tilDto(PåklagetVedtakDto("123", VEDTAK)))
+        formService.oppdaterFormkrav(oppfyltForm(behandling.id).tilDto(PåklagetVedtakDto("123", VEDTAK, manuellVedtaksdato = LocalDate.now())))
         vurderingService.opprettEllerOppdaterVurdering(vurdering)
 
         brevService.lagBrev(behandling.id)
