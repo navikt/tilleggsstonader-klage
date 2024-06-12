@@ -29,7 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Component
-class FamilieIntegrasjonerClient(
+class TilleggsstønaderIntegrasjonerClient(
     @Qualifier("azure") restOperations: RestOperations,
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,

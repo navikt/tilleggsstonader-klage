@@ -6,7 +6,7 @@ import io.mockk.slot
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.clearBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.mockBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
@@ -25,9 +25,9 @@ internal class DistribusjonServiceTest {
 
     val behandlingService = mockk<BehandlingService>()
     val fagsakService = mockk<FagsakService>()
-    val familieIntegrasjonerClient = mockk<FamilieIntegrasjonerClient>()
+    val tilleggsstønaderIntegrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>()
 
-    val distribusjonService = DistribusjonService(familieIntegrasjonerClient, fagsakService, behandlingService)
+    val distribusjonService = DistribusjonService(tilleggsstønaderIntegrasjonerClient, fagsakService, behandlingService)
 
     val ident = "1"
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent(ident)))
@@ -43,7 +43,7 @@ internal class DistribusjonServiceTest {
         every { fagsakService.hentFagsakForBehandling(any()) } returns fagsak
         every { behandlingService.hentBehandling(any()) } returns behandling
         every {
-            familieIntegrasjonerClient.arkiverDokument(
+            tilleggsstønaderIntegrasjonerClient.arkiverDokument(
                 capture(journalpostSlot),
                 any(),
             )
@@ -89,7 +89,7 @@ internal class DistribusjonServiceTest {
         val journalpostId = "journalpostId"
 
         every {
-            familieIntegrasjonerClient.distribuerBrev(
+            tilleggsstønaderIntegrasjonerClient.distribuerBrev(
                 capture(journalpostSlot),
                 capture(distribusjonstypeSlot),
             )

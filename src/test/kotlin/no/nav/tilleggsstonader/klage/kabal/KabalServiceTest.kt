@@ -10,7 +10,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
@@ -26,7 +26,7 @@ import java.util.UUID
 internal class KabalServiceTest {
 
     val kabalClient = mockk<KabalClient>()
-    val integrasjonerClient = mockk<FamilieIntegrasjonerClient>()
+    val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>()
     val lenkeConfig = LenkeConfig(tilleggsstonaderSakLenke = "SAK_FRONTEND_URL")
     val kabalService = KabalService(kabalClient, integrasjonerClient, lenkeConfig)
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("1")))

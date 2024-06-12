@@ -8,7 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
@@ -32,7 +32,7 @@ class BehandlingEventService(
     private val taskService: TaskService,
     private val klageresultatRepository: KlageresultatRepository,
     private val stegService: StegService,
-    private val integrasjonerClient: FamilieIntegrasjonerClient,
+    private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)

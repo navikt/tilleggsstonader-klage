@@ -5,14 +5,14 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.tilYtelse
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import org.springframework.stereotype.Service
 
 @Service
 class KabalService(
     private val kabalClient: KabalClient,
-    private val integrasjonerClient: FamilieIntegrasjonerClient,
+    private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
     private val lenkeConfig: LenkeConfig,
 ) {
 
