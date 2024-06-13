@@ -85,7 +85,6 @@ class DistribusjonService(
             fnr = fagsak.hentAktivIdent(),
             forsøkFerdigstill = true,
             hoveddokumentvarianter = listOf(dokument),
-            vedleggsdokumenter = listOf(),
             fagsakId = fagsak.eksternId,
             journalførendeEnhet = behandling.behandlendeEnhet,
             eksternReferanseId = "${behandling.eksternBehandlingId}$suffixEksternReferanseId",

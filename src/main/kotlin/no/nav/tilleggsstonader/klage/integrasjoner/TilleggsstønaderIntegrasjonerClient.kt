@@ -44,10 +44,9 @@ class TilleggsstønaderIntegrasjonerClient(
     private val journalpostURI: URI = integrasjonerConfig.journalPostUri
     private val saksbehandlerUri: URI = integrasjonerConfig.saksbehandlerUri
 
-    // lagre brev
     fun arkiverDokument(arkiverDokumentRequest: ArkiverDokumentRequest, saksbehandler: String?): ArkiverDokumentResponse {
         return postForEntity<Ressurs<ArkiverDokumentResponse>>(
-            URI.create("$dokuarkivUri/v4"),
+            URI.create("$dokuarkivUri"),
             arkiverDokumentRequest,
             headerMedSaksbehandler(saksbehandler),
         ).data
