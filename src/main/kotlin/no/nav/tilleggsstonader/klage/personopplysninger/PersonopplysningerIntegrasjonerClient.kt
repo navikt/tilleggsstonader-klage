@@ -1,14 +1,9 @@
 package no.nav.tilleggsstonader.klage.personopplysninger
 
 import no.nav.familie.http.client.AbstractPingableRestClient
-import no.nav.tilleggsstonader.klage.PersonIdent
-import no.nav.tilleggsstonader.klage.Ressurs
-import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
-import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 import java.net.URI
@@ -24,7 +19,7 @@ class PersonopplysningerIntegrasjonerClient(
 
     fun sjekkTilgangTilPersonMedRelasjoner(personIdent: String): Tilgang {
         return Tilgang(true)
-        //TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
+        // TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
 //        return postForEntity(
 //            integrasjonerConfig.tilgangRelasjonerUri,
 //            PersonIdent(personIdent),
@@ -36,7 +31,7 @@ class PersonopplysningerIntegrasjonerClient(
 
     fun egenAnsatt(ident: String): Boolean {
         return false
-        //TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
+        // TODO: Skal tilgangsjekker flyttes til integrasjoner, gjøres her, eller gjøres i sak?
 //        return postForEntity<Ressurs<EgenAnsattResponse>>(
 //            integrasjonerConfig.egenAnsattUri,
 //            EgenAnsattRequest(ident),
