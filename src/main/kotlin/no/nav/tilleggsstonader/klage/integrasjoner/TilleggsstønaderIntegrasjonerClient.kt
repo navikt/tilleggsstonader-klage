@@ -75,6 +75,7 @@ class TilleggsstønaderIntegrasjonerClient(
     fun hentJournalpost(journalpostId: String): Journalpost =
         getForEntity<Journalpost>(URI.create("$journalpostURI?journalpostId=$journalpostId"))
 
+    // TODO: kastApiFeilDersomUtviklerMedVeilederrolle() for å ikke gi tilgang til dokumenter med feil tema i prod
     fun hentDokument(journalpostId: String, dokumentInfoId: String): ByteArray =
         getForEntity<ByteArray>(
             UriComponentsBuilder
