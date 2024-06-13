@@ -114,7 +114,8 @@ class BehandlingEventService(
             ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
         val saksbehandlerIdent = behandling.sporbar.endret.endretAv
         val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
-        val oppgaveTekst = "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
+        val oppgaveTekst =
+            "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
         val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
         val opprettOppgavePayload = OpprettOppgavePayload(
             klagebehandlingEksternId = klageBehandlingEksternId,
@@ -128,13 +129,7 @@ class BehandlingEventService(
     }
 
     private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =
-        try {
-            integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
-        } catch (e: RessursException) {
-            logger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent")
-            secureLogger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent", e)
-            "Ukjent"
-        }
+        integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
 
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {

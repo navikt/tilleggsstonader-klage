@@ -16,7 +16,6 @@ class VedleggService(
 ) {
 
     fun finnVedleggPåBehandling(behandlingId: UUID): List<DokumentinfoDto> {
-        // TODO: Må hente vedlegg fra ts-integrasjoner eller ts-sak
         val (personIdent, fagsak) = behandlingService.hentAktivIdent(behandlingId)
         val journalposter = journalpostService.finnJournalposter(personIdent, fagsak.stønadstype)
 
