@@ -35,7 +35,7 @@ class VurderingServiceTest {
     val opprettholdVedtakVurdering = vurdering(
         behandlingId = UUID.randomUUID(),
         vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-        hjemmel = Hjemmel.FT_FEMTEN_FEM,
+        hjemmel = Hjemmel.ARBML_13,
     )
 
     @BeforeEach

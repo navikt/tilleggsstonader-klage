@@ -31,7 +31,7 @@ internal class KabalServiceTest {
     val kabalService = KabalService(kabalClient, integrasjonerClient, lenkeConfig)
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("1")))
 
-    val hjemmel = Hjemmel.FT_FEMTEN_FIRE
+    val hjemmel = Hjemmel.ARBML_13
 
     val oversendelseSlot = slot<OversendtKlageAnkeV3>()
     val saksbehandlerA = Saksbehandler(UUID.randomUUID(), "A123456", "Alfa", "Surname", "4415")
