@@ -17,8 +17,10 @@ class KabalService(
 ) {
 
     fun sendTilKabal(fagsak: Fagsak, behandling: Behandling, vurdering: Vurdering, saksbehandlerIdent: String) {
-        val saksbehandler = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
-        val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, saksbehandler.enhet)
+        // TODO: Finn en måte å hente ut saksbehandlers enhet på, slik at riktig enhet kan settes her
+//        val saksbehandler = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
+        val tilleggsstønaderInnEnhet = "4462"
+        val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, tilleggsstønaderInnEnhet)
         kabalClient.sendTilKabal(oversendtKlageAnkeV3)
     }
 
