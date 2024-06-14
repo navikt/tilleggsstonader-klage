@@ -51,7 +51,7 @@ class OpprettKabalEventOppgaveTask(
         val opprettOppgaveRequest =
             OpprettOppgaveRequest(
                 ident = OppgaveIdentV2(ident = aktivIdent, gruppe = IdentGruppe.FOLKEREGISTERIDENT),
-                //saksreferanse = fagsakDomain.eksternId, //TODO vurder om denne er unødvendig eller gjenninført
+                // saksreferanse = fagsakDomain.eksternId, //TODO vurder om denne er unødvendig eller gjenninført
                 tema = fagsakDomain.stønadstype.tilTema(),
                 oppgavetype = Oppgavetype.VurderKonsekvensForYtelse,
                 fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),

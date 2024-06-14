@@ -70,7 +70,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             val påklagetVedtak = PåklagetVedtakDto(
                 eksternFagsystemBehandlingId = påklagetBehandlingId,
                 påklagetVedtakstype = PåklagetVedtakstype.VEDTAK,
-                manuellVedtaksdato = LocalDate.now() ,
+                manuellVedtaksdato = LocalDate.now(),
             )
             behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
             val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
@@ -79,7 +79,6 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakstype).isEqualTo(påklagetVedtak.påklagetVedtakstype)
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer).isEqualTo(fagsystemVedtak.tilPåklagetVedtakDetaljer())
         }
-
 
         @Test
         internal fun `skal feile hvis påklaget vedtak ikke finnes`() {

@@ -36,8 +36,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 internal class BehandlingServiceTest {
@@ -170,7 +168,7 @@ internal class BehandlingServiceTest {
             every { behandlingRepository.findByIdOrThrow(behandling.id) } returns behandling
             mockHentFagsystemVedtak(behandling, "123")
 
-            val medVedtak = PåklagetVedtakDto("123", PåklagetVedtakstype.VEDTAK )
+            val medVedtak = PåklagetVedtakDto("123", PåklagetVedtakstype.VEDTAK)
             val utenVedtak = PåklagetVedtakDto(null, PåklagetVedtakstype.UTEN_VEDTAK)
             val ikkeValgt = PåklagetVedtakDto(null, PåklagetVedtakstype.IKKE_VALGT)
 
@@ -182,8 +180,7 @@ internal class BehandlingServiceTest {
 
             behandlingService.oppdaterPåklagetVedtak(behandling.id, medVedtak)
             verify(exactly = 3) { behandlingRepository.update(any()) }
-
-                    }
+        }
     }
 
     fun mockHentFagsystemVedtak(

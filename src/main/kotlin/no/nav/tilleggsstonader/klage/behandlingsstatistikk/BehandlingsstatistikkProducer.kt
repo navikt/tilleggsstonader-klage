@@ -1,4 +1,4 @@
-package no.nav.familie.klage.behandlingsstatistikk
+package no.nav.tilleggstonader.klage.behandlingsstatistikk
 
 import no.nav.tilleggsstonader.klage.infrastruktur.config.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh

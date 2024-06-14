@@ -42,7 +42,7 @@ class TSSakSakClientMock {
                     "Innvilget",
                     vedtakstidspunkt = LocalDateTime.of(2022, Month.AUGUST, 1, 8, 0),
                     fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = null
+                    regelverk = null,
                 ),
                 FagsystemVedtak(
                     "124",
@@ -50,7 +50,7 @@ class TSSakSakClientMock {
                     "Opphørt",
                     vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 0),
                     fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = null
+                    regelverk = null,
                 ),
                 FagsystemVedtak(
                     "tilbake-123",
@@ -58,7 +58,7 @@ class TSSakSakClientMock {
                     "Full tilbakekreving",
                     vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 10, 2),
                     fagsystemType = FagsystemType.TILBAKEKREVING,
-                    regelverk = null
+                    regelverk = null,
                 ),
                 FagsystemVedtak(
                     "sanksjon-123",
@@ -66,7 +66,7 @@ class TSSakSakClientMock {
                     "Sanksjon 1 måned",
                     vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 15, 2),
                     fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = null
+                    regelverk = null,
                 ),
             )
             // mocker annen hver

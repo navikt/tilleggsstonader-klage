@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.behandling
 
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
@@ -20,7 +19,6 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
-import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvisIkke
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
@@ -30,6 +28,7 @@ import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus.FERDIGSTILT
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -104,7 +103,6 @@ class BehandlingService(
         feilHvisIkke(påklagetVedtakDto.erGyldig()) {
             "Påklaget vedtak er i en ugyldig tilstand: EksternFagsystemBehandlingId:${påklagetVedtakDto.eksternFagsystemBehandlingId}, PåklagetVedtakType: ${påklagetVedtakDto.påklagetVedtakstype}"
         }
-
 
         val påklagetVedtakDetaljer = påklagetVedtakDetaljer(behandlingId, påklagetVedtakDto)
 

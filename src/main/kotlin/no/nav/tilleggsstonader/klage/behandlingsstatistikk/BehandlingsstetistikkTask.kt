@@ -1,4 +1,4 @@
-package no.nav.familie.klage.behandlingsstatistikk
+package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.familie.prosessering.AsyncTaskStep
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.Properties
 import java.util.UUID
-
 
 @Service
 @TaskStepBeskrivelse(
@@ -106,4 +105,3 @@ data class BehandlingsstatistikkTaskPayload(
     val hendelseTidspunkt: LocalDateTime,
     val gjeldendeSaksbehandler: String?,
 )
-

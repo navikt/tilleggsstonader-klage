@@ -7,7 +7,6 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.IKKE
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
-import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
@@ -53,8 +52,7 @@ data class PåklagetVedtakDto(
     }
 
     fun harTattStillingTil(): Boolean = påklagetVedtakstype != IKKE_VALGT
-
-    }
+}
 
 fun Behandling.tilDto(fagsak: Fagsak, klageinstansResultat: List<KlageinstansResultatDto>): BehandlingDto =
     BehandlingDto(

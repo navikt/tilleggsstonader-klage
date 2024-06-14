@@ -237,7 +237,7 @@ object DomainUtil {
         behandlingstype = "type",
         resultat = "resultat",
         vedtakstidspunkt = vedtakstidspunkt,
-        fagsystemType = FagsystemType.ORDNIÆR
+        fagsystemType = FagsystemType.ORDNIÆR,
     )
 
     fun påklagetVedtakDto(): PåklagetVedtakDto =
@@ -269,6 +269,6 @@ object DomainUtil {
         resultat = resultat,
         vedtakstidspunkt = vedtakstidspunkt,
         fagsystemType = FagsystemType.ORDNIÆR,
-        regelverk = null
+        regelverk = null,
     )
 }

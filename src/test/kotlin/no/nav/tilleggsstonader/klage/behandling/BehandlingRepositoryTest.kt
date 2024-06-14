@@ -45,7 +45,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
                 behandlingstype = "type",
                 resultat = "resultat",
                 vedtakstidspunkt = LocalDateTime.now(),
-                fagsystemType = FagsystemType.ORDNIÆR
+                fagsystemType = FagsystemType.ORDNIÆR,
             )
         val fagsystemRevurdering = FagsystemRevurdering(true, Opprettet("id", LocalDateTime.now()), null)
         val behandling = behandlingRepository.insert(

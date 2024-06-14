@@ -1,5 +1,4 @@
-package no.nav.familie.klage.behandlingsstatistikk
-
+package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
@@ -10,6 +9,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
+import no.nav.tilleggstonader.klage.behandlingsstatistikk.BehandlingsstatistikkProducer
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -67,8 +67,9 @@ class BehandlingsstatistikkService(
             behandlingId = behandling.eksternBehandlingId.toString(),
             behandlingUuid = behandling.eksternBehandlingId.toString(),
             saksnummer = fagsak.eksternId,
+            sakId = fagsak.eksternId,
             aktorId = fagsak.hentAktivIdent(),
-            registrertTid =behandling.sporbar.opprettetTid,
+            registrertTid = behandling.sporbar.opprettetTid,
             endretTid = hendelseTidspunkt,
             tekniskTid = LocalDateTime.now(),
             behandlingType = "KLAGE",
@@ -84,6 +85,7 @@ class BehandlingsstatistikkService(
             behandlingResultat = behandlingResultat(hendelse, behandling),
             resultatBegrunnelse = resultatBegrunnelse(behandling, vurdering),
             behandlingMetode = "MANUELL",
+            kravMottatt = behandling.klageMottatt,
             saksbehandler = maskerVerdiHvisStrengtFortrolig(
                 erStrengtFortrolig,
                 gjeldendeSaksbehandler ?: behandling.sporbar.endret.endretAv,
@@ -134,6 +136,6 @@ class BehandlingsstatistikkService(
     private fun Regelverk?.tilDVHSakNasjonalitet(): String? = when (this) {
         Regelverk.NASJONAL -> "Nasjonal"
         Regelverk.EØS -> "Utland"
-        null -> null
+        null -> "Nasjonal" //fallback til Nasjonal der vedtaket ikkje har informasjon om det er nasjonal eller EØS
     }
 }
