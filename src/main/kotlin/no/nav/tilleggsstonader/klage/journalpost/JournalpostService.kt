@@ -2,7 +2,7 @@ package no.nav.tilleggsstonader.klage.journalpost
 
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
@@ -14,10 +14,10 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import org.springframework.stereotype.Service
 
 @Service
-class JournalpostService(private val familieIntegrasjonerClient: FamilieIntegrasjonerClient) {
+class JournalpostService(private val tilleggsstønaderIntegrasjonerClient: TilleggsstønaderIntegrasjonerClient) {
 
     fun hentJournalpost(journalpostId: String): Journalpost {
-        return familieIntegrasjonerClient.hentJournalpost(journalpostId)
+        return tilleggsstønaderIntegrasjonerClient.hentJournalpost(journalpostId)
     }
 
     fun finnJournalposter(
@@ -26,7 +26,7 @@ class JournalpostService(private val familieIntegrasjonerClient: FamilieIntegras
         antall: Int = 200,
         typer: List<Journalposttype> = Journalposttype.values().toList(),
     ): List<Journalpost> {
-        return familieIntegrasjonerClient.finnJournalposter(
+        return tilleggsstønaderIntegrasjonerClient.finnJournalposter(
             JournalposterForBrukerRequest(
                 brukerId = Bruker(
                     id = personIdent,
@@ -44,7 +44,7 @@ class JournalpostService(private val familieIntegrasjonerClient: FamilieIntegras
         dokumentInfoId: String,
     ): ByteArray {
         validerDokumentKanHentes(journalpost, dokumentInfoId)
-        return familieIntegrasjonerClient.hentDokument(journalpost.journalpostId, dokumentInfoId)
+        return tilleggsstønaderIntegrasjonerClient.hentDokument(journalpost.journalpostId, dokumentInfoId)
     }
 
     private fun validerDokumentKanHentes(

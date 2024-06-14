@@ -7,7 +7,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokument
@@ -20,7 +20,7 @@ import java.util.UUID
 
 @Service
 class DistribusjonService(
-    private val familieIntegrasjonerClient: FamilieIntegrasjonerClient,
+    private val tilleggsstønaderIntegrasjonerClient: TilleggsstønaderIntegrasjonerClient,
     private val fagsakService: FagsakService,
     private val behandlingService: BehandlingService,
 ) {
@@ -85,21 +85,20 @@ class DistribusjonService(
             fnr = fagsak.hentAktivIdent(),
             forsøkFerdigstill = true,
             hoveddokumentvarianter = listOf(dokument),
-            vedleggsdokumenter = listOf(),
             fagsakId = fagsak.eksternId,
             journalførendeEnhet = behandling.behandlendeEnhet,
             eksternReferanseId = "${behandling.eksternBehandlingId}$suffixEksternReferanseId",
             avsenderMottaker = avsenderMottaker,
         )
 
-        return familieIntegrasjonerClient.arkiverDokument(
+        return tilleggsstønaderIntegrasjonerClient.arkiverDokument(
             arkiverDokumentRequest,
             saksbehandler,
         ).journalpostId
     }
 
     fun distribuerBrev(journalpostId: String): String {
-        return familieIntegrasjonerClient.distribuerBrev(journalpostId, Distribusjonstype.ANNET)
+        return tilleggsstønaderIntegrasjonerClient.distribuerBrev(journalpostId, Distribusjonstype.ANNET)
     }
 
     private fun lagDokument(

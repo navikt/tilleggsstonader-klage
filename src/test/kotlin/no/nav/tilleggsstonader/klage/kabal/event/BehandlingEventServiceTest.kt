@@ -11,7 +11,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.kabal.AnkeITrygderettenbehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingDetaljer
@@ -39,7 +39,7 @@ internal class BehandlingEventServiceTest {
     private val taskService = mockk<TaskService>(relaxed = true)
     private val stegService = mockk<StegService>(relaxed = true)
     private val klageresultatRepository = mockk<KlageresultatRepository>(relaxed = true)
-    private val integrasjonerClient = mockk<FamilieIntegrasjonerClient>(relaxed = true)
+    private val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>(relaxed = true)
 
     val behandlingEventService = BehandlingEventService(
         behandlingRepository = behandlingRepository,

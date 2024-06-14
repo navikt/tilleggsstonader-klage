@@ -103,7 +103,7 @@ object DomainUtil {
     fun vurdering(
         behandlingId: UUID,
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-        hjemmel: Hjemmel? = Hjemmel.FT_FEMTEN_FEM,
+        hjemmel: Hjemmel? = Hjemmel.FS_TILL_ST_10_TILSYN,
         årsak: Årsak? = null,
         begrunnelseOmgjøring: String? = null,
         interntNotat: String? = null,
@@ -123,7 +123,7 @@ object DomainUtil {
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
         årsak: Årsak? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) null else Årsak.FEIL_I_LOVANDVENDELSE,
         begrunnelseOmgjøring: String? = null,
-        hjemmel: Hjemmel? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) Hjemmel.BT_FEM else null,
+        hjemmel: Hjemmel? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) Hjemmel.FS_TILL_ST_10_TILSYN else null,
         innstillingKlageinstans: String? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) "En begrunnelse" else null,
         interntNotat: String? = null,
     ) = VurderingDto(

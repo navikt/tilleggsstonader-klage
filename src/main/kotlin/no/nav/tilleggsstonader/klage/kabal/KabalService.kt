@@ -5,20 +5,22 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.tilYtelse
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import org.springframework.stereotype.Service
 
 @Service
 class KabalService(
     private val kabalClient: KabalClient,
-    private val integrasjonerClient: FamilieIntegrasjonerClient,
+    private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
     private val lenkeConfig: LenkeConfig,
 ) {
 
     fun sendTilKabal(fagsak: Fagsak, behandling: Behandling, vurdering: Vurdering, saksbehandlerIdent: String) {
-        val saksbehandler = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
-        val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, saksbehandler.enhet)
+        // TODO: Finn en måte å hente ut saksbehandlers enhet på, slik at riktig enhet kan settes her
+//        val saksbehandler = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
+        val tilleggsstønaderInnEnhet = "4462"
+        val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, tilleggsstønaderInnEnhet)
         kabalClient.sendTilKabal(oversendtKlageAnkeV3)
     }
 

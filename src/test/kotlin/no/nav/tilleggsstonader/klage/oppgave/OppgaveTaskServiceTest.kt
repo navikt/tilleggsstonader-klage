@@ -79,7 +79,7 @@ internal class OppgaveTaskServiceTest {
 
             assertThat(oppgaveSlot.captured.behandlingstema).isNull()
             assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo("ae0058")
-            assertThat(oppgaveSlot.captured.behandlesAvApplikasjon).isEqualTo("familie-klage")
+            assertThat(oppgaveSlot.captured.behandlesAvApplikasjon).isEqualTo("tilleggsstonader-klage")
             assertThat(oppgaveSlot.captured.oppgavetype).isEqualTo(Oppgavetype.BehandleSak)
             assertThat(oppgaveSlot.captured.enhetsnummer).isEqualTo("4489")
             assertThat(oppgaveSlot.captured.fristFerdigstillelse).isAfter(LocalDate.now())

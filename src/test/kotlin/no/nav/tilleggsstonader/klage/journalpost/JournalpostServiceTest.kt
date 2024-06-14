@@ -4,7 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.journalpost
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.journalpostDokument
 import org.assertj.core.api.Assertions
@@ -15,8 +15,8 @@ import java.util.UUID
 
 internal class JournalpostServiceTest {
 
-    val familieIntegrasjonerClientMock = mockk<FamilieIntegrasjonerClient>()
-    val journalpostService = JournalpostService(familieIntegrasjonerClientMock)
+    val tilleggsstønaderIntegrasjonerClientMock = mockk<TilleggsstønaderIntegrasjonerClient>()
+    val journalpostService = JournalpostService(tilleggsstønaderIntegrasjonerClientMock)
     val dokumentSomPdf = "123".toByteArray()
     val dokument1 = journalpostDokument()
     val dokument2 = journalpostDokument(dokumentvarianter = null)
@@ -24,7 +24,7 @@ internal class JournalpostServiceTest {
 
     @BeforeEach
     internal fun setUp() {
-        every { familieIntegrasjonerClientMock.hentDokument(any(), any()) } returns dokumentSomPdf
+        every { tilleggsstønaderIntegrasjonerClientMock.hentDokument(any(), any()) } returns dokumentSomPdf
     }
 
     @Test

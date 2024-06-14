@@ -8,7 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
-import no.nav.tilleggsstonader.klage.integrasjoner.FamilieIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
@@ -32,7 +32,7 @@ class BehandlingEventService(
     private val taskService: TaskService,
     private val klageresultatRepository: KlageresultatRepository,
     private val stegService: StegService,
-    private val integrasjonerClient: FamilieIntegrasjonerClient,
+    private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -114,7 +114,8 @@ class BehandlingEventService(
             ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
         val saksbehandlerIdent = behandling.sporbar.endret.endretAv
         val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
-        val oppgaveTekst = "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
+        val oppgaveTekst =
+            "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
         val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
         val opprettOppgavePayload = OpprettOppgavePayload(
             klagebehandlingEksternId = klageBehandlingEksternId,
@@ -128,13 +129,7 @@ class BehandlingEventService(
     }
 
     private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =
-        try {
-            integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
-        } catch (e: RessursException) {
-            logger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent")
-            secureLogger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent", e)
-            "Ukjent"
-        }
+        integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
 
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {
