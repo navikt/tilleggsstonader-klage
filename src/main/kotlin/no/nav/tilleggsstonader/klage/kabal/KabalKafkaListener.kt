@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.listener.ConsumerSeekAware
+import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.UUID
@@ -21,11 +22,11 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
     val STØTTEDE_FAGSYSTEMER = listOf(Fagsystem.TILLEGGSSTONADER.navn)
 
     @KafkaListener(
-        id = "familie-klage",
+        id = "tilleggsstonader-klage",
         topics = ["klage.behandling-events.v1"],
         autoStartup = "\${kafka.enabled:true}",
     )
-    fun listen(behandlingEventJson: String) {
+    fun listen(behandlingEventJson: String, ack: Acknowledgment) {
         secureLogger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
@@ -33,6 +34,7 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
             behandlingEventService.handleEvent(behandlingEvent)
         }
         secureLogger.info("Serialisert behandlingEvent: $behandlingEvent")
+        ack.acknowledge()
     }
 
     /* Beholdes for å enkelt kunne lese fra start ved behov

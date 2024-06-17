@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.kabal.event
 
-import no.nav.familie.http.client.RessursException
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
@@ -15,7 +14,6 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.secureLogger
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
