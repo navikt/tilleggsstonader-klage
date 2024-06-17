@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal
 
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
@@ -17,11 +16,12 @@ class KabalKafkaListenerTest {
     private lateinit var listener: KabalKafkaListener
 
     private val behandlingEventService = mockk<BehandlingEventService>(relaxed = true)
-    private val ack = Acknowledgment {}
+    private val ack = mockk<Acknowledgment>()
 
     @BeforeEach
     internal fun setUp() {
         listener = KabalKafkaListener(behandlingEventService)
+        every { ack.acknowledge() } just Runs
     }
 
     @Test
