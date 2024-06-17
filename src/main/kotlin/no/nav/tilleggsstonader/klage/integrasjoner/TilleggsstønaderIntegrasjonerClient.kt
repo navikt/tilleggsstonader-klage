@@ -55,19 +55,17 @@ class TilleggsstønaderIntegrasjonerClient(
         HttpHeaders().medContentTypeJsonUTF8(),
     )
 
-    // sende brev til bruker
     fun distribuerBrev(journalpostId: String, distribusjonstype: Distribusjonstype): String =
         postForEntity<String>(
             integrasjonerConfig.distribuerDokumentUri,
             DistribuerJournalpostRequest(
                 journalpostId = journalpostId,
                 bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
-                dokumentProdApp = "FAMILIE_KLAGE",
+                dokumentProdApp = "TILLEGGSSTONADER-KLAGE",
                 distribusjonstype = distribusjonstype,
             ),
             HttpHeaders().medContentTypeJsonUTF8(),
         )
-
 
     fun finnJournalposter(journalposterForBrukerRequest: JournalposterForBrukerRequest): List<Journalpost> =
         postForEntity<List<Journalpost>>(journalpostURI, journalposterForBrukerRequest)

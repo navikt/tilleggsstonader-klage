@@ -32,6 +32,6 @@ class IntegrasjonerConfig(@Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}") priva
         private const val PATH_OPPGAVE = "api/oppgave"
         private const val PATH_JOURNALPOST = "api/journalpost"
         private const val PATH_SAKSBEHANDLER = "api/saksbehandler"
-        private const val PATH_DOKDIST = "api/dist/v1"
+        private const val PATH_DOKDIST = "api/dist"
     }
 }
