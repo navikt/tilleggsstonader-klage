@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.kafka.support.Acknowledgment
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -16,6 +17,7 @@ class KabalKafkaListenerTest {
     private lateinit var listener: KabalKafkaListener
 
     private val behandlingEventService = mockk<BehandlingEventService>(relaxed = true)
+    private val ack = Acknowledgment {}
 
     @BeforeEach
     internal fun setUp() {
@@ -24,14 +26,14 @@ class KabalKafkaListenerTest {
 
     @Test
     internal fun `skal kalle på oppgaveService for hendelse med Tilleggsstønader som kilde`() {
-        listener.listen(lagBehandlingEvent("Tilleggsstønader"))
+        listener.listen(lagBehandlingEvent("Tilleggsstønader"), ack)
 
         verify(exactly = 1) { behandlingEventService.handleEvent(any()) }
     }
 
     @Test
     internal fun `skal ikke kalle på oppgaveService for hendelse med annen kilde enn EF`() {
-        listener.listen(lagBehandlingEvent("AO01"))
+        listener.listen(lagBehandlingEvent("AO01"), ack)
 
         verify(exactly = 0) { behandlingEventService.handleEvent(any()) }
     }
