@@ -16,11 +16,13 @@ class VedleggService(
 ) {
 
     fun finnVedleggPåBehandling(behandlingId: UUID): List<DokumentinfoDto> {
-        val (personIdent, fagsak) = behandlingService.hentAktivIdent(behandlingId)
-        val journalposter = journalpostService.finnJournalposter(personIdent, fagsak.stønadstype)
+        val (personIdent) = behandlingService.hentAktivIdent(behandlingId)
+        val journalposter = journalpostService.finnJournalposter(personIdent)
 
         return journalposter
-            .flatMap { journalpost -> journalpost.dokumenter?.map { tilDokumentInfoDto(it, journalpost) } ?: emptyList() }
+            .flatMap { journalpost ->
+                journalpost.dokumenter?.map { tilDokumentInfoDto(it, journalpost) } ?: emptyList()
+            }
     }
 
     private fun tilDokumentInfoDto(
@@ -40,7 +42,8 @@ class VedleggService(
     }
 
     fun mestRelevanteDato(journalpost: Journalpost): LocalDateTime? {
-        return journalpost.datoMottatt ?: journalpost.relevanteDatoer?.maxByOrNull { datoTyperSortert(it.datotype) }?.dato
+        return journalpost.datoMottatt
+            ?: journalpost.relevanteDatoer?.maxByOrNull { datoTyperSortert(it.datotype) }?.dato
     }
 
     private fun datoTyperSortert(datoType: String) = when (datoType) {

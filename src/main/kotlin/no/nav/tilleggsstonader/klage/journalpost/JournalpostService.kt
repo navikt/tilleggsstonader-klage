@@ -3,9 +3,8 @@ package no.nav.tilleggsstonader.klage.journalpost
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
+import no.nav.tilleggsstonader.kontrakter.felles.Arkivtema
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
-import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
-import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
@@ -22,9 +21,8 @@ class JournalpostService(private val tilleggsstønaderIntegrasjonerClient: Tille
 
     fun finnJournalposter(
         personIdent: String,
-        stønadType: Stønadstype,
         antall: Int = 200,
-        typer: List<Journalposttype> = Journalposttype.values().toList(),
+        typer: List<Journalposttype> = Journalposttype.entries,
     ): List<Journalpost> {
         return tilleggsstønaderIntegrasjonerClient.finnJournalposter(
             JournalposterForBrukerRequest(
@@ -33,7 +31,7 @@ class JournalpostService(private val tilleggsstønaderIntegrasjonerClient: Tille
                     type = BrukerIdType.FNR,
                 ),
                 antall = antall,
-                tema = listOf(stønadType.tilTema()),
+                tema = listOf(Arkivtema.TSO),
                 journalposttype = typer,
             ),
         )
