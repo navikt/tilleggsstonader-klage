@@ -29,6 +29,7 @@ class KabalKafkaListenerTest {
         listener.listen(lagBehandlingEvent("Tilleggsstønader"), ack)
 
         verify(exactly = 1) { behandlingEventService.handleEvent(any()) }
+        verify(exactly = 1) { ack.acknowledge() }
     }
 
     @Test
@@ -36,6 +37,7 @@ class KabalKafkaListenerTest {
         listener.listen(lagBehandlingEvent("AO01"), ack)
 
         verify(exactly = 0) { behandlingEventService.handleEvent(any()) }
+        verify(exactly = 1) { ack.acknowledge() }
     }
 
     private fun lagBehandlingEvent(

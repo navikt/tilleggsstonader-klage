@@ -61,7 +61,7 @@ class TilleggsstønaderIntegrasjonerClient(
             DistribuerJournalpostRequest(
                 journalpostId = journalpostId,
                 bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
-                dokumentProdApp = "TILLEGGSSTONADER-KLAGE",
+                dokumentProdApp = "TSO-KLAGE", // kan være maks 20 tegn -> TILLEGGSSTONADER-KLAGE er for langt
                 distribusjonstype = distribusjonstype,
             ),
             HttpHeaders().medContentTypeJsonUTF8(),
