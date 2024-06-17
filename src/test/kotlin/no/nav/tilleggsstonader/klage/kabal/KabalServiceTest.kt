@@ -71,7 +71,7 @@ internal class KabalServiceTest {
         assertThat(oversendelse.klager.id.verdi).isEqualTo(fagsak.hentAktivIdent())
         assertThat(oversendelse.sakenGjelder).isNull()
         assertThat(oversendelse.kilde).isEqualTo(Fagsystem.TILLEGGSSTONADER)
-        assertThat(oversendelse.ytelse).isEqualTo(Ytelse.ENF_ENF)
+        assertThat(oversendelse.ytelse).isEqualTo(Ytelse.TSO_TSO)
         assertThat(oversendelse.kommentar).isNull()
         assertThat(oversendelse.dvhReferanse).isNull()
         assertThat(oversendelse.forrigeBehandlendeEnhet).isEqualTo(saksbehandlerA.enhet)

@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.fagsak.domain
 
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
-import no.nav.tilleggsstonader.klage.kabal.Ytelse
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.data.annotation.Id
@@ -47,8 +46,3 @@ data class FagsakDomain(
             sporbar = sporbar,
         )
 }
-
-fun Stønadstype.tilYtelse(): Ytelse =
-    when (this) {
-        Stønadstype.BARNETILSYN -> Ytelse.ENF_ENF // TODO: Snakk med kabal om ny Ytelses-enum for tilleggsstønader
-    }
