@@ -39,6 +39,7 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
@@ -232,6 +233,7 @@ object DomainUtil {
         eksternFagsystemBehandlingId: String = "123",
         vedtakstidspunkt: LocalDateTime = LocalDate.of(2022, 3, 1).atTime(8, 0),
     ) = PåklagetVedtakDetaljer(
+        fagsystemType = FagsystemType.ORDNIÆR,
         eksternFagsystemBehandlingId = eksternFagsystemBehandlingId,
         behandlingstype = "type",
         resultat = "resultat",
@@ -262,6 +264,7 @@ object DomainUtil {
         resultat: String = "resultat",
         vedtakstidspunkt: LocalDateTime = LocalDate.of(2022, 3, 1).atTime(8, 0),
     ) = FagsystemVedtak(
+        fagsystemType = FagsystemType.ORDNIÆR,
         eksternBehandlingId = eksternBehandlingId,
         behandlingstype = behandlingstype,
         resultat = resultat,

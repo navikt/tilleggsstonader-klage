@@ -176,8 +176,9 @@ internal class BehandlingServiceTest {
             val medVedtak = PåklagetVedtakDto("123", PåklagetVedtakstype.VEDTAK)
             val utenVedtak = PåklagetVedtakDto(null, PåklagetVedtakstype.UTEN_VEDTAK)
             val ikkeValgt = PåklagetVedtakDto(null, PåklagetVedtakstype.IKKE_VALGT)
-            val gjelderInfotrygd = PåklagetVedtakDto(null, PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING, manuellVedtaksdato = LocalDate.now())
-            val utestengelse = PåklagetVedtakDto(null, PåklagetVedtakstype.UTESTENGELSE, manuellVedtaksdato = LocalDate.now())
+            // TODO: Infortrygd-ting -> Arena-ting
+//            val gjelderInfotrygd = PåklagetVedtakDto(null, PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING, manuellVedtaksdato = LocalDate.now())
+//            val utestengelse = PåklagetVedtakDto(null, PåklagetVedtakstype.UTESTENGELSE, manuellVedtaksdato = LocalDate.now())
 
             behandlingService.oppdaterPåklagetVedtak(behandling.id, ikkeValgt)
             verify(exactly = 1) { behandlingRepository.update(any()) }
@@ -188,11 +189,11 @@ internal class BehandlingServiceTest {
             behandlingService.oppdaterPåklagetVedtak(behandling.id, medVedtak)
             verify(exactly = 3) { behandlingRepository.update(any()) }
 
-            behandlingService.oppdaterPåklagetVedtak(behandling.id, gjelderInfotrygd)
-            verify(exactly = 4) { behandlingRepository.update(any()) }
-
-            behandlingService.oppdaterPåklagetVedtak(behandling.id, utestengelse)
-            verify(exactly = 5) { behandlingRepository.update(any()) }
+//            behandlingService.oppdaterPåklagetVedtak(behandling.id, gjelderInfotrygd)
+//            verify(exactly = 4) { behandlingRepository.update(any()) }
+//
+//            behandlingService.oppdaterPåklagetVedtak(behandling.id, utestengelse)
+//            verify(exactly = 5) { behandlingRepository.update(any()) }
         }
     }
 

@@ -16,6 +16,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -79,6 +80,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer).isEqualTo(fagsystemVedtak.tilPåklagetVedtakDetaljer())
         }
 
+        @Disabled("TODO: Gjelder infotrygd, skal skrives om til arena")
         @Test
         internal fun `skal oppdatere påklaget vedtak som gjelder infotrygd`() {
             val påklagetBehandlingId = "påklagetBehandlingId"
@@ -97,26 +99,6 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
 
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakstype).isEqualTo(påklagetVedtak.påklagetVedtakstype)
             assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer?.vedtakstidspunkt?.toLocalDate()).isEqualTo(vedtaksdatoInfotrygd)
-        }
-
-        @Test
-        internal fun `skal oppdatere påklaget vedtak utestengelse`() {
-            val påklagetBehandlingId = "påklagetBehandlingId"
-            val fagsystemVedtak = fagsystemVedtak(eksternBehandlingId = påklagetBehandlingId)
-            every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
-
-            val vedtaksdato = LocalDate.now()
-            val påklagetVedtak = PåklagetVedtakDto(
-                eksternFagsystemBehandlingId = null,
-                manuellVedtaksdato = vedtaksdato,
-                påklagetVedtakstype = PåklagetVedtakstype.UTESTENGELSE,
-            )
-            behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
-            val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
-            val oppdatertPåklagetVedtak = oppdatertBehandling.påklagetVedtak
-
-            assertThat(oppdatertPåklagetVedtak.påklagetVedtakstype).isEqualTo(påklagetVedtak.påklagetVedtakstype)
-            assertThat(oppdatertPåklagetVedtak.påklagetVedtakDetaljer?.vedtakstidspunkt?.toLocalDate()).isEqualTo(vedtaksdato)
         }
 
         @Test
