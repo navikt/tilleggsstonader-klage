@@ -110,8 +110,8 @@ class BehandlingEventService(
     private fun opprettOppgaveTask(behandling: Behandling, behandlingEvent: BehandlingEvent) {
         val fagsakDomain = fagsakRepository.finnFagsakForBehandlingId(behandling.id)
             ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
-        val saksbehandlerIdent = behandling.sporbar.endret.endretAv
-        val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
+        // TODO: Finn en måte å hente ut saksbehandlers enhet på, slik at riktig enhet kan settes her
+        val saksbehandlerEnhet = "4462"
         val oppgaveTekst =
             "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
         val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
@@ -125,9 +125,6 @@ class BehandlingEventService(
         val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
     }
-
-    private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =
-        integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
 
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {

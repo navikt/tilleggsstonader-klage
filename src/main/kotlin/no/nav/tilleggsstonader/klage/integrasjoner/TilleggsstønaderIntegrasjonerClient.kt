@@ -50,11 +50,6 @@ class TilleggsstønaderIntegrasjonerClient(
             headerMedSaksbehandler(saksbehandler),
         )
 
-    fun hentSaksbehandlerInfo(navIdent: String): Saksbehandler = getForEntity<Saksbehandler>(
-        URI.create("$saksbehandlerUri/$navIdent"),
-        HttpHeaders().medContentTypeJsonUTF8(),
-    )
-
     fun distribuerBrev(journalpostId: String, distribusjonstype: Distribusjonstype): String =
         postForEntity<String>(
             integrasjonerConfig.distribuerDokumentUri,

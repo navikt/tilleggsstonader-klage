@@ -58,7 +58,6 @@ internal class BehandlingEventServiceTest {
         every { behandlingRepository.findByEksternBehandlingId(any()) } returns behandlingMedStatusVenter
         every { klageresultatRepository.insert(any()) } answers { firstArg() }
         every { klageresultatRepository.existsById(any()) } returns false
-        every { integrasjonerClient.hentSaksbehandlerInfo(any()) } returns saksbehandler
     }
 
     @Test
@@ -186,6 +185,4 @@ internal class BehandlingEventServiceTest {
             ),
         )
     }
-
-    private val saksbehandler = Saksbehandler(UUID.randomUUID(), "A123456", "Alfa", "Omega", "4415")
 }

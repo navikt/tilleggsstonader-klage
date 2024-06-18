@@ -41,13 +41,6 @@ internal class KabalServiceTest {
     @BeforeEach
     internal fun setUp() {
         every { kabalClient.sendTilKabal(capture(oversendelseSlot)) } just Runs
-        every { integrasjonerClient.hentSaksbehandlerInfo(any()) } answers {
-            when (firstArg<String>()) {
-                saksbehandlerA.navIdent -> saksbehandlerA
-                saksbehandlerB.navIdent -> saksbehandlerB
-                else -> error("Fant ikke info om saksbehanlder ${firstArg<String>()}")
-            }
-        }
     }
 
     @Test
