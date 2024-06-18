@@ -166,6 +166,7 @@ FAMILIE_DOKUMENT_URL: http://familie-dokument.teamfamilie
 TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
 PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
 
+# //TODO: Sett riktig URL
 FAMILIE_EF_PROXY_URL: DUMMY_URL_TODO
 
 KABAL_URL: http://kabal-api.klage
