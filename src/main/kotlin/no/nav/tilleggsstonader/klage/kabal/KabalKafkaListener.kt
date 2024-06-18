@@ -18,7 +18,7 @@ import java.util.UUID
 @Component
 class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : ConsumerSeekAware {
 
-    private val logger = LoggerFactory.getLogger(javaClass) // TODO: bytt til secureLogger
+    private val secureLogger = LoggerFactory.getLogger("secureLogger")
     val STØTTEDE_FAGSYSTEMER = listOf(Fagsystem.TILLEGGSSTONADER.name)
 
     @KafkaListener(
@@ -27,23 +27,20 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         autoStartup = "\${kafka.enabled:true}",
     )
     fun listen(@Payload behandlingEventJson: String) {
-        logger.info("Klage-kabal-event: $behandlingEventJson")
+        secureLogger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
-        logger.info("behandlingevent kilde: ", behandlingEvent.kilde)
-
         if (STØTTEDE_FAGSYSTEMER.contains(behandlingEvent.kilde)) {
-            logger.info("støtte fagsystemer inneholder kilde")
             behandlingEventService.handleEvent(behandlingEvent)
         }
-        logger.info("Serialisert behandlingEvent: $behandlingEvent")
+        secureLogger.info("Serialisert behandlingEvent: $behandlingEvent")
     }
 
     override fun onPartitionsAssigned(
         assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
         callback: ConsumerSeekAware.ConsumerSeekCallback
     ) {
-        logger.info("overrided onPartitionsAssigned")
+        secureLogger.info("overrided onPartitionsAssigned")
         assignments.keys.stream()
             .filter { it.topic() == "klage.behandling-events.v1" }
             .forEach {
