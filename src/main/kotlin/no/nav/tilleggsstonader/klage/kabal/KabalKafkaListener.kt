@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.listener.ConsumerSeekAware
+import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.UUID
@@ -25,7 +26,7 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         topics = ["klage.behandling-events.v1"],
         autoStartup = "\${kafka.enabled:true}",
     )
-    fun listen(behandlingEventJson: String) {
+    fun listen(@Payload behandlingEventJson: String) {
         logger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
