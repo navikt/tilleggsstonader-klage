@@ -35,7 +35,7 @@ data class Behandling(
 )
 
 data class PåklagetVedtakDetaljer(
-    val fagsystemType: FagsystemType,
+    val fagsystemType: FagsystemType = FagsystemType.ORDNIÆR,
     val eksternFagsystemBehandlingId: String?,
     val behandlingstype: String,
     val resultat: String,
