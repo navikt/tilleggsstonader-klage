@@ -30,11 +30,25 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         logger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
+        logger.info("behandlingevent kilde: ", behandlingEvent.kilde)
+
         if (STØTTEDE_FAGSYSTEMER.contains(behandlingEvent.kilde)) {
             logger.info("støtte fagsystemer inneholder kilde")
             behandlingEventService.handleEvent(behandlingEvent)
         }
         logger.info("Serialisert behandlingEvent: $behandlingEvent")
+    }
+
+    override fun onPartitionsAssigned(
+        assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
+        callback: ConsumerSeekAware.ConsumerSeekCallback
+    ) {
+        logger.info("overrided onPartitionsAssigned")
+        assignments.keys.stream()
+            .filter { it.topic() == "klage.behandling-events.v1" }
+            .forEach {
+                callback.seek("klage.behandling-events.v1", it.partition(), 12120)
+            }
     }
 
     /* Beholdes for å enkelt kunne lese fra start ved behov
