@@ -141,7 +141,7 @@ spring:
     producer:
       acks: all
     consumer:
-      group-id: tilleggsstonader-klage
+      group-id: tilleggsstonader-klage-test
       max-poll-records: 1
       auto-offset-reset: latest
       enable-auto-commit: false

@@ -17,7 +17,7 @@ import java.util.UUID
 @Component
 class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : ConsumerSeekAware {
 
-    private val secureLogger = LoggerFactory.getLogger("secureLogger")
+    private val logger = LoggerFactory.getLogger(javaClass) // TODO: bytt til secureLogger
     val STØTTEDE_FAGSYSTEMER = listOf(Fagsystem.TILLEGGSSTONADER.navn)
 
     @KafkaListener(
@@ -26,13 +26,14 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         autoStartup = "\${kafka.enabled:true}",
     )
     fun listen(behandlingEventJson: String) {
-        secureLogger.info("Klage-kabal-event: $behandlingEventJson")
+        logger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
         if (STØTTEDE_FAGSYSTEMER.contains(behandlingEvent.kilde)) {
+            logger.info("støtte fagsystemer inneholder kilde")
             behandlingEventService.handleEvent(behandlingEvent)
         }
-        secureLogger.info("Serialisert behandlingEvent: $behandlingEvent")
+        logger.info("Serialisert behandlingEvent: $behandlingEvent")
     }
 
     /* Beholdes for å enkelt kunne lese fra start ved behov
