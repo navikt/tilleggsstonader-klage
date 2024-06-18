@@ -1,9 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal
 
 import io.mockk.verify
-import io.mockk.Runs
-import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
@@ -11,7 +8,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.kafka.support.Acknowledgment
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -20,28 +16,24 @@ class KabalKafkaListenerTest {
     private lateinit var listener: KabalKafkaListener
 
     private val behandlingEventService = mockk<BehandlingEventService>(relaxed = true)
-    private val ack = mockk<Acknowledgment>()
 
     @BeforeEach
     internal fun setUp() {
         listener = KabalKafkaListener(behandlingEventService)
-        every { ack.acknowledge() } just Runs
     }
 
     @Test
     internal fun `skal kalle på oppgaveService for hendelse med Tilleggsstønader som kilde`() {
-        listener.listen(lagBehandlingEvent("Tilleggsstønader"), ack)
+        listener.listen(lagBehandlingEvent("Tilleggsstønader"))
 
         verify(exactly = 1) { behandlingEventService.handleEvent(any()) }
-        verify(exactly = 1) { ack.acknowledge() }
     }
 
     @Test
     internal fun `skal ikke kalle på oppgaveService for hendelse med annen kilde enn EF`() {
-        listener.listen(lagBehandlingEvent("AO01"), ack)
+        listener.listen(lagBehandlingEvent("AO01"))
 
         verify(exactly = 0) { behandlingEventService.handleEvent(any()) }
-        verify(exactly = 1) { ack.acknowledge() }
     }
 
     private fun lagBehandlingEvent(
