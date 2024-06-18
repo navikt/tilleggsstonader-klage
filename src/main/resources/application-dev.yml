@@ -19,3 +19,5 @@ lenker:
   TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggsstonader.intern.dev.nav.no"
 
 prosessering.rolle: "928636f4-fd0d-4149-978e-a6fb68bb19de" # 0000-GA-STDAPPS
+
+BEHANDLINGSSTATISTIKK_TOPIC: tilleggsstonader.aapen-tilleggsstonader-dvh-behandling-test
