@@ -30,8 +30,6 @@ TS_SAK_URL: http://localhost:8093
 
 AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 
-FAMILIE_INTEGRASJONER_SCOPE: api://dev-fss.teamfamilie.familie-integrasjoner/.default
-
 CREDENTIAL_USERNAME: not-a-real-srvuser
 CREDENTIAL_PASSWORD: not-a-real-pw
 

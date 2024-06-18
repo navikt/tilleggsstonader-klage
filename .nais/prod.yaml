@@ -2,14 +2,14 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: familie-klage
-  namespace: teamfamilie
+  namespace: tilleggsstonader
   labels:
-    team: teamfamilie
+    team: tilleggsstonader
 
 spec:
   image: {{ image }}
   ingresses:
-    - https://familie-klage-backend.intern.nav.no
+    - https://tilleggsstonader-klage-backend.intern.nav.no
   liveness:
     path: /internal/status/isAlive
     initialDelay: 30
