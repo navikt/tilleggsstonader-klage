@@ -16,6 +16,7 @@ import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
+import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
@@ -168,8 +169,7 @@ class BehandlingService(
         behandlinghistorikkService.opprettBehandlingshistorikk(behandlingId, BEHANDLING_FERDIGSTILT)
         oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id)
         behandlingRepository.update(henlagtBehandling)
-        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
-        // taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
+        taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))
     }
 
     private fun validerKanHenleggeBehandling(behandling: Behandling) {

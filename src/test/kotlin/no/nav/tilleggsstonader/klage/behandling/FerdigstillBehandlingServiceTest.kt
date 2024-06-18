@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.distribusjon.DistribusjonService
@@ -110,13 +111,12 @@ internal class FerdigstillBehandlingServiceTest {
         assertThat(fagsystemRevurderingSlot.single()).isNull()
         assertThat(stegSlot.captured).isEqualTo(StegType.KABAL_VENTER_SVAR)
 
-        verify(exactly = 2) { taskService.save(any()) }
-        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
+        verify(exactly = 4) { taskService.save(any()) }
         assertThat(saveTaskSlot.map { it.type }).containsExactly(
             JournalførBrevTask.TYPE,
             LagSaksbehandlingsblankettTask.TYPE,
-//            BehandlingsstatistikkTask.TYPE,
-//            BehandlingsstatistikkTask.TYPE,
+            BehandlingsstatistikkTask.TYPE,
+            BehandlingsstatistikkTask.TYPE,
         )
         verify { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id) }
     }
@@ -144,12 +144,11 @@ internal class FerdigstillBehandlingServiceTest {
         assertThat(behandlingsresultatSlot.captured).isEqualTo(BehandlingResultat.MEDHOLD)
         assertThat(fagsystemRevurderingSlot.single()).isNull()
 
-        verify(exactly = 1) { taskService.save(any()) }
+        verify(exactly = 2) { taskService.save(any()) }
         verify(exactly = 0) { fagsystemVedtakService.opprettRevurdering(behandling.id) }
-        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
         assertThat(saveTaskSlot.map { it.type }).containsExactly(
             LagSaksbehandlingsblankettTask.TYPE,
-//            BehandlingsstatistikkTask.TYPE,
+            BehandlingsstatistikkTask.TYPE,
         )
     }
 

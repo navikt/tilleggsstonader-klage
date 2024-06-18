@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandling.domain.tilFagsystemRevurdering
+import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
@@ -61,11 +62,12 @@ class FerdigstillBehandlingService(
         behandlingService.oppdaterBehandlingMedResultat(behandlingId, behandlingsresultat, opprettetRevurdering)
         stegService.oppdaterSteg(behandlingId, behandling.steg, stegForResultat(behandlingsresultat), behandlingsresultat)
         taskService.save(LagSaksbehandlingsblankettTask.opprettTask(behandlingId))
-        // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
-//        if (behandlingsresultat == IKKE_MEDHOLD) {
-//            taskService.save(BehandlingsstatistikkTask.opprettSendtTilKATask(behandlingId = behandlingId))
-//        }
-//        taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId))
+
+        if (behandlingsresultat == IKKE_MEDHOLD) {
+            taskService.save(BehandlingsstatistikkTask.opprettSendtTilKATask(behandlingId = behandlingId))
+        }
+
+        taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId))
     }
 
     /**

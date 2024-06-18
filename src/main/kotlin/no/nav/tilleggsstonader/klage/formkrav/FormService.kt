@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.dto.tilDto
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
+import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.alleVilkårOppfylt
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.utledFormresultat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
@@ -51,7 +52,6 @@ class FormService(
         )
         behandlingService.oppdaterPåklagetVedtak(behandlingId, nyttPåklagetVedtak)
 
-//        opprettBehandlingsstatistikk(behandlingId)
         val formresultat = utledFormresultat(oppdaterteFormkrav, nyttPåklagetVedtak)
         when (formresultat) {
             FormVilkår.OPPFYLT -> {
@@ -66,16 +66,18 @@ class FormService(
                 stegService.oppdaterSteg(behandlingId, StegType.FORMKRAV, StegType.FORMKRAV)
             }
         }
+
+        opprettBehandlingsstatistikk(behandlingId)
+
         return formRepository.update(oppdaterteFormkrav).tilDto(nyttPåklagetVedtak)
     }
 
-    // TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
-//    private fun opprettBehandlingsstatistikk(behandlingId: UUID) {
-//        behandlingshistorikkService.hentBehandlingshistorikk(behandlingId).find { it.steg == StegType.FORMKRAV }
-//            ?: run {
-//                taskService.save(BehandlingsstatistikkTask.opprettPåbegyntTask(behandlingId = behandlingId))
-//            }
-//    }
+    private fun opprettBehandlingsstatistikk(behandlingId: UUID) {
+        behandlingshistorikkService.hentBehandlingshistorikk(behandlingId).find { it.steg == StegType.FORMKRAV }
+            ?: run {
+                taskService.save(BehandlingsstatistikkTask.opprettPåbegyntTask(behandlingId = behandlingId))
+            }
+    }
 
     fun formkravErOppfyltForBehandling(behandlingId: UUID): Boolean {
         val form = formRepository.findByIdOrThrow(behandlingId)
