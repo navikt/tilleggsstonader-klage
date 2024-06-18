@@ -24,7 +24,7 @@ class KabalKafkaListenerTest {
 
     @Test
     internal fun `skal kalle på oppgaveService for hendelse med Tilleggsstønader som kilde`() {
-        listener.listen(lagBehandlingEvent("Tilleggsstønader"))
+        listener.listen(lagBehandlingEvent("TILLEGGSSTONADER"))
 
         verify(exactly = 1) { behandlingEventService.handleEvent(any()) }
     }
