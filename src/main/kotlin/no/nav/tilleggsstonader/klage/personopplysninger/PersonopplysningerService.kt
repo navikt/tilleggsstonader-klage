@@ -77,7 +77,7 @@ class PersonopplysningerService(
                 embete = it.embete,
                 type = it.type,
                 motpartsPersonident = it.vergeEllerFullmektig.motpartsPersonident,
-                navn = it.vergeEllerFullmektig.navn?.visningsnavn(),
+                navn = it.vergeEllerFullmektig.identifiserendeInformasjon?.navn?.visningsnavn(),
                 omfang = it.vergeEllerFullmektig.omfang,
             )
         }
