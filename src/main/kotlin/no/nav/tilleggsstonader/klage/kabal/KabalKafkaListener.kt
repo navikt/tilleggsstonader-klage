@@ -36,17 +36,19 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         secureLogger.info("Serialisert behandlingEvent: $behandlingEvent")
     }
 
-    override fun onPartitionsAssigned(
-        assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
-        callback: ConsumerSeekAware.ConsumerSeekCallback
-    ) {
-        secureLogger.info("overrided onPartitionsAssigned")
-        assignments.keys.stream()
-            .filter { it.topic() == "klage.behandling-events.v1" }
-            .forEach {
-                callback.seek("klage.behandling-events.v1", it.partition(), 12120)
-            }
-    }
+//  Beholdes for å enkelt kunne lese fra en spesifikk offsett ved behov
+//  val offsett = 12120
+//    override fun onPartitionsAssigned(
+//        assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
+//        callback: ConsumerSeekAware.ConsumerSeekCallback
+//    ) {
+//        secureLogger.info("overrided onPartitionsAssigned")
+//        assignments.keys.stream()
+//            .filter { it.topic() == "klage.behandling-events.v1" }
+//            .forEach {
+//                callback.seek("klage.behandling-events.v1", it.partition(), offsett)
+//            }
+//    }
 
     /* Beholdes for å enkelt kunne lese fra start ved behov
     override fun onPartitionsAssigned(
