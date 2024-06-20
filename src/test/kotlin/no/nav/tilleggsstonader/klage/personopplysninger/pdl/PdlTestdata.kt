@@ -53,8 +53,8 @@ object PdlTestdata {
                         folkeregistermetadata,
                         "",
                         VergeEllerFullmektig(
+                            IdentifiserendeInformasjon(navn = Personnavn("", "", "")),
                             "",
-                            Personnavn("", "", ""),
                             "",
                             true,
                         ),

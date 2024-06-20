@@ -7,6 +7,7 @@ import io.mockk.runs
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGradering
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.IdentifiserendeInformasjon
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
@@ -88,7 +89,7 @@ class PdlClientMock {
                     vergeEllerFullmektig =
                     VergeEllerFullmektig(
                         motpartsPersonident = annenForelderFnr,
-                        navn = null,
+                        identifiserendeInformasjon = IdentifiserendeInformasjon(navn = null),
                         omfang = "personligeOgOekonomiskeInteresser",
                         omfangetErInnenPersonligOmraade = false,
                     ),
@@ -100,7 +101,7 @@ class PdlClientMock {
                     vergeEllerFullmektig =
                     VergeEllerFullmektig(
                         motpartsPersonident = annenForelderFnr,
-                        navn = null,
+                        identifiserendeInformasjon = null,
                         omfang = "personligeOgOekonomiskeInteresser",
                         omfangetErInnenPersonligOmraade = false,
                     ),

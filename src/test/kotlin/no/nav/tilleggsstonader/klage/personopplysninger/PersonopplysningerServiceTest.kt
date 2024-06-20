@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersons
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Dødsfall
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
+import no.nav.tilleggsstonader.klage.personopplysninger.pdl.IdentifiserendeInformasjon
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Navn
@@ -97,7 +98,12 @@ internal class PersonopplysningerServiceTest {
                 "embete",
                 null,
                 "type",
-                VergeEllerFullmektig("vergeIdent", Personnavn("", "", null), "omfang", true),
+                VergeEllerFullmektig(
+                    IdentifiserendeInformasjon(Personnavn("", "", null)),
+                    "vergeIdent",
+                    "omfang",
+                    true,
+                ),
             ),
         ),
     )
