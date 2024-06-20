@@ -6,7 +6,6 @@ import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
@@ -35,7 +34,7 @@ enum class AuditLoggerEvent(val type: String) {
 data class CustomKeyValue(val key: String, val value: String)
 
 @Component
-class AuditLogger(@Value("\${NAIS_APP_NAME}") private val applicationName: String) {
+class AuditLogger {
 
     private val logger = LoggerFactory.getLogger(javaClass)
     private val audit = LoggerFactory.getLogger("auditLogger")
@@ -62,7 +61,7 @@ class AuditLogger(@Value("\${NAIS_APP_NAME}") private val applicationName: Strin
     private fun createAuditLogString(data: Sporingsdata, request: HttpServletRequest): String {
         val timestamp = System.currentTimeMillis()
         val name = "Saksbehandling"
-        return "CEF:0|Familie|$applicationName|1.0|audit:${data.event.type}|$name|INFO|end=$timestamp " +
+        return "CEF:0|Tilleggsstonader|klage|1.0|audit:${data.event.type}|$name|INFO|end=$timestamp " +
             "suid=${SikkerhetContext.hentSaksbehandler(strict = true)} " +
             "duid=${data.personIdent} " +
             "sproc=${getCallId()} " +
