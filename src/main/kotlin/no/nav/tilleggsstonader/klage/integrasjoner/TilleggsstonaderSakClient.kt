@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.getDataOrThrow
+import no.nav.tilleggsstonader.kontrakter.felles.IdentRequest
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
@@ -29,28 +30,29 @@ class TilleggsstonaderSakClient(
     fun kanOppretteRevurdering(fagsystemEksternFagsakId: String): KanOppretteRevurderingResponse {
         val hentVedtakUri =
             URI.create("$sakUrl/api/ekstern/behandling/kan-opprette-revurdering-klage/$fagsystemEksternFagsakId")
-        return getForEntity<Ressurs<KanOppretteRevurderingResponse>>(hentVedtakUri).getDataOrThrow()
+        return getForEntity<KanOppretteRevurderingResponse>(hentVedtakUri)
     }
 
     fun opprettRevurdering(fagsystemEksternFagsakId: String): OpprettRevurderingResponse {
         val hentVedtakUri =
             URI.create("$sakUrl/api/ekstern/behandling/opprett-revurdering-klage/$fagsystemEksternFagsakId")
-        return postForEntity<Ressurs<OpprettRevurderingResponse>>(
+        return postForEntity<OpprettRevurderingResponse>(
             hentVedtakUri,
             emptyMap<String, String>()
-        ).getDataOrThrow()
+        )
     }
 
     fun sjekkTilgangTilPersonMedRelasjoner(ident: String): Tilgang {
-        return getForEntity(
-            URI.create("$sakUrl/api/tilgang/person/$ident/sjekkTilgangTilPersonMedRelasjoner"),
+        return postForEntity<Tilgang>(
+            URI.create("$sakUrl/api/tilgang/person/sjekkTilgangTilPersonMedRelasjoner"),
+            IdentRequest(ident = ident)
         )
     }
 
     fun erEgenAnsatt(ident: String): Boolean {
-        return postForEntity<Ressurs<EgenAnsattResponse>>(
-            URI.create("$sakUrl/api/tilgang/person/$ident/erEgenAnsatt"),
+        return postForEntity<EgenAnsattResponse>(
+            URI.create("$sakUrl/api/tilgang/person/erEgenAnsatt"),
             EgenAnsattRequest(ident),
-        ).data!!.erEgenAnsatt
+        ).erEgenAnsatt
     }
 }

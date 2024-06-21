@@ -12,6 +12,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 import no.nav.tilleggsstonader.klage.Saksbehandler
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.pdfAsBase64String
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
@@ -25,9 +26,14 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.LogiskVedlegg
 import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
 import no.nav.tilleggsstonader.kontrakter.sak.DokumentBrevkode
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
+import org.springframework.web.client.RestOperations
+import java.net.URI
 import java.time.LocalDateTime
 import java.util.UUID
 import kotlin.math.absoluteValue
@@ -80,6 +86,20 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
         }
         mockServer.start()
         return mockServer
+    }
+
+    @Bean
+    @Profile("mock-integrasjoner")
+    @Primary
+    fun tilleggsstønaderIntegrasjonerClient(
+        @Qualifier("utenAuth") restOperations: RestOperations,
+        @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
+        integrasjonUri: URI,
+        integrasjonerConfig: IntegrasjonerConfig,
+    ): TilleggsstønaderIntegrasjonerClient {
+        return TilleggsstønaderIntegrasjonerClient(
+            restOperations, integrasjonUri, integrasjonerConfig
+        )
     }
 
     companion object {

@@ -29,6 +29,7 @@ FAMILIE_BREV_API_URL: http://localhost:8002
 FAMILIE_DOKUMENT_URL: http://localhost:8082
 
 TILLEGGGSSTONADER_SAK_SCOPE: api://dev-gcp.tilleggsstonader.tilleggsstonader-sak-lokal/.default
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://dev-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 
