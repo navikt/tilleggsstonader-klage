@@ -3,7 +3,8 @@ package no.nav.tilleggsstonader.klage.infrastruktur.config
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
+import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettetÅrsak
@@ -20,19 +21,26 @@ import java.time.Month
 import java.util.UUID
 
 @Configuration
-@Profile("mock-ts-sak")
-class TSSakSakClientMock {
+@Profile("mock-tilleggsstonader-sak")
+class TilleggsstonaderSakClientMock {
 
     @Bean
     @Primary
-    fun hentVedtak(): TSSakClient {
+    fun hentVedtak(): TilleggsstonaderSakClient {
         return resetMock(mockk())
     }
 
     companion object {
 
-        fun resetMock(mock: TSSakClient): TSSakClient {
+        fun resetMock(mock: TilleggsstonaderSakClient): TilleggsstonaderSakClient {
             clearMocks(mock)
+
+            every { mock.erEgenAnsatt(any()) } returns false
+
+            every { mock.sjekkTilgangTilPersonMedRelasjoner(any()) } returns Tilgang(
+                harTilgang = true,
+                begrunnelse = null
+            )
 
             every { mock.hentVedtak(any()) } returns listOf(
                 FagsystemVedtak(

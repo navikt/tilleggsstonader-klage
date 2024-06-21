@@ -14,9 +14,9 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Component
-class TSSakClient(
+class TilleggsstonaderSakClient(
     @Qualifier("azure") restOperations: RestOperations,
-    @Value("\${TS_SAK_URL}") private val TSSakUri: URI,
+    @Value("\${TILLEGGSSTONADER_SAK_URL}") private val sakUrl: String,
 ) : AbstractRestClient(restOperations, "tilleggsstonader.sak") {
 
     fun hentVedtak(fagsystemEksternFagsakId: String): List<FagsystemVedtak> {

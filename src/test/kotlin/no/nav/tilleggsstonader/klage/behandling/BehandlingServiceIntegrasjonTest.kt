@@ -5,8 +5,8 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
-import no.nav.tilleggsstonader.klage.infrastruktur.config.TSSakSakClientMock
-import no.nav.tilleggsstonader.klage.integrasjoner.TSSakClient
+import no.nav.tilleggsstonader.klage.infrastruktur.config.TilleggsstonaderSakClientMock
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
@@ -29,7 +29,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
     private lateinit var behandlingService: BehandlingService
 
     @Autowired
-    private lateinit var tsSakClientMock: TSSakClient
+    private lateinit var tilleggsstonaderSakClientMock: TilleggsstonaderSakClient
 
     private val fagsak = fagsak()
     private val behandling = behandling(fagsak)
@@ -43,7 +43,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
 
     @AfterEach
     internal fun tearDown() {
-        TSSakSakClientMock.resetMock(tsSakClientMock)
+        TilleggsstonaderSakClientMock.resetMock(tilleggsstonaderSakClientMock)
         BrukerContextUtil.clearBrukerContext()
     }
 
@@ -66,7 +66,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
         internal fun `skal oppdatere påklaget vedtak`() {
             val påklagetBehandlingId = "påklagetBehandlingId"
             val fagsystemVedtak = fagsystemVedtak(eksternBehandlingId = påklagetBehandlingId)
-            every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
+            every { tilleggsstonaderSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
 
             val påklagetVedtak = PåklagetVedtakDto(
                 eksternFagsystemBehandlingId = påklagetBehandlingId,
@@ -85,7 +85,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
         internal fun `skal oppdatere påklaget vedtak som gjelder infotrygd`() {
             val påklagetBehandlingId = "påklagetBehandlingId"
             val fagsystemVedtak = fagsystemVedtak(eksternBehandlingId = påklagetBehandlingId)
-            every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
+            every { tilleggsstonaderSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
 
             val vedtaksdatoInfotrygd = LocalDate.now()
             val påklagetVedtak = PåklagetVedtakDto(
@@ -103,7 +103,7 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
 
         @Test
         internal fun `skal feile hvis påklaget vedtak ikke finnes`() {
-            every { tsSakClientMock.hentVedtak(fagsak.eksternId) } returns emptyList()
+            every { tilleggsstonaderSakClientMock.hentVedtak(fagsak.eksternId) } returns emptyList()
             val påklagetVedtak =
                 PåklagetVedtakDto(eksternFagsystemBehandlingId = "finner ikke", påklagetVedtakstype = PåklagetVedtakstype.VEDTAK)
             assertThatThrownBy {

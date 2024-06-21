@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test
 
 internal class FagsystemVedtakServiceTest {
 
-    private val tsSakClient = mockk<TSSakClient>()
+    private val tilleggsstonaderSakClient = mockk<TilleggsstonaderSakClient>()
     private val fagsakService = mockk<FagsakService>()
     private val service = FagsystemVedtakService(
-        TSSakClient = tsSakClient,
+        TilleggsstonaderSakClient = tilleggsstonaderSakClient,
         fagsakService = fagsakService,
     )
 
@@ -35,7 +35,7 @@ internal class FagsystemVedtakServiceTest {
     internal fun setUp() {
         every { fagsakService.hentFagsakForBehandling(behandling.id) } returns fagsak
 
-        every { tsSakClient.hentVedtak(fagsak.eksternId) } returns listOf(vedtak)
+        every { tilleggsstonaderSakClient.hentVedtak(fagsak.eksternId) } returns listOf(vedtak)
     }
 
     @Nested
@@ -45,7 +45,7 @@ internal class FagsystemVedtakServiceTest {
         internal fun `skal kalle på ts-klient for ts-behandling`() {
             service.hentFagsystemVedtak(behandling.id)
 
-            verify { tsSakClient.hentVedtak(any()) }
+            verify { tilleggsstonaderSakClient.hentVedtak(any()) }
         }
     }
 
@@ -57,7 +57,7 @@ internal class FagsystemVedtakServiceTest {
             val fagsystemVedtak = service.hentFagsystemVedtakForPåklagetBehandlingId(behandling.id, påklagetBehandlingId)
 
             assertThat(fagsystemVedtak).isNotNull
-            verify { tsSakClient.hentVedtak(any()) }
+            verify { tilleggsstonaderSakClient.hentVedtak(any()) }
         }
 
         @Test

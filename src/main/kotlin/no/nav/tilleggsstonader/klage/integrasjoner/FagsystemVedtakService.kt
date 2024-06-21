@@ -22,7 +22,7 @@ private val ukjentFeilVedOpprettRevurdering = OpprettRevurderingResponse(
 
 @Service
 class FagsystemVedtakService(
-    private val TSSakClient: TSSakClient,
+    private val TilleggsstonaderSakClient: TilleggsstonaderSakClient,
     private val fagsakService: FagsakService,
 ) {
 
@@ -35,7 +35,7 @@ class FagsystemVedtakService(
     }
 
     private fun hentFagsystemVedtak(fagsak: Fagsak): List<FagsystemVedtak> = when (fagsak.fagsystem) {
-        Fagsystem.TILLEGGSSTONADER -> TSSakClient.hentVedtak(fagsak.eksternId)
+        Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.hentVedtak(fagsak.eksternId)
     }
 
     fun hentFagsystemVedtakForPåklagetBehandlingId(
@@ -49,7 +49,7 @@ class FagsystemVedtakService(
     fun kanOppretteRevurdering(behandlingId: UUID): KanOppretteRevurderingResponse {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return when (fagsak.fagsystem) {
-            Fagsystem.TILLEGGSSTONADER -> TSSakClient.kanOppretteRevurdering(fagsak.eksternId)
+            Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.kanOppretteRevurdering(fagsak.eksternId)
         }
     }
 
@@ -57,7 +57,7 @@ class FagsystemVedtakService(
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return try {
             when (fagsak.fagsystem) {
-                Fagsystem.TILLEGGSSTONADER -> TSSakClient.opprettRevurdering(fagsak.eksternId)
+                Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.opprettRevurdering(fagsak.eksternId)
             }
         } catch (e: Exception) {
             val errorSuffix = "Feilet opprettelse av revurdering for behandling=$behandlingId eksternFagsakId=${fagsak.eksternId}"
