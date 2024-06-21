@@ -4,7 +4,6 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.matching
 import com.github.tomakehurst.wiremock.client.WireMock.okJson
 import com.github.tomakehurst.wiremock.client.WireMock.patch
 import com.github.tomakehurst.wiremock.client.WireMock.post
@@ -12,8 +11,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 import no.nav.tilleggsstonader.klage.Saksbehandler
-import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
-import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.pdfAsBase64String
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
@@ -45,14 +42,6 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                 .willReturn(aResponse().withStatus(200)),
             get(urlPathMatching("${integrasjonerConfig.saksbehandlerUri.path}/([A-Za-z0-9]*)"))
                 .willReturn(okJson(objectMapper.writeValueAsString(saksbehandler))),
-            post(urlEqualTo(integrasjonerConfig.egenAnsattUri.path))
-                .willReturn(okJson(objectMapper.writeValueAsString(egenAnsatt))),
-            post(urlEqualTo(integrasjonerConfig.tilgangRelasjonerUri.path))
-                .withRequestBody(matching(".*ikkeTilgang.*"))
-                .atPriority(1)
-                .willReturn(okJson(objectMapper.writeValueAsString(lagIkkeTilgangResponse()))),
-            post(urlEqualTo(integrasjonerConfig.tilgangRelasjonerUri.path))
-                .willReturn(okJson(objectMapper.writeValueAsString(Tilgang(true, null)))),
             get(urlPathEqualTo(integrasjonerConfig.journalPostUri.path))
                 .withQueryParam("journalpostId", equalTo("1234"))
                 .willReturn(okJson(objectMapper.writeValueAsString(journalpost))),
@@ -82,13 +71,6 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
 
             )
 
-    private fun lagIkkeTilgangResponse() = Tilgang(
-        false,
-        "Mock sier: Du har " +
-                "ikke tilgang " +
-                "til person ikkeTilgang",
-    )
-
     @Bean("mock-integrasjoner")
     @Profile("mock-integrasjoner")
     fun integrationMockServer(): WireMockServer {
@@ -101,8 +83,6 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
     }
 
     companion object {
-
-        private val egenAnsatt = EgenAnsattResponse(false)
 
         private const val fnr = "23097825289"
 

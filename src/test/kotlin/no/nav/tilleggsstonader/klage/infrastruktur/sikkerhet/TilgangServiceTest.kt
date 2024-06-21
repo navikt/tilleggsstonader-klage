@@ -9,7 +9,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLogger
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlerRolle
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfigTestUtil
-import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
@@ -21,7 +21,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager
 
 internal class TilgangServiceTest {
 
-    private val personopplysningerIntegrasjonerClient = mockk<PersonopplysningerIntegrasjonerClient>()
+    private val tilleggsstonaderSakClient = mockk<TilleggsstonaderSakClient>()
     private val rolleConfig = RolleConfigTestUtil.rolleConfig
     private val cacheManager = ConcurrentMapCacheManager()
     private val auditLogger = mockk<AuditLogger>(relaxed = true)
@@ -29,12 +29,12 @@ internal class TilgangServiceTest {
     private val fagsakService = mockk<FagsakService>()
 
     private val tilgangService = TilgangService(
-        personopplysningerIntegrasjonerClient,
-        rolleConfig,
-        cacheManager,
-        auditLogger,
-        behandlingService,
-        fagsakService,
+        tilleggsstonaderSakClient = tilleggsstonaderSakClient,
+        rolleConfig = rolleConfig,
+        cacheManager = cacheManager,
+        auditLogger = auditLogger,
+        behandlingService = behandlingService,
+        fagsakService = fagsakService,
     )
 
     private val fagsakEf = fagsak()

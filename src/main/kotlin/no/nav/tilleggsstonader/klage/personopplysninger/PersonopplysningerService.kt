@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.personopplysninger
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.FullmaktDto
@@ -23,14 +24,14 @@ class PersonopplysningerService(
     private val behandlingService: BehandlingService,
     private val fagsakService: FagsakService,
     private val pdlClient: PdlClient,
-    private val integrasjonerClient: PersonopplysningerIntegrasjonerClient,
+    private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
 ) {
     @Cacheable("hentPersonopplysninger", cacheManager = "shortCache")
     fun hentPersonopplysninger(behandlingId: UUID): PersonopplysningerDto {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
 
-        val egenAnsatt = integrasjonerClient.egenAnsatt(fagsak.hentAktivIdent())
+        val egenAnsatt = tilleggsstonaderSakClient.erEgenAnsatt(fagsak.hentAktivIdent())
 
         val pdlSøker = pdlClient.hentPerson(fagsak.hentAktivIdent(), fagsak.stønadstype)
         val andreParterNavn = hentNavnAndreParter(pdlSøker, fagsak.stønadstype)

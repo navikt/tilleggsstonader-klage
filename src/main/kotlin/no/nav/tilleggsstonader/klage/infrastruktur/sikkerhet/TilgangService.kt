@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.FagsystemRolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
-import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.cache.CacheManager
 import org.springframework.stereotype.Service
@@ -21,7 +21,7 @@ import java.util.UUID
 
 @Service
 class TilgangService(
-    private val personopplysningerIntegrasjonerClient: PersonopplysningerIntegrasjonerClient,
+    private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
     private val rolleConfig: RolleConfig,
     private val cacheManager: CacheManager,
     private val auditLogger: AuditLogger,
@@ -67,7 +67,7 @@ class TilgangService(
 
     private fun harTilgangTilPersonMedRelasjoner(personIdent: String): Tilgang {
         return harSaksbehandlerTilgang("validerTilgangTilPersonMedBarn", personIdent) {
-            personopplysningerIntegrasjonerClient.sjekkTilgangTilPersonMedRelasjoner(personIdent)
+            tilleggsstonaderSakClient.sjekkTilgangTilPersonMedRelasjoner(personIdent)
         }
     }
 

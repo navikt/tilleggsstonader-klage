@@ -5,6 +5,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
@@ -39,10 +40,10 @@ internal class PersonopplysningerServiceTest {
     private val behandlingService = mockk<BehandlingService>()
     private val fagsakService = mockk<FagsakService>()
     private val pdlClient = mockk<PdlClient>()
-    private val integrasjonerClient = mockk<PersonopplysningerIntegrasjonerClient>()
+    private val tilleggsstonaderSakClient = mockk<TilleggsstonaderSakClient>()
 
     private val personopplysningerService =
-        PersonopplysningerService(behandlingService, fagsakService, pdlClient, integrasjonerClient)
+        PersonopplysningerService(behandlingService, fagsakService, pdlClient, tilleggsstonaderSakClient)
 
     private val fagsak = fagsak()
     private val behandling = behandling(fagsak)
@@ -53,7 +54,7 @@ internal class PersonopplysningerServiceTest {
         every { fagsakService.hentFagsak(fagsak.id) } returns fagsak
         every { pdlClient.hentPerson(any(), any()) } returns lagPdlSøker()
         every { pdlClient.hentNavnBolk(any(), any()) } returns navnBolkResponse()
-        every { integrasjonerClient.egenAnsatt(any()) } returns true
+        every { tilleggsstonaderSakClient.erEgenAnsatt(any()) } returns true
     }
 
     @Test
