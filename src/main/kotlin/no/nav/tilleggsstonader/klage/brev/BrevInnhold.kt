@@ -147,7 +147,7 @@ object BrevInnhold {
     )
 
     private fun Stønadstype.lesMerUrl() = when (this) {
-        Stønadstype.BARNETILSYN -> "nav.no/alene-med-barn"
+        Stønadstype.BARNETILSYN -> "nav.no/tilleggsstonader"
     }
 
     private fun Stønadstype.klageUrl() = when (this) {
