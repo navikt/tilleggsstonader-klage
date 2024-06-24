@@ -6,6 +6,6 @@ object StønadstypeVisningsnavn {
 
     fun Stønadstype.visningsnavn() = when (this) {
         Stønadstype.BARNETILSYN,
-        -> "stønad til ${this.name.lowercase()}"
+        -> "stønad til pass av barn"
     }
 }

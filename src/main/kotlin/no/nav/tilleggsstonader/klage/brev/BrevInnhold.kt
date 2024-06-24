@@ -23,7 +23,7 @@ object BrevInnhold {
         klageMottatt: LocalDate,
     ): FritekstBrevRequestDto {
         return FritekstBrevRequestDto(
-            overskrift = "Vi har sendt klagen din til NAV Klageinstans Nord",
+            overskrift = "Vi har sendt klagen din til NAV Klageinstans Sør",
             navn = navn,
             personIdent = ident,
             avsnitt =
@@ -41,7 +41,7 @@ object BrevInnhold {
                     innhold = "Saksbehandlingstidene finner du på nav.no/saksbehandlingstider.",
                 ),
                 AvsnittDto(
-                    deloverskrift = "Dette er vurderingen vi har sendt til NAV Klageinstans",
+                    deloverskrift = "Dette er vurderingen vi har sendt til NAV Klageinstans:",
                     innhold = instillingKlageinstans,
                 ),
                 AvsnittDto(
@@ -147,10 +147,10 @@ object BrevInnhold {
     )
 
     private fun Stønadstype.lesMerUrl() = when (this) {
-        Stønadstype.BARNETILSYN -> "nav.no/alene-med-barn" // TODO: Tilpass til tilleggsstønader
+        Stønadstype.BARNETILSYN -> "nav.no/alene-med-barn"
     }
 
     private fun Stønadstype.klageUrl() = when (this) {
-        Stønadstype.BARNETILSYN -> "klage.nav.no/familie/enslig-mor-eller-far" // TODO: Tilpass til tilleggsstønader
+        Stønadstype.BARNETILSYN -> "klage.nav.no/nb/ettersendelse/klage/TILLEGGSSTONADER/begrunnelse"
     }
 }
