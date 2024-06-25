@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 import org.springframework.web.util.UriComponentsBuilder
@@ -38,7 +39,7 @@ class TilleggsstønaderIntegrasjonerClient(
 
     fun arkiverDokument(
         arkiverDokumentRequest: ArkiverDokumentRequest,
-        saksbehandler: String?
+        saksbehandler: String?,
     ): ArkiverDokumentResponse =
         postForEntity<ArkiverDokumentResponse>(
             URI.create("$dokuarkivUri"),
@@ -50,7 +51,9 @@ class TilleggsstønaderIntegrasjonerClient(
         return postForEntity<String>(
             uri = integrasjonerConfig.distribuerDokumentUri,
             payload = request,
-            httpHeaders = headerMedSaksbehandler(saksbehandler),
+            httpHeaders = HttpHeaders().apply {
+                this.contentType = MediaType.TEXT_PLAIN
+            },
         )
     }
 
