@@ -14,7 +14,9 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
+import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -32,7 +34,8 @@ internal class DistribusjonServiceTest {
     val ident = "1"
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent(ident)))
     val behandlendeEnhet = "enhet"
-    val behandling = behandling(fagsak = fagsak, behandlendeEnhet = behandlendeEnhet, resultat = BehandlingResultat.IKKE_MEDHOLD)
+    val behandling =
+        behandling(fagsak = fagsak, behandlendeEnhet = behandlendeEnhet, resultat = BehandlingResultat.IKKE_MEDHOLD)
 
     val journalpostSlot = slot<ArkiverDokumentRequest>()
 
@@ -84,20 +87,25 @@ internal class DistribusjonServiceTest {
 
     @Test
     fun distribuerBrev() {
-        val journalpostSlot = slot<String>()
-        val distribusjonstypeSlot = slot<Distribusjonstype>()
+        val requestSlot = slot<DistribuerJournalpostRequest>()
         val journalpostId = "journalpostId"
 
         every {
-            tilleggsstønaderIntegrasjonerClient.distribuerBrev(
-                capture(journalpostSlot),
-                capture(distribusjonstypeSlot),
+            tilleggsstønaderIntegrasjonerClient.distribuerJournalpost(
+                request = capture(requestSlot),
+                saksbehandler = any()
             )
         } returns "distribusjonsnummer"
 
         distribusjonService.distribuerBrev(journalpostId)
 
-        assertThat(journalpostSlot.captured).isEqualTo(journalpostId)
-        assertThat(distribusjonstypeSlot.captured).isEqualTo(Distribusjonstype.ANNET)
+        assertThat(requestSlot.captured).isEqualTo(
+            DistribuerJournalpostRequest(
+                journalpostId = journalpostId,
+                bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
+                dokumentProdApp = "TSO-KLAGE",
+                distribusjonstype = Distribusjonstype.ANNET,
+            ),
+        )
     }
 }

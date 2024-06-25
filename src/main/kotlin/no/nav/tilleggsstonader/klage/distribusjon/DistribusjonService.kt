@@ -13,7 +13,9 @@ import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokument
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokumenttype
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Filtype
+import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -98,7 +100,14 @@ class DistribusjonService(
     }
 
     fun distribuerBrev(journalpostId: String): String {
-        return tilleggsstønaderIntegrasjonerClient.distribuerBrev(journalpostId, Distribusjonstype.ANNET)
+        return tilleggsstønaderIntegrasjonerClient.distribuerJournalpost(
+            DistribuerJournalpostRequest(
+                journalpostId = journalpostId,
+                bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
+                dokumentProdApp = "TSO-KLAGE", // kan være maks 20 tegn -> TILLEGGSSTONADER-KLAGE er for langt
+                distribusjonstype = Distribusjonstype.ANNET,
+            ),
+        )
     }
 
     private fun lagDokument(

@@ -2,14 +2,10 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.log.NavHttpHeaders
-import no.nav.tilleggsstonader.klage.Saksbehandler
-import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
-import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
-import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
@@ -50,17 +46,13 @@ class TilleggsstønaderIntegrasjonerClient(
             headerMedSaksbehandler(saksbehandler),
         )
 
-    fun distribuerBrev(journalpostId: String, distribusjonstype: Distribusjonstype): String =
-        postForEntity<String>(
-            integrasjonerConfig.distribuerDokumentUri,
-            DistribuerJournalpostRequest(
-                journalpostId = journalpostId,
-                bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
-                dokumentProdApp = "TSO-KLAGE", // kan være maks 20 tegn -> TILLEGGSSTONADER-KLAGE er for langt
-                distribusjonstype = distribusjonstype,
-            ),
-            HttpHeaders().medContentTypeJsonUTF8(),
+    fun distribuerJournalpost(request: DistribuerJournalpostRequest, saksbehandler: String? = null): String {
+        return postForEntity<String>(
+            uri = integrasjonerConfig.distribuerDokumentUri,
+            payload = request,
+            httpHeaders = headerMedSaksbehandler(saksbehandler),
         )
+    }
 
     fun finnJournalposter(journalposterForBrukerRequest: JournalposterForBrukerRequest): List<Journalpost> =
         postForEntity<List<Journalpost>>(journalpostURI, journalposterForBrukerRequest)
