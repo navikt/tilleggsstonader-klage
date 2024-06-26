@@ -214,6 +214,11 @@
             <version>${tilleggstonader-libs.version}</version>
         </dependency>
         <dependency>
+            <groupId>no.nav.tilleggsstonader-libs</groupId>
+            <artifactId>http-client</artifactId>
+            <version>${tilleggstonader-libs.version}</version>
+        </dependency>
+        <dependency>
             <groupId>no.nav.familie.felles</groupId>
             <artifactId>kafka</artifactId>
             <version>${felles.version}</version>

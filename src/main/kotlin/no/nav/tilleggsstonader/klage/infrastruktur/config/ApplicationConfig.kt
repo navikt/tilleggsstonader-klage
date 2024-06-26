@@ -2,9 +2,6 @@ package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.familie.http.client.RetryOAuth2HttpClient
-import no.nav.familie.http.config.RestTemplateAzure
-import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
-import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.prosessering.config.ProsesseringInfoProvider
 import no.nav.security.token.support.client.core.http.OAuth2HttpClient
 import no.nav.security.token.support.client.core.oauth2.OAuth2AccessTokenResponse
@@ -20,6 +17,7 @@ import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.servlet.FilterRegistrationBean
+import no.nav.tilleggsstonader.libs.http.config.RestTemplateConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
@@ -27,7 +25,6 @@ import org.springframework.context.annotation.Primary
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.web.client.RestClient
-import org.springframework.web.client.RestOperations
 import org.springframework.web.client.RestTemplate
 import java.time.Duration
 import java.time.temporal.ChronoUnit
@@ -40,7 +37,7 @@ import java.time.temporal.ChronoUnit
     "no.nav.familie.sikkerhet",
 )
 @EnableJwtTokenValidation(ignore = ["org.springframework", "org.springdoc"])
-@Import(RestTemplateAzure::class)
+@Import(RestTemplateConfiguration::class)
 @EnableOAuth2Client(cacheEnabled = true)
 @EnableScheduling
 class ApplicationConfig {
@@ -75,17 +72,6 @@ class ApplicationConfig {
         return RestTemplateBuilder().setConnectTimeout(Duration.of(2, ChronoUnit.SECONDS))
             .setReadTimeout(Duration.of(30, ChronoUnit.SECONDS))
             .additionalMessageConverters(listOf(jackson2HttpMessageConverter) + RestTemplate().messageConverters)
-    }
-
-    @Bean("utenAuth")
-    fun restTemplate(
-        restTemplateBuilder: RestTemplateBuilder,
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-    ): RestOperations {
-        return restTemplateBuilder.additionalInterceptors(
-            consumerIdClientInterceptor,
-            MdcValuesPropagatingClientInterceptor(),
-        ).build()
     }
 
     /**
