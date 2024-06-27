@@ -26,7 +26,7 @@ class KabalKafkaListener(val behandlingEventService: BehandlingEventService) : C
         topics = ["klage.behandling-events.v1"],
         autoStartup = "\${kafka.enabled:true}",
     )
-    fun listen(@Payload behandlingEventJson: String) {
+    fun listen(behandlingEventJson: String) {
         secureLogger.info("Klage-kabal-event: $behandlingEventJson")
         val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
 
