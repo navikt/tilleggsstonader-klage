@@ -58,10 +58,10 @@ class TilleggsstønaderIntegrasjonerClientTest : IntegrationTest() {
             IntegrasjonerConfig(integrasjonUri)
         ).distribuerJournalpost(
             DistribuerJournalpostRequest(
-                "1",
-                Fagsystem.TILLEGGSSTONADER,
-                "a",
-                null
+                journalpostId = "1",
+                bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
+                dokumentProdApp = "appnavn",
+                distribusjonstype = null
             )
         )
 

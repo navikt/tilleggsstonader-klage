@@ -42,6 +42,7 @@ class BehandlingsstatistikkService(
         behandlingsstatistikkProducer.sendBehandlingsstatistikk(behandlingsstatistikkKlage)
     }
 
+    // TODO: Denne mangler anti-corruption layer. Hvis vi f.eks. endrer på BehandlingResultat.Årsak-enumen, vil kontrakten med DVH påvirkes.
     private fun mapTilBehandlingStatistikk(
         behandlingId: UUID,
         hendelse: BehandlingsstatistikkHendelse,
