@@ -10,7 +10,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.listener.ConsumerSeekAware
-import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.UUID
