@@ -9,7 +9,7 @@ metadata:
 spec:
   image: {{ image }}
   ingresses:
-    - https://tilleggsstonader-klage-backend.intern.nav.no
+    - https://tilleggsstonader-klage.intern.nav.no
   liveness:
     path: /internal/status/isAlive
     initialDelay: 30
