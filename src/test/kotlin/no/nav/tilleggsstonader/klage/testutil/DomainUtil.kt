@@ -43,6 +43,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -146,8 +147,7 @@ object DomainUtil {
             klageSignert = FormVilkår.OPPFYLT,
         )
 
-    val defaultIdent = "01010199999"
-    val defaultIdenter = setOf(PersonIdent(defaultIdent))
+    val defaultIdenter = setOf(PersonIdent("01010199999"))
     fun fagsak(
         identer: Set<PersonIdent> = defaultIdenter,
         stønadstype: Stønadstype = Stønadstype.BARNETILSYN,
@@ -238,6 +238,7 @@ object DomainUtil {
         behandlingstype = "type",
         resultat = "resultat",
         vedtakstidspunkt = vedtakstidspunkt,
+        regelverk = Regelverk.NASJONAL,
     )
 
     fun påklagetVedtakDto(): PåklagetVedtakDto =
@@ -269,5 +270,6 @@ object DomainUtil {
         behandlingstype = behandlingstype,
         resultat = resultat,
         vedtakstidspunkt = vedtakstidspunkt,
+        regelverk = Regelverk.NASJONAL,
     )
 }
