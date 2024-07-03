@@ -70,9 +70,11 @@ spec:
         - application: tilleggsstonader-sak-frontend
         - application: tilleggsstonader-sak
         - application: tilleggsstonader-prosessering
+        - application: tilleggsstonader-integrasjoner
     outbound:
       rules:
         - application: tilleggsstonader-sak
+        - application: tilleggsstonader-integrasjoner
         - application: familie-brev
           namespace: teamfamilie
         - application: familie-dokument
