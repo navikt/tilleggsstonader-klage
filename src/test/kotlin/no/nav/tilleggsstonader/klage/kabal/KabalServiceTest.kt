@@ -5,7 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
@@ -41,6 +41,13 @@ internal class KabalServiceTest {
     @BeforeEach
     internal fun setUp() {
         every { kabalClient.sendTilKabal(capture(oversendelseSlot)) } just Runs
+        every { integrasjonerClient.hentSaksbehandlerInfo(any()) } answers {
+            when (firstArg<String>()) {
+                saksbehandlerA.navIdent -> saksbehandlerA
+                saksbehandlerB.navIdent -> saksbehandlerB
+                else -> error("Fant ikke info om saksbehanlder ${firstArg<String>()}")
+            }
+        }
     }
 
     @Test
@@ -82,8 +89,7 @@ internal class KabalServiceTest {
         assertThat(oversendelseSlot.captured.forrigeBehandlendeEnhet).isEqualTo(saksbehandlerB.enhet)
     }
 
-    // TODO: Fjern disable når man har funnet en måte å hente ut saksbehandlers enhet på, slik at riktig enhet kan settes her
-    @Disabled
+
     @Test
     internal fun `skal feile hvis saksbehandlerinfo ikke finnes`() {
         val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.UTEN_VEDTAK))

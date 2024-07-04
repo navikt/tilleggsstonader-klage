@@ -1,7 +1,9 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.familie.http.client.AbstractPingableRestClient
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.familie.log.NavHttpHeaders
+import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
@@ -72,6 +74,13 @@ class TilleggsstønaderIntegrasjonerClient(
                 .build()
                 .toUri(),
         )
+
+    fun hentSaksbehandlerInfo(navIdent: String): Saksbehandler {
+        return getForEntity<Saksbehandler>(
+            URI.create("$saksbehandlerUri/$navIdent"),
+            HttpHeaders().medContentTypeJsonUTF8(),
+        )
+    }
 
     private fun headerMedSaksbehandler(saksbehandler: String?): HttpHeaders {
         val httpHeaders = HttpHeaders()
