@@ -6,7 +6,7 @@ import io.mockk.slot
 import io.mockk.verify
 import no.nav.familie.prosessering.domene.Task
 import no.nav.familie.prosessering.internal.TaskService
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
@@ -58,6 +58,7 @@ internal class BehandlingEventServiceTest {
         every { behandlingRepository.findByEksternBehandlingId(any()) } returns behandlingMedStatusVenter
         every { klageresultatRepository.insert(any()) } answers { firstArg() }
         every { klageresultatRepository.existsById(any()) } returns false
+        every { integrasjonerClient.hentSaksbehandlerInfo(any()) } returns saksbehandler
     }
 
     @Test
@@ -173,7 +174,7 @@ internal class BehandlingEventServiceTest {
         return BehandlingEvent(
             eventId = UUID.randomUUID(),
             kildeReferanse = UUID.randomUUID().toString(),
-            kilde = "EF",
+            kilde = "TS",
             kabalReferanse = "kabalReferanse",
             type = behandlingEventType,
             detaljer = behandlingDetaljer ?: BehandlingDetaljer(
@@ -185,4 +186,11 @@ internal class BehandlingEventServiceTest {
             ),
         )
     }
+    private val saksbehandler = Saksbehandler(
+        UUID.randomUUID(),
+        "A123456",
+        "Alfa",
+        "Omega",
+        "4402"
+    )
 }

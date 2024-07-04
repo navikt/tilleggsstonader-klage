@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
-import no.nav.tilleggsstonader.klage.Saksbehandler
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.pdfAsBase64String
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType

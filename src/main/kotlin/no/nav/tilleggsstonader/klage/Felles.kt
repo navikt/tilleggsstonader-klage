@@ -105,11 +105,3 @@ fun <T> Ressurs<T>.getDataOrThrow(): T {
 data class PersonIdent(
     @field:Pattern(regexp = "(^$|.{11})", message = "PersonIdent er ikke riktig") val ident: String,
 )
-
-class Saksbehandler(
-    val azureId: UUID,
-    val navIdent: String,
-    val fornavn: String,
-    val etternavn: String,
-    val enhet: String,
-)
