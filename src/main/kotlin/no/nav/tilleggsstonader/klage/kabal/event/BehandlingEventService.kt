@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal.event
 
+import no.nav.familie.http.client.RessursException
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.StegService
@@ -18,6 +19,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -110,8 +112,8 @@ class BehandlingEventService(
     private fun opprettOppgaveTask(behandling: Behandling, behandlingEvent: BehandlingEvent) {
         val fagsakDomain = fagsakRepository.finnFagsakForBehandlingId(behandling.id)
             ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
-        // TODO: Finn en måte å hente ut saksbehandlers enhet på, slik at riktig enhet kan settes her
-        val saksbehandlerEnhet = "4462"
+        val saksbehandlerIdent = behandling.sporbar.endret.endretAv
+        val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
         val oppgaveTekst =
             "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
         val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
@@ -125,6 +127,14 @@ class BehandlingEventService(
         val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
     }
+    private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =
+        try {
+            integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent).enhet
+        } catch (e: RessursException) {
+            logger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent")
+            secureLogger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent", e)
+            "Ukjent"
+        }
 
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {
