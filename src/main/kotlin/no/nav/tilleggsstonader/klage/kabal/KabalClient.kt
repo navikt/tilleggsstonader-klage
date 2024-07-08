@@ -15,8 +15,8 @@ class KabalClient(
     @Value("\${KABAL_URL}")
     private val kabalUrl: URI,
     @Qualifier("azure")
-    private val restTemplets: RestTemplate,
-) : AbstractRestClient(restTemplets) {
+    private val restTemplates: RestTemplate,
+) : AbstractRestClient(restTemplates) {
 
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
