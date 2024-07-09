@@ -39,20 +39,20 @@ class BrevController(
     }
 
     @GetMapping("/{behandlingId}/mottakere")
-    fun hentBrevmottakere(@PathVariable behandlingId: UUID): Ressurs<BrevmottakereDto> {
+    fun hentBrevmottakere(@PathVariable behandlingId: UUID): BrevmottakereDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(brevService.hentBrevmottakere(behandlingId).tilDto())
+        return brevService.hentBrevmottakere(behandlingId).tilDto()
     }
 
     @PostMapping("/{behandlingId}/mottakere")
     fun oppdaterBrevmottakere(
         @PathVariable behandlingId: UUID,
         @RequestBody mottakere: BrevmottakereDto,
-    ): Ressurs<BrevmottakereDto> {
+    ): BrevmottakereDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         brevService.settBrevmottakere(behandlingId, mottakere)
-        return Ressurs.success(mottakere)
+        return mottakere
     }
 }
