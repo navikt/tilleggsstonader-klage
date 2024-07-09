@@ -45,10 +45,10 @@ class BehandlingController(
     }
 
     @PostMapping("{behandlingId}/henlegg")
-    fun henleggBehandling(@PathVariable behandlingId: UUID, @RequestBody henlegg: HenlagtDto): Ressurs<Unit> {
+    fun henleggBehandling(@PathVariable behandlingId: UUID, @RequestBody henlegg: HenlagtDto) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(behandlingService.henleggBehandling(behandlingId, henlegg))
+        return behandlingService.henleggBehandling(behandlingId, henlegg)
     }
 
     @GetMapping("{behandlingId}/fagsystem-vedtak")
