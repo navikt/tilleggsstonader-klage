@@ -1,17 +1,17 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
+import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
-import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
+import no.nav.tilleggsstonader.klage.getDataOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.IdentRequest
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import java.net.URI
@@ -24,8 +24,8 @@ class TilleggsstonaderSakClient(
 ) : AbstractRestClient(restTemplate) {
 
     fun hentVedtak(fagsystemEksternFagsakId: String): List<FagsystemVedtak> {
-        val hentVedtakUri = URI.create("$sakUrl/api/klage/ekstern-fagsak/$fagsystemEksternFagsakId/vedtak").toString()
-        return getForEntity<List<FagsystemVedtak>>(uri=hentVedtakUri, httpHeaders = HttpHeaders().medContentTypeJsonUTF8())
+        val hentVedtakUri = URI.create("$sakUrl/api/klage/ekstern-fagsak/$fagsystemEksternFagsakId/vedtak")
+        return getForEntity<Ressurs<List<FagsystemVedtak>>>(hentVedtakUri.toString()).getDataOrThrow()
     }
 
     fun kanOppretteRevurdering(fagsystemEksternFagsakId: String): KanOppretteRevurderingResponse {
