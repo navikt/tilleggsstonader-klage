@@ -29,10 +29,10 @@ class VedleggController(
 ) {
 
     @GetMapping("/{behandlingId}")
-    fun finnVedleggForBehandling(@PathVariable behandlingId: UUID): Ressurs<List<DokumentinfoDto>> {
+    fun finnVedleggForBehandling(@PathVariable behandlingId: UUID): List<DokumentinfoDto> {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(vedleggService.finnVedleggPåBehandling(behandlingId))
+        return vedleggService.finnVedleggPåBehandling(behandlingId)
     }
 
     @GetMapping("/{journalpostId}/dokument-pdf/{dokumentInfoId}", produces = [MediaType.APPLICATION_PDF_VALUE])
