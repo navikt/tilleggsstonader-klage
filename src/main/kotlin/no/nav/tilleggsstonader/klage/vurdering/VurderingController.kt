@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.vurdering
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
@@ -24,16 +23,16 @@ class VurderingController(
 ) {
 
     @GetMapping("{behandlingId}")
-    fun hentVurdering(@PathVariable behandlingId: UUID): Ressurs<VurderingDto?> {
+    fun hentVurdering(@PathVariable behandlingId: UUID): VurderingDto? {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(vurderingService.hentVurderingDto(behandlingId))
+        return vurderingService.hentVurderingDto(behandlingId)
     }
 
     @PostMapping
-    fun opprettEllerOppdaterVurdering(@RequestBody vurdering: VurderingDto): Ressurs<VurderingDto> {
+    fun opprettEllerOppdaterVurdering(@RequestBody vurdering: VurderingDto): VurderingDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(vurdering.behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(vurdering.behandlingId)
-        return Ressurs.success(vurderingService.opprettEllerOppdaterVurdering(vurdering))
+        return vurderingService.opprettEllerOppdaterVurdering(vurdering)
     }
 }

@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.behandling
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.dto.BehandlingDto
 import no.nav.tilleggsstonader.klage.behandling.dto.HenlagtDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
+import no.nav.tilleggsstonader.kontrakter.klage.KanIkkeOppretteRevurderingÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,17 +31,17 @@ class BehandlingController(
 ) {
 
     @GetMapping("{behandlingId}")
-    fun hentBehandling(@PathVariable behandlingId: UUID): Ressurs<BehandlingDto> {
+    fun hentBehandling(@PathVariable behandlingId: UUID): BehandlingDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(behandlingService.hentBehandlingDto(behandlingId))
+        return behandlingService.hentBehandlingDto(behandlingId)
     }
 
     @PostMapping("{behandlingId}/ferdigstill")
-    fun ferdigstillBehandling(@PathVariable behandlingId: UUID): Ressurs<Unit> {
+    fun ferdigstillBehandling(@PathVariable behandlingId: UUID) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.CREATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId))
+        return ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
     }
 
     @PostMapping("{behandlingId}/henlegg")
@@ -52,16 +52,21 @@ class BehandlingController(
     }
 
     @GetMapping("{behandlingId}/fagsystem-vedtak")
-    fun hentFagsystemVedtak(@PathVariable behandlingId: UUID): Ressurs<List<FagsystemVedtak>> {
+    fun hentFagsystemVedtak(@PathVariable behandlingId: UUID): List<FagsystemVedtak> {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(fagsystemVedtakService.hentFagsystemVedtak(behandlingId))
+        return fagsystemVedtakService.hentFagsystemVedtak(behandlingId)
     }
 
     @GetMapping("{behandlingId}/kan-opprette-revurdering")
-    fun kanOppretteRevurdering(@PathVariable behandlingId: UUID): Ressurs<KanOppretteRevurderingResponse> {
+    fun kanOppretteRevurdering(@PathVariable behandlingId: UUID): KanOppretteRevurderingResponse {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(opprettRevurderingService.kanOppretteRevurdering(behandlingId))
+        // TODO: Gjeninnfør kall til opprettRevurderingService når automatisk opprettelse av revurdering er implementert
+//        return opprettRevurderingService.kanOppretteRevurdering(behandlingId)
+        return KanOppretteRevurderingResponse(
+            kanOpprettes = false,
+            årsak = KanIkkeOppretteRevurderingÅrsak.INGEN_BEHANDLING
+        )
     }
 }

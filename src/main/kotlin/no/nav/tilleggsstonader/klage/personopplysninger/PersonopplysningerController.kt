@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.personopplysninger
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
@@ -22,9 +21,9 @@ class PersonopplysningerController(
 ) {
 
     @GetMapping("{behandlingId}")
-    fun hentPersonopplysninger(@PathVariable behandlingId: UUID): Ressurs<PersonopplysningerDto> {
+    fun hentPersonopplysninger(@PathVariable behandlingId: UUID): PersonopplysningerDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
-        return Ressurs.success(personopplysningerService.hentPersonopplysninger(behandlingId))
+        return personopplysningerService.hentPersonopplysninger(behandlingId)
     }
 }
