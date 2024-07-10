@@ -71,7 +71,6 @@ abstract class IntegrationTest {
     @Autowired
     private lateinit var rolleConfig: RolleConfig
 
-    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private lateinit var mockOAuth2Server: MockOAuth2Server
 
@@ -116,7 +115,6 @@ abstract class IntegrationTest {
             PersonIdent::class,
             TaskLogg::class,
             Task::class,
-
         ).forEach { jdbcAggregateOperations.deleteAll(it.java) }
     }
 

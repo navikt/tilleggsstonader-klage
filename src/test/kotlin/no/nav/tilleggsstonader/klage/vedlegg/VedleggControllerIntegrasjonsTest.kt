@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -37,15 +36,16 @@ internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
     internal fun `skal hente ut all metadata om dokumenter samt ett vedlegg`() {
         val vedleggMetadataResponse = finnVedlegg(behandling.id)
         assertThat(vedleggMetadataResponse.statusCode).isEqualTo(HttpStatus.OK)
-        val førsteDokumentMetadata = vedleggMetadataResponse.body?.data?.first()
+        val førsteDokumentMetadata = vedleggMetadataResponse.body?.first()
         assertThat(førsteDokumentMetadata).isNotNull
         førsteDokumentMetadata ?: error("Mangler metadata til dokument")
-        val dokumentSomPdfResponse = hentDokument(førsteDokumentMetadata.journalpostId, førsteDokumentMetadata.dokumentinfoId)
+        val dokumentSomPdfResponse =
+            hentDokument(førsteDokumentMetadata.journalpostId, førsteDokumentMetadata.dokumentinfoId)
         assertThat(dokumentSomPdfResponse.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(dokumentSomPdfResponse.body).isNotNull
     }
 
-    private fun finnVedlegg(behandlingId: UUID): ResponseEntity<Ressurs<List<DokumentinfoDto>>> {
+    private fun finnVedlegg(behandlingId: UUID): ResponseEntity<List<DokumentinfoDto>> {
         return restTemplate.exchange(
             localhost("/api/vedlegg/$behandlingId"),
             HttpMethod.GET,
