@@ -1,7 +1,9 @@
-name: Manuell bygg/deploy dev
+name: Bygg/deploy prod og dev
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -13,7 +15,7 @@ permissions:
 
 jobs:
   build:
-    name: Build and push docker image
+    name: Build and push image
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -36,14 +38,14 @@ jobs:
         id: docker-push
         with:
           team: tilleggsstonader
+          tag: latest
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           byosbom: target/bom.json
     outputs:
       image: ${{ steps.docker-push.outputs.image }}
-
   deploy:
-    name: Deploy til dev-gcp
+    name: Deploy til GCP
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -52,6 +54,12 @@ jobs:
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/dev.yaml
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/prod.yaml
+          IMAGE: ${{ needs.build.outputs.image }}
+      - name: deploy til prod-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/prod.yaml
           IMAGE: ${{ needs.build.outputs.image }}

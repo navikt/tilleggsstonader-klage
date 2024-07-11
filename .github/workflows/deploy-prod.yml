@@ -1,10 +1,7 @@
-name: Build, push, and deploy app to prod
+name: Manuell bygg/deploy prod
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -13,11 +10,10 @@ concurrency:
 permissions:
   contents: "read"
   id-token: "write"
-  packages: "write"
 
 jobs:
   build:
-    name: Build, push and deploy to prod-gcp
+    name: Build and push docker image
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -54,7 +50,7 @@ jobs:
     outputs:
       image: ${{ steps.docker-push.outputs.image }}
   deploy:
-    name: Deploy to GCP
+    name: Deploy til prod-gcp
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -65,11 +61,4 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/prod.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-      - name: Post deploy failures to Slack
-        if: failure()
-        run: |
-          curl -X POST --data "{\"text\": \"Deploy av $GITHUB_REPOSITORY feilet - $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}" $WEBHOOK_URL
-        env:
-          MESSAGE: "Deploy av feilet"
-          WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          IMAGE: ${{ needs.build.outputs.image }}
