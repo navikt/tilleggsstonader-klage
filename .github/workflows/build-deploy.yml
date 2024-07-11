@@ -1,6 +1,6 @@
 name: Bygg/deploy prod og dev
 
-run-name: Bygg/deploy prod og dev - ${{ github.event.pull_request.merged && github.event.pull_request.title || github.event.head_commit.message }}
+run-name: Bygg/deploy prod og dev - ${{ github.event.head_commit.message }}
 
 on:
   push:
