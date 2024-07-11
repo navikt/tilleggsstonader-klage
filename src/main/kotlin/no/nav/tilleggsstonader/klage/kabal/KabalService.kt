@@ -6,7 +6,6 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
-import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import org.springframework.stereotype.Service
 
 @Service
