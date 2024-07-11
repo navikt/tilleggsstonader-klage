@@ -1,4 +1,6 @@
-name: Manuell bygg/deploy dev - ${{ github.event.head_commit.message }}
+name: Manuell bygg/deploy dev
+
+run-name: Manuell bygg/deploy dev - ${{ github.event.head_commit.message }}
 
 on:
   workflow_dispatch:
