@@ -1,5 +1,7 @@
 name: Manuell bygg/deploy dev
 
+run-name: Manuell bygg/deploy dev - ${{ github.event.head_commit.message }}
+
 on:
   workflow_dispatch:
 
@@ -20,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Set up JDK 21
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'

@@ -1,5 +1,7 @@
 name: Bygg/deploy prod og dev
 
+run-name: Bygg/deploy prod og dev - ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.event.head_commit.message }}
+
 on:
   push:
     branches:
@@ -45,7 +47,7 @@ jobs:
     outputs:
       image: ${{ steps.docker-push.outputs.image }}
   deploy:
-    name: Deploy til GCP
+    name: Deploy til dev og prod sekvensielt
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
