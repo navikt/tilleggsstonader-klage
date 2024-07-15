@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,6 +15,7 @@ class KabalService(
     private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
     private val lenkeConfig: LenkeConfig,
 ) {
+    private val secureLogger = LoggerFactory.getLogger("secureLogger")
 
     fun sendTilKabal(fagsak: Fagsak, behandling: Behandling, vurdering: Vurdering, saksbehandlerIdent: String) {
         val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, hentSaksbehandlersEnhet(saksbehandlerIdent))
@@ -25,6 +27,7 @@ class KabalService(
             val tilleggsstønaderInnEnhet = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
             return tilleggsstønaderInnEnhet.enhet
         } catch (e : Exception){
+            secureLogger.error("feilet ved uthenting av enhet for NAV-ident: $saksbehandlerIdent", e)
             return "4462" // fallback til virtuell arbedisbenk om uthentig av den ansattes enhet feiler
         }
     }
