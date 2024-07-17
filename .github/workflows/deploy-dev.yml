@@ -1,4 +1,6 @@
-name: Build-Deploy dev
+name: Manuell bygg/deploy dev
+
+run-name: Manuell bygg/deploy dev - ${{ github.event.head_commit.message }}
 
 on:
   workflow_dispatch:
@@ -13,14 +15,14 @@ permissions:
 
 jobs:
   build:
-    name: Build, push and deploy to dev-gcp
+    name: Build and push docker image
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Set up JDK 21
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -31,7 +33,7 @@ jobs:
           GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn -B --no-transfer-progress package --settings .m2/maven-settings.xml --file pom.xml
-      - name: Build and push docker image
+      - name: Push docker image
         uses: nais/docker-build-push@v0
         id: docker-push
         with:
@@ -43,14 +45,15 @@ jobs:
       image: ${{ steps.docker-push.outputs.image }}
 
   deploy:
-    name: Deploy to GCP
+    name: Deploy til dev-gcp
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/dev.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          IMAGE: ${{ needs.build.outputs.image }}
