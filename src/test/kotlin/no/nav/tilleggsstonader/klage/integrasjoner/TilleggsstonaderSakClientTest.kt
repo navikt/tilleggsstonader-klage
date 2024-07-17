@@ -54,8 +54,8 @@ class TilleggsstonaderSakClientTest : IntegrationTest() {
                         .withBody(Ressurs<List<FagsystemVedtak>>(melding ="lala", data= contentResponse, status = Ressurs.Status.SUKSESS, stacktrace = "olalla" ).toJson())
                 ),
         )
-        val integrasjonUri = URI.create("http://localhost:${wireMockServer.port()}").toString()
-        val response = TilleggsstonaderSakClient(restTemplateUtenAuth, sakUrl = integrasjonUri).hentVedtak(eksternFagsakId)
+        val sakUri = URI.create("http://localhost:${wireMockServer.port()}").toString()
+        val response = TilleggsstonaderSakClient(restTemplateUtenAuth, sakUrl = sakUri).hentVedtak(eksternFagsakId)
 
         assertThat(response[0].eksternBehandlingId).isEqualTo(eksternFagsakId)
 
