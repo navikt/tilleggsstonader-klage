@@ -22,9 +22,10 @@ data class OversendtKlageAnkeV3(
     val kommentar: String? = null,
 )
 
-enum class Type(override val id: String, override val navn: String, override val beskrivelse: String) : Kode {
-    KLAGE("1", "Klage", "Klage"),
-    ANKE("2", "Anke", "Anke"),
+enum class Type(val beskrivelse: String) {
+    KLAGE("Klage"),
+    ANKE("Anke"),
+    ANKE_I_TRYGDERETTEN("Anke i trygderetten"),
 }
 
 enum class OversendtPartIdType {
