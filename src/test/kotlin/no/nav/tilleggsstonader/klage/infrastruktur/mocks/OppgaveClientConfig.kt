@@ -4,8 +4,11 @@ import io.mockk.every
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
+import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
+import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
@@ -45,6 +48,11 @@ class OppgaveClientConfig {
             val oppgave = opprettOppgave(firstArg<OpprettOppgaveRequest>())
             oppgave.id
         }
+
+        val mapper = listOf(
+            MappeDto(MAPPE_ID_PÅ_VENT, OppgaveMappe.PÅ_VENT.navn, "4462")
+        )
+        every { oppgaveClient.finnMapper(any(), any()) } returns FinnMappeResponseDto(mapper.size, mapper)
 
         every { oppgaveClient.ferdigstillOppgave(any()) } answers {
             val oppgave = oppgavelager.getValue(firstArg())
