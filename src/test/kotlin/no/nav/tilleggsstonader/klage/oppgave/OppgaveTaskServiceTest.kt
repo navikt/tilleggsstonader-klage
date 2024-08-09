@@ -26,14 +26,14 @@ import kotlin.random.Random
 
 internal class OppgaveTaskServiceTest {
 
-    val oppgaveClient = mockk<OppgaveClient>()
+    val oppgaveService = mockk<OppgaveService>()
     val fagsakService = mockk<FagsakService>()
     val behandlingService = mockk<BehandlingService>()
     val behandleSakOppgaveRepository = mockk<BehandleSakOppgaveRepository>()
 
     val opprettBehandleSakOppgaveTask = OpprettBehandleSakOppgaveTask(
         fagsakService = fagsakService,
-        oppgaveClient = oppgaveClient,
+        oppgaveService = oppgaveService,
         behandlingService = behandlingService,
         behandleSakOppgaveRepository = behandleSakOppgaveRepository,
     )
@@ -61,7 +61,7 @@ internal class OppgaveTaskServiceTest {
         @BeforeEach
         fun setUp() {
             oppgaveSlot = slot()
-            every { oppgaveClient.opprettOppgave(capture(oppgaveSlot)) } returns oppgaveId
+            every { oppgaveService.opprettOppgave(capture(oppgaveSlot)) } returns oppgaveId
             every { behandleSakOppgaveRepository.insert(any()) } answers { firstArg() }
         }
 
@@ -108,7 +108,7 @@ internal class OppgaveTaskServiceTest {
     internal fun `skal opprette en behandleSakOppgave i databasen`() {
         val oppgaveId = Random.nextLong().absoluteValue
         val behandleSakOppgaveSlot = slot<BehandleSakOppgave>()
-        every { oppgaveClient.opprettOppgave(any()) } returns oppgaveId
+        every { oppgaveService.opprettOppgave(any()) } returns oppgaveId
         every { behandleSakOppgaveRepository.insert(capture(behandleSakOppgaveSlot)) } answers { firstArg() }
         val behandleSakOppgaveTask = Task(
             type = OpprettBehandleSakOppgaveTask.TYPE,

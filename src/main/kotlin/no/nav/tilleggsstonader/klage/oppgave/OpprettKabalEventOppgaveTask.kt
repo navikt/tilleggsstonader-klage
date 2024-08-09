@@ -33,7 +33,7 @@ class OpprettKabalEventOppgaveTask(
     private val fagsakRepository: FagsakRepository,
     private val behandlingRepository: BehandlingRepository,
     private val personRepository: FagsakPersonRepository,
-    private val oppgaveClient: OppgaveClient,
+    private val oppgaveService: OppgaveService,
 ) : AsyncTaskStep {
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -62,7 +62,7 @@ class OpprettKabalEventOppgaveTask(
                 prioritet = prioritet,
             )
 
-        val oppgaveId = oppgaveClient.opprettOppgave(opprettOppgaveRequest)
+        val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
 

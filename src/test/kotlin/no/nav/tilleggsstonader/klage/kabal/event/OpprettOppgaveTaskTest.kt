@@ -11,6 +11,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
@@ -37,7 +38,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @Autowired lateinit var personRepository: FagsakPersonRepository
 
-    private val oppgaveClient = mockk<OppgaveClient>()
+    private val oppgaveService = mockk<OppgaveService>()
     private val opprettOppgaveRequestSlot = slot<OpprettOppgaveRequest>()
 
     private lateinit var opprettOppgaveTask: OpprettKabalEventOppgaveTask
@@ -48,8 +49,8 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @BeforeEach
     fun setup() {
-        opprettOppgaveTask = OpprettKabalEventOppgaveTask(fagsakRepository, behandlingRepository, personRepository, oppgaveClient)
-        every { oppgaveClient.opprettOppgave(capture(opprettOppgaveRequestSlot)) } answers { 9L }
+        opprettOppgaveTask = OpprettKabalEventOppgaveTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
+        every { oppgaveService.opprettOppgave(capture(opprettOppgaveRequestSlot)) } answers { 9L }
 
         fagsak = testoppsettService.lagreFagsak(
             fagsakDomain().tilFagsakMedPerson(

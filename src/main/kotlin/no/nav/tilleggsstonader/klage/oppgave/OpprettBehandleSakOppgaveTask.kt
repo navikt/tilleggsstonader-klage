@@ -26,7 +26,7 @@ import java.util.UUID
 class OpprettBehandleSakOppgaveTask(
     private val fagsakService: FagsakService,
     private val behandlingService: BehandlingService,
-    private val oppgaveClient: OppgaveClient,
+    private val oppgaveService: OppgaveService,
     private val behandleSakOppgaveRepository: BehandleSakOppgaveRepository,
 ) : AsyncTaskStep {
 
@@ -50,7 +50,7 @@ class OpprettBehandleSakOppgaveTask(
             behandlingstema = if (klageGjelderTilbakekreving) Behandlingstema.Tilbakebetaling.value else null,
         )
 
-        val oppgaveId = oppgaveClient.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)
+        val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)
         behandleSakOppgaveRepository.insert(
             BehandleSakOppgave(behandlingId = behandling.id, oppgaveId = oppgaveId),
         )

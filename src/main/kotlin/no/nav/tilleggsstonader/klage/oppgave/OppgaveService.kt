@@ -4,6 +4,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.erUnderArbeidAvSaksbehandler
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
+import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -13,6 +14,10 @@ class OppgaveService(
     private val oppgaveClient: OppgaveClient,
     private val behandlingService: BehandlingService,
 ) {
+
+    fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long {
+        return oppgaveClient.opprettOppgave(opprettOppgaveRequest)
+    }
 
     fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: UUID) {
         val behandling = behandlingService.hentBehandling(behandlingId)
