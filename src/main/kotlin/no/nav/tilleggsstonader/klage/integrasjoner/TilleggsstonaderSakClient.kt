@@ -38,14 +38,14 @@ class TilleggsstonaderSakClient(
             URI.create("$sakUrl/api/ekstern/behandling/opprett-revurdering-klage/$fagsystemEksternFagsakId")
         return postForEntity<OpprettRevurderingResponse>(
             hentVedtakUri,
-            emptyMap<String, String>()
+            emptyMap<String, String>(),
         )
     }
 
     fun sjekkTilgangTilPersonMedRelasjoner(ident: String): Tilgang {
         return postForEntity<Tilgang>(
             URI.create("$sakUrl/api/tilgang/person/sjekkTilgangTilPersonMedRelasjoner"),
-            IdentRequest(ident = ident)
+            IdentRequest(ident = ident),
         )
     }
 

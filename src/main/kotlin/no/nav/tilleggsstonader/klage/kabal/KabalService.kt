@@ -26,7 +26,7 @@ class KabalService(
         try {
             val tilleggsstønaderInnEnhet = integrasjonerClient.hentSaksbehandlerInfo(saksbehandlerIdent)
             return tilleggsstønaderInnEnhet.enhet
-        } catch (e : Exception){
+        } catch (e: Exception) {
             secureLogger.error("feilet ved uthenting av enhet for NAV-ident: $saksbehandlerIdent", e)
             return "4462" // fallback til virtuell arbedisbenk om uthentig av den ansattes enhet feiler
         }

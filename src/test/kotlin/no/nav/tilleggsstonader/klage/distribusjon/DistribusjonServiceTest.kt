@@ -93,7 +93,7 @@ internal class DistribusjonServiceTest {
         every {
             tilleggsstønaderIntegrasjonerClient.distribuerJournalpost(
                 request = capture(requestSlot),
-                saksbehandler = any()
+                saksbehandler = any(),
             )
         } returns "distribusjonsnummer"
 

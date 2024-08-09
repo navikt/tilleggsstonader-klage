@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.kabal
 
-import io.mockk.verify
 import io.mockk.mockk
+import io.mockk.verify
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType

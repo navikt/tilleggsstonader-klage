@@ -66,7 +66,7 @@ class BehandlingController(
 //        return opprettRevurderingService.kanOppretteRevurdering(behandlingId)
         return KanOppretteRevurderingResponse(
             kanOpprettes = false,
-            årsak = KanIkkeOppretteRevurderingÅrsak.INGEN_BEHANDLING
+            årsak = KanIkkeOppretteRevurderingÅrsak.INGEN_BEHANDLING,
         )
     }
 }

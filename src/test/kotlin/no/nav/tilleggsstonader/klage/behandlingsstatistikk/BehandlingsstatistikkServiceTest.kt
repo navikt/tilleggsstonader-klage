@@ -4,8 +4,6 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.slot
-
-
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
@@ -117,6 +115,5 @@ internal class BehandlingsstatistikkServiceTest {
         val captured = behandlingsstatistikkKlageSlot.captured
         assertThat(captured.opprettetAv).isEqualTo("-5")
         assertThat(captured.saksbehandler).isEqualTo("-5")
-
     }
 }

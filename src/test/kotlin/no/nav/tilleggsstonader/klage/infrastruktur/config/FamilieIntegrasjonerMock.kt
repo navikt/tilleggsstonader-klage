@@ -10,11 +10,11 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
-import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.pdfAsBase64String
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
 import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariant
@@ -75,7 +75,7 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
             patch(urlPathMatching("${integrasjonerConfig.oppgaveUri.path}/([0-9]*)/ferdigstill"))
                 .willReturn(okJson(objectMapper.writeValueAsString(OppgaveResponse(Random.nextLong().absoluteValue)))),
 
-            )
+        )
 
     @Bean("mock-integrasjoner")
     @Profile("mock-integrasjoner")
@@ -98,7 +98,9 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
         integrasjonerConfig: IntegrasjonerConfig,
     ): TilleggsstønaderIntegrasjonerClient {
         return TilleggsstønaderIntegrasjonerClient(
-            restOperations, integrasjonUri, integrasjonerConfig
+            restOperations,
+            integrasjonUri,
+            integrasjonerConfig,
         )
     }
 
@@ -128,11 +130,11 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
+                                saksbehandlerHarTilgang = true,
                             ),
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ORIGINAL,
-                                saksbehandlerHarTilgang = true
+                                saksbehandlerHarTilgang = true,
                             ),
                         ),
                     ),
@@ -144,8 +146,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                     DokumentInfo(
@@ -156,8 +158,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                     DokumentInfo(
@@ -168,8 +170,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                         logiskeVedlegg = listOf(
                             LogiskVedlegg(
@@ -190,8 +192,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                     DokumentInfo(
@@ -202,8 +204,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                     DokumentInfo(
@@ -214,8 +216,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                 ),
@@ -242,8 +244,8 @@ class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                         listOf(
                             Dokumentvariant(
                                 variantformat = Dokumentvariantformat.ARKIV,
-                                saksbehandlerHarTilgang = true
-                            )
+                                saksbehandlerHarTilgang = true,
+                            ),
                         ),
                     ),
                 ),

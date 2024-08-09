@@ -41,7 +41,7 @@ class TilleggsstonaderSakClientMock {
 
             every { mock.sjekkTilgangTilPersonMedRelasjoner(any()) } returns Tilgang(
                 harTilgang = true,
-                begrunnelse = null
+                begrunnelse = null,
             )
 
             every { mock.hentVedtak(any()) } returns listOf(

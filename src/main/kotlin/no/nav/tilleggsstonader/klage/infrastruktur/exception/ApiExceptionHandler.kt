@@ -57,7 +57,7 @@ class ApiExceptionHandler {
         secureLogger.info("En håndtert feil har oppstått(${feil.httpStatus}): ${feil.feil}", feil)
         logger.info(
             "En håndtert feil har oppstått(${feil.httpStatus}) " +
-                    "metode=$metodeSomFeiler exception=${rootCause(feil)}: ${feil.message} ",
+                "metode=$metodeSomFeiler exception=${rootCause(feil)}: ${feil.message} ",
         )
         return ProblemDetail.forStatusAndDetail(feil.httpStatus, feil.feil)
     }
@@ -68,7 +68,7 @@ class ApiExceptionHandler {
         secureLogger.error("En håndtert feil har oppstått(${feil.httpStatus}): ${feil.frontendFeilmelding}", feil)
         logger.error(
             "En håndtert feil har oppstått(${feil.httpStatus}) " +
-                    "metode=$metodeSomFeiler exception=${rootCause(feil)}: ${feil.message} ",
+                "metode=$metodeSomFeiler exception=${rootCause(feil)}: ${feil.message} ",
         )
         return ProblemDetail.forStatusAndDetail(feil.httpStatus, feil.frontendFeilmelding)
     }
@@ -101,8 +101,8 @@ class ApiExceptionHandler {
     fun finnMetodeSomFeiler(e: Throwable): String {
         val firstElement = e.stackTrace.firstOrNull {
             it.className.startsWith("no.nav.tilleggsstonader.klage") &&
-                    !it.className.contains("$") &&
-                    !it.className.contains("InsertUpdateRepositoryImpl")
+                !it.className.contains("$") &&
+                !it.className.contains("InsertUpdateRepositoryImpl")
         }
         if (firstElement != null) {
             val className = firstElement.className.split(".").lastOrNull()

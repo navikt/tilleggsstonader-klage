@@ -75,7 +75,7 @@ class OppgaveService(
             if (mappeRespons.antallTreffTotalt > mappeRespons.mapper.size) {
                 logger.error(
                     "Det finnes flere mapper (${mappeRespons.antallTreffTotalt}) " +
-                            "enn vi har hentet ut (${mappeRespons.mapper.size}). Sjekk limit. ",
+                        "enn vi har hentet ut (${mappeRespons.mapper.size}). Sjekk limit. ",
                 )
             }
             mappeRespons.mapper

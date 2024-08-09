@@ -136,6 +136,6 @@ class BehandlingsstatistikkService(
     private fun Regelverk?.tilDVHSakNasjonalitet(): String? = when (this) {
         Regelverk.NASJONAL -> "Nasjonal"
         Regelverk.EØS -> "Utland"
-        null -> "Nasjonal" //fallback til Nasjonal der vedtaket ikkje har informasjon om det er nasjonal eller EØS
+        null -> "Nasjonal" // fallback til Nasjonal der vedtaket ikkje har informasjon om det er nasjonal eller EØS
     }
 }

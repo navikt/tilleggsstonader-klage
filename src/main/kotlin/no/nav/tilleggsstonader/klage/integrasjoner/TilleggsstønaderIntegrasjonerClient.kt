@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.familie.http.client.AbstractPingableRestClient
-import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.familie.log.NavHttpHeaders
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentResponse
 import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
+import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
@@ -28,7 +28,7 @@ class TilleggsstønaderIntegrasjonerClient(
     private val integrasjonUri: URI,
     private val integrasjonerConfig: IntegrasjonerConfig,
 
-    ) : AbstractPingableRestClient(restOperations, "journalpost") {
+) : AbstractPingableRestClient(restOperations, "journalpost") {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     override val pingUri: URI = URI.create("/api/ping")
@@ -40,7 +40,7 @@ class TilleggsstønaderIntegrasjonerClient(
 
     fun arkiverDokument(
         arkiverDokumentRequest: ArkiverDokumentRequest,
-        saksbehandler: String?
+        saksbehandler: String?,
     ): ArkiverDokumentResponse =
         postForEntity<ArkiverDokumentResponse>(
             URI.create("$dokuarkivUri"),
@@ -68,7 +68,7 @@ class TilleggsstønaderIntegrasjonerClient(
             UriComponentsBuilder
                 .fromUriString(
                     "$journalpostURI/hentdokument/" +
-                            "$journalpostId/$dokumentInfoId",
+                        "$journalpostId/$dokumentInfoId",
                 )
                 .queryParam("variantFormat", Dokumentvariantformat.ARKIV)
                 .build()

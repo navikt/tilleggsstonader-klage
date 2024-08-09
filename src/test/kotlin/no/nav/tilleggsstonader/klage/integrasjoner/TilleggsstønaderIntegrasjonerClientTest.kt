@@ -40,14 +40,13 @@ class TilleggsstønaderIntegrasjonerClientTest : IntegrationTest() {
 
     @Test
     fun `distribuerJournalpost skal kunne parse streng-respons uten feilmeldinger fra jackson`() {
-
         val dummyBestillingsId = "351c137e-be74-4b43-9d0e-133efd0f4502"
 
         wireMockServer.stubFor(
             WireMock.post(WireMock.anyUrl())
                 .willReturn(
                     WireMock.ok(dummyBestillingsId)
-                        .withHeader("Content-Type", "application/json")
+                        .withHeader("Content-Type", "application/json"),
                 ),
         )
 
@@ -55,14 +54,14 @@ class TilleggsstønaderIntegrasjonerClientTest : IntegrationTest() {
         val response = TilleggsstønaderIntegrasjonerClient(
             restTemplateUtenAuth,
             integrasjonUri,
-            IntegrasjonerConfig(integrasjonUri)
+            IntegrasjonerConfig(integrasjonUri),
         ).distribuerJournalpost(
             DistribuerJournalpostRequest(
                 journalpostId = "1",
                 bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
                 dokumentProdApp = "appnavn",
-                distribusjonstype = null
-            )
+                distribusjonstype = null,
+            ),
         )
 
         assertThat(response).isEqualTo(dummyBestillingsId)
