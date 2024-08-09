@@ -48,6 +48,7 @@ class OpprettBehandleSakOppgaveTask(
             behandlesAvApplikasjon = "tilleggsstonader-klage",
             tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
             behandlingstema = if (klageGjelderTilbakekreving) Behandlingstema.Tilbakebetaling.value else null,
+            mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
         )
 
         val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)
