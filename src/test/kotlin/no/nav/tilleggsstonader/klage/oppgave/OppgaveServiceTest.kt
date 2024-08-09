@@ -7,14 +7,21 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.junit.jupiter.api.Test
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager
 import java.util.UUID
 
 internal class OppgaveServiceTest {
 
     private val behandleSakOppgaveRepository = mockk<BehandleSakOppgaveRepository>()
     private val oppgaveClient = mockk<OppgaveClient>()
-    val behandlingService = mockk<BehandlingService>()
-    private val oppgaveService = OppgaveService(behandleSakOppgaveRepository, oppgaveClient, behandlingService)
+    private val behandlingService = mockk<BehandlingService>()
+    private val cacheManager = ConcurrentMapCacheManager()
+    private val oppgaveService = OppgaveService(
+        behandleSakOppgaveRepository,
+        oppgaveClient,
+        behandlingService,
+        cacheManager,
+    )
 
     val behandlingId: UUID = UUID.randomUUID()
 
