@@ -77,7 +77,7 @@ no.nav.security.jwt:
         resource-url: ${TILLEGGSSTONADER_SAK_URL}
         token-endpoint-url: ${AZUREAD_TOKEN_ENDPOINT_URL}
         grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-        scope: ${TILLEGGGSSTONADER_SAK_SCOPE}
+        scope: ${TILLEGGSSTONADER_SAK_SCOPE}
         authentication:
           client-id: ${AZURE_APP_CLIENT_ID}
           client-secret: ${AZURE_APP_CLIENT_SECRET}
@@ -96,7 +96,7 @@ no.nav.security.jwt:
 
 PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
+TILLEGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
 TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 
