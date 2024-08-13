@@ -54,6 +54,6 @@ class TestController(
         val stønadstype: Stønadstype,
         val fagsystem: Fagsystem = Fagsystem.TILLEGGSSTONADER,
         val klageMottatt: LocalDate = LocalDate.now(),
-        val behandlendeEnhet: String = "4489",
+        val behandlendeEnhet: String = "4462",
     )
 }

@@ -9,6 +9,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Companion.MAPPE_ID_KLAR
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
@@ -46,6 +47,7 @@ internal class OppgaveTaskServiceTest {
         BrukerContextUtil.mockBrukerContext()
         every { fagsakService.hentFagsakForBehandling(behandling.id) } returns fagsak
         every { behandlingService.hentBehandling(behandling.id) } returns behandling
+        every { oppgaveService.finnMappe("4462", OppgaveMappe.KLAR) } returns MAPPE_ID_KLAR
     }
 
     @AfterEach
@@ -81,7 +83,7 @@ internal class OppgaveTaskServiceTest {
             assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo("ae0058")
             assertThat(oppgaveSlot.captured.behandlesAvApplikasjon).isEqualTo("tilleggsstonader-klage")
             assertThat(oppgaveSlot.captured.oppgavetype).isEqualTo(Oppgavetype.BehandleSak)
-            assertThat(oppgaveSlot.captured.enhetsnummer).isEqualTo("4489")
+            assertThat(oppgaveSlot.captured.enhetsnummer).isEqualTo("4462")
             assertThat(oppgaveSlot.captured.fristFerdigstillelse).isAfter(LocalDate.now())
             assertThat(oppgaveSlot.captured.saksreferanse).isEqualTo(fagsak.eksternId)
             assertThat(oppgaveSlot.captured.tema).isEqualTo(Tema.TSO)

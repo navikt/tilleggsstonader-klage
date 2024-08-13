@@ -85,6 +85,6 @@ internal class OpprettBehandlingServiceTest : IntegrationTest() {
             eksternFagsakId = fagsak.eksternId,
             fagsystem = fagsak.fagsystem,
             klageMottatt = klageMottatt,
-            behandlendeEnhet = "4489",
+            behandlendeEnhet = "4462",
         )
 }

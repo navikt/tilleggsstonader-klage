@@ -78,7 +78,7 @@ object DomainUtil {
         klageMottatt: LocalDate = LocalDate.now(),
         status: BehandlingStatus = BehandlingStatus.OPPRETTET,
         steg: StegType = StegType.FORMKRAV,
-        behandlendeEnhet: String = "4489",
+        behandlendeEnhet: String = "4462",
         resultat: BehandlingResultat = BehandlingResultat.IKKE_SATT,
         vedtakDato: LocalDateTime? = null,
         henlagtÅrsak: HenlagtÅrsak? = null,
