@@ -30,6 +30,10 @@ spec:
     requests:
       memory: 512Mi
       cpu: 200m
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
   gcp:
     sqlInstances:
       - type: POSTGRES_14 # IF This is changed, all data will be lost. Read on nais.io how to upgrade
