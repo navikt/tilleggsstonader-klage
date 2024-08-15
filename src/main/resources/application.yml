@@ -92,14 +92,6 @@ no.nav.security.jwt:
           client-secret: ${AZURE_APP_CLIENT_SECRET}
           client-auth-method: client_secret_basic
 
-
-
-PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
-KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
-TILLEGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
-TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
-
-
 spring:
   mvc:
     format:
@@ -163,16 +155,17 @@ AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT
 FAMILIE_BREV_API_URL: http://familie-brev.teamfamilie
 FAMILIE_DOKUMENT_URL: http://familie-dokument.teamfamilie
 
-TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
 TILLEGGSSTONADER_SAK_URL: http://tilleggsstonader-sak
-PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
+TILLEGGSSTONADER_SAK_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-sak/.default
 
-# //TODO: Sett riktig URL
-FAMILIE_EF_PROXY_URL: DUMMY_URL_TODO
+PDL_URL: https://pdl-api.${ON_PREM_URL_ENV}-fss-pub.nais.io
+PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
+
+TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
+TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
 
 KABAL_URL: http://kabal-api.klage
-
-prosessering.rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere - tilgang til prosessering
+KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default
 
 rolle:
   ts:
@@ -181,6 +174,7 @@ rolle:
     saksbehandler: "c1e9edec-0c10-4df2-8c74-324ab9922220"
 
 prosessering:
+  rolle: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere - tilgang til prosessering
   continuousRunning.enabled: true
   fixedDelayString:
     in:
@@ -190,7 +184,7 @@ prosessering:
       weeks: 16
 
 lenker:
-  TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggstonader.intern.nav.no/"
+  TILLEGGSSTONADER_SAK_FRONTEND_URL: "https://tilleggstonader.nav.no/"
 
 
 BEHANDLINGSSTATISTIKK_TOPIC: tilleggsstonader.aapen-tilleggsstonader-dvh-behandling

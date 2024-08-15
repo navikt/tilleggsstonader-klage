@@ -65,7 +65,7 @@ spec:
         - application: kabal-api
           namespace: klage
       external:
-        - host: pdl-api-q1.dev-fss-pub.nais.io
+        - host: pdl-api.dev-fss-pub.nais.io
 
   azure:
     application:
