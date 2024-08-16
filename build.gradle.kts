@@ -8,7 +8,7 @@ description = "tilleggsstonader-klage"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 val tilleggsstønaderLibsVersion = "2024.05.08-08.38.544e65c0c5a6"
-val tilleggsstønaderKontrakterVersion = "2024.05.27-10.49.07f6d5037b2d"
+val tilleggsstønaderKontrakterVersion = "2024.08.14-17.17.7812164fb0d8"
 
 plugins {
     application
@@ -26,11 +26,10 @@ plugins {
 repositories {
     mavenCentral()
     mavenLocal()
-    maven("https://jitpack.io")
-    maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
-    maven("https://packages.confluent.io/maven/")
-    maven("https://maven.pkg.github.com/navikt/tilleggsstonader-libs")
-    maven("https://repo.maven.apache.org/maven2/")
+
+    maven {
+        url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+    }
 }
 
 
@@ -64,6 +63,7 @@ dependencies {
     implementation(libs.no.nav.familie.felles.http.client)
     implementation(libs.no.nav.familie.prosessering.core)
     implementation(libs.no.nav.familie.felles.log)
+    implementation(libs.no.nav.familie.felles.kafka)
 
     implementation("no.nav.tilleggsstonader-libs:util:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:log:$tilleggsstønaderLibsVersion")
