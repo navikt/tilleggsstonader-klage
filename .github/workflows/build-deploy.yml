@@ -1,6 +1,6 @@
-name: Bygg/deploy prod og dev
+name: Bygg/deploy DEV+PROD
 
-run-name: Bygg/deploy prod og dev - ${{ github.event.head_commit.message }}
+run-name: Bygg/deploy DEV+PROD av branch "${{ github.ref_name }}"
 
 on:
   push:
@@ -32,8 +32,6 @@ jobs:
           cache: 'gradle'
       - name: Test and build
         run: ./gradlew test bootJar -PskipLint
-      - name: Generate and output SBOM
-        run: ./gradlew cyclonedxBom
       - name: Push docker image
         uses: nais/docker-build-push@v0
         id: docker-push
@@ -42,7 +40,6 @@ jobs:
           tag: latest
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          byosbom: build/reports/application.cdx.json
       - name: Post build failures to Slack
         if: failure()
         run: |

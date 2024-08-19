@@ -22,7 +22,6 @@ plugins {
 
     kotlin("plugin.spring") version "1.9.24"
 
-    id("org.cyclonedx.bom") version "1.8.2"
 }
 
 repositories {
