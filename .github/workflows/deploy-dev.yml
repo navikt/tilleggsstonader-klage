@@ -35,7 +35,6 @@ jobs:
         id: docker-push
         with:
           team: tilleggsstonader
-          tag: latest
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
     outputs:
