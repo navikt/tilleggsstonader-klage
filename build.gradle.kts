@@ -83,7 +83,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("no.nav.tilleggsstonader.klage.AppKt")
+    mainClass.set("no.nav.tilleggsstonader.klage.ApplicationKt")
 }
 
 
