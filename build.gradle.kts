@@ -17,8 +17,6 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 
     kotlin("plugin.spring") version "1.9.24"
-
-    id("org.cyclonedx.bom") version "1.8.2"
 }
 
 repositories {
