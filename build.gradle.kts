@@ -4,11 +4,7 @@
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
-description = "tilleggsstonader-klage"
-java.sourceCompatibility = JavaVersion.VERSION_21
-
-val tilleggsstønaderLibsVersion = "2024.05.08-08.38.544e65c0c5a6"
-val tilleggsstønaderKontrakterVersion = "2024.08.14-17.17.7812164fb0d8"
+val javaVersion = JavaVersion.VERSION_21
 
 plugins {
     application
@@ -33,6 +29,8 @@ repositories {
     }
 }
 
+val tilleggsstønaderLibsVersion = "2024.05.08-08.38.544e65c0c5a6"
+val tilleggsstønaderKontrakterVersion = "2024.08.14-17.17.7812164fb0d8"
 
 dependencies {
     implementation(libs.org.jetbrains.kotlin.kotlin.stdlib)
@@ -86,10 +84,13 @@ application {
     mainClass.set("no.nav.tilleggsstonader.klage.ApplicationKt")
 }
 
+java.sourceCompatibility = javaVersion
 
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
+kotlin {
+    jvmToolchain(javaVersion.majorVersion.toInt())
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
     }
 }
 
