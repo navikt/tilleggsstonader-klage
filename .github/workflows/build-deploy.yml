@@ -1,6 +1,6 @@
 name: Bygg/deploy DEV+PROD
 
-run-name: Bygg/deploy DEV+PROD av branch "${{ github.ref_name }}"
+run-name: Bygg/deploy DEV+PROD - ${{ github.event.head_commit.message }}
 
 on:
   push:

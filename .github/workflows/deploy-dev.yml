@@ -1,6 +1,6 @@
 name: Manuell bygg/deploy DEV
 
-run-name: Manuell bygg/deploy til DEV av branch "${{ github.ref_name }}"
+run-name: Manuell bygg/deploy til DEV - ${{ github.event.head_commit.message }}
 
 on:
   workflow_dispatch:
