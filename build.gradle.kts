@@ -18,6 +18,7 @@ plugins {
 
     kotlin("plugin.spring") version "1.9.24"
 
+    id("org.cyclonedx.bom") version "1.8.2"
 }
 
 repositories {
@@ -29,55 +30,60 @@ repositories {
     }
 }
 
-val tilleggsstønaderLibsVersion = "2024.05.08-08.38.544e65c0c5a6"
-val tilleggsstønaderKontrakterVersion = "2024.08.14-17.17.7812164fb0d8"
+val tilleggsstonaderLibsVersion = "2024.05.27-10.56.b9a67bfd6080"
+val tilleggsstonaderKontrakterVersion = "2024.08.12-08.20.e194558f350e"
+val familieFellesVersion = "3.20240515152313_9dd5659"
+val navSecurityVersion = "4.1.7"
+val springBootVersion = "3.2.5"
+val kotlinVersion = "1.9.24"
+val springDocVersion = "2.5.0"
 
 dependencies {
-    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib)
-    implementation(libs.org.eclipse.jetty.jetty.server)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
-    implementation(libs.org.springframework.boot.spring.boot.starter.jetty)
-    implementation(libs.org.springframework.boot.spring.boot.starter.data.jdbc)
-    implementation(libs.org.springframework.boot.spring.boot.starter.actuator)
-    implementation(libs.org.springframework.boot.spring.boot.starter.web)
-    implementation(libs.org.springframework.boot.spring.boot.starter.validation)
-    implementation(libs.org.springframework.kafka.spring.kafka)
+    implementation("org.springframework.boot:spring-boot-starter-jetty:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-validation:$springBootVersion")
+    implementation("org.springframework.kafka:spring-kafka:3.1.4")
 
-    implementation(libs.org.flywaydb.flyway.core)
-    implementation(libs.org.postgresql.postgresql)
-    implementation(libs.com.fasterxml.jackson.module.jackson.module.kotlin)
-    implementation(libs.org.springdoc.springdoc.openapi.starter.webmvc.ui)
-    implementation(libs.org.springdoc.springdoc.openapi.starter.common)
-    implementation(libs.com.github.ben.manes.caffeine.caffeine)
-    implementation(libs.org.slf4j.slf4j.api)
-    implementation(libs.ch.qos.logback.logback.classic)
-    implementation(libs.com.papertrailapp.logback.syslog4j)
-    implementation(libs.io.micrometer.micrometer.registry.prometheus)
+    implementation("org.flywaydb:flyway-core:9.22.3")
+    implementation("org.postgresql:postgresql:42.6.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
+    implementation("org.springdoc:springdoc-openapi-starter-common:$springDocVersion")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+    implementation("org.slf4j:slf4j-api:2.0.13")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("com.papertrailapp:logback-syslog4j:1.0.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.12.5")
 
-    implementation(libs.no.nav.security.token.client.core)
-    implementation(libs.no.nav.security.token.client.spring)
-    implementation(libs.no.nav.security.token.validation.core)
+    implementation("no.nav.security:token-client-core:$navSecurityVersion")
+    implementation("no.nav.security:token-client-spring:$navSecurityVersion")
+    implementation("no.nav.security:token-validation-core:$navSecurityVersion")
 
-    implementation(libs.no.nav.familie.felles.util)
-    implementation(libs.no.nav.familie.felles.http.client)
-    implementation(libs.no.nav.familie.prosessering.core)
-    implementation(libs.no.nav.familie.felles.log)
-    implementation(libs.no.nav.familie.felles.kafka)
+    implementation("no.nav.familie.felles:util:$familieFellesVersion")
+    implementation("no.nav.familie.felles:http-client:$familieFellesVersion")
+    implementation("no.nav.familie.felles:log:$familieFellesVersion")
+    implementation("no.nav.familie.felles:kafka:$familieFellesVersion")
 
-    implementation("no.nav.tilleggsstonader-libs:util:$tilleggsstønaderLibsVersion")
-    implementation("no.nav.tilleggsstonader-libs:log:$tilleggsstønaderLibsVersion")
-    implementation("no.nav.tilleggsstonader-libs:http-client:$tilleggsstønaderLibsVersion")
-    implementation("no.nav.tilleggsstonader-libs:sikkerhet:$tilleggsstønaderLibsVersion")
+    implementation("no.nav.familie:prosessering-core:2.20240522090805_0e9c7a6")
 
-    implementation("no.nav.tilleggsstonader.kontrakter:tilleggsstonader-kontrakter:$tilleggsstønaderKontrakterVersion")
+    implementation("no.nav.tilleggsstonader-libs:util:$tilleggsstonaderLibsVersion")
+    implementation("no.nav.tilleggsstonader-libs:log:$tilleggsstonaderLibsVersion")
+    implementation("no.nav.tilleggsstonader-libs:http-client:$tilleggsstonaderLibsVersion")
+    implementation("no.nav.tilleggsstonader-libs:sikkerhet:$tilleggsstonaderLibsVersion")
 
-    testImplementation(libs.org.springframework.boot.spring.boot.starter.test)
-    testImplementation(libs.org.jetbrains.kotlin.kotlin.test.junit5)
-    testImplementation(libs.io.mockk.mockk.jvm)
-    testImplementation(libs.com.github.tomakehurst.wiremock.jre8.standalone)
-    testImplementation(libs.no.nav.security.token.validation.spring.test)
-    testImplementation(libs.org.testcontainers.postgresql)
-    testImplementation(libs.org.junit.platform.junit.platform.suite)
+    implementation("no.nav.tilleggsstonader.kontrakter:tilleggsstonader-kontrakter:$tilleggsstonaderKontrakterVersion")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
+    testImplementation("io.mockk:mockk-jvm:1.13.10")
+    testImplementation("com.github.tomakehurst:wiremock-jre8-standalone:2.35.2")
+    testImplementation("no.nav.security:token-validation-spring-test:$navSecurityVersion")
+    testImplementation("org.testcontainers:postgresql:1.19.8")
+    testImplementation("org.junit.platform:junit-platform-suite:1.10.2")
 }
 
 application {
