@@ -1,6 +1,6 @@
 name: Manuell bygg/deploy PROD
 
-run-name: Manuell bygg/deploy til PROD - ${{ github.event.head_commit.message }}
+run-name: Manuell bygg/deploy til PROD - ${{ github.event.workflow_run.head_commit.message }}
 
 on:
   workflow_dispatch:
