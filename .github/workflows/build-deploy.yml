@@ -32,6 +32,8 @@ jobs:
           cache: 'gradle'
       - name: Test and build
         run: ./gradlew test bootJar -PskipLint
+      - name: Generate and output SBOM
+        run: ./gradlew cyclonedxBom
       - name: Push docker image
         uses: nais/docker-build-push@v0
         id: docker-push
@@ -39,6 +41,7 @@ jobs:
           team: tilleggsstonader
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          byosbom: build/reports/bom.json
       - name: Post build failures to Slack
         if: failure()
         run: |
