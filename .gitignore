@@ -15,7 +15,6 @@ ktlint
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -29,3 +28,6 @@ hs_err_pid*
 .DS_Store
 
 .run
+
+.gradle/
+build/

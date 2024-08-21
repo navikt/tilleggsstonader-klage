@@ -41,6 +41,7 @@ spec:
         cascadingDelete: false
         highAvailability: false
         pointInTimeRecovery: true
+        tier: db-f1-micro
         maintenance:
           day: 7
           hour: 23
