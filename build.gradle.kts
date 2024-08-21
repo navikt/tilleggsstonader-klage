@@ -72,15 +72,8 @@ dependencies {
     // For auditlogger. August 2014, men det er den som blir brukt på NAV
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
 
-    implementation("ch.qos.logback:logback-classic:1.4.14")
-    implementation("com.papertrailapp:logback-syslog4j:1.0.0")
-    implementation("org.springframework.boot:spring-boot-starter-jetty")
-    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
-
-    implementation("org.postgresql:postgresql:42.6.2")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
     implementation("org.springdoc:springdoc-openapi-starter-common:$springDocVersion")
-    implementation("org.slf4j:slf4j-api:2.0.13")
 
     implementation("no.nav.familie.felles:util:$familieFellesVersion")
     implementation("no.nav.familie.felles:http-client:$familieFellesVersion")
@@ -104,10 +97,7 @@ dependencies {
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.wiremock:wiremock-standalone:$wiremockVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
-
-
     testImplementation("org.testcontainers:postgresql:$testcontainerVersion")
-
     testImplementation("no.nav.security:token-validation-spring-test:$tokenSupportVersion")
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
