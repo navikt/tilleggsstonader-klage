@@ -48,6 +48,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     outputs:
       image: ${{ steps.docker-push.outputs.image }}
+
   deploy:
     name: Deploy til prod-gcp
     needs: build
