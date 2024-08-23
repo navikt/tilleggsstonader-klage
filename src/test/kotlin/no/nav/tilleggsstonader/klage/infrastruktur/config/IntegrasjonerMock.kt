@@ -40,7 +40,7 @@ import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 @Component
-class FamilieIntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
+class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
 
     private val responses =
         listOf(
