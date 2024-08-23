@@ -104,7 +104,7 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: my-team
+          team: tilleggsstonader
 
       - name: Pull docker image
         run: docker pull ${{ needs.build.outputs.image }}
