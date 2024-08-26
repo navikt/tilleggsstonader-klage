@@ -76,6 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 7
     steps:
+      - uses: actions/checkout@v4
       - name: deploy til prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
