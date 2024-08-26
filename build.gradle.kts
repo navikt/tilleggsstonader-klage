@@ -129,3 +129,7 @@ tasks.test {
         events = setOf(TestLogEvent.FAILED)
     }
 }
+
+tasks.cyclonedxBom {
+    setIncludeConfigs(listOf("runtimeClasspath"))
+}
