@@ -174,6 +174,8 @@ object DomainUtil {
             fagsystem = when (stønadstype) {
                 Stønadstype.BARNETILSYN,
                 -> Fagsystem.TILLEGGSSTONADER
+
+                Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
             },
         )
     }
