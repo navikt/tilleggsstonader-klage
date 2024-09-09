@@ -20,6 +20,7 @@ import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
+import no.nav.tilleggsstonader.kontrakter.saksstatistikk.SakYterlseDvh
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -96,7 +97,7 @@ internal class BehandlingsstatistikkServiceTest {
         assertThat(captured.relatertFagsystemType).isEqualTo("ORDNIÆR")
         assertThat(captured.resultatBegrunnelse).isEqualTo(Årsak.FEIL_I_LOVANDVENDELSE.name)
         assertThat(captured.sakUtland).isEqualTo("Nasjonal")
-        assertThat(captured.sakYtelse).isEqualTo(fagsak.stønadstype.name)
+        assertThat(captured.sakYtelse).isEqualTo(SakYterlseDvh.TILLEGG_BARNETILSYN)
         assertThat(captured.saksbehandler).isEqualTo(gjeldendeSaksbehandler)
         assertThat(captured.saksnummer).isEqualTo(fagsak.eksternId)
         assertThat(captured.tekniskTid.toLocalDate()).isEqualTo(LocalDate.now())

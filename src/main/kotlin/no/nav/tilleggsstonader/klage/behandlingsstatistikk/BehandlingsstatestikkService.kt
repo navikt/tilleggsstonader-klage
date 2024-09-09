@@ -9,6 +9,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
+import no.nav.tilleggsstonader.kontrakter.saksstatistikk.SakYterlseDvh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -73,7 +74,7 @@ class BehandlingsstatistikkService(
             endretTid = hendelseTidspunkt,
             tekniskTid = LocalDateTime.now(),
             behandlingType = "KLAGE",
-            sakYtelse = fagsak.stønadstype.name,
+            sakYtelse = SakYterlseDvh.fraStønadstype(fagsak.stønadstype),
             relatertEksternBehandlingId = påklagetVedtakDetaljer?.eksternFagsystemBehandlingId,
             relatertFagsystemType = påklagetVedtakDetaljer?.fagsystemType?.name,
             behandlingStatus = hendelse.name,
