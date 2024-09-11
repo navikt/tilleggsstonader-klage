@@ -131,5 +131,5 @@ tasks.test {
 }
 
 tasks.cyclonedxBom {
-    setIncludeConfigs(listOf("runtimeClasspath"))
+    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath"))
 }
