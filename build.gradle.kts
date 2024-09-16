@@ -1,15 +1,15 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20240522090805_0e9c7a6"
-val tilleggsstønaderLibsVersion = "2024.05.27-10.56.b9a67bfd6080"
+val familieProsesseringVersion = "2.20240916095727_7fab7b4"
+val tilleggsstønaderLibsVersion = "2024.09.13-14.55.90172c4319d3"
 val tilleggsstønaderKontrakterVersion = "2024.09.09-10.23.72b91e90009e"
-val tokenSupportVersion = "4.1.7"
-val wiremockVersion = "3.6.0"
-val mockkVersion = "1.13.11"
-val testcontainerVersion = "1.19.8"
-val familieFellesVersion = "3.20240515152313_9dd5659"
-val springDocVersion = "2.5.0"
+val tokenSupportVersion = "5.0.5"
+val wiremockVersion = "3.9.1"
+val mockkVersion = "1.13.12"
+val testcontainerVersion = "1.20.1"
+val familieFellesVersion = "3.20240913110742_adb42f8"
+val springDocVersion = "2.6.0"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -17,17 +17,17 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "1.9.24"
-    kotlin("plugin.spring") version "1.9.24"
+    kotlin("jvm") version "2.0.20"
+    kotlin("plugin.spring") version "2.0.20"
 
     id("com.diffplug.spotless") version "6.25.0"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.2.5"
+    id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
 
-    id("org.cyclonedx.bom") version "1.8.2"
+    id("org.cyclonedx.bom") version "1.10.0"
 }
 
 repositories {
@@ -59,14 +59,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:9.22.3")
+    implementation("org.flywaydb:flyway-core:10.18.0")
 
-    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
+    implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     // For auditlogger. August 2014, men det er den som blir brukt på NAV
