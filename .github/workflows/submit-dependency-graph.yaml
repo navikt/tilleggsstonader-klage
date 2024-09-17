@@ -30,4 +30,4 @@ jobs:
           dependency-graph: generate-and-submit
           arguments: --configuration-cache test
       - name: Run a build, generating the dependency graph snapshot which will be submitted
-        run: ./gradlew build
+        run: ./gradlew build -x :check -x :cyclonedxBom
