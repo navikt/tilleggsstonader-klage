@@ -1,4 +1,7 @@
-FROM gcr.io/distroless/java21-debian12:nonroot
+FROM gcr.io/distroless/java21:nonroot
+
+USER nonroot
+
 ENV TZ="Europe/Oslo"
 
 EXPOSE 8080
