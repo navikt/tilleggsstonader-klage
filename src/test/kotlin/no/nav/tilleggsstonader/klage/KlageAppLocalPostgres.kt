@@ -1,30 +1,38 @@
 package no.nav.tilleggsstonader.klage
 
 import no.nav.tilleggsstonader.klage.infrastruktur.config.ApplicationConfig
-import no.nav.tilleggsstonader.klage.infrastruktur.db.DbContainerInitializer
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 import org.springframework.boot.builder.SpringApplicationBuilder
+import org.springframework.context.annotation.Import
+import java.util.Properties
 
 @SpringBootApplication(exclude = [ErrorMvcAutoConfiguration::class])
-class ApplicationLocal
+@Import(ApplicationConfig::class)
+class KlageAppLocalPostgres
 
 fun main(args: Array<String>) {
-    SpringApplicationBuilder(ApplicationConfig::class.java)
-        .initializers(DbContainerInitializer())
+    val properties = Properties()
+    properties["DATASOURCE_URL"] = "jdbc:postgresql://localhost:5433/tilleggsstonader-klage"
+    properties["DATASOURCE_USERNAME"] = "postgres"
+    properties["DATASOURCE_PASSWORD"] = "test"
+    properties["DATASOURCE_DRIVER"] = "org.postgresql.Driver"
+
+    SpringApplicationBuilder(KlageAppLocalPostgres::class.java)
         .profiles(
             "local",
             "mock-oauth",
             "mock-integrasjoner",
-            "mock-auditlogger",
             "mock-pdl",
             "mock-brev",
-            "mock-tilleggsstonader-sak",
             "mock-dokument",
+            "mock-tilleggsstonader-sak",
             "mock-kabal",
             "mock-ereg",
+            "mock-inntekt",
             "mock-oppgave",
             "mock-kafka",
         )
+        .properties(properties)
         .run(*args)
 }
