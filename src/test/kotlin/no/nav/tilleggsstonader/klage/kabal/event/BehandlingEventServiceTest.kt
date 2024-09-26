@@ -14,6 +14,7 @@ import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjone
 import no.nav.tilleggsstonader.klage.kabal.AnkeITrygderettenbehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingDetaljer
+import no.nav.tilleggsstonader.klage.kabal.BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
@@ -21,6 +22,7 @@ import no.nav.tilleggsstonader.klage.kabal.KlagebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.Type
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
+import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
@@ -139,6 +141,29 @@ internal class BehandlingEventServiceTest {
     }
 
     @Test
+    internal fun `Skal kunne lagre resultat for behandlingsevent BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET`() {
+        val klageinstansResultatSlot = slot<KlageinstansResultat>()
+
+        val detaljer = BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer(
+            avsluttet = LocalDateTime.of(2023, 6, 21, 1, 1),
+            utfall = KlageinstansUtfall.HEVET,
+            journalpostReferanser = emptyList(),
+        )
+        behandlingEventService.handleEvent(
+            lagBehandlingEvent(
+                BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
+                BehandlingDetaljer(behandlingEtterTrygderettenOpphevetAvsluttet = detaljer),
+            ),
+        )
+
+        verify(exactly = 1) { behandlingRepository.findByEksternBehandlingId(any()) }
+        verify(exactly = 1) { klageresultatRepository.insert(capture(klageinstansResultatSlot)) }
+
+        assertThat(klageinstansResultatSlot.captured.type)
+            .isEqualTo(BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET)
+    }
+
+    @Test
     internal fun `Skal ikke ferdigstille behandling for behandlingsevent ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET`() {
         val klageinstansResultatSlot = slot<KlageinstansResultat>()
 
@@ -167,6 +192,29 @@ internal class BehandlingEventServiceTest {
         assertThat(taskSlot.captured.payload).isEqualTo(behandlingMedStatusVenter.id.toString())
     }
 
+    @Test
+    internal fun `Skal lage OpprettOppgave-task for behandlingsevent BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET`() {
+        val taskSlot = slot<Task>()
+
+        every { taskService.save(capture(taskSlot)) } returns mockk()
+
+        val detaljer = BehandlingDetaljer(
+            behandlingEtterTrygderettenOpphevetAvsluttet = BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer(
+                avsluttet = LocalDateTime.now(),
+                utfall = KlageinstansUtfall.HEVET,
+                journalpostReferanser = emptyList(),
+            ),
+        )
+        val event = lagBehandlingEvent(
+            behandlingEventType = BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
+            behandlingDetaljer = detaljer,
+        )
+        behandlingEventService.handleEvent(event)
+
+        assertThat(taskSlot.captured.type).isEqualTo(OpprettKabalEventOppgaveTask.TYPE)
+        assertThat(taskSlot.captured.payload).contains("Hendelse fra klage av type behandling etter trygderetten opphevet avsluttet med utfall: HEVET mottatt.")
+    }
+
     private fun lagBehandlingEvent(
         behandlingEventType: BehandlingEventType = BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET,
         behandlingDetaljer: BehandlingDetaljer? = null,
@@ -186,6 +234,7 @@ internal class BehandlingEventServiceTest {
             ),
         )
     }
+
     private val saksbehandler = Saksbehandler(
         UUID.randomUUID(),
         "A123456",

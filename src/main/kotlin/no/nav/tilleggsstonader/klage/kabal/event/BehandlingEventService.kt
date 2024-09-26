@@ -52,7 +52,8 @@ class BehandlingEventService(
             when (behandlingEvent.type) {
                 BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET -> behandleKlageAvsluttet(behandling, behandlingEvent)
                 BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
-                -> behandleAnkeAvsluttet(behandling, behandlingEvent)
+                BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
+                -> opprettOppgaveTask(behandling, behandlingEvent)
 
                 BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
                 BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
@@ -94,10 +95,6 @@ class BehandlingEventService(
         } else {
             null
         }
-
-    private fun behandleAnkeAvsluttet(behandling: Behandling, behandlingEvent: BehandlingEvent) {
-        opprettOppgaveTask(behandling, behandlingEvent)
-    }
 
     private fun behandleKlageAvsluttet(behandling: Behandling, behandlingEvent: BehandlingEvent) {
         when (behandling.status) {
