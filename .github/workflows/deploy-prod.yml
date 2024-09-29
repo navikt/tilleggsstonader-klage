@@ -1,64 +1,14 @@
-name: Manuell bygg/deploy PROD
-
-run-name: Manuell bygg/deploy til PROD - ${{ github.event.workflow_run.head_commit.message }}
-
+name: Manuell deploy til prod
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
-permissions:
-  contents: "read"
-  id-token: "write"
-
 jobs:
-  build:
-    name: Build and push docker image
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
-      - name: Test and build
-        run: ./gradlew test bootJar -PskipLint
-      - name: Generate and output SBOM
-        run: ./gradlew cyclonedxBom
-      - name: Push docker image
-        uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-          team: tilleggsstonader
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          byosbom: build/reports/bom.json
-      - name: Post build failures to Slack
-        if: failure()
-        run: |
-          curl -X POST --data "{\"text\": \"Build av $GITHUB_REPOSITORY feilet - $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}" $WEBHOOK_URL
-        env:
-          WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    outputs:
-      image: ${{ steps.docker-push.outputs.image }}
-
-  deploy:
-    name: Deploy til prod-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy til prod-gcp
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/prod.yaml
-          IMAGE: ${{ needs.build.outputs.image }}
+  build-and-deploy:
+    name: "Bygger app og deployer til prod"
+    uses: navikt/tilleggsstonader/.github/workflows/java-build-and-deploy.yml@main
+    secrets: inherit
+    permissions:
+      id-token: "write"
+    with:
+      cluster: "prod-gcp"
+      manifest: ".nais/prod.yaml"
