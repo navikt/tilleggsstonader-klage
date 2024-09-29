@@ -6,4 +6,3 @@ on:
 jobs:
   build:
     uses: navikt/tilleggsstonader/.github/workflows/java-build-and-test.yml@main
-    timeout-minutes: 3
