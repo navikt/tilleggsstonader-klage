@@ -1,55 +1,14 @@
-name: Manuell bygg/deploy DEV
-
-run-name: Manuell bygg/deploy til DEV - ${{ github.event.workflow_run.head_commit.message }}
-
+name: Manuell deploy til dev
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
-permissions:
-  contents: "read"
-  id-token: "write"
-
 jobs:
-  build:
-    name: Build and push docker image
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
-      - name: Test and build
-        run: ./gradlew test bootJar -PskipLint
-      - name: Push docker image
-        uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-          team: tilleggsstonader
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-    outputs:
-      image: ${{ steps.docker-push.outputs.image }}
-
-  deploy:
-    name: Deploy til dev-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy til dev-gcp
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/dev.yaml
-          IMAGE: ${{ needs.build.outputs.image }}
+  build-and-deploy:
+    name: "Bygger app og deployer til dev"
+    uses: navikt/tilleggsstonader/.github/workflows/java-build-and-deploy.yml@main
+    secrets: inherit
+    permissions:
+      id-token: "write"
+    with:
+      cluster: "dev-gcp"
+      manifest: ".nais/dev.yaml"
