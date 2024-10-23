@@ -1,13 +1,13 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20240916095727_7fab7b4"
-val tilleggsstønaderLibsVersion = "2024.09.13-14.55.90172c4319d3"
+val familieProsesseringVersion = "2.20241011144712_deb1f2c"
+val tilleggsstønaderLibsVersion = "2024.10.23-11.17.9effeb9c75b5"
 val tilleggsstønaderKontrakterVersion = "2024.10.28-14.18.6efb2e0b2bd5"
 val tokenSupportVersion = "5.0.5"
-val wiremockVersion = "3.9.1"
-val mockkVersion = "1.13.12"
-val testcontainerVersion = "1.20.1"
+val wiremockVersion = "3.9.2"
+val mockkVersion = "1.13.13"
+val testcontainerVersion = "1.20.3"
 val familieFellesVersion = "3.20240913110742_adb42f8"
 val springDocVersion = "2.6.0"
 
@@ -24,7 +24,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.51.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.3.3"
+    id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
 
     id("org.cyclonedx.bom") version "1.10.0"
@@ -59,12 +59,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:10.18.0")
+    implementation("org.flywaydb:flyway-core:10.20.0")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
