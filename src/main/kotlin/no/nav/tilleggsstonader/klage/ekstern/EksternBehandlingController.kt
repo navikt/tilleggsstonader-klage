@@ -11,6 +11,8 @@ import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.KlagebehandlingDto
+import no.nav.tilleggsstonader.kontrakter.klage.OppgaverBehandlingerRequest
+import no.nav.tilleggsstonader.kontrakter.klage.OppgaverBehandlingerResponse
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
 import org.slf4j.LoggerFactory
 import org.springframework.validation.annotation.Validated
@@ -55,6 +57,14 @@ class EksternBehandlingController(
         validerTilgang(behandlinger)
 
         return Ressurs.success(behandlinger)
+    }
+
+    @PostMapping("finn-oppgaver")
+    fun hentBehandlingIderForOppgaver(
+        @RequestBody request: OppgaverBehandlingerRequest,
+    ): Ressurs<OppgaverBehandlingerResponse> {
+        val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
+        return Ressurs.success(OppgaverBehandlingerResponse(oppgaver = behandlingIdPåOppgaveId))
     }
 
     private fun validerTilgang(behandlinger: Map<String, List<KlagebehandlingDto>>) {

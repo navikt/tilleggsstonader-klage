@@ -50,6 +50,11 @@ class OppgaveService(
         return oppgaveClient.finnOppgaveMedId(gsakOppgaveId)
     }
 
+    fun hentBehandlingIderForOppgaver(oppgaveIder: List<Long>): Map<Long, UUID> {
+        return behandleSakOppgaveRepository.finnForOppgaveIder(oppgaveIder)
+            .associate { it.oppgaveId to it.behandlingId }
+    }
+
     fun finnMappe(enhet: String, oppgaveMappe: OppgaveMappe) = finnMapper(enhet)
         .filter { it.navn.endsWith(oppgaveMappe.navn, ignoreCase = true) }
         .let {
