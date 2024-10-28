@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetad
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
@@ -44,7 +45,7 @@ class OpprettBehandleSakOppgaveTask(
             fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),
             beskrivelse = "Klagebehandling i ny løsning",
             enhetsnummer = behandling.behandlendeEnhet,
-            behandlingstype = Behandlingstema.Klage.value,
+            behandlingstype = Behandlingstype.Klage.value,
             behandlesAvApplikasjon = "tilleggsstonader-klage",
             tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
             behandlingstema = if (klageGjelderTilbakekreving) Behandlingstema.Tilbakebetaling.value else null,

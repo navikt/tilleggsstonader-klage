@@ -10,7 +10,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
-import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -53,7 +53,7 @@ class BehandlingFeilregistrertTask(
                 oppgaveTekst = lagOppgavebeskrivelse(årsakFeilregistrert),
                 fagsystem = fagsak.fagsystem,
                 klageinstansUtfall = null,
-                behandlingstype = Behandlingstema.Klage.value,
+                behandlingstype = Behandlingstype.Klage.value,
             ),
         )
     }
