@@ -31,7 +31,7 @@ class TilleggsstønaderIntegrasjonerClient(
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     private val dokArkivUri =
-        UriComponentsBuilder.fromUri(integrasjonUri).pathSegment("api/arkiv").toUriString()
+        UriComponentsBuilder.fromUri(integrasjonUri).pathSegment("api/arkiv").build().toUriString()
     private val journalpostURI: URI = integrasjonerConfig.journalPostUri
     private val saksbehandlerUri: URI = integrasjonerConfig.saksbehandlerUri
 
