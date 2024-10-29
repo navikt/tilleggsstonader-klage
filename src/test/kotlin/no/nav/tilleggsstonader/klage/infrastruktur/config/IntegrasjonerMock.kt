@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.okJson
@@ -32,7 +31,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestOperations
+import org.springframework.web.client.RestTemplate
 import java.net.URI
 import java.time.LocalDateTime
 import java.util.UUID
@@ -44,8 +43,6 @@ class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
 
     private val responses =
         listOf(
-            get(urlEqualTo(integrasjonerConfig.pingUri.path))
-                .willReturn(aResponse().withStatus(200)),
             get(urlPathMatching("${integrasjonerConfig.saksbehandlerUri.path}/([A-Za-z0-9]*)"))
                 .willReturn(okJson(objectMapper.writeValueAsString(saksbehandler))),
             get(urlPathEqualTo(integrasjonerConfig.journalPostUri.path))
@@ -92,13 +89,13 @@ class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
     @Profile("mock-integrasjoner")
     @Primary
     fun tilleggsstønaderIntegrasjonerClient(
-        @Qualifier("utenAuth") restOperations: RestOperations,
+        @Qualifier("utenAuth") restTemplate: RestTemplate,
         @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
         integrasjonUri: URI,
         integrasjonerConfig: IntegrasjonerConfig,
     ): TilleggsstønaderIntegrasjonerClient {
         return TilleggsstønaderIntegrasjonerClient(
-            restOperations,
+            restTemplate,
             integrasjonUri,
             integrasjonerConfig,
         )

@@ -1,9 +1,7 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
-import io.mockk.runs
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGradering
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
@@ -35,8 +33,6 @@ class PdlClientMock {
     @Primary
     fun pdlClient(): PdlClient {
         val pdlClient: PdlClient = mockk()
-
-        every { pdlClient.ping() } just runs
 
         every { pdlClient.hentNavnBolk(any(), any()) } answers { firstArg<List<String>>().associateWith { pdlNavn(listOf(lagNavn())) } }
 
