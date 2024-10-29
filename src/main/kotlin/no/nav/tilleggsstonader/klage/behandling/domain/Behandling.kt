@@ -52,15 +52,15 @@ data class PåklagetVedtak(
 
 enum class PåklagetVedtakstype {
     VEDTAK,
-    INFOTRYGD_TILBAKEKREVING,
     UTEN_VEDTAK,
     IKKE_VALGT,
-    INFOTRYGD_ORDINÆRT_VEDTAK,
+    ARENA_ORDINÆRT_VEDTAK,
+    ARENA_TILBAKEKREVING,
 }
 
 fun PåklagetVedtakstype.harManuellVedtaksdato(): Boolean =
-    this == PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING ||
-        this == PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK
+    this == PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK ||
+        this == PåklagetVedtakstype.ARENA_TILBAKEKREVING
 
 fun BehandlingStatus.erLåstForVidereBehandling() =
     when (SikkerhetContext.hentSaksbehandler()) {

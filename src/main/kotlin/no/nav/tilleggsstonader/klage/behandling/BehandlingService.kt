@@ -148,8 +148,8 @@ class BehandlingService(
 
     private fun utledFagsystemType(påklagetVedtakDto: PåklagetVedtakDto): FagsystemType {
         return when (påklagetVedtakDto.påklagetVedtakstype) {
-            PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING -> FagsystemType.TILBAKEKREVING
-            PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK -> FagsystemType.ORDNIÆR
+            PåklagetVedtakstype.ARENA_TILBAKEKREVING -> FagsystemType.TILBAKEKREVING
+            PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK -> FagsystemType.ORDNIÆR
             else -> error("Kan ikke utlede fagsystemType for påklagetVedtakType ${påklagetVedtakDto.påklagetVedtakstype}")
         }
     }

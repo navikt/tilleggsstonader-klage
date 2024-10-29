@@ -33,9 +33,9 @@ internal class OpprettRevurderingServiceTest {
     }
 
     @Test
-    internal fun `kan opprette revurdering for vedtak i infotrygd`() {
+    internal fun `kan opprette revurdering for vedtak i Arena`() {
         every { behandlingService.hentBehandling(behandlingId) } returns
-            behandling(fagsak = fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK, null))
+            behandling(fagsak = fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK, null))
 
         val kanOppretteRevurdering = service.kanOppretteRevurdering(behandlingId)
 
@@ -45,7 +45,7 @@ internal class OpprettRevurderingServiceTest {
 
     @EnumSource(
         value = PåklagetVedtakstype::class,
-        names = ["VEDTAK", "INFOTRYGD_ORDINÆRT_VEDTAK"],
+        names = ["VEDTAK", "ARENA_ORDINÆRT_VEDTAK"],
         mode = EnumSource.Mode.EXCLUDE,
     )
     @ParameterizedTest

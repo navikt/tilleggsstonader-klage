@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
+import java.time.LocalDate
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 internal class BehandlingServiceTest {
@@ -152,16 +153,16 @@ internal class BehandlingServiceTest {
             val behandling = behandling(fagsak(), status = BehandlingStatus.UTREDES)
             every { behandlingRepository.findByIdOrThrow(behandling.id) } returns behandling
             val ugyldigManglerBehandlingId = PåklagetVedtakDto(null, PåklagetVedtakstype.VEDTAK)
-            val ugyldigManglerVedtaksdatoInfotrygd = PåklagetVedtakDto(null, PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING)
-            val ugyldigManglerVedtaksdatoInfotrygdOrdinærtVedtak = PåklagetVedtakDto(null, PåklagetVedtakstype.INFOTRYGD_ORDINÆRT_VEDTAK)
+            val ugyldigManglerVedtaksdatoArena = PåklagetVedtakDto(null, PåklagetVedtakstype.ARENA_TILBAKEKREVING)
+            val ugyldigManglerVedtaksdatoArenaOrdinærtVedtak = PåklagetVedtakDto(null, PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK)
             val ugyldigUtenVedtakMedBehandlingId = PåklagetVedtakDto("123", PåklagetVedtakstype.UTEN_VEDTAK)
             val ugyldigIkkeValgtMedBehandlingId = PåklagetVedtakDto("123", PåklagetVedtakstype.IKKE_VALGT)
 
             assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigManglerBehandlingId) }
             assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigUtenVedtakMedBehandlingId) }
             assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigIkkeValgtMedBehandlingId) }
-            assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigManglerVedtaksdatoInfotrygd) }
-            assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigManglerVedtaksdatoInfotrygdOrdinærtVedtak) }
+            assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigManglerVedtaksdatoArena) }
+            assertThrows<Feil> { behandlingService.oppdaterPåklagetVedtak(behandling.id, ugyldigManglerVedtaksdatoArenaOrdinærtVedtak) }
         }
 
         @Test
@@ -173,9 +174,7 @@ internal class BehandlingServiceTest {
             val medVedtak = PåklagetVedtakDto("123", PåklagetVedtakstype.VEDTAK)
             val utenVedtak = PåklagetVedtakDto(null, PåklagetVedtakstype.UTEN_VEDTAK)
             val ikkeValgt = PåklagetVedtakDto(null, PåklagetVedtakstype.IKKE_VALGT)
-            // TODO: Infortrygd-ting -> Arena-ting
-//            val gjelderInfotrygd = PåklagetVedtakDto(null, PåklagetVedtakstype.INFOTRYGD_TILBAKEKREVING, manuellVedtaksdato = LocalDate.now())
-//            val utestengelse = PåklagetVedtakDto(null, PåklagetVedtakstype.UTESTENGELSE, manuellVedtaksdato = LocalDate.now())
+            val gjelderArena = PåklagetVedtakDto(null, PåklagetVedtakstype.ARENA_TILBAKEKREVING, manuellVedtaksdato = LocalDate.now())
 
             behandlingService.oppdaterPåklagetVedtak(behandling.id, ikkeValgt)
             verify(exactly = 1) { behandlingRepository.update(any()) }
@@ -186,11 +185,8 @@ internal class BehandlingServiceTest {
             behandlingService.oppdaterPåklagetVedtak(behandling.id, medVedtak)
             verify(exactly = 3) { behandlingRepository.update(any()) }
 
-//            behandlingService.oppdaterPåklagetVedtak(behandling.id, gjelderInfotrygd)
-//            verify(exactly = 4) { behandlingRepository.update(any()) }
-//
-//            behandlingService.oppdaterPåklagetVedtak(behandling.id, utestengelse)
-//            verify(exactly = 5) { behandlingRepository.update(any()) }
+            behandlingService.oppdaterPåklagetVedtak(behandling.id, gjelderArena)
+            verify(exactly = 4) { behandlingRepository.update(any()) }
         }
     }
 
