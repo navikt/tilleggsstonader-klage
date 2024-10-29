@@ -26,6 +26,6 @@ class KabalClient(
             .build().toUriString()
 
     fun sendTilKabal(oversendtKlage: OversendtKlageAnkeV3) {
-        return postForEntity(oversendelseUrl, oversendtKlage)
+        postForEntityNullable<Void>(oversendelseUrl, oversendtKlage)
     }
 }
