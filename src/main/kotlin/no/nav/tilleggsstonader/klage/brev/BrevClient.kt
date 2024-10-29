@@ -1,35 +1,30 @@
 package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.tilleggsstonader.klage.blankett.BlankettPdfRequest
 import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
+import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestOperations
+import org.springframework.web.client.RestTemplate
 import java.net.URI
 
 @Component
 class BrevClient(
     @Value("\${FAMILIE_BREV_API_URL}")
-    private val familieBrevUri: String,
+    private val familieBrevUri: URI,
     @Qualifier("utenAuth")
-    private val restOperations: RestOperations,
-) : AbstractPingableRestClient(restOperations, "familie.brev") {
+    restTemplate: RestTemplate,
+) : AbstractRestClient(restTemplate) {
 
-    override val pingUri: URI = URI.create("$familieBrevUri/api/status")
-    private val pdfUri = URI.create("$familieBrevUri/blankett/klage/pdf")
-
-    override fun ping() {
-        operations.optionsForAllow(pingUri)
-    }
+    private val pdfUri = URI.create("$familieBrevUri/blankett/klage/pdf").toString()
+    private val genererHtmlFritekstbrevUri = URI.create("$familieBrevUri/api/fritekst-brev/html").toString()
 
     fun genererHtmlFritekstbrev(fritekstBrev: FritekstBrevRequestDto, saksbehandlerNavn: String, enhet: String): String {
-        val url = URI.create("$familieBrevUri/api/fritekst-brev/html")
         return postForEntity(
-            url,
+            genererHtmlFritekstbrevUri,
             FritekstBrevRequestMedSignatur(
                 fritekstBrev,
                 saksbehandlerNavn,

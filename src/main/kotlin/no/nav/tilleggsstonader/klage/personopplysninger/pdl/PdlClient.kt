@@ -1,30 +1,26 @@
 package no.nav.tilleggsstonader.klage.personopplysninger.pdl
 
-import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdlConfig
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
+import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
-import org.springframework.web.client.RestOperations
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 @Service
 class PdlClient(
-    val pdlConfig: PdlConfig,
-    @Qualifier("azureClientCredential") restTemplate: RestOperations,
-) :
-    AbstractPingableRestClient(restTemplate, "pdl.personinfo") {
+    @Value("\${PDL_URL}") private val pdlUrl: URI,
+    @Qualifier("azureClientCredential") restTemplate: RestTemplate,
+) : AbstractRestClient(restTemplate) {
 
-    override val pingUri: URI
-        get() = pdlConfig.pdlUri
-
-    override fun ping() {
-        operations.optionsForAllow(pingUri)
-    }
+    val pdlUri = UriComponentsBuilder.fromUri(pdlUrl).pathSegment(PdlConfig.PATH_GRAPHQL).toUriString()
 
     @Cacheable("hentPerson", cacheManager = "shortCache")
     fun hentPerson(personIdent: String, stønadstype: Stønadstype): PdlSøker {
@@ -33,7 +29,7 @@ class PdlClient(
             query = PdlConfig.søkerQuery,
         )
         val pdlResponse: PdlResponse<PdlSøkerData> = postForEntity(
-            pdlConfig.pdlUri,
+            pdlUri,
             pdlPersonRequest,
             httpHeaders(stønadstype.tilTema()),
         )
@@ -48,7 +44,7 @@ class PdlClient(
             query = PdlConfig.bolkNavnQuery,
         )
         val pdlResponse: PdlBolkResponse<PdlNavn> = postForEntity(
-            pdlConfig.pdlUri,
+            pdlUri,
             pdlPersonRequest,
             httpHeaders(stønadstype.tilTema()),
         )
@@ -67,7 +63,7 @@ class PdlClient(
             query = PdlConfig.hentIdentQuery,
         )
         val pdlResponse: PdlResponse<PdlHentIdenter> = postForEntity(
-            pdlConfig.pdlUri,
+            pdlUri,
             pdlIdentRequest,
             httpHeaders(tema),
         )
