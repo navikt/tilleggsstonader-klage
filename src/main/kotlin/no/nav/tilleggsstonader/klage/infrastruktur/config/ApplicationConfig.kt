@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.config
 
-import no.nav.familie.http.client.RetryOAuth2HttpClient
 import no.nav.familie.prosessering.config.ProsesseringInfoProvider
 import no.nav.security.token.support.client.core.http.OAuth2HttpClient
 import no.nav.security.token.support.client.core.oauth2.OAuth2AccessTokenResponse
@@ -9,14 +8,11 @@ import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.libs.http.config.RestTemplateConfiguration
-import no.nav.tilleggsstonader.libs.log.filter.LogFilter
-import no.nav.tilleggsstonader.libs.log.filter.RequestTimeFilter
-import org.slf4j.LoggerFactory
+import no.nav.tilleggsstonader.libs.log.filter.LogFilterConfiguration
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.web.client.RestTemplateBuilder
-import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
@@ -34,30 +30,10 @@ import java.time.temporal.ChronoUnit
     "no.nav.familie.sikkerhet",
 )
 @EnableJwtTokenValidation(ignore = ["org.springframework", "org.springdoc"])
-@Import(RestTemplateConfiguration::class)
+@Import(RestTemplateConfiguration::class, LogFilterConfiguration::class)
 @EnableOAuth2Client(cacheEnabled = true)
 @EnableScheduling
 class ApplicationConfig {
-
-    private val logger = LoggerFactory.getLogger(this::class.java)
-
-    @Bean
-    fun logFilter(): FilterRegistrationBean<LogFilter> {
-        logger.info("Registering LogFilter filter")
-        val filterRegistration = FilterRegistrationBean<LogFilter>()
-        filterRegistration.filter = LogFilter()
-        filterRegistration.order = 1
-        return filterRegistration
-    }
-
-    @Bean
-    fun requestTimeFilter(): FilterRegistrationBean<RequestTimeFilter> {
-        logger.info("Registering RequestTimeFilter filter")
-        val filterRegistration = FilterRegistrationBean<RequestTimeFilter>()
-        filterRegistration.filter = RequestTimeFilter()
-        filterRegistration.order = 2
-        return filterRegistration
-    }
 
     /**
      * Overskrever OAuth2HttpClient som settes opp i token-support som ikke kan få med objectMapper fra felles
