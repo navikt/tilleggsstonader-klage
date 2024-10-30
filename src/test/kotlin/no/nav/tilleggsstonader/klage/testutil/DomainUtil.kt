@@ -20,7 +20,6 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
-import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
@@ -252,7 +251,6 @@ object DomainUtil {
     ) = PersonopplysningerDto(
         personIdent = personIdent,
         navn = "navn",
-        kjønn = Kjønn.MANN,
         adressebeskyttelse = adressebeskyttelse,
         folkeregisterpersonstatus = Folkeregisterpersonstatus.BOSATT,
         dødsdato = null,

@@ -35,7 +35,6 @@ object PdlTestdata {
             PdlSøker(
                 adressebeskyttelse,
                 dødsfall,
-                listOf(Kjønn(KjønnType.KVINNE)),
                 listOf(Folkeregisterpersonstatus("", "", metadataGjeldende)),
                 listOf(
                     Fullmakt(

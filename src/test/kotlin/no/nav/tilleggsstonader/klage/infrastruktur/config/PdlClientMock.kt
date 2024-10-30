@@ -6,14 +6,12 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGradering
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.IdentifiserendeInformasjon
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlIdent
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlIdenter
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.VergeEllerFullmektig
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.VergemaalEllerFremtidsfullmakt
-import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.lagKjønn
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.lagNavn
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.metadataGjeldende
 import no.nav.tilleggsstonader.klage.testutil.PdlTestdataHelper.pdlNavn
@@ -60,7 +58,6 @@ class PdlClientMock {
                 ),
                 dødsfall = listOf(),
                 fullmakt = fullmakter(),
-                kjønn = lagKjønn(KjønnType.KVINNE),
                 navn = listOf(lagNavn()),
                 vergemaalEllerFremtidsfullmakt = vergemaalEllerFremtidsfullmakt(),
             )

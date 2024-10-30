@@ -8,11 +8,9 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
-import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Dødsfall
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.IdentifiserendeInformasjon
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.KjønnType
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Navn
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
@@ -33,7 +31,6 @@ import java.time.LocalDate
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Adressebeskyttelse as PdlAdressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGradering as PdlAdressebeskyttelseGradering1
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus1
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Kjønn as PdlKjønn
 
 internal class PersonopplysningerServiceTest {
 
@@ -63,7 +60,6 @@ internal class PersonopplysningerServiceTest {
 
         assertThat(personopplysninger.personIdent).isEqualTo(defaultIdenter.single().ident)
         assertThat(personopplysninger.navn).isEqualTo("Fornavn mellomnavn Etternavn")
-        assertThat(personopplysninger.kjønn).isEqualTo(Kjønn.KVINNE)
         assertThat(personopplysninger.folkeregisterpersonstatus).isEqualTo(Folkeregisterpersonstatus.DØD)
         assertThat(personopplysninger.adressebeskyttelse).isEqualTo(Adressebeskyttelse.FORTROLIG)
         assertThat(personopplysninger.dødsdato).isEqualTo(LocalDate.now())
@@ -92,7 +88,6 @@ internal class PersonopplysningerServiceTest {
         listOf(Dødsfall(LocalDate.now())),
         listOf(PdlFolkeregisterpersonstatus1("doed", "d", metadataGjeldende)),
         listOf(Fullmakt(LocalDate.now(), LocalDate.now(), "fullmaktIdent", MotpartsRolle.FULLMEKTIG, listOf("o"))),
-        PdlKjønn(KjønnType.KVINNE),
         listOf(lagNavn()),
         listOf(
             VergemaalEllerFremtidsfullmakt(

@@ -6,13 +6,11 @@ import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.FullmaktDto
-import no.nav.tilleggsstonader.klage.personopplysninger.dto.Kjønn
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.VergemålDto
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlSøker
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.gjeldende
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.gjelende
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.visningsnavn
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import org.springframework.cache.annotation.Cacheable
@@ -38,7 +36,6 @@ class PersonopplysningerService(
         return PersonopplysningerDto(
             personIdent = fagsak.hentAktivIdent(),
             navn = pdlSøker.navn.gjeldende().visningsnavn(),
-            kjønn = Kjønn.valueOf(pdlSøker.kjønn.gjelende().kjønn.name),
             adressebeskyttelse = pdlSøker.adressebeskyttelse.gjeldende()?.let { Adressebeskyttelse.valueOf(it.gradering.name) },
             folkeregisterpersonstatus = pdlSøker.folkeregisterpersonstatus.gjeldende()
                 ?.let { Folkeregisterpersonstatus.fraPdl(it) },

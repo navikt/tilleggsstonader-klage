@@ -23,9 +23,6 @@ query($ident: ID!){
             motpartsRolle
             omraader
         }
-        kjoenn {
-            kjoenn
-        }
         navn {
             fornavn
             mellomnavn

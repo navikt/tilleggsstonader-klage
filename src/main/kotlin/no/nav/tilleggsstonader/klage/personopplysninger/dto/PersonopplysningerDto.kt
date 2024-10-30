@@ -6,7 +6,6 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersons
 data class PersonopplysningerDto(
     val personIdent: String,
     val navn: String,
-    val kjønn: Kjønn,
     val adressebeskyttelse: Adressebeskyttelse?,
     val folkeregisterpersonstatus: Folkeregisterpersonstatus?,
     val dødsdato: LocalDate?,
