@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
-import no.nav.familie.log.NavHttpHeaders
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
@@ -10,6 +9,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.log.NavHttpHeaders
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier

@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.config
 
-import no.nav.familie.kafka.KafkaErrorHandler
+import no.nav.tilleggsstonader.libs.kafka.KafkaErrorHandler
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

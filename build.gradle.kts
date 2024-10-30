@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
 val familieProsesseringVersion = "2.20241011144712_deb1f2c"
-val tilleggsstønaderLibsVersion = "2024.10.23-11.17.9effeb9c75b5"
+val tilleggsstønaderLibsVersion = "2024.10.30-09.56.91115fdcae1e"
 val tilleggsstønaderKontrakterVersion = "2024.10.28-14.18.6efb2e0b2bd5"
 val tokenSupportVersion = "5.0.5"
 val wiremockVersion = "3.9.2"
@@ -75,15 +75,11 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
     implementation("org.springdoc:springdoc-openapi-starter-common:$springDocVersion")
 
-    implementation("no.nav.familie.felles:util:$familieFellesVersion")
-    implementation("no.nav.familie.felles:http-client:$familieFellesVersion")
-    implementation("no.nav.familie.felles:log:$familieFellesVersion")
-    implementation("no.nav.familie.felles:kafka:$familieFellesVersion")
-
     implementation("no.nav.familie:prosessering-core:$familieProsesseringVersion")
 
     implementation("no.nav.tilleggsstonader-libs:util:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:log:$tilleggsstønaderLibsVersion")
+    implementation("no.nav.tilleggsstonader-libs:kafka:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:http-client:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:sikkerhet:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:unleash:$tilleggsstønaderLibsVersion")

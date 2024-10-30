@@ -7,6 +7,7 @@ import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
+import no.nav.tilleggsstonader.libs.http.client.RetryOAuth2HttpClient
 import no.nav.tilleggsstonader.libs.http.config.RestTemplateConfiguration
 import no.nav.tilleggsstonader.libs.log.filter.LogFilterConfiguration
 import org.springframework.beans.factory.annotation.Value
@@ -24,11 +25,7 @@ import java.time.temporal.ChronoUnit
 
 @SpringBootConfiguration
 @ConfigurationPropertiesScan
-@ComponentScan(
-    "no.nav.familie.prosessering",
-    "no.nav.tilleggsstonader.klage",
-    "no.nav.familie.sikkerhet",
-)
+@ComponentScan("no.nav.familie.prosessering")
 @EnableJwtTokenValidation(ignore = ["org.springframework", "org.springdoc"])
 @Import(RestTemplateConfiguration::class, LogFilterConfiguration::class)
 @EnableOAuth2Client(cacheEnabled = true)

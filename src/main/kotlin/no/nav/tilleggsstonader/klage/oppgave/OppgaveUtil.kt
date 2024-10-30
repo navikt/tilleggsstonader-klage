@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.familie.util.VirkedagerProvider.nesteVirkedag // TODO: Vurder å fase ut familie-pakke
+import no.nav.tilleggsstonader.libs.utils.VirkedagerProvider.nesteVirkedag
 import java.time.LocalDate
 import java.time.LocalDateTime
 
