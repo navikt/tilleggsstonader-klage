@@ -5,10 +5,11 @@ import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
+import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
@@ -35,7 +36,6 @@ class OpprettBehandleSakOppgaveTask(
         val behandlingId = UUID.fromString(task.payload)
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         val behandling = behandlingService.hentBehandling(behandlingId)
-        val klageGjelderTilbakekreving: Boolean = task.metadata.getProperty(klageGjelderTilbakekrevingMetadataKey).toBoolean()
 
         val oppgaveRequest = OpprettOppgaveRequest(
             ident = OppgaveIdentV2(ident = fagsak.hentAktivIdent(), gruppe = IdentGruppe.FOLKEREGISTERIDENT),
@@ -48,7 +48,7 @@ class OpprettBehandleSakOppgaveTask(
             behandlingstype = Behandlingstype.Klage.value,
             behandlesAvApplikasjon = "tilleggsstonader-klage",
             tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
-            behandlingstema = if (klageGjelderTilbakekreving) Behandlingstema.Tilbakebetaling.value else null,
+            behandlingstema = finnBehandlingstema(fagsak).value,
             mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
         )
 
@@ -56,6 +56,12 @@ class OpprettBehandleSakOppgaveTask(
         behandleSakOppgaveRepository.insert(
             BehandleSakOppgave(behandlingId = behandling.id, oppgaveId = oppgaveId),
         )
+    }
+    fun finnBehandlingstema(fagsak: Fagsak): Behandlingstema {
+        return when (fagsak.stønadstype) {
+            Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
+            Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
+        }
     }
 
     companion object {

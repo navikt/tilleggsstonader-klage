@@ -79,7 +79,7 @@ internal class OppgaveTaskServiceTest {
 
             opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 
-            assertThat(oppgaveSlot.captured.behandlingstema).isNull()
+            assertThat(oppgaveSlot.captured.behandlingstema).isEqualTo("ab0300")
             assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo("ae0058")
             assertThat(oppgaveSlot.captured.behandlesAvApplikasjon).isEqualTo("tilleggsstonader-klage")
             assertThat(oppgaveSlot.captured.oppgavetype).isEqualTo(Oppgavetype.BehandleSak)
@@ -102,7 +102,7 @@ internal class OppgaveTaskServiceTest {
 
             opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 
-            assertThat(oppgaveSlot.captured.behandlingstema).isEqualTo("ab0007")
+            assertThat(oppgaveSlot.captured.behandlingstema).isEqualTo("ab0300")
         }
     }
 
