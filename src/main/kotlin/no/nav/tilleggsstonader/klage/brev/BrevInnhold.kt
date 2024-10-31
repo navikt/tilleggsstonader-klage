@@ -23,7 +23,7 @@ object BrevInnhold {
         klageMottatt: LocalDate,
     ): FritekstBrevRequestDto {
         return FritekstBrevRequestDto(
-            overskrift = "Vi har sendt klagen din til NAV Klageinstans Sør",
+            overskrift = "Vi har sendt klagen din til Nav Klageinstans Sør",
             navn = navn,
             personIdent = ident,
             avsnitt =
@@ -34,14 +34,14 @@ object BrevInnhold {
                     "Vi har ${klageMottatt.norskFormat()} fått klagen din på vedtaket om " +
                         "${stønadstype.visningsnavn()} som ble gjort " +
                         "${påklagetVedtakDetaljer.vedtakstidspunkt.norskFormat()}, " +
-                        "og kommet frem til at vi ikke endrer vedtaket. NAV Klageinstans skal derfor vurdere saken din på nytt.",
+                        "og kommet frem til at vi ikke endrer vedtaket. Nav Klageinstans skal derfor vurdere saken din på nytt.",
                 ),
                 AvsnittDto(
                     deloverskrift = "",
                     innhold = "Saksbehandlingstidene finner du på nav.no/saksbehandlingstider.",
                 ),
                 AvsnittDto(
-                    deloverskrift = "Dette er vurderingen vi har sendt til NAV Klageinstans:",
+                    deloverskrift = "Dette er vurderingen vi har sendt til Nav Klageinstans:",
                     innhold = instillingKlageinstans,
                 ),
                 AvsnittDto(
