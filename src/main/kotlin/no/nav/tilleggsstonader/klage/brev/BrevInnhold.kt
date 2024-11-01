@@ -135,7 +135,7 @@ object BrevInnhold {
         deloverskrift = "Du har rett til å klage",
         innhold =
         "Hvis du vil klage, må du gjøre dette innen 6 uker fra den datoen du fikk dette brevet. " +
-            "Du finner skjema og informasjon på ${stønadstype.klageUrl()}.",
+            "Du finner skjema på ${stønadstype.klageUrl()}.",
     )
 
     private fun harDuSpørsmålAvsnitt(stønadstype: Stønadstype) = AvsnittDto(
@@ -152,7 +152,7 @@ object BrevInnhold {
     }
 
     private fun Stønadstype.klageUrl() = when (this) {
-        Stønadstype.BARNETILSYN -> "klage.nav.no/nb/ettersendelse/klage/TILLEGGSSTONADER/begrunnelse"
+        Stønadstype.BARNETILSYN -> "klage.nav.no/nb/klage/TILLEGGSSTONADER"
         Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
     }
 }
