@@ -19,7 +19,7 @@ internal class FagsystemVedtakServiceTest {
     private val tilleggsstonaderSakClient = mockk<TilleggsstonaderSakClient>()
     private val fagsakService = mockk<FagsakService>()
     private val service = FagsystemVedtakService(
-        TilleggsstonaderSakClient = tilleggsstonaderSakClient,
+        tilleggsstonaderSakClient = tilleggsstonaderSakClient,
         fagsakService = fagsakService,
     )
 

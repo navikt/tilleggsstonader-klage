@@ -22,7 +22,7 @@ private val ukjentFeilVedOpprettRevurdering = OpprettRevurderingResponse(
 
 @Service
 class FagsystemVedtakService(
-    private val TilleggsstonaderSakClient: TilleggsstonaderSakClient,
+    private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
     private val fagsakService: FagsakService,
 ) {
 
@@ -35,7 +35,7 @@ class FagsystemVedtakService(
     }
 
     private fun hentFagsystemVedtak(fagsak: Fagsak): List<FagsystemVedtak> = when (fagsak.fagsystem) {
-        Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.hentVedtak(fagsak.eksternId)
+        Fagsystem.TILLEGGSSTONADER -> tilleggsstonaderSakClient.hentVedtak(fagsak.eksternId)
     }
 
     fun hentFagsystemVedtakForPåklagetBehandlingId(
@@ -46,10 +46,11 @@ class FagsystemVedtakService(
             .singleOrNull { it.eksternBehandlingId == påklagetBehandlingId }
             ?: error("Finner ikke vedtak for behandling=$behandlingId eksternBehandling=$påklagetBehandlingId")
 
+    // Burde denne og bruket av denne slettes, den er ikke helt i bruk
     fun kanOppretteRevurdering(behandlingId: UUID): KanOppretteRevurderingResponse {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return when (fagsak.fagsystem) {
-            Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.kanOppretteRevurdering(fagsak.eksternId)
+            Fagsystem.TILLEGGSSTONADER -> tilleggsstonaderSakClient.kanOppretteRevurdering(fagsak.eksternId)
         }
     }
 
@@ -57,7 +58,14 @@ class FagsystemVedtakService(
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return try {
             when (fagsak.fagsystem) {
-                Fagsystem.TILLEGGSSTONADER -> TilleggsstonaderSakClient.opprettRevurdering(fagsak.eksternId)
+                Fagsystem.TILLEGGSSTONADER -> // tilleggsstonaderSakClient.opprettRevurdering(fagsak.eksternId)
+                    // Har egen oppgave på å legge til støtte på å opprette revurdering.
+                    OpprettRevurderingResponse(
+                        IkkeOpprettet(
+                            IkkeOpprettetÅrsak.FEIL,
+                            "Har ikke støtte for å opprette revurdering automatisk ennå",
+                        ),
+                    )
             }
         } catch (e: Exception) {
             val errorSuffix = "Feilet opprettelse av revurdering for behandling=$behandlingId eksternFagsakId=${fagsak.eksternId}"
