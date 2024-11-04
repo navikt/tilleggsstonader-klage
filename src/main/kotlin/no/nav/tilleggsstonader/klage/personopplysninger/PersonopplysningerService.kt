@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.personopplysninger
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.fullmakt.FullmaktService
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
@@ -22,6 +23,7 @@ class PersonopplysningerService(
     private val behandlingService: BehandlingService,
     private val fagsakService: FagsakService,
     private val pdlClient: PdlClient,
+    private val fullmaktService: FullmaktService,
     private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
 ) {
     @Cacheable("hentPersonopplysninger", cacheManager = "shortCache")
@@ -29,20 +31,24 @@ class PersonopplysningerService(
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
 
-        val egenAnsatt = tilleggsstonaderSakClient.erEgenAnsatt(fagsak.hentAktivIdent())
-
-        val pdlSøker = pdlClient.hentPerson(fagsak.hentAktivIdent(), fagsak.stønadstype)
+        val søkersIdent = fagsak.hentAktivIdent()
+        val egenAnsatt = tilleggsstonaderSakClient.erEgenAnsatt(søkersIdent)
+        val harFullmektig = fullmaktService.hentFullmektige(søkersIdent).isNotEmpty()
+        val pdlSøker = pdlClient.hentPerson(søkersIdent, fagsak.stønadstype)
         val andreParterNavn = hentNavnAndreParter(pdlSøker, fagsak.stønadstype)
+
         return PersonopplysningerDto(
-            personIdent = fagsak.hentAktivIdent(),
+            personIdent = søkersIdent,
             navn = pdlSøker.navn.gjeldende().visningsnavn(),
-            adressebeskyttelse = pdlSøker.adressebeskyttelse.gjeldende()?.let { Adressebeskyttelse.valueOf(it.gradering.name) },
+            adressebeskyttelse = pdlSøker.adressebeskyttelse.gjeldende()
+                ?.let { Adressebeskyttelse.valueOf(it.gradering.name) },
             folkeregisterpersonstatus = pdlSøker.folkeregisterpersonstatus.gjeldende()
                 ?.let { Folkeregisterpersonstatus.fraPdl(it) },
             dødsdato = pdlSøker.dødsfall.gjeldende()?.dødsdato,
             fullmakt = mapFullmakt(pdlSøker, andreParterNavn),
             egenAnsatt = egenAnsatt,
             vergemål = mapVergemål(pdlSøker),
+            harFullmektig = harFullmektig,
         )
     }
 
