@@ -26,7 +26,7 @@ Appen starter da opp med en in memory-database og er da tilgjengelig under `loca
 Databasen kan aksesseres på `localhost:8093/h2-console`. Log på jdbc url `jdbc:h2:mem:testdb` med bruker `sa` og blankt passord.
 
 ### Kjøring med postgres-database
-For å kjøre opp appen lokalt med en postgres-database, kan en kjøre `ApplicationLocalPostgres`.
+For å kjøre opp appen lokalt med en postgres-database, kan en kjøre `KlageAppLocalPostgres`.
 App'en vil starte opp en container med siste versjon av postgres.
 
 For å kjøre opp postgres containern så kjører man `docker-compose up`
@@ -35,7 +35,7 @@ For å slette volumen `docker-compose down -v`
 
 ### Kjøring med brev
 Vanlgvis kjøres appen opp med mockede versjoner av `familie-brev` og `familie-dokument`. 
-For å kjøre opp med lokale versjoner av disse appene kan en kommentere ut `mock-brev` og `mock-dokument` i `ApplicationLocalPostgres`.
+For å kjøre opp med lokale versjoner av disse appene kan en kommentere ut `mock-brev` og `mock-dokument` i `KlageAppLocalPostgres`.
 Deretter kan en kjøre opp appen `familie-brev` i brancen `klage-config` og appen `familie-dokument` i brancen `mocket-auth-server`.
 I `familie-dokument` må en kjøre `DevLauncherMedMockServer`. 
 

@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
             "mock-oauth",
             "mock-integrasjoner",
             "mock-pdl",
+            "mock-fullmakt",
             "mock-brev",
             "mock-dokument",
             "mock-tilleggsstonader-sak",
