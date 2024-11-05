@@ -15,14 +15,18 @@ class FullmaktServiceTest {
     @Test
     fun `hentFullmektige skal filtere bort inaktive fullmakter`() {
         mockFullmektigeRespons(listOf(FullmektigStubs.ikkeGyldigEnda, FullmektigStubs.utgått))
+
         val resultat = serviceUnderTest.hentFullmektige(dummyIdent)
+
         assertEquals(emptyList<FullmektigDto>(), resultat)
     }
 
     @Test
     fun `hentFullmektige tar bare med fullmakter med Tilleggsstønad-tema`() {
         mockFullmektigeRespons(listOf(FullmektigStubs.ikkeRelevantTema, FullmektigStubs.medFlereTemaer))
+
         val resultat = serviceUnderTest.hentFullmektige(dummyIdent)
+
         assertThat(resultat.size).isEqualTo(1)
         assertEquals(resultat.first(), FullmektigStubs.medFlereTemaer)
     }
@@ -30,7 +34,9 @@ class FullmaktServiceTest {
     @Test
     fun `hentFullmektige inkluderer fullmakter med ubegrenset gyldighetsperiode`() {
         mockFullmektigeRespons(listOf(FullmektigStubs.gyldigPåUbestemtTid))
+
         val resultat = serviceUnderTest.hentFullmektige(dummyIdent)
+
         assertThat(resultat.size).isEqualTo(1)
         assertEquals(resultat.first(), FullmektigStubs.gyldigPåUbestemtTid)
     }
