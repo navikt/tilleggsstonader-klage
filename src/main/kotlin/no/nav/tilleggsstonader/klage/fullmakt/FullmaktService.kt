@@ -10,9 +10,9 @@ import java.time.LocalDate.now
 
 @Component
 class FullmaktService(
-    val fullmaktClient: FullmaktClient,
+    private val fullmaktClient: FullmaktClient,
 ) {
-    val log: Logger = LoggerFactory.getLogger(javaClass)
+    private val log: Logger = LoggerFactory.getLogger(javaClass)
 
     fun hentFullmektige(fullmaktsgiversIdent: String): List<FullmektigDto> {
         return try {
