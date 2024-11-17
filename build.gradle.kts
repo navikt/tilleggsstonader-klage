@@ -1,10 +1,10 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20241011144712_deb1f2c"
+val familieProsesseringVersion = "2.20241112093526_694e258"
 val tilleggsstønaderLibsVersion = "2024.10.30-09.56.91115fdcae1e"
 val tilleggsstønaderKontrakterVersion = "2024.10.31-11.26.7172148519ea"
-val tokenSupportVersion = "5.0.8"
+val tokenSupportVersion = "5.0.11"
 val wiremockVersion = "3.9.2"
 val mockkVersion = "1.13.13"
 val testcontainerVersion = "1.20.3"
@@ -64,7 +64,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:10.20.1")
+    implementation("org.flywaydb:flyway-core:10.21.0")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
