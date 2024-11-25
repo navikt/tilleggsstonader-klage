@@ -10,7 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 class KlageAppLocal
 
 fun main(args: Array<String>) {
-    SpringApplicationBuilder(ApplicationConfig::class.java)
+    SpringApplicationBuilder(KlageAppLocal::class.java, ApplicationConfig::class.java)
         .initializers(DbContainerInitializer())
         .profiles(
             "local",
