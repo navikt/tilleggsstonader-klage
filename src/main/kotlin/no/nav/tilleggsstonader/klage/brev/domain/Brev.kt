@@ -38,7 +38,7 @@ data class Brevmottakere(
 enum class MottakerRolle {
     BRUKER,
     VERGE,
-    FULLMAKT,
+    FULLMEKTIG,
 }
 
 data class BrevmottakerPerson(

@@ -97,7 +97,7 @@ internal class JournalførBrevTaskTest {
         val mottakere = Brevmottakere(
             listOf(
                 BrevmottakerPerson("1", "1navn", MottakerRolle.BRUKER),
-                BrevmottakerPerson("2", "2navn", MottakerRolle.FULLMAKT),
+                BrevmottakerPerson("2", "2navn", MottakerRolle.FULLMEKTIG),
             ),
             listOf(BrevmottakerOrganisasjon("org1", "orgnavn", "mottaker")),
         )
