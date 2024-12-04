@@ -36,15 +36,6 @@ object PdlTestdata {
                 adressebeskyttelse,
                 dødsfall,
                 listOf(Folkeregisterpersonstatus("", "", metadataGjeldende)),
-                listOf(
-                    Fullmakt(
-                        LocalDate.now(),
-                        LocalDate.now(),
-                        "",
-                        MotpartsRolle.FULLMAKTSGIVER,
-                        listOf(""),
-                    ),
-                ),
                 navn,
                 listOf(
                     VergemaalEllerFremtidsfullmakt(

@@ -2,7 +2,6 @@ package no.nav.tilleggsstonader.klage.personopplysninger
 
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fullmakt.FullmaktService
@@ -10,9 +9,7 @@ import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Dødsfall
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Fullmakt
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.IdentifiserendeInformasjon
-import no.nav.tilleggsstonader.klage.personopplysninger.pdl.MotpartsRolle
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Navn
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlNavn
@@ -73,20 +70,8 @@ internal class PersonopplysningerServiceTest {
         assertThat(personopplysninger.folkeregisterpersonstatus).isEqualTo(Folkeregisterpersonstatus.DØD)
         assertThat(personopplysninger.adressebeskyttelse).isEqualTo(Adressebeskyttelse.FORTROLIG)
         assertThat(personopplysninger.dødsdato).isEqualTo(LocalDate.now())
-        assertThat(personopplysninger.fullmakt).hasSize(1)
         assertThat(personopplysninger.egenAnsatt).isTrue
         assertThat(personopplysninger.vergemål).hasSize(1)
-
-        verify(exactly = 1) { pdlClient.hentNavnBolk(eq(listOf("fullmaktIdent")), any()) }
-    }
-
-    @Test
-    internal fun `skal hente navn til fullmakt`() {
-        val personopplysninger = personopplysningerService.hentPersonopplysninger(behandling.id)
-
-        assertThat(personopplysninger.fullmakt.single().navn).isEqualTo("fullmakt etternavn")
-
-        verify(exactly = 1) { pdlClient.hentNavnBolk(eq(listOf("fullmaktIdent")), any()) }
     }
 
     @Test
@@ -108,7 +93,6 @@ internal class PersonopplysningerServiceTest {
         listOf(PdlAdressebeskyttelse(PdlAdressebeskyttelseGradering1.FORTROLIG, metadataGjeldende)),
         listOf(Dødsfall(LocalDate.now())),
         listOf(PdlFolkeregisterpersonstatus1("doed", "d", metadataGjeldende)),
-        listOf(Fullmakt(LocalDate.now(), LocalDate.now(), "fullmaktIdent", MotpartsRolle.FULLMEKTIG, listOf("o"))),
         listOf(lagNavn()),
         listOf(
             VergemaalEllerFremtidsfullmakt(

@@ -259,7 +259,6 @@ object DomainUtil {
         adressebeskyttelse = adressebeskyttelse,
         folkeregisterpersonstatus = Folkeregisterpersonstatus.BOSATT,
         dødsdato = null,
-        fullmakt = emptyList(),
         egenAnsatt = false,
         vergemål = emptyList(),
         harFullmektig = true,
