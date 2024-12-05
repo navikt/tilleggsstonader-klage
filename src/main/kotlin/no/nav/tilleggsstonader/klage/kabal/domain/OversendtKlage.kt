@@ -26,6 +26,7 @@ enum class Type(val beskrivelse: String) {
     KLAGE("Klage"),
     ANKE("Anke"),
     ANKE_I_TRYGDERETTEN("Anke i trygderetten"),
+    OMGJOERINGSKRAV("Omgjoeringskrav"),
 }
 
 enum class OversendtPartIdType {
