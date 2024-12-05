@@ -86,6 +86,7 @@ data class BehandlingEvent(
             BehandlingEventType.BEHANDLING_FEILREGISTRERT -> detaljer.behandlingFeilregistrert?.feilregistrert ?: throw Feil("Fant ikke tidspunkt for feilregistrering")
             BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET ->
                 detaljer.behandlingEtterTrygderettenOpphevetAvsluttet?.avsluttet ?: throw Feil(feilmelding)
+            BehandlingEventType.OMGJOERINGSKRAV_AVSLUTTET -> detaljer.omgjoeringskravbehandlingAvsluttet?.avsluttet ?: throw Feil("Ikke implementert for OMGJOERINGSKRAV_AVSLUTTET")
         }
     }
 
@@ -114,6 +115,7 @@ data class BehandlingDetaljer(
     val behandlingFeilregistrert: BehandlingFeilregistrertDetaljer? = null,
     val ankeITrygderettenbehandlingOpprettet: AnkeITrygderettenbehandlingOpprettetDetaljer? = null,
     val behandlingEtterTrygderettenOpphevetAvsluttet: BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer? = null,
+    val omgjoeringskravbehandlingAvsluttet: OmgjoeringskravbehandlingAvsluttetDetaljer? = null,
 ) {
 
     fun oppgaveTekst(saksbehandlersEnhet: String): String {
@@ -178,4 +180,16 @@ data class BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer(
             "Opprinnelig klagebehandling er behandlet av enhet: $saksbehandlersEnhet. " +
             "Journalpost referanser: ${journalpostReferanser.joinToString(", ")}"
     }
+}
+
+data class OmgjoeringskravbehandlingAvsluttetDetaljer(
+    val avsluttet: LocalDateTime,
+    val utfall: KlageinstansUtfall,
+    val journalpostReferanser: List<String>,
+) {
+    fun oppgaveTekst(saksbehandlersEnhet: String) =
+        "Hendelse fra klage etter omgjøringskrav med utfall $utfall mottatt. " +
+            "Avsluttet tidspunkt: $avsluttet. " +
+            "Opprinnelig klagebehandling er behandlet av enhet: $saksbehandlersEnhet. " +
+            "Journalpost referanser: ${journalpostReferanser.joinToString(", ")}"
 }
