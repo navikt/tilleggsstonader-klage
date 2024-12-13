@@ -3,7 +3,7 @@ services:
 
   # SQL database
   postgres:
-    image: "postgres:14.6"
+    image: "postgres:17"
     volumes:
       - "tilleggsstonader-klage-data:/var/lib/postgresql/data"
     ports:
