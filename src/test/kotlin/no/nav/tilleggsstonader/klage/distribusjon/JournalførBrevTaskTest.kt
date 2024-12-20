@@ -58,7 +58,7 @@ internal class JournalførBrevTaskTest {
         justRun { brevService.oppdaterMottakerJournalpost(any(), capture(slotBrevmottakereJournalposter)) }
         every { taskService.save(capture(slotSaveTask)) } answers { firstArg() }
         every {
-            distribusjonService.journalførBrev(any(), any(), any(), any(), any())
+            distribusjonService.journalførVedtaksbrev(any(), any(), any(), any(), any())
         } answers { "journalpostId-${(it.invocation.args[3] as Int)}" }
     }
 
@@ -110,9 +110,9 @@ internal class JournalførBrevTaskTest {
 
             verifyJournalførtBrev(3)
             verifyOrder {
-                distribusjonService.journalførBrev(behandlingId, any(), any(), 0, mottakerPerson)
-                distribusjonService.journalførBrev(behandlingId, any(), any(), 1, mottakerPerson2)
-                distribusjonService.journalførBrev(behandlingId, any(), any(), 2, mottakerOrganisasjon)
+                distribusjonService.journalførVedtaksbrev(behandlingId, any(), any(), 0, mottakerPerson)
+                distribusjonService.journalførVedtaksbrev(behandlingId, any(), any(), 1, mottakerPerson2)
+                distribusjonService.journalførVedtaksbrev(behandlingId, any(), any(), 2, mottakerOrganisasjon)
             }
 
             validerLagringAvBrevmottakereJournalposter(slotBrevmottakereJournalposter[2].journalposter)
@@ -130,7 +130,7 @@ internal class JournalførBrevTaskTest {
 
             verifyJournalførtBrev(1)
             verifyOrder {
-                distribusjonService.journalførBrev(behandlingId, any(), any(), 2, mottakerOrganisasjon)
+                distribusjonService.journalførVedtaksbrev(behandlingId, any(), any(), 2, mottakerOrganisasjon)
             }
 
             validerLagringAvBrevmottakereJournalposter(slotBrevmottakereJournalposter.single().journalposter)
@@ -138,7 +138,7 @@ internal class JournalførBrevTaskTest {
 
         private fun verifyJournalførtBrev(antallGanger: Int) {
             verify(exactly = antallGanger) {
-                distribusjonService.journalførBrev(behandlingId, any(), any(), any(), any())
+                distribusjonService.journalførVedtaksbrev(behandlingId, any(), any(), any(), any())
             }
         }
 

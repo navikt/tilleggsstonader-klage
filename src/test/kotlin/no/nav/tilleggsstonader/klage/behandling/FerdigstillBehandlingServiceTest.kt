@@ -84,7 +84,7 @@ internal class FerdigstillBehandlingServiceTest {
         BrukerContextUtil.mockBrukerContext("halla")
         every { behandlingService.hentBehandling(any()) } returns behandling
         every { fagsakService.hentFagsakForBehandling(any()) } returns fagsak
-        every { distribusjonService.journalførBrev(any(), any(), any(), any(), any()) } returns journalpostId
+        every { distribusjonService.journalførVedtaksbrev(any(), any(), any(), any(), any()) } returns journalpostId
         every { distribusjonService.distribuerBrev(any()) } returns brevDistribusjonId
         every { vurderingService.hentVurdering(any()) } returns vurdering
         every { kabalService.sendTilKabal(any(), any(), any(), any()) } just Runs

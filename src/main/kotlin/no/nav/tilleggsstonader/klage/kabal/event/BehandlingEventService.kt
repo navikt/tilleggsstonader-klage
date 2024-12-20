@@ -138,7 +138,7 @@ class BehandlingEventService(
     private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
         return when (stønadstype) {
             Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
-            Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+            Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
         }
     }
 

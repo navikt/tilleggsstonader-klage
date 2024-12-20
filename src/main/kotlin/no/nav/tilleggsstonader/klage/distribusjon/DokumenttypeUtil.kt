@@ -5,14 +5,14 @@ import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 
 object DokumenttypeUtil {
 
-    fun dokumenttypeBrev(stønadstype: Stønadstype) =
+    fun dokumenttypeVedtaksbrev(stønadstype: Stønadstype) =
         when (stønadstype) {
-            Stønadstype.BARNETILSYN -> Dokumenttype.BARNETILSYN_FRITTSTÅENDE_BREV // TODO: Legg til klagebrev
-            Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+            Stønadstype.BARNETILSYN -> Dokumenttype.BARNETILSYN_KLAGE_VEDTAKSBREV
+            Stønadstype.LÆREMIDLER -> Dokumenttype.LÆREMIDLER_KLAGE_VEDTAKSBREV
         }
 
-    fun dokumenttypeSaksbehandlingsblankett(stønadstype: Stønadstype): Dokumenttype = when (stønadstype) {
-        Stønadstype.BARNETILSYN -> Dokumenttype.BARNETILSYN_FRITTSTÅENDE_BREV // TODO: Legg til blankett for klage
-        Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+    fun dokumenttypeInterntVedtak(stønadstype: Stønadstype): Dokumenttype = when (stønadstype) {
+        Stønadstype.BARNETILSYN -> Dokumenttype.BARNETILSYN_INTERNT_VEDTAK
+        Stønadstype.LÆREMIDLER -> Dokumenttype.LÆREMIDLER_INTERNT_VEDTAK
     }
 }

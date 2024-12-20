@@ -54,7 +54,7 @@ class JournalførBrevTask(
         avsenderMottakere.foldIndexed(journalposter) { index, acc, avsenderMottaker ->
             if (acc.none { it.ident == avsenderMottaker.id }) {
                 val journalpostId =
-                    distribusjonService.journalførBrev(behandlingId, brevPdf, saksbehandler, index, avsenderMottaker)
+                    distribusjonService.journalførVedtaksbrev(behandlingId, brevPdf, saksbehandler, index, avsenderMottaker)
                 val resultat = BrevmottakereJournalpost(
                     ident = avsenderMottaker.id ?: error("Mangler id for mottaker=$avsenderMottaker"),
                     journalpostId = journalpostId,

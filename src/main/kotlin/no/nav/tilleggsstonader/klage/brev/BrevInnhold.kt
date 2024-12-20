@@ -148,11 +148,11 @@ object BrevInnhold {
 
     private fun Stønadstype.lesMerUrl() = when (this) {
         Stønadstype.BARNETILSYN -> "nav.no/tilleggsstonader"
-        Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+        Stønadstype.LÆREMIDLER -> "nav.no/tilleggsstonader"
     }
 
     private fun Stønadstype.klageUrl() = when (this) {
         Stønadstype.BARNETILSYN -> "klage.nav.no/nb/klage/tilleggsstonader"
-        Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+        Stønadstype.LÆREMIDLER -> "klage.nav.no/nb/klage/tilleggsstonader"
     }
 }

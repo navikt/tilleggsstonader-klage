@@ -33,7 +33,7 @@ class PdlClientMock {
 
         every { pdlClient.hentPerson(any(), any()) } returns opprettPdlSøker()
 
-        every { pdlClient.hentPersonidenter(any(), Stønadstype.BARNETILSYN, eq(true)) } answers
+        every { pdlClient.hentPersonidenter(any(), any<Stønadstype>(), eq(true)) } answers
             { PdlIdenter(listOf(PdlIdent(firstArg(), false), PdlIdent("98765432109", true))) }
 
         return pdlClient

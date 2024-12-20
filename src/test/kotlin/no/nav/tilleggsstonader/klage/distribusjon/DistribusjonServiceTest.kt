@@ -59,9 +59,9 @@ internal class DistribusjonServiceTest {
     }
 
     @Test
-    fun journalførBrev() {
+    fun journalførVedtaksbrev() {
         val mottaker = AvsenderMottaker(null, null, "navn")
-        distribusjonService.journalførBrev(behandling.id, "123".toByteArray(), "saksbehandler", 0, mottaker)
+        distribusjonService.journalførVedtaksbrev(behandling.id, "123".toByteArray(), "saksbehandler", 0, mottaker)
 
         assertThat(journalpostSlot.captured.fagsakId).isEqualTo(fagsak.eksternId)
         assertThat(journalpostSlot.captured.fnr).isEqualTo(ident)
@@ -73,8 +73,8 @@ internal class DistribusjonServiceTest {
     }
 
     @Test
-    fun journalførSaksbehandlingsblankett() {
-        distribusjonService.journalførSaksbehandlingsblankett(behandling.id, "pdf".toByteArray(), "saksbehandler")
+    fun journalførInterntVedtak() {
+        distribusjonService.journalførInterntVedtak(behandling.id, "pdf".toByteArray(), "saksbehandler")
 
         assertThat(journalpostSlot.captured.fagsakId).isEqualTo(fagsak.eksternId)
         assertThat(journalpostSlot.captured.fnr).isEqualTo(ident)

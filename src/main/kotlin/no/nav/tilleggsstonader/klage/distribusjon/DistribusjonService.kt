@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.distribusjon
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
-import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeBrev
-import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeSaksbehandlingsblankett
+import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeInterntVedtak
+import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeVedtaksbrev
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
@@ -27,7 +27,7 @@ class DistribusjonService(
     private val behandlingService: BehandlingService,
 ) {
 
-    fun journalførBrev(
+    fun journalførVedtaksbrev(
         behandlingId: UUID,
         brev: ByteArray,
         saksbehandler: String,
@@ -41,14 +41,14 @@ class DistribusjonService(
             fagsak = fagsak,
             pdf = brev,
             tittel = utledBrevtittel(behandlingId),
-            dokumenttype = dokumenttypeBrev(fagsak.stønadstype),
+            dokumenttype = dokumenttypeVedtaksbrev(fagsak.stønadstype),
             saksbehandler = saksbehandler,
             suffixEksternReferanseId = "-$index",
             avsenderMottaker = mottaker,
         )
     }
 
-    fun journalførSaksbehandlingsblankett(
+    fun journalførInterntVedtak(
         behandlingId: UUID,
         saksbehandlingsblankettPdf: ByteArray,
         saksbehandler: String,
@@ -60,7 +60,7 @@ class DistribusjonService(
             fagsak = fagsak,
             pdf = saksbehandlingsblankettPdf,
             tittel = "Blankett for klage på ${fagsak.stønadstype.name.storForbokstav()}",
-            dokumenttype = dokumenttypeSaksbehandlingsblankett(fagsak.stønadstype),
+            dokumenttype = dokumenttypeInterntVedtak(fagsak.stønadstype),
             saksbehandler = saksbehandler,
             suffixEksternReferanseId = "-blankett",
         )

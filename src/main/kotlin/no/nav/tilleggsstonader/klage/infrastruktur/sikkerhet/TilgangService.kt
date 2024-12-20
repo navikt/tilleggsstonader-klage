@@ -147,8 +147,9 @@ class TilgangService(
 
     private fun harTilgangTilGittRolle(stønadstype: Stønadstype, minimumsrolle: BehandlerRolle): Boolean {
         val rolleForFagsystem = when (stønadstype) {
-            Stønadstype.BARNETILSYN -> rolleConfig.ts
-            Stønadstype.LÆREMIDLER -> error("TODO: Funksjonaliteten er ikke implementert for LÆREMIDLER enda")
+            Stønadstype.BARNETILSYN,
+            Stønadstype.LÆREMIDLER,
+            -> rolleConfig.ts
         }
         return harTilgangTilGittRolleForFagsystem(rolleForFagsystem, minimumsrolle)
     }

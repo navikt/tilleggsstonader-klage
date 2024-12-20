@@ -26,7 +26,7 @@ class LagSaksbehandlingsblankettTask(
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
         val blankettPdf = blankettService.lagBlankett(behandlingId)
-        val journalpostId = distribusjonService.journalførSaksbehandlingsblankett(
+        val journalpostId = distribusjonService.journalførInterntVedtak(
             behandlingId,
             blankettPdf,
             task.metadata.getProperty(saksbehandlerMetadataKey),
