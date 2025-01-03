@@ -30,6 +30,14 @@ spec:
     requests:
       memory: 256Mi
       cpu: 200m
+  observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+    autoInstrumentation:
+      enabled: true
+      runtime: java
   secureLogs:
     enabled: true
   kafka:
