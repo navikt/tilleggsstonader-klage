@@ -3,7 +3,6 @@ package no.nav.tilleggsstonader.klage.behandling.dto
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
-import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 
 fun FagsystemVedtak.tilPåklagetVedtakDetaljer() = PåklagetVedtakDetaljer(
@@ -11,7 +10,7 @@ fun FagsystemVedtak.tilPåklagetVedtakDetaljer() = PåklagetVedtakDetaljer(
     eksternFagsystemBehandlingId = this.eksternBehandlingId,
     resultat = this.resultat,
     vedtakstidspunkt = this.vedtakstidspunkt,
-    fagsystemType = this.fagsystemType ?: FagsystemType.ORDNIÆR, // TODO: Fjern fallback når feltet blir non-nullable
+    fagsystemType = this.fagsystemType,
     regelverk = this.regelverk,
 
 )
