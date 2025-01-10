@@ -126,22 +126,20 @@ internal class FormServiceTest {
             verify { formRepository.update(any()) }
         }
 
-// TODO: Utkommenter denne etter at BehandlingsstatistikkTask er re-implementert
-
-//        @Test
-//        internal fun `ingen behandlingshistorikk av StegType FORMKRAV, skal opprette task for statistikk`() {
-//            val behandlingshistorikk = Behandlingshistorikk(
-//                UUID.randomUUID(),
-//                UUID.randomUUID(),
-//                StegType.OPPRETTET,
-//            )
-//            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns listOf(
-//                behandlingshistorikk,
-//            )
-//            every { taskService.save(any()) } returns mockk<Task>()
-//            service.oppdaterFormkrav(oppfyltFormDto())
-//            verify { taskService.save(any()) }
-//        }
+        @Test
+        internal fun `ingen behandlingshistorikk av StegType FORMKRAV, skal opprette task for statistikk`() {
+            val behandlingshistorikk = Behandlingshistorikk(
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                StegType.OPPRETTET,
+            )
+            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns listOf(
+                behandlingshistorikk,
+            )
+            every { taskService.save(any()) } returns mockk<Task>()
+            service.oppdaterFormkrav(oppfyltFormDto())
+            verify { taskService.save(any()) }
+        }
 
         @Test
         internal fun `finnes behandlingshistorikk av StegType FORMKRAV, skal ikke opprette task for statistikk`() {
