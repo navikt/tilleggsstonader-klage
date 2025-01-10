@@ -5,6 +5,13 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV3
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlager
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartId
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartIdType
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSak
+import no.nav.tilleggsstonader.klage.kabal.domain.Type
+import no.nav.tilleggsstonader.klage.kabal.domain.Ytelse
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.LoggerFactory

@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.kabal
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.kabal.domain.Type
 import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper

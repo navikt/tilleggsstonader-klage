@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.kabal
+package no.nav.tilleggsstonader.klage.kabal.domain
 
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import java.time.LocalDate

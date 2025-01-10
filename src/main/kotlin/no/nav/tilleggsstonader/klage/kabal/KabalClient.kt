@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal
 
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV3
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
