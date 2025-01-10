@@ -90,15 +90,4 @@ internal class KabalServiceTest {
             .isEqualTo("${lenkeConfig.tilleggsstonaderSakLenke}/fagsak/${fagsak.eksternId}/saksoversikt")
         assertThat(oversendelseSlot.captured.forrigeBehandlendeEnhet).isEqualTo(saksbehandlerB.enhet)
     }
-
-    @Disabled // tar ut test til azure graph-feil er løst
-    @Test
-    internal fun `skal feile hvis saksbehandlerinfo ikke finnes`() {
-        val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.UTEN_VEDTAK))
-        val vurdering = vurdering(behandlingId = behandling.id, hjemmel = hjemmel)
-
-        assertThrows<IllegalStateException> {
-            kabalService.sendTilKabal(fagsak, behandling, vurdering, "UKJENT1234")
-        }
-    }
 }
