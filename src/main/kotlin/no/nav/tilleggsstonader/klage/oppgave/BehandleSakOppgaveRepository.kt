@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
-import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
-import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.stereotype.Repository
 import java.util.UUID

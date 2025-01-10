@@ -1,13 +1,16 @@
-package no.nav.tilleggsstonader.klage.metrics.domain
+package no.nav.tilleggsstonader.klage.metrics
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
-import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
-import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
+import no.nav.tilleggsstonader.klage.metrics.domain.AntallVedtak
+import no.nav.tilleggsstonader.klage.metrics.domain.BehandlingerPerStatus
+import no.nav.tilleggsstonader.klage.metrics.domain.MålerRepository
+import no.nav.tilleggsstonader.klage.metrics.domain.ÅpneBehandlingerFraUke
+import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,41 +27,41 @@ internal class MålerRepositoryTest : IntegrationTest() {
 
     @BeforeEach
     internal fun setUp() {
-        val fagsak1 = fagsak()
+        val fagsak1 = DomainUtil.fagsak()
         testoppsettService.lagreFagsak(fagsak1)
         testoppsettService.lagreBehandling(
-            behandling(
+            DomainUtil.behandling(
                 fagsak1,
                 status = BehandlingStatus.FERDIGSTILT,
                 resultat = BehandlingResultat.MEDHOLD,
             ),
         )
         testoppsettService.lagreBehandling(
-            behandling(
+            DomainUtil.behandling(
                 fagsak1,
                 status = BehandlingStatus.FERDIGSTILT,
                 resultat = BehandlingResultat.IKKE_MEDHOLD,
             ),
         )
         testoppsettService.lagreBehandling(
-            behandling(
+            DomainUtil.behandling(
                 fagsak1,
                 status = BehandlingStatus.OPPRETTET,
                 resultat = BehandlingResultat.IKKE_SATT,
             ),
         )
 
-        val fagsak2 = fagsak(identer = setOf(PersonIdent("123")), stønadstype = Stønadstype.BARNETILSYN)
+        val fagsak2 = DomainUtil.fagsak(identer = setOf(PersonIdent("123")), stønadstype = Stønadstype.BARNETILSYN)
         testoppsettService.lagreFagsak(fagsak2)
         testoppsettService.lagreBehandling(
-            behandling(
+            DomainUtil.behandling(
                 fagsak2,
                 status = BehandlingStatus.FERDIGSTILT,
                 resultat = BehandlingResultat.MEDHOLD,
             ),
         )
         testoppsettService.lagreBehandling(
-            behandling(
+            DomainUtil.behandling(
                 fagsak2,
                 status = BehandlingStatus.VENTER,
                 resultat = BehandlingResultat.MEDHOLD,
@@ -70,7 +73,7 @@ internal class MålerRepositoryTest : IntegrationTest() {
     internal fun finnBehandlingerPerStatus() {
         val data = målerRepository.finnBehandlingerPerStatus()
 
-        assertThat(data).containsExactlyInAnyOrder(
+        Assertions.assertThat(data).containsExactlyInAnyOrder(
             BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.FERDIGSTILT, 3),
             BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.OPPRETTET, 1),
             BehandlingerPerStatus(Stønadstype.BARNETILSYN, BehandlingStatus.VENTER, 1),
@@ -81,7 +84,7 @@ internal class MålerRepositoryTest : IntegrationTest() {
     internal fun finnÅpneBehandlingerPerUke() {
         val data = målerRepository.finnÅpneBehandlingerPerUke()
 
-        assertThat(data).containsExactlyInAnyOrder(
+        Assertions.assertThat(data).containsExactlyInAnyOrder(
             ÅpneBehandlingerFraUke(år, uke, Stønadstype.BARNETILSYN, 1),
         )
     }
@@ -90,7 +93,7 @@ internal class MålerRepositoryTest : IntegrationTest() {
     internal fun finnVedtakPerUke() {
         val data = målerRepository.antallVedtak()
 
-        assertThat(data).containsExactlyInAnyOrder(
+        Assertions.assertThat(data).containsExactlyInAnyOrder(
             AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.MEDHOLD, 3),
             AntallVedtak(Stønadstype.BARNETILSYN, BehandlingResultat.IKKE_MEDHOLD, 1),
         )

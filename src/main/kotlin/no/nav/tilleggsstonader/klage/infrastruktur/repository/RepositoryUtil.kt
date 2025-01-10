@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.repository
+package no.nav.tilleggsstonader.klage.infrastruktur.repository
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.findByIdOrNull

@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.repository
+package no.nav.tilleggsstonader.klage.infrastruktur.repository
 
 import org.springframework.data.jdbc.core.JdbcAggregateOperations
 import org.springframework.stereotype.Component

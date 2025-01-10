@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.klage.formkrav.domain.Form
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
-import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

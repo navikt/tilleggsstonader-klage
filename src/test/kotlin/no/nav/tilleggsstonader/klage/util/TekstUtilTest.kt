@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.felles.util
+package no.nav.tilleggsstonader.klage.util
 
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
 import org.assertj.core.api.Assertions.assertThat

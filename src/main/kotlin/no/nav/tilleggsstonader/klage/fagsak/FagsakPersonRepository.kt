@@ -2,8 +2,8 @@ package no.nav.tilleggsstonader.klage.fagsak
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
-import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import org.springframework.data.jdbc.repository.query.Query
 import org.springframework.stereotype.Repository
 import java.util.UUID

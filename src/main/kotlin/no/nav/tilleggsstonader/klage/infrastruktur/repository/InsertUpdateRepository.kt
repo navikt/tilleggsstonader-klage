@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.repository
+package no.nav.tilleggsstonader.klage.infrastruktur.repository
 
 interface InsertUpdateRepository<T> {
 

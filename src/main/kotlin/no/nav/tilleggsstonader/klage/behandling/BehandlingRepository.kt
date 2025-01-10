@@ -3,8 +3,8 @@ package no.nav.tilleggsstonader.klage.behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
-import no.nav.tilleggsstonader.klage.repository.InsertUpdateRepository
-import no.nav.tilleggsstonader.klage.repository.RepositoryInterface
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import org.springframework.data.jdbc.repository.query.Modifying

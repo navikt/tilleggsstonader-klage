@@ -8,7 +8,7 @@ import no.nav.tilleggsstonader.klage.felles.domain.BehandlerRolle
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
-import no.nav.tilleggsstonader.klage.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
