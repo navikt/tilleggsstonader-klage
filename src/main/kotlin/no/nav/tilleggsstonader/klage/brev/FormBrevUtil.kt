@@ -7,6 +7,8 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 
 object FormBrevUtil {
 
+    const val INNHOLDSTEKST_PREFIX = "Vi har avvist klagen din fordi"
+
     fun utledIkkeOppfylteFormkrav(formkrav: Form): Set<FormkravVilkår> {
         return setOf(
             if (formkrav.klagePart == IKKE_OPPFYLT) FormkravVilkår.KLAGE_PART else null,
@@ -20,10 +22,10 @@ object FormBrevUtil {
         feilHvis(formkravVilkår.isEmpty()) {
             "Skal ikke kunne utlede innholdstekst til formkrav avvist brev uten ikke oppfylte formkrav"
         }
-        if (formkravVilkår.size > 1) {
-            return "$innholdstekstPrefix ${formkravVilkår.joinToString("") { "\n  •  ${it.tekst}" }}"
+        return if (formkravVilkår.size > 1) {
+            "$INNHOLDSTEKST_PREFIX ${formkravVilkår.joinToString("") { "\n  •  ${it.tekst}" }}"
         } else {
-            return "$innholdstekstPrefix ${formkravVilkår.single().tekst}."
+            "$INNHOLDSTEKST_PREFIX ${formkravVilkår.single().tekst}."
         }
     }
 
@@ -55,8 +57,6 @@ object FormBrevUtil {
             "§§ ${alleUnntattSiste.joinToString { it }} og $siste"
         }
     }
-
-    const val innholdstekstPrefix = "Vi har avvist klagen din fordi"
 
     enum class FormkravVilkår(val tekst: String, val folketrygdLoven: Set<String>, val forvaltningsloven: Set<String>) {
         KLAGE_KONKRET("du ikke har sagt hva du klager på", emptySet(), setOf("32", "33")),

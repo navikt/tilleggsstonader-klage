@@ -42,7 +42,7 @@ internal class BrevRepositoryTest : IntegrationTest() {
     }
 
     @Test
-    internal fun `oppdaterMottakerJournalpost`() {
+    internal fun oppdaterMottakerJournalpost() {
         val brev = brev()
         brevRepository.insert(brev)
         val oppdatertJournalposter = BrevmottakereJournalposter(journalposter = listOf(brevmottakereJournalpost("id")))

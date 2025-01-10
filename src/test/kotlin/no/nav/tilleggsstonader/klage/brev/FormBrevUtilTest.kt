@@ -61,7 +61,7 @@ internal class FormBrevUtilTest {
     internal fun `skal utlede riktig innholdstekst dersom flere formkrav ikke er oppfylt`() {
         val innholdstekst = utledÅrsakTilAvvisningstekst(ikkeOppfylteFormkrav)
 
-        assertThat(innholdstekst).contains("$innholdstekstPrefix")
+        assertThat(innholdstekst).contains(innholdstekstPrefix)
         assertThat(innholdstekst).contains(klageKonkretTekst)
         assertThat(innholdstekst).contains(klageSignertTekst)
         assertThat(innholdstekst).contains(klageFristOverholdtTekst)

@@ -43,7 +43,7 @@ internal class JournalførBrevTaskTest {
         brevService = brevService,
     )
 
-    val behandlingId = UUID.randomUUID()
+    val behandlingId: UUID = UUID.randomUUID()
     val journalpostId = "12345678"
     val propertiesMedJournalpostId = Properties().apply {
         this["journalpostId"] = journalpostId

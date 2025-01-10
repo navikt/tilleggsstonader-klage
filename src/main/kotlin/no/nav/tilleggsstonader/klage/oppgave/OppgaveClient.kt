@@ -17,7 +17,7 @@ import java.net.URI
 @Component
 class OppgaveClient(
     @Qualifier("azure") restTemplate: RestTemplate,
-    private val integrasjonerConfig: IntegrasjonerConfig,
+    integrasjonerConfig: IntegrasjonerConfig,
 ) : AbstractRestClient(restTemplate) {
 
     private val oppgaveUri: URI = integrasjonerConfig.oppgaveUri

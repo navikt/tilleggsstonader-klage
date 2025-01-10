@@ -24,7 +24,7 @@ internal class DistribuerBrevTaskTest {
 
     val distribuerBrevTask = DistribuerBrevTask(brevService, distribusjonService)
 
-    val behandlingId = UUID.randomUUID()
+    val behandlingId: UUID = UUID.randomUUID()
     val slotJournalposter = mutableListOf<BrevmottakereJournalposter>()
 
     @BeforeEach

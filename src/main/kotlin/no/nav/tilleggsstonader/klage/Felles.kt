@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Pattern
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.util.*
 
 /**
  * Objekt som brukes for utveksling av data mellom familietjenester.

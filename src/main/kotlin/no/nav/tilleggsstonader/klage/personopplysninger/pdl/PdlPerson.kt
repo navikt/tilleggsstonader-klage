@@ -68,7 +68,7 @@ data class PdlSøker(
     @JsonProperty("doedsfall") val dødsfall: List<Dødsfall>,
     val folkeregisterpersonstatus: List<Folkeregisterpersonstatus>,
     val navn: List<Navn>,
-    val vergemaalEllerFremtidsfullmakt: List<VergemaalEllerFremtidsfullmakt>,
+    val vergemaalEllerFremtidsfullmakt: List<VergemaalEllerFremtidsfullmakt>, // REname denne til Verkgemål elns. ar ikke lenger noe med fullmektig å gjøre
 )
 
 data class Metadata(val historisk: Boolean)

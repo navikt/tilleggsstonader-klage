@@ -58,7 +58,7 @@ enum class Folkeregisterpersonstatus(private val pdlStatus: String) {
 
     companion object {
 
-        private val map = values().associateBy(Folkeregisterpersonstatus::pdlStatus)
+        private val map = entries.associateBy(Folkeregisterpersonstatus::pdlStatus)
         fun fraPdl(status: PdlFolkeregisterpersonstatus) = map.getOrDefault(status.status, UKJENT)
     }
 }

@@ -37,7 +37,7 @@ internal class StegServiceTest {
         behandlingshistorikkService,
         tilgangService,
     )
-    val behandlingId = UUID.randomUUID()
+    val behandlingId: UUID = UUID.randomUUID()
     val behandling = behandling(id = behandlingId)
 
     val historikkSlot = mutableListOf<StegType>()

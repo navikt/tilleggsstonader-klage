@@ -24,7 +24,7 @@ internal class OpprettRevurderingServiceTest {
     val service = OpprettRevurderingService(behandlingService, fagsystemVedtakService)
 
     val fagsak = DomainUtil.fagsakDomain().tilFagsak()
-    val behandlingId = UUID.randomUUID()
+    val behandlingId: UUID = UUID.randomUUID()
 
     @BeforeEach
     internal fun setUp() {

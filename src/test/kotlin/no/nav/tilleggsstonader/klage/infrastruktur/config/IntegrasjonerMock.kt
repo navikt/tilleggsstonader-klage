@@ -103,7 +103,7 @@ class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
 
     companion object {
 
-        private const val fnr = "23097825289"
+        private const val DUMMY_FNR = "23097825289"
 
         private val journalpostFraIntegrasjoner =
             Journalpost(
@@ -113,7 +113,7 @@ class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                 tema = "ENF",
                 behandlingstema = "ab0071",
                 tittel = "abrakadabra",
-                bruker = Bruker(type = BrukerIdType.FNR, id = fnr),
+                bruker = Bruker(type = BrukerIdType.FNR, id = DUMMY_FNR),
                 journalforendeEnhet = "4817",
                 kanal = "SKAN_IM",
                 relevanteDatoer = listOf(RelevantDato(LocalDateTime.now(), "DATO_REGISTRERT")),
@@ -227,7 +227,7 @@ class IntegrasjonerMock(integrasjonerConfig: IntegrasjonerConfig) {
                 tema = "ENF",
                 behandlingstema = "ab0071",
                 tittel = "abrakadabra",
-                bruker = Bruker(type = BrukerIdType.FNR, id = fnr),
+                bruker = Bruker(type = BrukerIdType.FNR, id = DUMMY_FNR),
                 journalforendeEnhet = "4817",
                 kanal = "SKAN_IM",
                 relevanteDatoer = listOf(RelevantDato(LocalDateTime.now(), "DATO_REGISTRERT")),

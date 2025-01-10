@@ -9,9 +9,9 @@ object TekstUtil {
     fun String.storForbokstav() = this.lowercase().replaceFirstChar { if (it.isLowerCase()) it.uppercase() else it.toString() }
     object DatoFormat {
 
-        val DATE_FORMAT_NORSK = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val DATE_FORMAT_NORSK: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     }
 
-    fun LocalDate.norskFormat() = this.format(DatoFormat.DATE_FORMAT_NORSK)
-    fun LocalDateTime.norskFormat() = this.format(DatoFormat.DATE_FORMAT_NORSK)
+    fun LocalDate.norskFormat(): String = this.format(DatoFormat.DATE_FORMAT_NORSK)
+    fun LocalDateTime.norskFormat(): String = this.format(DatoFormat.DATE_FORMAT_NORSK)
 }

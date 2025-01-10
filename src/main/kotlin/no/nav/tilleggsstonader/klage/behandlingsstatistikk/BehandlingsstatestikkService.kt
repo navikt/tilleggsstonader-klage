@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkHendelse.*
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
@@ -54,8 +55,7 @@ class BehandlingsstatistikkService(
         val vurdering = vurderingService.hentVurdering(behandling.id)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
         val erStrengtFortrolig =
-            personopplysningerService.hentPersonopplysninger(behandlingId).adressebeskyttelse?.erStrengtFortrolig()
-                ?: false
+            personopplysningerService.hentPersonopplysninger(behandlingId).adressebeskyttelse?.erStrengtFortrolig() == true
 
         val behandlendeEnhet = maskerVerdiHvisStrengtFortrolig(
             erStrengtFortrolig,
@@ -92,9 +92,9 @@ class BehandlingsstatistikkService(
                 gjeldendeSaksbehandler ?: behandling.sporbar.endret.endretAv,
             ),
             avsender = "Tilleggsstonader Klage",
-            versjon = null, // TODO, implmentere uthending av versjonnummer for klage backend
+            versjon = null,
 
-        )
+            )
     }
 
     private fun resultatBegrunnelse(
@@ -109,7 +109,7 @@ class BehandlingsstatistikkService(
     private fun behandlingResultat(
         hendelse: BehandlingsstatistikkHendelse,
         behandling: Behandling,
-    ) = if (hendelse == BehandlingsstatistikkHendelse.FERDIG || hendelse == BehandlingsstatistikkHendelse.SENDT_TIL_KA) {
+    ) = if (hendelse == FERDIG || hendelse == SENDT_TIL_KA) {
         behandling.resultat.name
     } else {
         null
@@ -118,7 +118,7 @@ class BehandlingsstatistikkService(
     private fun ferdigBehandletTid(
         hendelse: BehandlingsstatistikkHendelse,
         hendelseTidspunkt: LocalDateTime,
-    ) = if (hendelse == BehandlingsstatistikkHendelse.FERDIG || hendelse == BehandlingsstatistikkHendelse.SENDT_TIL_KA) {
+    ) = if (hendelse == FERDIG || hendelse == SENDT_TIL_KA) {
         hendelseTidspunkt
     } else {
         null

@@ -7,7 +7,7 @@ object PdlTestdata {
 
     private val metadataGjeldende = Metadata(false)
 
-    val ident = "2"
+    const val dummyIdent = "2"
 
     private val folkeregistermetadata = Folkeregistermetadata(LocalDateTime.now(), LocalDateTime.now())
 
@@ -21,7 +21,7 @@ object PdlTestdata {
     val pdlNavnBolk = PersonBolk(
         personBolk = listOf(
             PersonDataBolk(
-                ident = ident,
+                ident = dummyIdent,
                 code = "ok",
                 person = PdlNavn(
                     navn = navn,
@@ -39,10 +39,10 @@ object PdlTestdata {
                 navn,
                 listOf(
                     VergemaalEllerFremtidsfullmakt(
-                        "",
-                        folkeregistermetadata,
-                        "",
-                        VergeEllerFullmektig(
+                        embete = "",
+                        folkeregistermetadata = folkeregistermetadata,
+                        type = "",
+                        vergeEllerFullmektig = VergeEllerFullmektig(
                             IdentifiserendeInformasjon(navn = Personnavn("", "", "")),
                             "",
                             "",

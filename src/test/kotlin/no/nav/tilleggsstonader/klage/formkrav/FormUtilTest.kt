@@ -19,7 +19,7 @@ internal class FormUtilTest {
     val påklagetVedtakUtenBehandling = PåklagetVedtakDto(eksternFagsystemBehandlingId = null, PåklagetVedtakstype.UTEN_VEDTAK)
     val påklagetVedtakIkkeValgt = PåklagetVedtakDto(eksternFagsystemBehandlingId = null, PåklagetVedtakstype.IKKE_VALGT)
 
-    val behandlingId = UUID.randomUUID()
+    val behandlingId: UUID = UUID.randomUUID()
     val oppfyltForm = oppfyltForm(behandlingId)
     val ikkeOppfyltForm = oppfyltForm.copy(
         saksbehandlerBegrunnelse = "Ok",
