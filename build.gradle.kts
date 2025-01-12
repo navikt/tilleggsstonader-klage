@@ -1,15 +1,15 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20241011144712_deb1f2c"
+val familieProsesseringVersion = "2.20250102104603_293d453"
 val tilleggsstønaderLibsVersion = "2024.12.11-15.08.d370f00e88e3"
 val tilleggsstønaderKontrakterVersion = "2024.12.20-14.17.472e1112c9fb"
-val tokenSupportVersion = "5.0.8"
-val wiremockVersion = "3.9.2"
-val mockkVersion = "1.13.13"
-val testcontainerVersion = "1.20.3"
+val tokenSupportVersion = "5.0.14"
+val wiremockVersion = "3.10.0"
+val mockkVersion = "1.13.16"
+val testcontainerVersion = "1.20.4"
 val familieFellesVersion = "3.20240913110742_adb42f8"
-val springDocVersion = "2.6.0"
+val springDocVersion = "2.8.1"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -17,15 +17,15 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring") version "2.0.21"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.spring") version "2.1.0"
 
-    id("com.diffplug.spotless") version "6.25.0"
+    id("com.diffplug.spotless") version "7.0.1"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot") version "3.4.1"
+    id("io.spring.dependency-management") version "1.1.7"
 
     id("org.cyclonedx.bom") version "1.10.0"
 }
@@ -64,7 +64,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:10.20.1")
+    implementation("org.flywaydb:flyway-core:11.1.1")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
