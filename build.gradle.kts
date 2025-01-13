@@ -8,7 +8,7 @@ val tokenSupportVersion = "5.0.14"
 val wiremockVersion = "3.10.0"
 val mockkVersion = "1.13.16"
 val testcontainerVersion = "1.20.4"
-val springDocVersion = "2.8.1"
+val springDocVersion = "2.8.3"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
