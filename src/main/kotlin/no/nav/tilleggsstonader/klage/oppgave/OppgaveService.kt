@@ -66,10 +66,6 @@ class OppgaveService(
         }
         .id
 
-    fun finnMapper(enheter: List<String>): List<MappeDto> {
-        return enheter.flatMap { finnMapper(it) }
-    }
-
     fun finnMapper(enhet: String): List<MappeDto> {
         return cacheManager.getValue("oppgave-mappe", enhet) {
             logger.info("Henter mapper på nytt")

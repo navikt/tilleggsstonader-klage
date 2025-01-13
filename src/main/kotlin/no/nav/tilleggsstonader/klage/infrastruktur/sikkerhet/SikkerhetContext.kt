@@ -7,8 +7,6 @@ object SikkerhetContext {
     private const val SYSTEM_NAVN = "System"
     const val SYSTEM_FORKORTELSE = "VL"
 
-    val NAVIDENT_REGEX = """^[a-zA-Z]\d{6}$""".toRegex()
-
     fun erMaskinTilMaskinToken(): Boolean {
         val claims = SpringTokenValidationContextHolder().getTokenValidationContext().getClaims("azuread")
         return claims.get("oid") != null &&
@@ -23,7 +21,7 @@ object SikkerhetContext {
         val result = Result.runCatching { SpringTokenValidationContextHolder().getTokenValidationContext() }
             .fold(
                 onSuccess = {
-                    it.getClaims("azuread")?.get("NAVident")?.toString() ?: SYSTEM_FORKORTELSE
+                    it.getClaims("azuread").get("NAVident")?.toString() ?: SYSTEM_FORKORTELSE
                 },
                 onFailure = { SYSTEM_FORKORTELSE },
             )
@@ -37,7 +35,7 @@ object SikkerhetContext {
         return Result.runCatching { SpringTokenValidationContextHolder().getTokenValidationContext() }
             .fold(
                 onSuccess = {
-                    it.getClaims("azuread")?.get("name")?.toString()
+                    it.getClaims("azuread").get("name")?.toString()
                         ?: if (strict) error("Finner ikke navn i azuread token") else SYSTEM_NAVN
                 },
                 onFailure = { if (strict) error("Finner ikke navn på innlogget bruker") else SYSTEM_NAVN },
@@ -49,7 +47,7 @@ object SikkerhetContext {
             .fold(
                 onSuccess = {
                     @Suppress("UNCHECKED_CAST")
-                    it.getClaims("azuread")?.get("groups") as List<String>? ?: emptyList()
+                    it.getClaims("azuread").get("groups") as List<String>? ?: emptyList()
                 },
                 onFailure = { emptyList() },
             )

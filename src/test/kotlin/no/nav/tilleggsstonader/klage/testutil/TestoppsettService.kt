@@ -7,7 +7,6 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
-import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import org.springframework.context.annotation.Profile
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -19,8 +18,6 @@ class TestoppsettService(
     private val fagsakRepository: FagsakRepository,
     private val behandlingRepository: BehandlingRepository,
 ) {
-
-    fun opprettPerson(ident: String) = fagsakPersonRepository.insert(FagsakPerson(identer = setOf(PersonIdent(ident))))
 
     fun opprettPerson(person: FagsakPerson) = fagsakPersonRepository.insert(person)
 

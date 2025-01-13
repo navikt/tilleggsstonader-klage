@@ -126,9 +126,6 @@ abstract class IntegrationTest {
         return LOCALHOST + getPort() + uri
     }
 
-    protected fun url(baseUrl: String, uri: String): String {
-        return baseUrl + uri
-    }
 
     protected val lokalTestToken: String
         get() {

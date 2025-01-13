@@ -26,7 +26,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 internal class BehandlingsstatistikkServiceTest {
@@ -57,8 +56,6 @@ internal class BehandlingsstatistikkServiceTest {
         sporbar = Sporbar(opprettetAv = "Sakbeh"),
     )
     private val vurdering = DomainUtil.vurdering(behandling.id, årsak = Årsak.FEIL_I_LOVANDVENDELSE)
-
-    private val zoneId = ZoneId.of("Europe/Oslo")
 
     @BeforeEach
     internal fun setUp() {

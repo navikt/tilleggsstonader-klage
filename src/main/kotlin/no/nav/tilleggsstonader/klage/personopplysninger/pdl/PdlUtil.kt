@@ -17,12 +17,12 @@ inline fun <reified DATA : Any, reified T : Any> feilsjekkOgReturnerData(
         if (pdlResponse.errors?.any { it.extensions?.notFound() == true } == true) {
             throw PdlNotFoundException()
         }
-        secureLogger.error("Feil ved henting av ${T::class} fra PDL: ${pdlResponse.errorMessages()}")
+        secureLoggFeilVedHentingFraPdl<T>(pdlResponse.errorMessages())
         throw PdlRequestException("Feil ved henting av ${T::class} fra PDL. Se secure logg for detaljer.")
     }
     if (pdlResponse.harAdvarsel()) {
-        logger.warn("Advarsel ved henting av ${T::class} fra PDL. Se securelogs for detaljer.")
-        secureLogger.warn("Advarsel ved henting av ${T::class} fra PDL: ${pdlResponse.extensions?.warnings}")
+        loggAdvarselVedHentingFraPdl<T>()
+        secureLoggAdvarselFraPdl<T>("${pdlResponse.extensions?.warnings}")
     }
 
     val data = dataMapper.invoke(pdlResponse.data)
@@ -30,12 +30,13 @@ inline fun <reified DATA : Any, reified T : Any> feilsjekkOgReturnerData(
         val errorMelding = if (ident != null) "Feil ved oppslag på ident $ident. " else "Feil ved oppslag på person."
         secureLogger.error(
             errorMelding +
-                "PDL rapporterte ingen feil men returnerte tomt datafelt",
+                    "PDL rapporterte ingen feil men returnerte tomt datafelt",
         )
         throw PdlRequestException("Manglende ${T::class} ved feilfri respons fra PDL. Se secure logg for detaljer.")
     }
     return data
 }
+
 
 inline fun <reified T : Any> feilsjekkOgReturnerData(pdlResponse: PdlBolkResponse<T>): Map<String, T> {
     if (pdlResponse.data == null) {
@@ -43,13 +44,25 @@ inline fun <reified T : Any> feilsjekkOgReturnerData(pdlResponse: PdlBolkRespons
         throw PdlRequestException("Data er null fra PDL -  ${T::class}. Se secure logg for detaljer.")
     }
     if (pdlResponse.harAdvarsel()) {
-        logger.warn("Advarsel ved henting av ${T::class} fra PDL. Se securelogs for detaljer.")
-        secureLogger.warn("Advarsel ved henting av ${T::class} fra PDL: ${pdlResponse.extensions?.warnings}")
+        loggAdvarselVedHentingFraPdl<T>()
+        secureLoggAdvarselFraPdl<T>("{${pdlResponse.extensions?.warnings}}")
     }
     val feil = pdlResponse.data.personBolk.filter { it.code != "ok" }.associate { it.ident to it.code }
     if (feil.isNotEmpty()) {
-        secureLogger.error("Feil ved henting av ${T::class} fra PDL: $feil")
+        secureLoggFeilVedHentingFraPdl<T>("$feil")
         throw PdlRequestException("Feil ved henting av ${T::class} fra PDL. Se secure logg for detaljer.")
     }
     return pdlResponse.data.personBolk.associateBy({ it.ident }, { it.person!! })
+}
+
+inline fun <reified T> secureLoggFeilVedHentingFraPdl(feil: String) {
+    secureLogger.error("Feil ved henting av ${T::class} fra PDL: $feil")
+}
+
+inline fun <reified T> secureLoggAdvarselFraPdl(feil: String) {
+    secureLogger.warn("Advarsel ved henting av ${T::class} fra PDL: $feil")
+}
+
+inline fun <reified T> loggAdvarselVedHentingFraPdl() {
+    logger.warn("Advarsel ved henting av ${T::class} fra PDL. Se securelogs for detaljer.")
 }
