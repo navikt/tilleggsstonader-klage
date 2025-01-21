@@ -6,6 +6,7 @@ import no.nav.security.token.support.client.core.oauth2.OAuth2AccessTokenRespons
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
+import no.nav.tilleggsstonader.klage.infrastruktur.filter.NAVIdentFilter
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.libs.http.client.RetryOAuth2HttpClient
 import no.nav.tilleggsstonader.libs.http.config.RestTemplateConfiguration
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
@@ -63,4 +65,12 @@ class ApplicationConfig {
                 return SikkerhetContext.harRolle(prosesseringRolle)
             }
         }
+
+    @Bean
+    fun navIdentFilter(): FilterRegistrationBean<NAVIdentFilter> {
+        val filterRegistration = FilterRegistrationBean<NAVIdentFilter>()
+        filterRegistration.filter = NAVIdentFilter()
+        filterRegistration.order = 1 // Samme nivå som LogFilter sånn at navIdent blir med på RequestTimeFilter
+        return filterRegistration
+    }
 }
