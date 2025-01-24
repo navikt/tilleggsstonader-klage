@@ -15,10 +15,10 @@ import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkSe
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
-import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.clearBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.mockBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling

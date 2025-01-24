@@ -126,7 +126,6 @@ abstract class IntegrationTest {
         return LOCALHOST + getPort() + uri
     }
 
-
     protected val lokalTestToken: String
         get() {
             return onBehalfOfToken(role = rolleConfig.ts.beslutter)
