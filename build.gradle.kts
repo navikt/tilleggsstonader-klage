@@ -16,6 +16,7 @@ version = "1.0.0"
 plugins {
     application
 
+    //Kotlin er ikke nyeste versjon for å være kompatibel med gammel ktlint versjon
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.spring") version "2.0.21"
 
