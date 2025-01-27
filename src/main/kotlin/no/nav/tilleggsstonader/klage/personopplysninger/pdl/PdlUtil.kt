@@ -30,13 +30,12 @@ inline fun <reified DATA : Any, reified T : Any> feilsjekkOgReturnerData(
         val errorMelding = if (ident != null) "Feil ved oppslag på ident $ident. " else "Feil ved oppslag på person."
         secureLogger.error(
             errorMelding +
-                    "PDL rapporterte ingen feil men returnerte tomt datafelt",
+                "PDL rapporterte ingen feil men returnerte tomt datafelt",
         )
         throw PdlRequestException("Manglende ${T::class} ved feilfri respons fra PDL. Se secure logg for detaljer.")
     }
     return data
 }
-
 
 inline fun <reified T : Any> feilsjekkOgReturnerData(pdlResponse: PdlBolkResponse<T>): Map<String, T> {
     if (pdlResponse.data == null) {
