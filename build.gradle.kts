@@ -1,14 +1,14 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250102104603_293d453"
+val familieProsesseringVersion = "2.20250114104710_d9ad759"
 val tilleggsstønaderLibsVersion = "2025.01.21-10.26.933160d62458"
-val tilleggsstønaderKontrakterVersion = "2024.12.20-14.17.472e1112c9fb"
+val tilleggsstønaderKontrakterVersion = "2025.01.24-07.46.4cb66d85aaca"
 val tokenSupportVersion = "5.0.14"
 val wiremockVersion = "3.10.0"
 val mockkVersion = "1.13.16"
 val testcontainerVersion = "1.20.4"
-val springDocVersion = "2.8.1"
+val springDocVersion = "2.8.4"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -17,17 +17,17 @@ plugins {
     application
 
     //Kotlin er ikke nyeste versjon for å være kompatibel med gammel ktlint versjon
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring") version "2.0.21"
+    kotlin("jvm") version "2.1.10"
+    kotlin("plugin.spring") version "2.1.10"
 
-    id("com.diffplug.spotless") version "7.0.1"
-    id("com.github.ben-manes.versions") version "0.51.0"
+    id("com.diffplug.spotless") version "7.0.2"
+    id("com.github.ben-manes.versions") version "0.52.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.4.1"
+    id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
 
-    id("org.cyclonedx.bom") version "1.10.0"
+    id("org.cyclonedx.bom") version "2.0.0"
 }
 
 repositories {
@@ -64,7 +64,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.1.1")
+    implementation("org.flywaydb:flyway-core:11.2.0")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
