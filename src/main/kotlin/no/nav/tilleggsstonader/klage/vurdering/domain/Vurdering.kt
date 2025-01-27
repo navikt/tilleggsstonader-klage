@@ -45,6 +45,7 @@ enum class Hjemmel(val kabalHjemmel: KabalHjemmel) {
     FTRL_11_A_4(KabalHjemmel.FTRL_11_A_4),
     FTRL_11_A_4_3(KabalHjemmel.FTRL_11_A_4_3),
     FTRL_15_11(KabalHjemmel.FTRL_15_11),
+
     @Deprecated("Skal deles i § 17-10 og § 17-15 for å la saksbehandler velge eksplisitt lovhjemmel")
     FTRL_17_10_17_15(KabalHjemmel.FTRL_17_10_17_15),
     FTRL_17_10(KabalHjemmel.FTRL_17_10),

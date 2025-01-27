@@ -13,6 +13,7 @@ enum class KabalHjemmel(
     FTRL_11_A_4("FTRL_11_A_4", LovKilde.FOLKETRYGDLOVEN, "§ 11A-4"),
     FTRL_11_A_4_3("FTRL_11_A_4_3", LovKilde.FOLKETRYGDLOVEN, "§ 11A-4 tredje ledd"),
     FTRL_15_11("441", LovKilde.FOLKETRYGDLOVEN, "§ 15-11"),
+
     @Deprecated("Skal deles i § 17-10 og § 17-15 for å la saksbehandler velge eksplisitt lovhjemmel")
     FTRL_17_10_17_15("FTRL_17_10_17_15", LovKilde.FOLKETRYGDLOVEN, "§§ 17-10 og 17-15"),
     FTRL_17_10("FTRL_17_10", LovKilde.FOLKETRYGDLOVEN, "§§ 17-10"),
