@@ -9,7 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
-import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.pdfAsBase64String
+import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.PDF_AS_BASE64_STRING
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
@@ -59,7 +59,7 @@ class IntegrasjonerMock(
                 .willReturn(okJson(objectMapper.writeValueAsString(dummyPdf))),
             get(urlPathMatching("${integrasjonerConfig.journalPostUri.path}/hentdokument/([0-9]*)/([0-9]*)"))
                 .withQueryParam("variantFormat", equalTo("ARKIV"))
-                .willReturn(okJson(objectMapper.writeValueAsString(pdfAsBase64String))),
+                .willReturn(okJson(objectMapper.writeValueAsString(PDF_AS_BASE64_STRING))),
             post(urlEqualTo(integrasjonerConfig.distribuerDokumentUri.path))
                 .willReturn(
                     okJson(

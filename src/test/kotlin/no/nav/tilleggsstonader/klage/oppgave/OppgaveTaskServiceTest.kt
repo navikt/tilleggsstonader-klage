@@ -7,8 +7,8 @@ import io.mockk.slot
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.klageGjelderTilbakekrevingMetadataKey
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.KLAGE_GJELDER_TILBAKEKREVING_METADATA_KEY
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Companion.MAPPE_ID_KLAR
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -75,7 +75,7 @@ internal class OppgaveTaskServiceTest {
                     payload = behandling.id.toString(),
                     properties =
                         Properties().apply {
-                            this[saksbehandlerMetadataKey] = ""
+                            this[SAKSBEHANDLER_METADATA_KEY] = ""
                         },
                 )
 
@@ -100,7 +100,7 @@ internal class OppgaveTaskServiceTest {
                     payload = behandling.id.toString(),
                     properties =
                         Properties().apply {
-                            this[klageGjelderTilbakekrevingMetadataKey] = true.toString()
+                            this[KLAGE_GJELDER_TILBAKEKREVING_METADATA_KEY] = true.toString()
                         },
                 )
 

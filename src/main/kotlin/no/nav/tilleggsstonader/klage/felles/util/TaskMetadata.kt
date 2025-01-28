@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.felles.util
 
 object TaskMetadata {
-    const val saksbehandlerMetadataKey = "saksbehandler"
-    const val klageGjelderTilbakekrevingMetadataKey = "gjelderTilbakekreving"
+    const val SAKSBEHANDLER_METADATA_KEY = "saksbehandler"
+    const val KLAGE_GJELDER_TILBAKEKREVING_METADATA_KEY = "gjelderTilbakekreving"
 }

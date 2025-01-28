@@ -15,7 +15,7 @@ import no.nav.tilleggsstonader.kontrakter.saksstatistikk.SakYtelseDvh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 enum class BehandlingsstatistikkHendelse {
     MOTTATT,
@@ -32,7 +32,6 @@ class BehandlingsstatistikkService(
     private val fagsakService: FagsakService,
     private val personopplysningerService: PersonopplysningerService,
 ) {
-
     @Transactional
     fun sendBehandlingstatistikk(
         behandlingsId: UUID,
@@ -58,10 +57,11 @@ class BehandlingsstatistikkService(
         val erStrengtFortrolig =
             personopplysningerService.hentPersonopplysninger(behandlingId).adressebeskyttelse?.erStrengtFortrolig() == true
 
-        val behandlendeEnhet = maskerVerdiHvisStrengtFortrolig(
-            erStrengtFortrolig,
-            behandling.behandlendeEnhet,
-        )
+        val behandlendeEnhet =
+            maskerVerdiHvisStrengtFortrolig(
+                erStrengtFortrolig,
+                behandling.behandlendeEnhet,
+            )
 
         val påklagetVedtakDetaljer = behandling.påklagetVedtak.påklagetVedtakDetaljer
 
@@ -83,18 +83,21 @@ class BehandlingsstatistikkService(
             ferdigBehandletTid = ferdigBehandletTid(hendelse, hendelseTidspunkt),
             ansvarligEnhet = behandlendeEnhet,
             mottattTid = behandling.klageMottatt.atStartOfDay(),
-            sakUtland = behandling.påklagetVedtak.påklagetVedtakDetaljer?.regelverk.tilDVHSakNasjonalitet(),
+            sakUtland =
+                behandling.påklagetVedtak.påklagetVedtakDetaljer
+                    ?.regelverk
+                    .tilDVHSakNasjonalitet(),
             behandlingResultat = behandlingResultat(hendelse, behandling),
             resultatBegrunnelse = resultatBegrunnelse(behandling, vurdering),
             behandlingMetode = "MANUELL",
             kravMottatt = behandling.klageMottatt,
-            saksbehandler = maskerVerdiHvisStrengtFortrolig(
-                erStrengtFortrolig,
-                gjeldendeSaksbehandler ?: behandling.sporbar.endret.endretAv,
-            ),
+            saksbehandler =
+                maskerVerdiHvisStrengtFortrolig(
+                    erStrengtFortrolig,
+                    gjeldendeSaksbehandler ?: behandling.sporbar.endret.endretAv,
+                ),
             avsender = "Tilleggsstonader Klage",
             versjon = null,
-
         )
     }
 
@@ -135,9 +138,10 @@ class BehandlingsstatistikkService(
         return verdi
     }
 
-    private fun Regelverk?.tilDVHSakNasjonalitet(): String? = when (this) {
-        Regelverk.NASJONAL -> "Nasjonal"
-        Regelverk.EØS -> "Utland"
-        null -> "Nasjonal" // fallback til Nasjonal der vedtaket ikkje har informasjon om det er nasjonal eller EØS
-    }
+    private fun Regelverk?.tilDVHSakNasjonalitet(): String? =
+        when (this) {
+            Regelverk.NASJONAL -> "Nasjonal"
+            Regelverk.EØS -> "Utland"
+            null -> "Nasjonal" // fallback til Nasjonal der vedtaket ikkje har informasjon om det er nasjonal eller EØS
+        }
 }

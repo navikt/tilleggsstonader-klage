@@ -12,7 +12,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.distribusjon.JournalføringUtil.mapAvsenderMottaker
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.logger
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
@@ -31,7 +31,7 @@ class JournalførBrevTask(
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
-        val saksbehandler = task.metadata[saksbehandlerMetadataKey].toString()
+        val saksbehandler = task.metadata[SAKSBEHANDLER_METADATA_KEY].toString()
 
         val brev = brevService.hentBrev(behandlingId)
 

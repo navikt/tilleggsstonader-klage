@@ -26,35 +26,36 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 internal class BehandlingsstatistikkServiceTest {
-
     private val behandlingsstatistikkProducer = mockk<BehandlingsstatistikkProducer>()
     private val behandlingService = mockk<BehandlingService>()
     private val vurderingService = mockk<VurderingService>()
     private val fagsakService = mockk<FagsakService>()
     private val personopplysningerService = mockk<PersonopplysningerService>()
 
-    private val service = BehandlingsstatistikkService(
-        behandlingsstatistikkProducer = behandlingsstatistikkProducer,
-        behandlingService = behandlingService,
-        vurderingService = vurderingService,
-        fagsakService = fagsakService,
-        personopplysningerService = personopplysningerService,
-    )
+    private val service =
+        BehandlingsstatistikkService(
+            behandlingsstatistikkProducer = behandlingsstatistikkProducer,
+            behandlingService = behandlingService,
+            vurderingService = vurderingService,
+            fagsakService = fagsakService,
+            personopplysningerService = personopplysningerService,
+        )
 
     private val behandlingsstatistikkKlageSlot = slot<BehandlingKlageDvh>()
 
     private val personIdent = UUID.randomUUID().toString()
     private val fagsak: Fagsak = DomainUtil.fagsak(setOf(PersonIdent(personIdent)))
     private val påklagetBehandlingId = UUID.randomUUID().toString()
-    private val behandling = DomainUtil.behandling(
-        fagsak,
-        påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer(påklagetBehandlingId)),
-        resultat = BehandlingResultat.MEDHOLD,
-        sporbar = Sporbar(opprettetAv = "Sakbeh"),
-    )
+    private val behandling =
+        DomainUtil.behandling(
+            fagsak,
+            påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer(påklagetBehandlingId)),
+            resultat = BehandlingResultat.MEDHOLD,
+            sporbar = Sporbar(opprettetAv = "Sakbeh"),
+        )
     private val vurdering = DomainUtil.vurdering(behandling.id, årsak = Årsak.FEIL_I_LOVANDVENDELSE)
 
     @BeforeEach
@@ -63,7 +64,10 @@ internal class BehandlingsstatistikkServiceTest {
         every { behandlingService.hentBehandling(behandling.id) } returns behandling
 
         every { vurderingService.hentVurdering(behandling.id) } returns vurdering
-        every { personopplysningerService.hentPersonopplysninger(behandling.id) } returns personopplysningerDto(personIdent = personIdent)
+        every { personopplysningerService.hentPersonopplysninger(behandling.id) } returns
+            personopplysningerDto(
+                personIdent = personIdent,
+            )
 
         justRun { behandlingsstatistikkProducer.sendBehandlingsstatistikk(capture(behandlingsstatistikkKlageSlot)) }
     }
@@ -106,7 +110,10 @@ internal class BehandlingsstatistikkServiceTest {
         val gjeldendeSaksbehandler = "gjeldendeSaksbehandler"
         val hendelse = BehandlingsstatistikkHendelse.FERDIG
 
-        every { personopplysningerService.hentPersonopplysninger(behandling.id) } returns personopplysningerDto(adressebeskyttelse = Adressebeskyttelse.STRENGT_FORTROLIG)
+        every { personopplysningerService.hentPersonopplysninger(behandling.id) } returns
+            personopplysningerDto(
+                adressebeskyttelse = Adressebeskyttelse.STRENGT_FORTROLIG,
+            )
 
         service.sendBehandlingstatistikk(behandling.id, hendelse, hendelseTidspunkt, gjeldendeSaksbehandler)
 

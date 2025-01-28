@@ -23,13 +23,17 @@ import org.springframework.context.annotation.Profile
 @Configuration
 @Profile("mock-pdl")
 class PdlClientMock {
-
     @Bean
     @Primary
     fun pdlClient(): PdlClient {
         val pdlClient: PdlClient = mockk()
 
-        every { pdlClient.hentNavnBolk(any(), any()) } answers { firstArg<List<String>>().associateWith { pdlNavn(listOf(lagNavn())) } }
+        every {
+            pdlClient.hentNavnBolk(
+                any(),
+                any(),
+            )
+        } answers { firstArg<List<String>>().associateWith { pdlNavn(listOf(lagNavn())) } }
 
         every { pdlClient.hentPerson(any(), any()) } returns opprettPdlSøker()
 
@@ -40,49 +44,48 @@ class PdlClientMock {
     }
 
     companion object {
-
-        private const val annenForelderFnr = "17097926735"
+        private const val ANNEN_FORELDER_FNR = "17097926735"
 
         fun opprettPdlSøker() =
             pdlSøker(
-                adressebeskyttelse = listOf(
-                    Adressebeskyttelse(
-                        gradering = AdressebeskyttelseGradering.UGRADERT,
-                        metadata = metadataGjeldende,
+                adressebeskyttelse =
+                    listOf(
+                        Adressebeskyttelse(
+                            gradering = AdressebeskyttelseGradering.UGRADERT,
+                            metadata = metadataGjeldende,
+                        ),
                     ),
-                ),
                 dødsfall = listOf(),
                 navn = listOf(lagNavn()),
                 vergemaalEllerFremtidsfullmakt = vergemaalEllerFremtidsfullmakt(),
             )
 
-        private fun vergemaalEllerFremtidsfullmakt(): List<VergemaalEllerFremtidsfullmakt> {
-            return listOf(
+        private fun vergemaalEllerFremtidsfullmakt(): List<VergemaalEllerFremtidsfullmakt> =
+            listOf(
                 VergemaalEllerFremtidsfullmakt(
                     embete = null,
                     folkeregistermetadata = null,
                     type = "voksen",
                     vergeEllerFullmektig =
-                    VergeEllerFullmektig(
-                        motpartsPersonident = annenForelderFnr,
-                        identifiserendeInformasjon = IdentifiserendeInformasjon(navn = null),
-                        omfang = "personligeOgOekonomiskeInteresser",
-                        omfangetErInnenPersonligOmraade = false,
-                    ),
+                        VergeEllerFullmektig(
+                            motpartsPersonident = ANNEN_FORELDER_FNR,
+                            identifiserendeInformasjon = IdentifiserendeInformasjon(navn = null),
+                            omfang = "personligeOgOekonomiskeInteresser",
+                            omfangetErInnenPersonligOmraade = false,
+                        ),
                 ),
                 VergemaalEllerFremtidsfullmakt(
                     embete = null,
                     folkeregistermetadata = null,
                     type = "stadfestetFremtidsfullmakt",
                     vergeEllerFullmektig =
-                    VergeEllerFullmektig(
-                        motpartsPersonident = annenForelderFnr,
-                        identifiserendeInformasjon = null,
-                        omfang = "personligeOgOekonomiskeInteresser",
-                        omfangetErInnenPersonligOmraade = false,
-                    ),
+                        VergeEllerFullmektig(
+                            motpartsPersonident = ANNEN_FORELDER_FNR,
+                            identifiserendeInformasjon = null,
+                            omfang = "personligeOgOekonomiskeInteresser",
+                            omfangetErInnenPersonligOmraade = false,
+                        ),
                 ),
             )
-        }
     }
 }

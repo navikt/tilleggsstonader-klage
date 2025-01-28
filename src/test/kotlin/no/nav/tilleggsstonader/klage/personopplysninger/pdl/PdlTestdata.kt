@@ -4,10 +4,9 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 object PdlTestdata {
-
     private val metadataGjeldende = Metadata(false)
 
-    const val dummyIdent = "2"
+    const val DUMMY_IDENT = "2"
 
     private val folkeregistermetadata = Folkeregistermetadata(LocalDateTime.now(), LocalDateTime.now())
 
@@ -18,17 +17,20 @@ object PdlTestdata {
 
     private val dødsfall = listOf(Dødsfall(LocalDate.now()))
 
-    val pdlNavnBolk = PersonBolk(
-        personBolk = listOf(
-            PersonDataBolk(
-                ident = dummyIdent,
-                code = "ok",
-                person = PdlNavn(
-                    navn = navn,
+    val pdlNavnBolk =
+        PersonBolk(
+            personBolk =
+                listOf(
+                    PersonDataBolk(
+                        ident = DUMMY_IDENT,
+                        code = "ok",
+                        person =
+                            PdlNavn(
+                                navn = navn,
+                            ),
+                    ),
                 ),
-            ),
-        ),
-    )
+        )
 
     val pdlSøkerData =
         PdlSøkerData(
@@ -42,12 +44,13 @@ object PdlTestdata {
                         embete = "",
                         folkeregistermetadata = folkeregistermetadata,
                         type = "",
-                        vergeEllerFullmektig = VergeEllerFullmektig(
-                            IdentifiserendeInformasjon(navn = Personnavn("", "", "")),
-                            "",
-                            "",
-                            true,
-                        ),
+                        vergeEllerFullmektig =
+                            VergeEllerFullmektig(
+                                identifiserendeInformasjon = IdentifiserendeInformasjon(navn = Personnavn("", "", "")),
+                                motpartsPersonident = "",
+                                omfang = "",
+                                omfangetErInnenPersonligOmraade = true,
+                            ),
                     ),
                 ),
             ),

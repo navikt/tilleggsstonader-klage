@@ -6,7 +6,7 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
@@ -47,7 +47,7 @@ class OpprettBehandleSakOppgaveTask(
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstype = Behandlingstype.Klage.value,
                 behandlesAvApplikasjon = "tilleggsstonader-klage",
-                tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
+                tilordnetRessurs = task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
                 behandlingstema = finnBehandlingstema(fagsak).value,
                 mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
             )

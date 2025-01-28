@@ -4,7 +4,7 @@ import no.nav.familie.prosessering.AsyncTaskStep
 import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.distribusjon.DistribusjonService
-import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.saksbehandlerMetadataKey
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -29,7 +29,7 @@ class LagSaksbehandlingsblankettTask(
             distribusjonService.journalførInterntVedtak(
                 behandlingId,
                 blankettPdf,
-                task.metadata.getProperty(saksbehandlerMetadataKey),
+                task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
             )
 
         logger.info("Lagret saksbehandlingsblankett for behandling=$behandlingId på journapost=$journalpostId")
@@ -44,7 +44,7 @@ class LagSaksbehandlingsblankettTask(
                 payload = behandlingId.toString(),
                 properties =
                     Properties().apply {
-                        setProperty(saksbehandlerMetadataKey, SikkerhetContext.hentSaksbehandler(strict = true))
+                        setProperty(SAKSBEHANDLER_METADATA_KEY, SikkerhetContext.hentSaksbehandler(strict = true))
                     },
             )
     }
