@@ -16,9 +16,8 @@ version = "1.0.0"
 plugins {
     application
 
-    //Kotlin er ikke nyeste versjon for å være kompatibel med gammel ktlint versjon
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring") version "2.0.21"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.spring") version "2.1.0"
 
     id("com.diffplug.spotless") version "7.0.1"
     id("com.github.ben-manes.versions") version "0.51.0"
@@ -43,7 +42,7 @@ apply(plugin = "com.diffplug.spotless")
 
 spotless {
     kotlin {
-        ktlint("0.50.0")
+        ktlint("1.5.0")
     }
 }
 
@@ -96,7 +95,6 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:$testcontainerVersion")
     testImplementation("no.nav.security:token-validation-spring-test:$tokenSupportVersion")
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
-
 }
 
 application {
