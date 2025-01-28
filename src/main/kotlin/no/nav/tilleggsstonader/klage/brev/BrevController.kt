@@ -24,21 +24,27 @@ class BrevController(
     private val tilgangService: TilgangService,
 ) {
     @GetMapping("/{behandlingId}/pdf")
-    fun hentBrevPdf(@PathVariable behandlingId: UUID): ByteArray {
+    fun hentBrevPdf(
+        @PathVariable behandlingId: UUID,
+    ): ByteArray {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
         return Base64.getEncoder().encode(brevService.hentBrevPdf(behandlingId))
     }
 
     @PostMapping("/{behandlingId}")
-    fun lagEllerOppdaterBrev(@PathVariable behandlingId: UUID): ByteArray {
+    fun lagEllerOppdaterBrev(
+        @PathVariable behandlingId: UUID,
+    ): ByteArray {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         return Base64.getEncoder().encode(brevService.lagBrev(behandlingId))
     }
 
     @GetMapping("/{behandlingId}/mottakere")
-    fun hentBrevmottakere(@PathVariable behandlingId: UUID): BrevmottakereDto {
+    fun hentBrevmottakere(
+        @PathVariable behandlingId: UUID,
+    ): BrevmottakereDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
         return brevService.hentBrevmottakere(behandlingId).tilDto()

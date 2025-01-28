@@ -14,20 +14,20 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 internal class BrevInnholdTest {
-
     private val mottattDato = LocalDate.of(2020, 1, 1)
     private val vedtakstidspunkt = LocalDateTime.of(2021, 11, 5, 14, 56, 22)
 
     @Test
     internal fun `brev for opprettholdelse skal inneholde dato og stønadstype`() {
-        val brev = lagOpprettholdelseBrev(
-            "123456789",
-            "Innstilling abc",
-            "Navn Navnesen",
-            Stønadstype.BARNETILSYN,
-            påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt),
-            mottattDato,
-        )
+        val brev =
+            lagOpprettholdelseBrev(
+                "123456789",
+                "Innstilling abc",
+                "Navn Navnesen",
+                Stønadstype.BARNETILSYN,
+                påklagetVedtakDetaljer("123", vedtakstidspunkt = vedtakstidspunkt),
+                mottattDato,
+            )
 
         assertThat(brev.avsnitt.first().innhold).isEqualTo(
             "Vi har 01.01.2020 fått klagen din på vedtaket om stønad til pass av barn som ble gjort 05.11.2021, " +
@@ -37,12 +37,13 @@ internal class BrevInnholdTest {
 
     @Test
     internal fun `brev for avvist formkrav skal inneholde dato og stønadstype`() {
-        val brev = lagFormkravAvvistBrev(
-            "123456789",
-            "Innstilling abc",
-            ikkeOppfyltForm(),
-            Stønadstype.BARNETILSYN,
-        )
+        val brev =
+            lagFormkravAvvistBrev(
+                "123456789",
+                "Innstilling abc",
+                ikkeOppfyltForm(),
+                Stønadstype.BARNETILSYN,
+            )
 
         assertThat(brev.overskrift).isEqualTo(
             "Vi har avvist klagen din på vedtaket om stønad til pass av barn",
@@ -51,12 +52,13 @@ internal class BrevInnholdTest {
 
     @Test
     internal fun `brev for avvist formkrav uten påklaget vedtak skal føre til et eget avvisningsbrev`() {
-        val brev = lagFormkravAvvistBrevIkkePåklagetVedtak(
-            "123456789",
-            "Innstilling abc",
-            ikkeOppfyltForm(),
-            Stønadstype.BARNETILSYN,
-        )
+        val brev =
+            lagFormkravAvvistBrevIkkePåklagetVedtak(
+                "123456789",
+                "Innstilling abc",
+                ikkeOppfyltForm(),
+                Stønadstype.BARNETILSYN,
+            )
         assertThat(brev.overskrift).isEqualTo("Vi har avvist klagen din")
         assertThat(brev.avsnitt.first().innhold).isEqualTo("Vi har avvist klagen din fordi du ikke har klaget på et vedtak.")
         assertThat(brev.avsnitt.elementAt(1).innhold).isEqualTo("brevtekst")
@@ -67,6 +69,5 @@ internal class BrevInnholdTest {
         assertThat(brev.avsnitt.size).isEqualTo(6)
     }
 
-    private fun ikkeOppfyltForm() =
-        oppfyltForm(UUID.randomUUID()).copy(klagePart = FormVilkår.IKKE_OPPFYLT, brevtekst = "brevtekst")
+    private fun ikkeOppfyltForm() = oppfyltForm(UUID.randomUUID()).copy(klagePart = FormVilkår.IKKE_OPPFYLT, brevtekst = "brevtekst")
 }

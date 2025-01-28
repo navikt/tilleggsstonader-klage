@@ -23,7 +23,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime.now
 
 internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
-
     @Autowired
     private lateinit var behandlingService: BehandlingService
 
@@ -60,17 +59,17 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
 
     @Nested
     inner class OppdaterPåklagetVedtak {
-
         @Test
         internal fun `skal oppdatere påklaget vedtak`() {
             val påklagetBehandlingId = "påklagetBehandlingId"
             val fagsystemVedtak = fagsystemVedtak(eksternBehandlingId = påklagetBehandlingId)
             every { tilleggsstonaderSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
 
-            val påklagetVedtak = PåklagetVedtakDto(
-                eksternFagsystemBehandlingId = påklagetBehandlingId,
-                påklagetVedtakstype = PåklagetVedtakstype.VEDTAK,
-            )
+            val påklagetVedtak =
+                PåklagetVedtakDto(
+                    eksternFagsystemBehandlingId = påklagetBehandlingId,
+                    påklagetVedtakstype = PåklagetVedtakstype.VEDTAK,
+                )
             behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
             val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
             val oppdatertPåklagetVedtak = oppdatertBehandling.påklagetVedtak
@@ -86,11 +85,12 @@ internal class BehandlingServiceIntegrasjonTest : IntegrationTest() {
             every { tilleggsstonaderSakClientMock.hentVedtak(fagsak.eksternId) } returns listOf(fagsystemVedtak)
 
             val vedtaksdato = LocalDate.now()
-            val påklagetVedtak = PåklagetVedtakDto(
-                eksternFagsystemBehandlingId = null,
-                manuellVedtaksdato = vedtaksdato,
-                påklagetVedtakstype = PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK,
-            )
+            val påklagetVedtak =
+                PåklagetVedtakDto(
+                    eksternFagsystemBehandlingId = null,
+                    manuellVedtaksdato = vedtaksdato,
+                    påklagetVedtakstype = PåklagetVedtakstype.ARENA_ORDINÆRT_VEDTAK,
+                )
             behandlingService.oppdaterPåklagetVedtak(behandlingId = behandling.id, påklagetVedtakDto = påklagetVedtak)
             val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
             val oppdatertPåklagetVedtak = oppdatertBehandling.påklagetVedtak

@@ -45,10 +45,11 @@ data class PåklagetVedtakDto(
     val fagsystemVedtak: FagsystemVedtak? = null,
     val manuellVedtaksdato: LocalDate? = null,
 ) {
-    fun erGyldig(): Boolean = when (eksternFagsystemBehandlingId) {
-        null -> påklagetVedtakstype != VEDTAK
-        else -> påklagetVedtakstype == VEDTAK
-    }
+    fun erGyldig(): Boolean =
+        when (eksternFagsystemBehandlingId) {
+            null -> påklagetVedtakstype != VEDTAK
+            else -> påklagetVedtakstype == VEDTAK
+        }
 
     fun harTattStillingTil(): Boolean = påklagetVedtakstype != IKKE_VALGT
 
@@ -60,7 +61,10 @@ data class PåklagetVedtakDto(
     }
 }
 
-fun Behandling.tilDto(fagsak: Fagsak, klageinstansResultat: List<KlageinstansResultatDto>): BehandlingDto =
+fun Behandling.tilDto(
+    fagsak: Fagsak,
+    klageinstansResultat: List<KlageinstansResultatDto>,
+): BehandlingDto =
     BehandlingDto(
         id = this.id,
         fagsakId = this.fagsakId,

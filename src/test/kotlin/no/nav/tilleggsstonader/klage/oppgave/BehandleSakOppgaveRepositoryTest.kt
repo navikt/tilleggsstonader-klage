@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 class BehandleSakOppgaveRepositoryTest : IntegrationTest() {
-
     @Autowired
     lateinit var behandlingRepository: BehandlingRepository
 

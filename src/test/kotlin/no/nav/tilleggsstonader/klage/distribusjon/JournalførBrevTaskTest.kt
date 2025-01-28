@@ -30,24 +30,25 @@ import java.util.Properties
 import java.util.UUID
 
 internal class JournalførBrevTaskTest {
-
     val behandlingService = mockk<BehandlingService>()
     val taskService = mockk<TaskService>()
     val distribusjonService = mockk<DistribusjonService>()
     val brevService = mockk<BrevService>()
 
-    val journalførBrevTask = JournalførBrevTask(
-        distribusjonService = distribusjonService,
-        taskService = taskService,
-        behandlingService = behandlingService,
-        brevService = brevService,
-    )
+    val journalførBrevTask =
+        JournalførBrevTask(
+            distribusjonService = distribusjonService,
+            taskService = taskService,
+            behandlingService = behandlingService,
+            brevService = brevService,
+        )
 
     val behandlingId: UUID = UUID.randomUUID()
     val journalpostId = "12345678"
-    val propertiesMedJournalpostId = Properties().apply {
-        this["journalpostId"] = journalpostId
-    }
+    val propertiesMedJournalpostId =
+        Properties().apply {
+            this["journalpostId"] = journalpostId
+        }
 
     val slotBrevmottakereJournalposter = mutableListOf<BrevmottakereJournalposter>()
     val slotSaveTask = mutableListOf<Task>()
@@ -66,7 +67,8 @@ internal class JournalførBrevTaskTest {
     internal fun `skal ikke opprette sendTilKabalTask hvis behandlingen har annen status enn IKKE_MEDHOLD`() {
         val taskSlots = mutableListOf<Task>()
         every { taskService.save(capture(taskSlots)) } answers { firstArg() }
-        every { behandlingService.hentBehandling(any()) } returns DomainUtil.behandling(resultat = BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST)
+        every { behandlingService.hentBehandling(any()) } returns
+            DomainUtil.behandling(resultat = BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST)
 
         journalførBrevTask.onCompletion(Task(JournalførBrevTask.TYPE, behandlingId.toString(), propertiesMedJournalpostId))
 
@@ -89,18 +91,18 @@ internal class JournalførBrevTaskTest {
 
     @Nested
     inner class JournalførMottakere {
-
         val mottakerPerson = AvsenderMottaker("1", BrukerIdType.FNR, "1navn")
         val mottakerPerson2 = AvsenderMottaker("2", BrukerIdType.FNR, "2navn")
         val mottakerOrganisasjon = AvsenderMottaker("org1", BrukerIdType.ORGNR, "mottaker")
 
-        val mottakere = Brevmottakere(
-            listOf(
-                BrevmottakerPerson("1", "1navn", MottakerRolle.BRUKER),
-                BrevmottakerPerson("2", "2navn", MottakerRolle.FULLMEKTIG),
-            ),
-            listOf(BrevmottakerOrganisasjon("org1", "orgnavn", "mottaker")),
-        )
+        val mottakere =
+            Brevmottakere(
+                listOf(
+                    BrevmottakerPerson("1", "1navn", MottakerRolle.BRUKER),
+                    BrevmottakerPerson("2", "2navn", MottakerRolle.FULLMEKTIG),
+                ),
+                listOf(BrevmottakerOrganisasjon("org1", "orgnavn", "mottaker")),
+            )
 
         @Test
         internal fun `skal lagre hver person i listen over mottakere`() {
@@ -120,10 +122,11 @@ internal class JournalførBrevTaskTest {
 
         @Test
         internal fun `skal fortsette fra forrige state`() {
-            val journalposter = listOf(
-                BrevmottakereJournalpost(mottakerPerson.id!!, "journalpostId-0"),
-                BrevmottakereJournalpost(mottakerPerson2.id!!, "journalpostId-1"),
-            )
+            val journalposter =
+                listOf(
+                    BrevmottakereJournalpost(mottakerPerson.id!!, "journalpostId-0"),
+                    BrevmottakereJournalpost(mottakerPerson2.id!!, "journalpostId-1"),
+                )
             mockHentBrev(mottakere = mottakere, BrevmottakereJournalposter(journalposter))
 
             runTask()
@@ -160,7 +163,10 @@ internal class JournalførBrevTaskTest {
         return task
     }
 
-    private fun mockHentBrev(mottakere: Brevmottakere? = null, mottakereJournalpost: BrevmottakereJournalposter? = null) {
+    private fun mockHentBrev(
+        mottakere: Brevmottakere? = null,
+        mottakereJournalpost: BrevmottakereJournalposter? = null,
+    ) {
         every { brevService.hentBrev(behandlingId) } returns
             Brev(
                 behandlingId = behandlingId,

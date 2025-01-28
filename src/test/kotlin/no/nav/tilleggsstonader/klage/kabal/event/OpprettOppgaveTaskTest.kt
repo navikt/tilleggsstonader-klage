@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 
 class OpprettOppgaveTaskTest : IntegrationTest() {
-
     @Autowired lateinit var fagsakRepository: FagsakRepository
 
     @Autowired lateinit var behandlingRepository: BehandlingRepository
@@ -51,13 +50,14 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
         opprettOppgaveTask = OpprettKabalEventOppgaveTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
         every { oppgaveService.opprettOppgave(capture(opprettOppgaveRequestSlot)) } answers { 9L }
 
-        fagsak = testoppsettService.lagreFagsak(
-            fagsakDomain().tilFagsakMedPerson(
-                setOf(
-                    PersonIdent(personIdent),
+        fagsak =
+            testoppsettService.lagreFagsak(
+                fagsakDomain().tilFagsakMedPerson(
+                    setOf(
+                        PersonIdent(personIdent),
+                    ),
                 ),
-            ),
-        )
+            )
         behandling = behandling(fagsak)
 
         behandlingRepository.insert(behandling)
@@ -67,7 +67,14 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
     fun `skal lage oppgave med riktige verdier i request`() {
         val fagsakDomain = fagsakRepository.findByIdOrNull(fagsak.id) ?: error("Finner ikke fagsak med id")
 
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, null, behandlingstema = Behandlingstema.TilsynBarn)
+        val opprettOppgavePayload =
+            OpprettOppgavePayload(
+                behandling.eksternBehandlingId,
+                "tekst",
+                Fagsystem.TILLEGGSSTONADER,
+                null,
+                behandlingstema = Behandlingstema.TilsynBarn,
+            )
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.tema).isEqualTo(Tema.TSO)
@@ -81,7 +88,8 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @Test
     fun `skal gi høy prioritet til oppgaver med klageinnstansutfall lik opphevet`() {
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.OPPHEVET)
+        val opprettOppgavePayload =
+            OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.OPPHEVET)
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.HOY)
@@ -89,7 +97,8 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @Test
     fun `skal gi norm prioritet til oppgaver med klageinnstansutfall ikke lik opphevet`() {
-        val opprettOppgavePayload = OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.MEDHOLD)
+        val opprettOppgavePayload =
+            OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.MEDHOLD)
         opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)

@@ -35,15 +35,17 @@ class OpprettKabalEventOppgaveTask(
     private val personRepository: FagsakPersonRepository,
     private val oppgaveService: OppgaveService,
 ) : AsyncTaskStep {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun doTask(task: Task) {
         val opprettOppgavePayload = objectMapper.readValue<OpprettOppgavePayload>(task.payload)
         val behandling = behandlingRepository.findByEksternBehandlingId(opprettOppgavePayload.klagebehandlingEksternId)
         val fagsakDomain = fagsakRepository.finnFagsakForBehandlingId(behandling.id)
-        val personId = fagsakDomain?.fagsakPersonId
-            ?: throw Feil("Feil ved henting av aktiv ident: Finner ikke fagsak for behandling med klagebehandlingEksternId ${opprettOppgavePayload.klagebehandlingEksternId}")
+        val personId =
+            fagsakDomain?.fagsakPersonId
+                ?: throw Feil(
+                    "Feil ved henting av aktiv ident: Finner ikke fagsak for behandling med klagebehandlingEksternId ${opprettOppgavePayload.klagebehandlingEksternId}",
+                )
 
         val aktivIdent = personRepository.hentAktivIdent(personId)
         val prioritet = utledOppgavePrioritet(opprettOppgavePayload.klageinstansUtfall)
@@ -67,25 +69,22 @@ class OpprettKabalEventOppgaveTask(
     }
 
     companion object {
-
         const val TYPE = "opprettOppgaveForKlagehendelse"
 
-        fun opprettTask(opprettOppgavePayload: OpprettOppgavePayload): Task {
-            return Task(
+        fun opprettTask(opprettOppgavePayload: OpprettOppgavePayload): Task =
+            Task(
                 TYPE,
                 objectMapper.writeValueAsString(opprettOppgavePayload),
             )
-        }
     }
 
-    private fun utledOppgavePrioritet(klageinstansUtfall: KlageinstansUtfall?): OppgavePrioritet {
-        return when (klageinstansUtfall) {
+    private fun utledOppgavePrioritet(klageinstansUtfall: KlageinstansUtfall?): OppgavePrioritet =
+        when (klageinstansUtfall) {
             KlageinstansUtfall.OPPHEVET -> OppgavePrioritet.HOY
             else -> {
                 OppgavePrioritet.NORM
             }
         }
-    }
 }
 
 data class OpprettOppgavePayload(

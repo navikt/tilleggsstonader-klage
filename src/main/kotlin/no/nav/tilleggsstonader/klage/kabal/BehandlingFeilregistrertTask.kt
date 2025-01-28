@@ -26,9 +26,7 @@ class BehandlingFeilregistrertTask(
     private val taskService: TaskService,
     private val behandlingService: BehandlingService,
     private val fagsakService: FagsakService,
-) :
-    AsyncTaskStep {
-
+) : AsyncTaskStep {
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
 
@@ -44,8 +42,11 @@ class BehandlingFeilregistrertTask(
     private fun lagOpprettOppgaveTask(behandlingId: UUID): Task {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
-        val årsakFeilregistrert = behandlingService.hentKlageresultatDto(behandlingId)
-            .single().årsakFeilregistrert ?: error("Fant ikke årsak for feilregistrering")
+        val årsakFeilregistrert =
+            behandlingService
+                .hentKlageresultatDto(behandlingId)
+                .single()
+                .årsakFeilregistrert ?: error("Fant ikke årsak for feilregistrering")
 
         return OpprettKabalEventOppgaveTask.opprettTask(
             OpprettOppgavePayload(
@@ -62,10 +63,8 @@ class BehandlingFeilregistrertTask(
         "Klagebehandlingen er sendt tilbake fra KA med status feilregistrert.\n\nBegrunnelse fra KA: \"$årsakFeilregistrert\""
 
     companion object {
-
         const val TYPE = "BehandlingFeilregistrert"
 
-        fun opprettTask(behandlingId: UUID): Task =
-            Task(TYPE, behandlingId.toString())
+        fun opprettTask(behandlingId: UUID): Task = Task(TYPE, behandlingId.toString())
     }
 }

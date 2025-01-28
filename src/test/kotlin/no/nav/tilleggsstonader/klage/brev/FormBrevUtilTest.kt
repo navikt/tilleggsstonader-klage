@@ -17,7 +17,6 @@ import org.junit.jupiter.api.assertThrows
 import java.util.UUID
 
 internal class FormBrevUtilTest {
-
     @Test
     internal fun `et formkrav ikke oppfylt`() {
         val klagePart = oppfyltForm(UUID.randomUUID()).copy(klagePart = IKKE_OPPFYLT)
@@ -33,20 +32,25 @@ internal class FormBrevUtilTest {
 
     @Test
     internal fun `ingen formkrav oppfylt`() {
-        val formkravFireIkkeOppfylt = oppfyltForm(UUID.randomUUID()).copy(
-            klagePart = IKKE_OPPFYLT,
-            klageSignert = IKKE_OPPFYLT,
-            klageKonkret = IKKE_OPPFYLT,
-            klagefristOverholdt = IKKE_OPPFYLT,
-        )
+        val formkravFireIkkeOppfylt =
+            oppfyltForm(UUID.randomUUID()).copy(
+                klagePart = IKKE_OPPFYLT,
+                klageSignert = IKKE_OPPFYLT,
+                klageKonkret = IKKE_OPPFYLT,
+                klagefristOverholdt = IKKE_OPPFYLT,
+            )
 
-        assertThat(utledIkkeOppfylteFormkrav(formkravFireIkkeOppfylt)).isEqualTo(setOf(KLAGE_PART, KLAGE_SIGNERT, KLAGE_KONKRET, KLAGEFRIST_OVERHOLDT))
+        assertThat(
+            utledIkkeOppfylteFormkrav(formkravFireIkkeOppfylt),
+        ).isEqualTo(setOf(KLAGE_PART, KLAGE_SIGNERT, KLAGE_KONKRET, KLAGEFRIST_OVERHOLDT))
     }
 
     @Test
     internal fun `skal ikke utlede innholdstekst dersom alle formkrav er oppfylt`() {
         val feil = assertThrows<Feil> { utledÅrsakTilAvvisningstekst(tomIkkeOppfylteFormkrav) }
-        assertThat(feil.frontendFeilmelding).isEqualTo("Skal ikke kunne utlede innholdstekst til formkrav avvist brev uten ikke oppfylte formkrav")
+        assertThat(
+            feil.frontendFeilmelding,
+        ).isEqualTo("Skal ikke kunne utlede innholdstekst til formkrav avvist brev uten ikke oppfylte formkrav")
     }
 
     @Test

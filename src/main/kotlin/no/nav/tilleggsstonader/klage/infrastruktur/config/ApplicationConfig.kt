@@ -33,7 +33,6 @@ import java.time.temporal.ChronoUnit
 @EnableOAuth2Client(cacheEnabled = true)
 @EnableScheduling
 class ApplicationConfig {
-
     /**
      * Overskrever OAuth2HttpClient som settes opp i token-support som ikke kan få med objectMapper fra felles
      * pga .setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
@@ -41,30 +40,32 @@ class ApplicationConfig {
      */
     @Bean
     @Primary
-    fun oAuth2HttpClient(): OAuth2HttpClient {
-        return RetryOAuth2HttpClient(
+    fun oAuth2HttpClient(): OAuth2HttpClient =
+        RetryOAuth2HttpClient(
             RestClient.create(
-                RestTemplateBuilder().setConnectTimeout(Duration.of(2, ChronoUnit.SECONDS))
-                    .setReadTimeout(Duration.of(2, ChronoUnit.SECONDS)).build(),
+                RestTemplateBuilder()
+                    .setConnectTimeout(Duration.of(2, ChronoUnit.SECONDS))
+                    .setReadTimeout(Duration.of(2, ChronoUnit.SECONDS))
+                    .build(),
             ),
         )
-    }
 
     @Bean
-    fun prosesseringInfoProvider(@Value("\${prosessering.rolle}") prosesseringRolle: String) =
-        object : ProsesseringInfoProvider {
-
-            override fun hentBrukernavn(): String = try {
-                SpringTokenValidationContextHolder().getTokenValidationContext().getClaims("azuread")
+    fun prosesseringInfoProvider(
+        @Value("\${prosessering.rolle}") prosesseringRolle: String,
+    ) = object : ProsesseringInfoProvider {
+        override fun hentBrukernavn(): String =
+            try {
+                SpringTokenValidationContextHolder()
+                    .getTokenValidationContext()
+                    .getClaims("azuread")
                     .getStringClaim("preferred_username")
             } catch (e: Exception) {
                 throw e
             }
 
-            override fun harTilgang(): Boolean {
-                return SikkerhetContext.harRolle(prosesseringRolle)
-            }
-        }
+        override fun harTilgang(): Boolean = SikkerhetContext.harRolle(prosesseringRolle)
+    }
 
     @Bean
     fun navIdentFilter(): FilterRegistrationBean<NAVIdentFilter> {

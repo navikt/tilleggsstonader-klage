@@ -18,7 +18,6 @@ import org.junit.jupiter.params.provider.EnumSource
 import java.util.UUID
 
 internal class OpprettRevurderingServiceTest {
-
     val behandlingService = mockk<BehandlingService>()
     val fagsystemVedtakService = mockk<FagsystemVedtakService>()
     val service = OpprettRevurderingService(behandlingService, fagsystemVedtakService)

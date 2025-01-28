@@ -22,7 +22,6 @@ class SendTilKabalTask(
     private val kabalService: KabalService,
     private val vurderingService: VurderingService,
 ) : AsyncTaskStep {
-
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
         val saksbehandlerIdent = task.metadata[TaskMetadata.saksbehandlerMetadataKey].toString()

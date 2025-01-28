@@ -40,7 +40,6 @@ import java.time.LocalDate
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 internal class BehandlingServiceTest {
-
     val klageresultatRepository = mockk<KlageresultatRepository>()
     val fagsakService = mockk<FagsakService>()
     val behandlingRepository = mockk<BehandlingRepository>()
@@ -49,15 +48,16 @@ internal class BehandlingServiceTest {
     val oppgaveTaskService = mockk<OppgaveTaskService>()
     val fagsystemVedtakService = mockk<FagsystemVedtakService>()
 
-    val behandlingService = BehandlingService(
-        behandlingRepository,
-        fagsakService,
-        klageresultatRepository,
-        behandlinghistorikkService,
-        oppgaveTaskService,
-        taskService,
-        fagsystemVedtakService,
-    )
+    val behandlingService =
+        BehandlingService(
+            behandlingRepository,
+            fagsakService,
+            klageresultatRepository,
+            behandlinghistorikkService,
+            oppgaveTaskService,
+            taskService,
+            fagsystemVedtakService,
+        )
     val behandlingSlot = slot<Behandling>()
 
     @BeforeEach
@@ -80,8 +80,10 @@ internal class BehandlingServiceTest {
 
     @Nested
     inner class HenleggBehandling {
-
-        private fun henleggOgForventOk(behandling: Behandling, henlagtÅrsak: HenlagtÅrsak) {
+        private fun henleggOgForventOk(
+            behandling: Behandling,
+            henlagtÅrsak: HenlagtÅrsak,
+        ) {
             every {
                 behandlingRepository.findByIdOrThrow(any())
             } returns behandling
@@ -93,14 +95,18 @@ internal class BehandlingServiceTest {
             assertThat(behandlingSlot.captured.vedtakDato).isNotNull
         }
 
-        private fun henleggOgForventApiFeilmelding(behandling: Behandling, henlagtÅrsak: HenlagtÅrsak) {
+        private fun henleggOgForventApiFeilmelding(
+            behandling: Behandling,
+            henlagtÅrsak: HenlagtÅrsak,
+        ) {
             every {
                 behandlingRepository.findByIdOrThrow(any())
             } returns behandling
 
-            val feil: ApiFeil = assertThrows {
-                behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak))
-            }
+            val feil: ApiFeil =
+                assertThrows {
+                    behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak))
+                }
 
             assertThat(feil.httpStatus).isEqualTo(HttpStatus.BAD_REQUEST)
         }
@@ -135,7 +141,6 @@ internal class BehandlingServiceTest {
 
     @Nested
     inner class PåklagetVedtak {
-
         @Test
         internal fun `skal ikke kunne oppdatere påklaget vedtak dersom behandlingen er låst`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.VENTER)

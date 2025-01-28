@@ -16,15 +16,16 @@ class FullmaktClient(
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,
 ) : AbstractRestClient(restTemplate) {
+    private val uriFullmektige =
+        UriComponentsBuilder
+            .fromUri(integrasjonUri)
+            .pathSegment("api", "fullmakt", "fullmektige")
+            .encode()
+            .toUriString()
 
-    private val uriFullmektige = UriComponentsBuilder.fromUri(integrasjonUri)
-        .pathSegment("api", "fullmakt", "fullmektige")
-        .encode().toUriString()
-
-    fun hentFullmektige(fullmaktsgiversIdent: String): List<FullmektigDto> {
-        return postForEntity(
+    fun hentFullmektige(fullmaktsgiversIdent: String): List<FullmektigDto> =
+        postForEntity(
             uri = uriFullmektige,
             payload = IdentRequest(fullmaktsgiversIdent),
         )
-    }
 }

@@ -29,7 +29,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 internal class EksternBehandlingControllerTest : IntegrationTest() {
-
     @Autowired
     private lateinit var behandlingRepository: BehandlingRepository
 
@@ -39,8 +38,10 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
     @Autowired
     private lateinit var klageresultatRepository: KlageresultatRepository
 
-    private val fagsak = DomainUtil.fagsakDomain(eksternId = "1", stønadstype = Stønadstype.BARNETILSYN)
-        .tilFagsakMedPerson(setOf(PersonIdent("1")))
+    private val fagsak =
+        DomainUtil
+            .fagsakDomain(eksternId = "1", stønadstype = Stønadstype.BARNETILSYN)
+            .tilFagsakMedPerson(setOf(PersonIdent("1")))
 
     @BeforeEach
     internal fun setUp() {
@@ -50,7 +51,6 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
 
     @Nested
     inner class FinnKlagebehandlingsresultat {
-
         private val hentBehandlingUrl: String = localhost("/api/ekstern/behandling/${Fagsystem.TILLEGGSSTONADER}")
 
         @Test
@@ -69,9 +69,10 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
         internal fun `skal returnere behandling når man spør etter eksternFagsakId`() {
             val vedtakDato = SporbarUtils.now()
             val henlagtÅrsak = HenlagtÅrsak.TRUKKET_TILBAKE
-            val behandling = behandlingRepository.insert(
-                behandling(fagsak, vedtakDato = vedtakDato, henlagtÅrsak = henlagtÅrsak),
-            )
+            val behandling =
+                behandlingRepository.insert(
+                    behandling(fagsak, vedtakDato = vedtakDato, henlagtÅrsak = henlagtÅrsak),
+                )
             vurderingRepository.insert(vurdering(behandling.id, årsak = Årsak.FEIL_PROSESSUELL))
             val klageresultat = klageresultatRepository.insert(klageresultat(behandlingId = behandling.id))
 

@@ -29,7 +29,6 @@ class JournalførBrevTask(
     private val behandlingService: BehandlingService,
     private val brevService: BrevService,
 ) : AsyncTaskStep {
-
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
         val saksbehandler = task.metadata[saksbehandlerMetadataKey].toString()
@@ -55,10 +54,11 @@ class JournalførBrevTask(
             if (acc.none { it.ident == avsenderMottaker.id }) {
                 val journalpostId =
                     distribusjonService.journalførVedtaksbrev(behandlingId, brevPdf, saksbehandler, index, avsenderMottaker)
-                val resultat = BrevmottakereJournalpost(
-                    ident = avsenderMottaker.id ?: error("Mangler id for mottaker=$avsenderMottaker"),
-                    journalpostId = journalpostId,
-                )
+                val resultat =
+                    BrevmottakereJournalpost(
+                        ident = avsenderMottaker.id ?: error("Mangler id for mottaker=$avsenderMottaker"),
+                        journalpostId = journalpostId,
+                    )
                 val nyeMottakere = acc + resultat
                 brevService.oppdaterMottakerJournalpost(behandlingId, BrevmottakereJournalposter(nyeMottakere))
                 nyeMottakere
@@ -80,25 +80,26 @@ class JournalførBrevTask(
     }
 
     private fun opprettDistribuerBrevTask(task: Task) {
-        val sendTilKabalTask = Task(
-            type = DistribuerBrevTask.TYPE,
-            payload = task.payload,
-            properties = task.metadata,
-        )
+        val sendTilKabalTask =
+            Task(
+                type = DistribuerBrevTask.TYPE,
+                payload = task.payload,
+                properties = task.metadata,
+            )
         taskService.save(sendTilKabalTask)
     }
 
     private fun opprettSendTilKabalTask(task: Task) {
-        val sendTilKabalTask = Task(
-            type = SendTilKabalTask.TYPE,
-            payload = task.payload,
-            properties = task.metadata,
-        )
+        val sendTilKabalTask =
+            Task(
+                type = SendTilKabalTask.TYPE,
+                payload = task.payload,
+                properties = task.metadata,
+            )
         taskService.save(sendTilKabalTask)
     }
 
     companion object {
-
         const val TYPE = "journalførBrevTask"
     }
 }

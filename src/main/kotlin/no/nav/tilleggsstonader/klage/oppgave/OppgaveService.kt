@@ -20,12 +20,9 @@ class OppgaveService(
     private val behandlingService: BehandlingService,
     private val cacheManager: CacheManager,
 ) {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long {
-        return oppgaveClient.opprettOppgave(opprettOppgaveRequest)
-    }
+    fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long = oppgaveClient.opprettOppgave(opprettOppgaveRequest)
 
     fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: UUID) {
         val behandling = behandlingService.hentBehandling(behandlingId)
@@ -37,25 +34,27 @@ class OppgaveService(
         // TODO: Bør sende med oppgaveId til EksternBehandlingContoller og deretter slette dette kallet
         val oppgave = hentOppgave(behandleSakOppgave.oppgaveId)
 
-        val oppdatertOppgave = Oppgave(
-            id = behandleSakOppgave.oppgaveId,
-            behandlingstema = Behandlingstema.Tilbakebetaling.value,
-            versjon = oppgave.versjon,
-        )
+        val oppdatertOppgave =
+            Oppgave(
+                id = behandleSakOppgave.oppgaveId,
+                behandlingstema = Behandlingstema.Tilbakebetaling.value,
+                versjon = oppgave.versjon,
+            )
 
         oppgaveClient.oppdaterOppgave(oppdatertOppgave)
     }
 
-    fun hentOppgave(gsakOppgaveId: Long): Oppgave {
-        return oppgaveClient.finnOppgaveMedId(gsakOppgaveId)
-    }
+    fun hentOppgave(gsakOppgaveId: Long): Oppgave = oppgaveClient.finnOppgaveMedId(gsakOppgaveId)
 
-    fun hentBehandlingIderForOppgaver(oppgaveIder: List<Long>): Map<Long, UUID> {
-        return behandleSakOppgaveRepository.finnForOppgaveIder(oppgaveIder)
+    fun hentBehandlingIderForOppgaver(oppgaveIder: List<Long>): Map<Long, UUID> =
+        behandleSakOppgaveRepository
+            .finnForOppgaveIder(oppgaveIder)
             .associate { it.oppgaveId to it.behandlingId }
-    }
 
-    fun finnMappe(enhet: String, oppgaveMappe: OppgaveMappe) = finnMapper(enhet)
+    fun finnMappe(
+        enhet: String,
+        oppgaveMappe: OppgaveMappe,
+    ) = finnMapper(enhet)
         .let { alleMapper ->
             val aktuelleMapper = alleMapper.filter { it.navn.endsWith(oppgaveMappe.navn, ignoreCase = true) }
             if (aktuelleMapper.size != 1) {
@@ -63,16 +62,16 @@ class OppgaveService(
                 error("Finner ikke mapper for enhet=$enhet navn=$oppgaveMappe. Se secure logs for mer info")
             }
             aktuelleMapper.single()
-        }
-        .id
+        }.id
 
-    fun finnMapper(enhet: String): List<MappeDto> {
-        return cacheManager.getValue("oppgave-mappe", enhet) {
+    fun finnMapper(enhet: String): List<MappeDto> =
+        cacheManager.getValue("oppgave-mappe", enhet) {
             logger.info("Henter mapper på nytt")
-            val mappeRespons = oppgaveClient.finnMapper(
-                enhetsnummer = enhet,
-                limit = 1000,
-            )
+            val mappeRespons =
+                oppgaveClient.finnMapper(
+                    enhetsnummer = enhet,
+                    limit = 1000,
+                )
             if (mappeRespons.antallTreffTotalt > mappeRespons.mapper.size) {
                 logger.error(
                     "Det finnes flere mapper (${mappeRespons.antallTreffTotalt}) " +
@@ -81,5 +80,4 @@ class OppgaveService(
             }
             mappeRespons.mapper
         }
-    }
 }

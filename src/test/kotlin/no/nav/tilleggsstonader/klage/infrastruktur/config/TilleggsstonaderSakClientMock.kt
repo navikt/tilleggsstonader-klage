@@ -25,59 +25,57 @@ import java.util.UUID
 @Configuration
 @Profile("mock-tilleggsstonader-sak")
 class TilleggsstonaderSakClientMock {
-
     @Bean
     @Primary
-    fun hentVedtak(): TilleggsstonaderSakClient {
-        return resetMock(mockk())
-    }
+    fun hentVedtak(): TilleggsstonaderSakClient = resetMock(mockk())
 
     companion object {
-
         fun resetMock(mock: TilleggsstonaderSakClient): TilleggsstonaderSakClient {
             clearMocks(mock)
 
             every { mock.erEgenAnsatt(any()) } returns false
 
-            every { mock.sjekkTilgangTilPersonMedRelasjoner(any()) } returns Tilgang(
-                harTilgang = true,
-                begrunnelse = null,
-            )
+            every { mock.sjekkTilgangTilPersonMedRelasjoner(any()) } returns
+                Tilgang(
+                    harTilgang = true,
+                    begrunnelse = null,
+                )
 
-            every { mock.hentVedtak(any()) } returns listOf(
-                FagsystemVedtak(
-                    "123",
-                    "Førstegangsbehandling",
-                    "Innvilget",
-                    vedtakstidspunkt = LocalDateTime.of(2022, Month.AUGUST, 1, 8, 0),
-                    fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = Regelverk.NASJONAL,
-                ),
-                FagsystemVedtak(
-                    "124",
-                    "Revurdering",
-                    "Opphørt",
-                    vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 0),
-                    fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = Regelverk.NASJONAL,
-                ),
-                FagsystemVedtak(
-                    "tilbake-123",
-                    "Tilbakekreving",
-                    "Full tilbakekreving",
-                    vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 10, 2),
-                    fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = Regelverk.NASJONAL,
-                ),
-                FagsystemVedtak(
-                    "sanksjon-123",
-                    "Revurdering",
-                    "Sanksjon 1 måned",
-                    vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 15, 2),
-                    fagsystemType = FagsystemType.ORDNIÆR,
-                    regelverk = Regelverk.NASJONAL,
-                ),
-            )
+            every { mock.hentVedtak(any()) } returns
+                listOf(
+                    FagsystemVedtak(
+                        "123",
+                        "Førstegangsbehandling",
+                        "Innvilget",
+                        vedtakstidspunkt = LocalDateTime.of(2022, Month.AUGUST, 1, 8, 0),
+                        fagsystemType = FagsystemType.ORDNIÆR,
+                        regelverk = Regelverk.NASJONAL,
+                    ),
+                    FagsystemVedtak(
+                        "124",
+                        "Revurdering",
+                        "Opphørt",
+                        vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 0),
+                        fagsystemType = FagsystemType.ORDNIÆR,
+                        regelverk = Regelverk.NASJONAL,
+                    ),
+                    FagsystemVedtak(
+                        "tilbake-123",
+                        "Tilbakekreving",
+                        "Full tilbakekreving",
+                        vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 10, 2),
+                        fagsystemType = FagsystemType.ORDNIÆR,
+                        regelverk = Regelverk.NASJONAL,
+                    ),
+                    FagsystemVedtak(
+                        "sanksjon-123",
+                        "Revurdering",
+                        "Sanksjon 1 måned",
+                        vedtakstidspunkt = LocalDateTime.of(2022, Month.OCTOBER, 1, 8, 15, 2),
+                        fagsystemType = FagsystemType.ORDNIÆR,
+                        regelverk = Regelverk.NASJONAL,
+                    ),
+                )
             // mocker annen hver
             var opprettet = true
             every { mock.opprettRevurdering(any()) } answers {

@@ -9,23 +9,28 @@ import java.util.Properties
 import java.util.UUID
 
 @Service
-class OppgaveTaskService(private val taskService: TaskService) {
+class OppgaveTaskService(
+    private val taskService: TaskService,
+) {
     fun opprettBehandleSakOppgave(behandlingId: UUID) {
-        val behandleSakOppgaveTask = Task(
-            type = OpprettBehandleSakOppgaveTask.TYPE,
-            payload = behandlingId.toString(),
-            properties = Properties().apply {
-                this[saksbehandlerMetadataKey] = SikkerhetContext.hentSaksbehandler(strict = true)
-            },
-        )
+        val behandleSakOppgaveTask =
+            Task(
+                type = OpprettBehandleSakOppgaveTask.TYPE,
+                payload = behandlingId.toString(),
+                properties =
+                    Properties().apply {
+                        this[saksbehandlerMetadataKey] = SikkerhetContext.hentSaksbehandler(strict = true)
+                    },
+            )
         taskService.save(behandleSakOppgaveTask)
     }
 
     fun lagFerdigstillOppgaveForBehandlingTask(behandlingId: UUID) {
-        val ferdigstillbehandlesakOppgave = Task(
-            type = OpprettFerdigstillOppgaveTask.TYPE,
-            payload = behandlingId.toString(),
-        )
+        val ferdigstillbehandlesakOppgave =
+            Task(
+                type = OpprettFerdigstillOppgaveTask.TYPE,
+                payload = behandlingId.toString(),
+            )
         taskService.save(ferdigstillbehandlesakOppgave)
     }
 }

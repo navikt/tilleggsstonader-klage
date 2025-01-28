@@ -18,12 +18,15 @@ class BrevClient(
     @Qualifier("utenAuth")
     restTemplate: RestTemplate,
 ) : AbstractRestClient(restTemplate) {
-
     private val pdfUri = URI.create("$familieBrevUri/blankett/klage/pdf").toString()
     private val genererHtmlFritekstbrevUri = URI.create("$familieBrevUri/api/fritekst-brev/html").toString()
 
-    fun genererHtmlFritekstbrev(fritekstBrev: FritekstBrevRequestDto, saksbehandlerNavn: String, enhet: String): String {
-        return postForEntity(
+    fun genererHtmlFritekstbrev(
+        fritekstBrev: FritekstBrevRequestDto,
+        saksbehandlerNavn: String,
+        enhet: String,
+    ): String =
+        postForEntity(
             genererHtmlFritekstbrevUri,
             FritekstBrevRequestMedSignatur(
                 fritekstBrev,
@@ -32,11 +35,9 @@ class BrevClient(
             ),
             HttpHeaders().medContentTypeJsonUTF8(),
         )
-    }
 
-    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): ByteArray {
-        return postForEntity(pdfUri, blankettPdfRequest, HttpHeaders().medContentTypeJsonUTF8())
-    }
+    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): ByteArray =
+        postForEntity(pdfUri, blankettPdfRequest, HttpHeaders().medContentTypeJsonUTF8())
 }
 
 data class FritekstBrevRequestMedSignatur(

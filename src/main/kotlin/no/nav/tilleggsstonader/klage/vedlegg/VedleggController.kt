@@ -18,9 +18,10 @@ class VedleggController(
     private val vedleggService: VedleggService,
     private val tilgangService: TilgangService,
 ) {
-
     @GetMapping("/{behandlingId}")
-    fun finnVedleggForBehandling(@PathVariable behandlingId: UUID): List<DokumentinfoDto> {
+    fun finnVedleggForBehandling(
+        @PathVariable behandlingId: UUID,
+    ): List<DokumentinfoDto> {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
         return vedleggService.finnVedleggPåBehandling(behandlingId)

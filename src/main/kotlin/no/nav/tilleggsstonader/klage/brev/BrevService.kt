@@ -46,7 +46,6 @@ class BrevService(
     private val vurderingService: VurderingService,
     private val personopplysningerService: PersonopplysningerService,
 ) {
-
     fun hentBrev(behandlingId: UUID): Brev = brevRepository.findByIdOrThrow(behandlingId)
 
     fun hentBrevmottakere(behandlingId: UUID): Brevmottakere {
@@ -54,7 +53,10 @@ class BrevService(
         return brev.mottakere ?: Brevmottakere()
     }
 
-    fun settBrevmottakere(behandlingId: UUID, brevmottakere: BrevmottakereDto) {
+    fun settBrevmottakere(
+        behandlingId: UUID,
+        brevmottakere: BrevmottakereDto,
+    ) {
         val behandling = behandlingService.hentBehandling(behandlingId)
         validerKanLageBrev(behandling)
 
@@ -79,11 +81,12 @@ class BrevService(
 
         val signaturMedEnhet = brevsignaturService.lagSignatur(personopplysninger)
 
-        val html = brevClient.genererHtmlFritekstbrev(
-            fritekstBrev = brevRequest,
-            saksbehandlerNavn = signaturMedEnhet.navn,
-            enhet = signaturMedEnhet.enhet,
-        )
+        val html =
+            brevClient.genererHtmlFritekstbrev(
+                fritekstBrev = brevRequest,
+                saksbehandlerNavn = signaturMedEnhet.navn,
+                enhet = signaturMedEnhet.enhet,
+            )
 
         lagreEllerOppdaterBrev(
             behandlingId = behandlingId,
@@ -115,8 +118,9 @@ class BrevService(
 
         return when (behandlingResultat) {
             BehandlingResultat.IKKE_MEDHOLD -> {
-                val instillingKlageinstans = vurdering?.innstillingKlageinstans
-                    ?: throw Feil("Behandling med resultat $behandlingResultat mangler instillingKlageinstans for generering av brev")
+                val instillingKlageinstans =
+                    vurdering?.innstillingKlageinstans
+                        ?: throw Feil("Behandling med resultat $behandlingResultat mangler instillingKlageinstans for generering av brev")
                 brukerfeilHvis(påklagetVedtakDetaljer == null) {
                     "Kan ikke opprette brev til klageinstansen når det ikke er valgt et påklaget vedtak"
                 }
@@ -132,18 +136,20 @@ class BrevService(
             BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST -> {
                 val formkrav = formService.hentForm(behandling.id)
                 return when (behandling.påklagetVedtak.påklagetVedtakstype) {
-                    PåklagetVedtakstype.UTEN_VEDTAK -> BrevInnhold.lagFormkravAvvistBrevIkkePåklagetVedtak(
-                        ident = fagsak.hentAktivIdent(),
-                        navn = navn,
-                        formkrav = formkrav,
-                        stønadstype = fagsak.stønadstype,
-                    )
-                    else -> BrevInnhold.lagFormkravAvvistBrev(
-                        ident = fagsak.hentAktivIdent(),
-                        navn = navn,
-                        formkrav = formkrav,
-                        stønadstype = fagsak.stønadstype,
-                    )
+                    PåklagetVedtakstype.UTEN_VEDTAK ->
+                        BrevInnhold.lagFormkravAvvistBrevIkkePåklagetVedtak(
+                            ident = fagsak.hentAktivIdent(),
+                            navn = navn,
+                            formkrav = formkrav,
+                            stønadstype = fagsak.stønadstype,
+                        )
+                    else ->
+                        BrevInnhold.lagFormkravAvvistBrev(
+                            ident = fagsak.hentAktivIdent(),
+                            navn = navn,
+                            formkrav = formkrav,
+                            stønadstype = fagsak.stønadstype,
+                        )
                 }
             }
             BehandlingResultat.MEDHOLD,
@@ -153,10 +159,9 @@ class BrevService(
         }
     }
 
-    fun hentBrevPdf(behandlingId: UUID): ByteArray {
-        return brevRepository.findByIdOrThrow(behandlingId).pdf?.bytes
+    fun hentBrevPdf(behandlingId: UUID): ByteArray =
+        brevRepository.findByIdOrThrow(behandlingId).pdf?.bytes
             ?: error("Finner ikke brev-pdf for behandling=$behandlingId")
-    }
 
     private fun lagreEllerOppdaterBrev(
         behandlingId: UUID,
@@ -181,13 +186,14 @@ class BrevService(
         behandlingId: UUID,
         fagsak: Fagsak,
     ) = Brevmottakere(
-        personer = listOf(
-            BrevmottakerPerson(
-                personIdent = fagsak.hentAktivIdent(),
-                navn = personopplysningerService.hentPersonopplysninger(behandlingId).navn,
-                mottakerRolle = MottakerRolle.BRUKER,
+        personer =
+            listOf(
+                BrevmottakerPerson(
+                    personIdent = fagsak.hentAktivIdent(),
+                    navn = personopplysningerService.hentPersonopplysninger(behandlingId).navn,
+                    mottakerRolle = MottakerRolle.BRUKER,
+                ),
             ),
-        ),
     )
 
     fun lagBrevPdf(behandlingId: UUID) {
@@ -201,16 +207,18 @@ class BrevService(
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    fun oppdaterMottakerJournalpost(behandlingId: UUID, brevmottakereJournalposter: BrevmottakereJournalposter) {
+    fun oppdaterMottakerJournalpost(
+        behandlingId: UUID,
+        brevmottakereJournalposter: BrevmottakereJournalposter,
+    ) {
         brevRepository.oppdaterMottakerJournalpost(behandlingId, brevmottakereJournalposter)
     }
 
-    private fun utledBehandlingResultat(behandlingId: UUID): BehandlingResultat {
-        return if (formService.formkravErOppfyltForBehandling(behandlingId)) {
+    private fun utledBehandlingResultat(behandlingId: UUID): BehandlingResultat =
+        if (formService.formkravErOppfyltForBehandling(behandlingId)) {
             vurderingService.hentVurdering(behandlingId)?.vedtak?.tilBehandlingResultat()
                 ?: throw Feil("Burde funnet behandling $behandlingId")
         } else {
             BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST
         }
-    }
 }

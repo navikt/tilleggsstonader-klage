@@ -29,37 +29,47 @@ class BehandlingController(
     private val fagsystemVedtakService: FagsystemVedtakService,
     private val opprettRevurderingService: OpprettRevurderingService,
 ) {
-
     @GetMapping("{behandlingId}")
-    fun hentBehandling(@PathVariable behandlingId: UUID): BehandlingDto {
+    fun hentBehandling(
+        @PathVariable behandlingId: UUID,
+    ): BehandlingDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
         return behandlingService.hentBehandlingDto(behandlingId)
     }
 
     @PostMapping("{behandlingId}/ferdigstill")
-    fun ferdigstillBehandling(@PathVariable behandlingId: UUID) {
+    fun ferdigstillBehandling(
+        @PathVariable behandlingId: UUID,
+    ) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.CREATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         return ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
     }
 
     @PostMapping("{behandlingId}/henlegg")
-    fun henleggBehandling(@PathVariable behandlingId: UUID, @RequestBody henlegg: HenlagtDto) {
+    fun henleggBehandling(
+        @PathVariable behandlingId: UUID,
+        @RequestBody henlegg: HenlagtDto,
+    ) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         return behandlingService.henleggBehandling(behandlingId, henlegg)
     }
 
     @GetMapping("{behandlingId}/fagsystem-vedtak")
-    fun hentFagsystemVedtak(@PathVariable behandlingId: UUID): List<FagsystemVedtak> {
+    fun hentFagsystemVedtak(
+        @PathVariable behandlingId: UUID,
+    ): List<FagsystemVedtak> {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         return fagsystemVedtakService.hentFagsystemVedtak(behandlingId)
     }
 
     @GetMapping("{behandlingId}/kan-opprette-revurdering")
-    fun kanOppretteRevurdering(@PathVariable behandlingId: UUID): KanOppretteRevurderingResponse {
+    fun kanOppretteRevurdering(
+        @PathVariable behandlingId: UUID,
+    ): KanOppretteRevurderingResponse {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
         // TODO: Gjeninnfør kall til opprettRevurderingService når automatisk opprettelse av revurdering er implementert

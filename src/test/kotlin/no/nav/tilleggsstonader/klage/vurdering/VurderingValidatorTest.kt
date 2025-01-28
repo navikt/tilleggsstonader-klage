@@ -10,10 +10,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class VurderingValidatorTest {
-
     @Nested
     inner class OmgjørVedtak {
-
         @Test
         internal fun `skal validere når man har med årsak, men hjemmel er null`() {
             validerVurdering(
@@ -57,7 +55,6 @@ internal class VurderingValidatorTest {
 
     @Nested
     inner class OpprettholdVedtak {
-
         @Test
         internal fun `skal validere når man har med hjemmel, men årsak er null`() {
             validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN, årsak = null))
@@ -73,7 +70,9 @@ internal class VurderingValidatorTest {
         @Test
         internal fun `skal feile når årsak ikke er null`() {
             assertThatThrownBy {
-                validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN, årsak = Årsak.ANNET))
+                validerVurdering(
+                    vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN, årsak = Årsak.ANNET),
+                )
             }.hasMessage("Kan ikke lagre årsak på oppretthold vedtak")
         }
 

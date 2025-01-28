@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 internal class BrevServiceTest : IntegrationTest() {
-
     @Autowired
     lateinit var brevService: BrevService
 
@@ -39,11 +38,12 @@ internal class BrevServiceTest : IntegrationTest() {
     private val fagsak = fagsak()
     private val påklagetVedtak = PåklagetVedtak(VEDTAK, påklagetVedtakDetaljer("123"))
     private val behandlingPåklagetVedtak = behandling(fagsak, steg = StegType.BREV, påklagetVedtak = påklagetVedtak)
-    private val ferdigstiltBehandling = behandling(
-        fagsak,
-        status = BehandlingStatus.FERDIGSTILT,
-        påklagetVedtak = påklagetVedtak,
-    )
+    private val ferdigstiltBehandling =
+        behandling(
+            fagsak,
+            status = BehandlingStatus.FERDIGSTILT,
+            påklagetVedtak = påklagetVedtak,
+        )
     private val behandlingUtenPåklagetVedtak =
         behandling(fagsak, steg = StegType.BREV, påklagetVedtak = påklagetVedtak.copy(påklagetVedtakstype = UTEN_VEDTAK))
 
@@ -69,7 +69,6 @@ internal class BrevServiceTest : IntegrationTest() {
 
     @Nested
     inner class LagEllerOppdaterBrev {
-
         @Test
         internal fun `skal ikke kunne lage eller oppdatere når behandlingen er låst`() {
             assertThatThrownBy { brevService.lagBrev(ferdigstiltBehandling.id) }
@@ -91,7 +90,6 @@ internal class BrevServiceTest : IntegrationTest() {
 
     @Nested
     inner class LagBrevSomPdf {
-
         @Test
         internal fun `kan ikke lage pdf 2 ganger`() {
             brevService.lagBrev(behandlingPåklagetVedtak.id)

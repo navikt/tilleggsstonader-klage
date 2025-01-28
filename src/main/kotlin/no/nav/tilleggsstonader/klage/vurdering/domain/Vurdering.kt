@@ -29,15 +29,16 @@ enum class Vedtak {
     OPPRETTHOLD_VEDTAK,
     ;
 
-    fun tilBehandlingResultat(): BehandlingResultat {
-        return when (this) {
+    fun tilBehandlingResultat(): BehandlingResultat =
+        when (this) {
             OMGJØR_VEDTAK -> BehandlingResultat.MEDHOLD
             OPPRETTHOLD_VEDTAK -> BehandlingResultat.IKKE_MEDHOLD
         }
-    }
 }
 
-enum class Hjemmel(val kabalHjemmel: KabalHjemmel) {
+enum class Hjemmel(
+    val kabalHjemmel: KabalHjemmel,
+) {
     ARBML_13(KabalHjemmel.ARBML_13),
     ARBML_17(KabalHjemmel.ARBML_17),
     ARBML_22(KabalHjemmel.ARBML_22),

@@ -32,7 +32,6 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.AdressebeskyttelseGr
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.Folkeregisterpersonstatus as PdlFolkeregisterpersonstatus1
 
 internal class PersonopplysningerServiceTest {
-
     private val behandlingService = mockk<BehandlingService>()
     private val fagsakService = mockk<FagsakService>()
     private val pdlClient = mockk<PdlClient>()
@@ -85,27 +84,29 @@ internal class PersonopplysningerServiceTest {
         assertThat(personopplysningerService.hentPersonopplysninger(behandling.id).harFullmektig).isFalse
     }
 
-    private fun navnBolkResponse() = mapOf(
-        "fullmaktIdent" to PdlNavn(listOf(Navn("fullmakt", null, "etternavn", metadataGjeldende))),
-    )
+    private fun navnBolkResponse() =
+        mapOf(
+            "fullmaktIdent" to PdlNavn(listOf(Navn("fullmakt", null, "etternavn", metadataGjeldende))),
+        )
 
-    private fun lagPdlSøker() = pdlSøker(
-        listOf(PdlAdressebeskyttelse(PdlAdressebeskyttelseGradering1.FORTROLIG, metadataGjeldende)),
-        listOf(Dødsfall(LocalDate.now())),
-        listOf(PdlFolkeregisterpersonstatus1("doed", "d", metadataGjeldende)),
-        listOf(lagNavn()),
-        listOf(
-            VergemaalEllerFremtidsfullmakt(
-                "embete",
-                null,
-                "type",
-                VergeEllerFullmektig(
-                    IdentifiserendeInformasjon(Personnavn("", "", null)),
-                    "vergeIdent",
-                    "omfang",
-                    true,
+    private fun lagPdlSøker() =
+        pdlSøker(
+            listOf(PdlAdressebeskyttelse(PdlAdressebeskyttelseGradering1.FORTROLIG, metadataGjeldende)),
+            listOf(Dødsfall(LocalDate.now())),
+            listOf(PdlFolkeregisterpersonstatus1("doed", "d", metadataGjeldende)),
+            listOf(lagNavn()),
+            listOf(
+                VergemaalEllerFremtidsfullmakt(
+                    "embete",
+                    null,
+                    "type",
+                    VergeEllerFullmektig(
+                        IdentifiserendeInformasjon(Personnavn("", "", null)),
+                        "vergeIdent",
+                        "omfang",
+                        true,
+                    ),
                 ),
             ),
-        ),
-    )
+        )
 }

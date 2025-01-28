@@ -18,7 +18,6 @@ import java.time.LocalDate
 import java.time.temporal.IsoFields
 
 internal class MålerRepositoryTest : IntegrationTest() {
-
     @Autowired
     lateinit var målerRepository: MålerRepository
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class BrevsignaturService {
-
     fun lagSignatur(personopplysningerDto: PersonopplysningerDto): SignaturDto {
         val harStrengtFortroligAdresse: Boolean = personopplysningerDto.adressebeskyttelse?.erStrengtFortrolig() == true
 
@@ -19,7 +18,6 @@ class BrevsignaturService {
     }
 
     companion object {
-
         const val NAV_ANONYM_NAVN = "Nav anonym"
         const val ENHET_VIKAFOSSEN = "Nav Vikafossen"
         const val ENHET_NAY = "Nav Arbeid og ytelser"

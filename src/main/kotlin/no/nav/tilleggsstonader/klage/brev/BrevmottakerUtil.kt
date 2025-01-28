@@ -5,7 +5,6 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 
 object BrevmottakerUtil {
-
     fun validerUnikeBrevmottakere(mottakere: Brevmottakere) {
         val personmottakerIdenter = mottakere.personer.map { it.personIdent }
         brukerfeilHvisIkke(personmottakerIdenter.distinct().size == personmottakerIdenter.size) {

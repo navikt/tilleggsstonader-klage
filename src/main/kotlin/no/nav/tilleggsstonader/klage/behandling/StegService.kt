@@ -20,9 +20,13 @@ class StegService(
     private val behandlingshistorikkService: BehandlingshistorikkService,
     private val tilgangService: TilgangService,
 ) {
-
     @Transactional
-    fun oppdaterSteg(behandlingId: UUID, nåværendeSteg: StegType, nesteSteg: StegType, behandlingsresultat: BehandlingResultat? = null) {
+    fun oppdaterSteg(
+        behandlingId: UUID,
+        nåværendeSteg: StegType,
+        nesteSteg: StegType,
+        behandlingsresultat: BehandlingResultat? = null,
+    ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
         validerHarSaksbehandlerRolle(behandlingId)
         validerGyldigNesteSteg(behandling)
@@ -53,7 +57,11 @@ class StegService(
         nåværendeSteg: StegType,
         nesteSteg: StegType,
         behandlingsresultat: BehandlingResultat? = null,
-    ) = !(nåværendeSteg == StegType.BREV && nesteSteg == StegType.BEHANDLING_FERDIGSTILT && behandlingsresultat == BehandlingResultat.MEDHOLD)
+    ) = !(
+        nåværendeSteg == StegType.BREV &&
+            nesteSteg == StegType.BEHANDLING_FERDIGSTILT &&
+            behandlingsresultat == BehandlingResultat.MEDHOLD
+    )
 
     private fun validerGyldigNesteSteg(behandling: Behandling) =
         feilHvis(behandling.status.erLåstForVidereBehandling()) {

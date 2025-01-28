@@ -19,12 +19,9 @@ class VurderingService(
     private val stegService: StegService,
     private val brevRepository: BrevRepository,
 ) {
+    fun hentVurdering(behandlingId: UUID): Vurdering? = vurderingRepository.findByIdOrNull(behandlingId)
 
-    fun hentVurdering(behandlingId: UUID): Vurdering? =
-        vurderingRepository.findByIdOrNull(behandlingId)
-
-    fun hentVurderingDto(behandlingId: UUID): VurderingDto? =
-        hentVurdering(behandlingId)?.tilDto()
+    fun hentVurderingDto(behandlingId: UUID): VurderingDto? = hentVurdering(behandlingId)?.tilDto()
 
     @Transactional
     fun opprettEllerOppdaterVurdering(vurdering: VurderingDto): VurderingDto {
@@ -47,20 +44,24 @@ class VurderingService(
         vurderingRepository.deleteById(behandlingId)
     }
 
-    private fun opprettNyVurdering(vurdering: VurderingDto) = vurderingRepository.insert(
-        Vurdering(
-            behandlingId = vurdering.behandlingId,
-            vedtak = vurdering.vedtak,
-            årsak = vurdering.årsak,
-            begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-            hjemmel = vurdering.hjemmel,
-            innstillingKlageinstans = vurdering.innstillingKlageinstans,
-            interntNotat = vurdering.interntNotat,
-        ),
-    )
+    private fun opprettNyVurdering(vurdering: VurderingDto) =
+        vurderingRepository.insert(
+            Vurdering(
+                behandlingId = vurdering.behandlingId,
+                vedtak = vurdering.vedtak,
+                årsak = vurdering.årsak,
+                begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
+                hjemmel = vurdering.hjemmel,
+                innstillingKlageinstans = vurdering.innstillingKlageinstans,
+                interntNotat = vurdering.interntNotat,
+            ),
+        )
 
-    private fun oppdaterVurdering(vurdering: VurderingDto, eksisterendeVurdering: Vurdering): Vurdering {
-        return vurderingRepository.update(
+    private fun oppdaterVurdering(
+        vurdering: VurderingDto,
+        eksisterendeVurdering: Vurdering,
+    ): Vurdering =
+        vurderingRepository.update(
             eksisterendeVurdering.copy(
                 vedtak = vurdering.vedtak,
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
@@ -70,5 +71,4 @@ class VurderingService(
                 interntNotat = vurdering.interntNotat,
             ),
         )
-    }
 }

@@ -26,14 +26,17 @@ class TestController(
     private val fagsakRepository: FagsakRepository,
     private val opprettBehandlingService: OpprettBehandlingService,
 ) {
-
     @PostMapping("opprett")
-    fun opprettDummybehandling(@RequestBody request: DummybehandlingRequest): Ressurs<UUID> {
+    fun opprettDummybehandling(
+        @RequestBody request: DummybehandlingRequest,
+    ): Ressurs<UUID> {
         val fagsakPerson = fagsakPersonService.hentEllerOpprettPerson(setOf(request.ident), request.ident)
         // findByEksternIdAndFagsystemAndStønadstype ?
-        val eksternFagsakId = fagsakRepository.findAll()
-            .find { it.fagsakPersonId == fagsakPerson.id && it.stønadstype == request.stønadstype }
-            ?.eksternId ?: UUID.randomUUID().toString()
+        val eksternFagsakId =
+            fagsakRepository
+                .findAll()
+                .find { it.fagsakPersonId == fagsakPerson.id && it.stønadstype == request.stønadstype }
+                ?.eksternId ?: UUID.randomUUID().toString()
 
         return Ressurs.success(
             opprettBehandlingService.opprettBehandling(

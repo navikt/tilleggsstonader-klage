@@ -43,26 +43,29 @@ class TilleggsstønaderIntegrasjonerClientTest : IntegrationTest() {
         val dummyBestillingsId = "351c137e-be74-4b43-9d0e-133efd0f4502"
 
         wireMockServer.stubFor(
-            WireMock.post(WireMock.anyUrl())
+            WireMock
+                .post(WireMock.anyUrl())
                 .willReturn(
-                    WireMock.ok(dummyBestillingsId)
+                    WireMock
+                        .ok(dummyBestillingsId)
                         .withHeader("Content-Type", "application/json"),
                 ),
         )
 
         val integrasjonUri = URI.create("http://localhost:${wireMockServer.port()}")
-        val response = TilleggsstønaderIntegrasjonerClient(
-            restTemplateUtenAuth,
-            integrasjonUri,
-            IntegrasjonerConfig(integrasjonUri),
-        ).distribuerJournalpost(
-            DistribuerJournalpostRequest(
-                journalpostId = "1",
-                bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
-                dokumentProdApp = "appnavn",
-                distribusjonstype = null,
-            ),
-        )
+        val response =
+            TilleggsstønaderIntegrasjonerClient(
+                restTemplateUtenAuth,
+                integrasjonUri,
+                IntegrasjonerConfig(integrasjonUri),
+            ).distribuerJournalpost(
+                DistribuerJournalpostRequest(
+                    journalpostId = "1",
+                    bestillendeFagsystem = Fagsystem.TILLEGGSSTONADER,
+                    dokumentProdApp = "appnavn",
+                    distribusjonstype = null,
+                ),
+            )
 
         assertThat(response).isEqualTo(dummyBestillingsId)
     }

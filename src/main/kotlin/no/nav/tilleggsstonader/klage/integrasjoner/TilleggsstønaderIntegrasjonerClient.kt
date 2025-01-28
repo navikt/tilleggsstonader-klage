@@ -26,12 +26,15 @@ class TilleggsstønaderIntegrasjonerClient(
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,
     private val integrasjonerConfig: IntegrasjonerConfig,
-
 ) : AbstractRestClient(restTemplate) {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     private val dokArkivUri =
-        UriComponentsBuilder.fromUri(integrasjonUri).pathSegment("api/arkiv").build().toUriString()
+        UriComponentsBuilder
+            .fromUri(integrasjonUri)
+            .pathSegment("api/arkiv")
+            .build()
+            .toUriString()
     private val journalpostURI: URI = integrasjonerConfig.journalPostUri
     private val saksbehandlerUri: URI = integrasjonerConfig.saksbehandlerUri
 
@@ -45,21 +48,26 @@ class TilleggsstønaderIntegrasjonerClient(
             headerMedSaksbehandler(saksbehandler),
         )
 
-    fun distribuerJournalpost(request: DistribuerJournalpostRequest, saksbehandler: String? = null): String {
-        return postForEntity<String>(
+    fun distribuerJournalpost(
+        request: DistribuerJournalpostRequest,
+        saksbehandler: String? = null,
+    ): String =
+        postForEntity<String>(
             uri = integrasjonerConfig.distribuerDokumentUri.toString(),
             payload = request,
             httpHeaders = headerMedSaksbehandler(saksbehandler),
         )
-    }
 
     fun finnJournalposter(journalposterForBrukerRequest: JournalposterForBrukerRequest): List<Journalpost> =
         postForEntity<List<Journalpost>>(journalpostURI.toString(), journalposterForBrukerRequest)
 
     fun hentSaksbehandlerInfo(navIdent: String): Saksbehandler {
-        val uri = UriComponentsBuilder.fromUri(saksbehandlerUri)
-            .pathSegment("{navIdent}")
-            .encode().toUriString()
+        val uri =
+            UriComponentsBuilder
+                .fromUri(saksbehandlerUri)
+                .pathSegment("{navIdent}")
+                .encode()
+                .toUriString()
         return getForEntity<Saksbehandler>(
             uri,
             HttpHeaders().medContentTypeJsonUTF8(),

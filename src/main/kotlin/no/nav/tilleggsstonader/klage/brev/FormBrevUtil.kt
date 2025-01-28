@@ -6,17 +6,15 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 
 object FormBrevUtil {
-
     const val INNHOLDSTEKST_PREFIX = "Vi har avvist klagen din fordi"
 
-    fun utledIkkeOppfylteFormkrav(formkrav: Form): Set<FormkravVilkår> {
-        return setOf(
+    fun utledIkkeOppfylteFormkrav(formkrav: Form): Set<FormkravVilkår> =
+        setOf(
             if (formkrav.klagePart == IKKE_OPPFYLT) FormkravVilkår.KLAGE_PART else null,
             if (formkrav.klageKonkret == IKKE_OPPFYLT) FormkravVilkår.KLAGE_KONKRET else null,
             if (formkrav.klageSignert == IKKE_OPPFYLT) FormkravVilkår.KLAGE_SIGNERT else null,
             if (formkrav.klagefristOverholdt == IKKE_OPPFYLT) FormkravVilkår.KLAGEFRIST_OVERHOLDT else null,
         ).filterNotNull().toSet()
-    }
 
     fun utledÅrsakTilAvvisningstekst(formkravVilkår: Set<FormkravVilkår>): String {
         feilHvis(formkravVilkår.isEmpty()) {
@@ -48,17 +46,20 @@ object FormBrevUtil {
         }
     }
 
-    private fun utledParagrafer(paragrafer: Set<String>): String {
-        return if (paragrafer.size == 1) {
+    private fun utledParagrafer(paragrafer: Set<String>): String =
+        if (paragrafer.size == 1) {
             "§ ${paragrafer.first()}"
         } else {
             val alleUnntattSiste = paragrafer.toList().dropLast(1)
             val siste = paragrafer.toList().last()
             "§§ ${alleUnntattSiste.joinToString { it }} og $siste"
         }
-    }
 
-    enum class FormkravVilkår(val tekst: String, val folketrygdLoven: Set<String>, val forvaltningsloven: Set<String>) {
+    enum class FormkravVilkår(
+        val tekst: String,
+        val folketrygdLoven: Set<String>,
+        val forvaltningsloven: Set<String>,
+    ) {
         KLAGE_KONKRET("du ikke har sagt hva du klager på", emptySet(), setOf("32", "33")),
         KLAGE_PART("du har klaget på et vedtak som ikke gjelder deg", emptySet(), setOf("28", "33")),
         KLAGE_SIGNERT("du ikke har underskrevet den", emptySet(), setOf("31", "33")),

@@ -42,7 +42,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 internal class FerdigstillBehandlingServiceTest {
-
     val fagsakService = mockk<FagsakService>()
     val behandlingService = mockk<BehandlingService>()
     val distribusjonService = mockk<DistribusjonService>()
@@ -56,16 +55,17 @@ internal class FerdigstillBehandlingServiceTest {
     val brevService = mockk<BrevService>()
     val fagsystemVedtakService = mockk<FagsystemVedtakService>()
 
-    val ferdigstillBehandlingService = FerdigstillBehandlingService(
-        behandlingService = behandlingService,
-        vurderingService = vurderingService,
-        formService = formService,
-        stegService = stegService,
-        taskService = taskService,
-        oppgaveTaskService = oppgaveTaskService,
-        brevService = brevService,
-        fagsystemVedtakService = fagsystemVedtakService,
-    )
+    val ferdigstillBehandlingService =
+        FerdigstillBehandlingService(
+            behandlingService = behandlingService,
+            vurderingService = vurderingService,
+            formService = formService,
+            stegService = stegService,
+            taskService = taskService,
+            oppgaveTaskService = oppgaveTaskService,
+            brevService = brevService,
+            fagsystemVedtakService = fagsystemVedtakService,
+        )
     val fagsak = DomainUtil.fagsakDomain().tilFagsak()
     val behandling = DomainUtil.behandling(fagsak = fagsak, steg = StegType.BREV, status = BehandlingStatus.UTREDES)
     val vurdering = vurdering(behandlingId = behandling.id)
@@ -91,7 +91,13 @@ internal class FerdigstillBehandlingServiceTest {
         justRun { stegService.oppdaterSteg(any(), any(), capture(stegSlot), any()) }
         every { formService.formkravErOppfyltForBehandling(any()) } returns true
         justRun { behandlingService.oppdaterBehandlingMedResultat(any(), capture(behandlingsresultatSlot), null) }
-        justRun { behandlingService.oppdaterBehandlingMedResultat(any(), capture(behandlingsresultatSlot), captureNullable(fagsystemRevurderingSlot)) }
+        justRun {
+            behandlingService.oppdaterBehandlingMedResultat(
+                any(),
+                capture(behandlingsresultatSlot),
+                captureNullable(fagsystemRevurderingSlot),
+            )
+        }
         every { taskService.save(capture(saveTaskSlot)) } answers { firstArg() }
         every { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id) } just Runs
         justRun { brevService.lagBrevPdf(any()) }

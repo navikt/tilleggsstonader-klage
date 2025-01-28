@@ -9,7 +9,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 internal class BrevsignaturServiceTest {
-
     val brevsignaturService = BrevsignaturService()
 
     @Test
@@ -28,9 +27,10 @@ internal class BrevsignaturServiceTest {
         val personopplysningerDto = mockk<PersonopplysningerDto>()
         every { personopplysningerDto.adressebeskyttelse } returns null
 
-        val signaturMedEnhet = testWithBrukerContext(preferredUsername = "Julenissen") {
-            brevsignaturService.lagSignatur(personopplysningerDto)
-        }
+        val signaturMedEnhet =
+            testWithBrukerContext(preferredUsername = "Julenissen") {
+                brevsignaturService.lagSignatur(personopplysningerDto)
+            }
 
         assertThat(signaturMedEnhet.enhet).isEqualTo(BrevsignaturService.ENHET_NAY)
         assertThat(signaturMedEnhet.navn).isEqualTo("Julenissen")

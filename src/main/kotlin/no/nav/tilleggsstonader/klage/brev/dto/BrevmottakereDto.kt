@@ -9,12 +9,14 @@ data class BrevmottakereDto(
     val organisasjoner: List<BrevmottakerOrganisasjon>,
 )
 
-fun Brevmottakere.tilDto() = BrevmottakereDto(
-    personer = this.personer,
-    organisasjoner = this.organisasjoner,
-)
+fun Brevmottakere.tilDto() =
+    BrevmottakereDto(
+        personer = this.personer,
+        organisasjoner = this.organisasjoner,
+    )
 
-fun BrevmottakereDto.tilDomene() = Brevmottakere(
-    personer = this.personer,
-    organisasjoner = this.organisasjoner,
-)
+fun BrevmottakereDto.tilDomene() =
+    Brevmottakere(
+        personer = this.personer,
+        organisasjoner = this.organisasjoner,
+    )

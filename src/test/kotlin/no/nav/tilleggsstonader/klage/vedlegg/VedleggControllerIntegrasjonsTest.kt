@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity
 import java.util.UUID
 
 internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
-
     final val fagsak = DomainUtil.fagsakDomain().tilFagsak()
     val behandling = DomainUtil.behandling(fagsak = fagsak)
 
@@ -41,11 +40,10 @@ internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
         førsteDokumentMetadata ?: error("Mangler metadata til dokument")
     }
 
-    private fun finnVedlegg(behandlingId: UUID): ResponseEntity<List<DokumentinfoDto>> {
-        return restTemplate.exchange(
+    private fun finnVedlegg(behandlingId: UUID): ResponseEntity<List<DokumentinfoDto>> =
+        restTemplate.exchange(
             localhost("/api/vedlegg/$behandlingId"),
             HttpMethod.GET,
             HttpEntity(null, headers),
         )
-    }
 }

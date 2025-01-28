@@ -16,7 +16,6 @@ data class PersonopplysningerDto(
 
 @Suppress("unused") // Kopi fra PDL
 enum class Adressebeskyttelse {
-
     STRENGT_FORTROLIG,
     STRENGT_FORTROLIG_UTLAND,
     FORTROLIG,
@@ -28,7 +27,6 @@ enum class Adressebeskyttelse {
 
 @Suppress("unused") // Kopi fra PDL
 enum class Kjønn {
-
     KVINNE,
     MANN,
     UKJENT,
@@ -43,8 +41,9 @@ data class VergemålDto(
 )
 
 @Suppress("unused")
-enum class Folkeregisterpersonstatus(private val pdlStatus: String) {
-
+enum class Folkeregisterpersonstatus(
+    private val pdlStatus: String,
+) {
     BOSATT("bosatt"),
     UTFLYTTET("utflyttet"),
     FORSVUNNET("forsvunnet"),
@@ -57,8 +56,8 @@ enum class Folkeregisterpersonstatus(private val pdlStatus: String) {
     ;
 
     companion object {
-
         private val map = entries.associateBy(Folkeregisterpersonstatus::pdlStatus)
+
         fun fraPdl(status: PdlFolkeregisterpersonstatus) = map.getOrDefault(status.status, UKJENT)
     }
 }

@@ -53,7 +53,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 )
 @EnableMockOAuth2Server
 abstract class IntegrationTest {
-
     protected val listAppender = initLoggingEventListAppender()
     protected var loggingEvents: MutableList<ILoggingEvent> = listAppender.list
     protected val restTemplate = TestRestTemplate()
@@ -95,7 +94,8 @@ abstract class IntegrationTest {
 
     private fun clearCaches() {
         listOf(cacheManager).forEach {
-            it.cacheNames.mapNotNull { cacheName -> it.getCache(cacheName) }
+            it.cacheNames
+                .mapNotNull { cacheName -> it.getCache(cacheName) }
                 .forEach { cache -> cache.clear() }
         }
     }
@@ -118,30 +118,28 @@ abstract class IntegrationTest {
         ).forEach { jdbcAggregateOperations.deleteAll(it.java) }
     }
 
-    protected fun getPort(): String {
-        return port.toString()
-    }
+    protected fun getPort(): String = port.toString()
 
-    protected fun localhost(uri: String): String {
-        return LOCALHOST + getPort() + uri
-    }
+    protected fun localhost(uri: String): String = LOCALHOST + getPort() + uri
 
     protected val lokalTestToken: String
         get() {
             return onBehalfOfToken(role = rolleConfig.ts.beslutter)
         }
 
-    protected fun onBehalfOfToken(role: String = rolleConfig.ts.beslutter, saksbehandler: String = "julenissen"): String {
-        return TokenUtil.onBehalfOfToken(mockOAuth2Server, role, saksbehandler)
-    }
+    protected fun onBehalfOfToken(
+        role: String = rolleConfig.ts.beslutter,
+        saksbehandler: String = "julenissen",
+    ): String = TokenUtil.onBehalfOfToken(mockOAuth2Server, role, saksbehandler)
 
-    protected fun clientToken(clientId: String = "1", accessAsApplication: Boolean = true): String {
-        return TokenUtil.clientToken(mockOAuth2Server, clientId, accessAsApplication)
-    }
+    protected fun clientToken(
+        clientId: String = "1",
+        accessAsApplication: Boolean = true,
+    ): String = TokenUtil.clientToken(mockOAuth2Server, clientId, accessAsApplication)
 
     companion object {
-
         private const val LOCALHOST = "http://localhost:"
+
         protected fun initLoggingEventListAppender(): ListAppender<ILoggingEvent> {
             val listAppender = ListAppender<ILoggingEvent>()
             listAppender.start()

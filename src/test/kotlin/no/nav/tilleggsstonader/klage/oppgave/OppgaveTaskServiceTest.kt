@@ -26,18 +26,18 @@ import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 internal class OppgaveTaskServiceTest {
-
     val oppgaveService = mockk<OppgaveService>()
     val fagsakService = mockk<FagsakService>()
     val behandlingService = mockk<BehandlingService>()
     val behandleSakOppgaveRepository = mockk<BehandleSakOppgaveRepository>()
 
-    val opprettBehandleSakOppgaveTask = OpprettBehandleSakOppgaveTask(
-        fagsakService = fagsakService,
-        oppgaveService = oppgaveService,
-        behandlingService = behandlingService,
-        behandleSakOppgaveRepository = behandleSakOppgaveRepository,
-    )
+    val opprettBehandleSakOppgaveTask =
+        OpprettBehandleSakOppgaveTask(
+            fagsakService = fagsakService,
+            oppgaveService = oppgaveService,
+            behandlingService = behandlingService,
+            behandleSakOppgaveRepository = behandleSakOppgaveRepository,
+        )
 
     val fagsak = DomainUtil.fagsak()
     val behandling = DomainUtil.behandling(fagsak = fagsak)
@@ -69,13 +69,15 @@ internal class OppgaveTaskServiceTest {
 
         @Test
         internal fun `skal opprette behandleSak oppgave med riktige verdier for ny klagebehandling`() {
-            val behandleSakOppgaveTask = Task(
-                type = OpprettBehandleSakOppgaveTask.TYPE,
-                payload = behandling.id.toString(),
-                properties = Properties().apply {
-                    this[saksbehandlerMetadataKey] = ""
-                },
-            )
+            val behandleSakOppgaveTask =
+                Task(
+                    type = OpprettBehandleSakOppgaveTask.TYPE,
+                    payload = behandling.id.toString(),
+                    properties =
+                        Properties().apply {
+                            this[saksbehandlerMetadataKey] = ""
+                        },
+                )
 
             opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 
@@ -92,13 +94,15 @@ internal class OppgaveTaskServiceTest {
 
         @Test
         internal fun `skal opprette behandleSakOppgave med behandlingstema klage tilbakekreving`() {
-            val behandleSakOppgaveTask = Task(
-                type = OpprettBehandleSakOppgaveTask.TYPE,
-                payload = behandling.id.toString(),
-                properties = Properties().apply {
-                    this[klageGjelderTilbakekrevingMetadataKey] = true.toString()
-                },
-            )
+            val behandleSakOppgaveTask =
+                Task(
+                    type = OpprettBehandleSakOppgaveTask.TYPE,
+                    payload = behandling.id.toString(),
+                    properties =
+                        Properties().apply {
+                            this[klageGjelderTilbakekrevingMetadataKey] = true.toString()
+                        },
+                )
 
             opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 
@@ -112,10 +116,11 @@ internal class OppgaveTaskServiceTest {
         val behandleSakOppgaveSlot = slot<BehandleSakOppgave>()
         every { oppgaveService.opprettOppgave(any()) } returns oppgaveId
         every { behandleSakOppgaveRepository.insert(capture(behandleSakOppgaveSlot)) } answers { firstArg() }
-        val behandleSakOppgaveTask = Task(
-            type = OpprettBehandleSakOppgaveTask.TYPE,
-            payload = behandling.id.toString(),
-        )
+        val behandleSakOppgaveTask =
+            Task(
+                type = OpprettBehandleSakOppgaveTask.TYPE,
+                payload = behandling.id.toString(),
+            )
 
         opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 

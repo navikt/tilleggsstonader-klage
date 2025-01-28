@@ -27,7 +27,6 @@ import java.time.LocalDate
 import java.util.UUID
 
 class BehandlingFlytTest : IntegrationTest() {
-
     @Autowired
     private lateinit var opprettBehandlingService: OpprettBehandlingService
 
@@ -57,19 +56,19 @@ class BehandlingFlytTest : IntegrationTest() {
 
     @Nested
     inner class Historikk {
-
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - når man har sendt brev skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
-                val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
-                formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
-                vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
-                formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
-                vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
-                lagEllerOppdaterBrev(behandlingId)
-                ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
-                behandlingId
-            }
+            val behandlingId =
+                testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
+                    val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
+                    formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
+                    vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
+                    formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
+                    vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
+                    lagEllerOppdaterBrev(behandlingId)
+                    ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
+                    behandlingId
+                }
 
             val behandlingshistorikk = behandlingshistorikkService.hentBehandlingshistorikk(behandlingId)
 
@@ -87,20 +86,21 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `OPPRETTHOLD_VEDTAK - skal kunne hoppe mellom steg`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
-                val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
-                formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
-                vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
+            val behandlingId =
+                testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
+                    val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
+                    formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
+                    vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId, Vedtak.OPPRETTHOLD_VEDTAK))
 
-                lagEllerOppdaterBrev(behandlingId)
+                    lagEllerOppdaterBrev(behandlingId)
 
-                formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
-                vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId))
+                    formService.oppdaterFormkrav(oppfyltFormDto(behandlingId, påklagetVedtakDto))
+                    vurderingService.opprettEllerOppdaterVurdering(vurderingDto(behandlingId))
 
-                lagEllerOppdaterBrev(behandlingId)
-                ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
-                behandlingId
-            }
+                    lagEllerOppdaterBrev(behandlingId)
+                    ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
+                    behandlingId
+                }
 
             testHendelseController.opprettDummyKabalEvent(behandlingId)
 
@@ -122,19 +122,20 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `OMGJØR_VEDTAK - når man har ferdigstilt klagebehandling skal man vente på svar`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
-                val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
-                formService.oppdaterFormkrav(oppfyltFormDto(behandlingId))
-                vurderingService.opprettEllerOppdaterVurdering(
-                    vurderingDto(
-                        behandlingId = behandlingId,
-                        vedtak = Vedtak.OMGJØR_VEDTAK,
-                        begrunnelseOmgjøring = "begrunnelse",
-                    ),
-                )
-                ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
-                behandlingId
-            }
+            val behandlingId =
+                testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
+                    val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
+                    formService.oppdaterFormkrav(oppfyltFormDto(behandlingId))
+                    vurderingService.opprettEllerOppdaterVurdering(
+                        vurderingDto(
+                            behandlingId = behandlingId,
+                            vedtak = Vedtak.OMGJØR_VEDTAK,
+                            begrunnelseOmgjøring = "begrunnelse",
+                        ),
+                    )
+                    ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
+                    behandlingId
+                }
 
             val behandlingshistorikk = behandlingshistorikkService.hentBehandlingshistorikk(behandlingId)
 
@@ -149,13 +150,14 @@ class BehandlingFlytTest : IntegrationTest() {
 
         @Test
         internal fun `Ikke oppfylt formkrav skal ikke vurderes`() {
-            val behandlingId = testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
-                val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
-                formService.oppdaterFormkrav(ikkeOppfyltFormDto(behandlingId))
-                lagEllerOppdaterBrev(behandlingId)
-                ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
-                behandlingId
-            }
+            val behandlingId =
+                testWithBrukerContext(groups = listOf(rolleConfig.ts.saksbehandler)) {
+                    val behandlingId = opprettBehandlingService.opprettBehandling(opprettKlagebehandlingRequest)
+                    formService.oppdaterFormkrav(ikkeOppfyltFormDto(behandlingId))
+                    lagEllerOppdaterBrev(behandlingId)
+                    ferdigstillBehandlingService.ferdigstillKlagebehandling(behandlingId)
+                    behandlingId
+                }
 
             val behandlingshistorikk = behandlingshistorikkService.hentBehandlingshistorikk(behandlingId)
 
@@ -185,8 +187,10 @@ class BehandlingFlytTest : IntegrationTest() {
             "enhet",
         )
 
-    private fun oppfyltFormDto(behandlingId: UUID, påklagetVedtakDto: PåklagetVedtakDto = DomainUtil.påklagetVedtakDto()) =
-        DomainUtil.oppfyltForm(behandlingId).tilDto(påklagetVedtakDto)
+    private fun oppfyltFormDto(
+        behandlingId: UUID,
+        påklagetVedtakDto: PåklagetVedtakDto = DomainUtil.påklagetVedtakDto(),
+    ) = DomainUtil.oppfyltForm(behandlingId).tilDto(påklagetVedtakDto)
 
     private fun ikkeOppfyltFormDto(behandlingId: UUID) =
         DomainUtil.oppfyltForm(behandlingId).tilDto(DomainUtil.påklagetVedtakDto()).copy(

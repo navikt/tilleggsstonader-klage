@@ -37,10 +37,14 @@ class PersonopplysningerService(
         return PersonopplysningerDto(
             personIdent = søkersIdent,
             navn = pdlSøker.navn.gjeldende().visningsnavn(),
-            adressebeskyttelse = pdlSøker.adressebeskyttelse.gjeldende()
-                ?.let { Adressebeskyttelse.valueOf(it.gradering.name) },
-            folkeregisterpersonstatus = pdlSøker.folkeregisterpersonstatus.gjeldende()
-                ?.let { Folkeregisterpersonstatus.fraPdl(it) },
+            adressebeskyttelse =
+                pdlSøker.adressebeskyttelse
+                    .gjeldende()
+                    ?.let { Adressebeskyttelse.valueOf(it.gradering.name) },
+            folkeregisterpersonstatus =
+                pdlSøker.folkeregisterpersonstatus
+                    .gjeldende()
+                    ?.let { Folkeregisterpersonstatus.fraPdl(it) },
             dødsdato = pdlSøker.dødsfall.gjeldende()?.dødsdato,
             egenAnsatt = egenAnsatt,
             vergemål = mapVergemål(pdlSøker),
@@ -54,7 +58,10 @@ class PersonopplysningerService(
                 embete = it.embete,
                 type = it.type,
                 motpartsPersonident = it.vergeEllerFullmektig.motpartsPersonident,
-                navn = it.vergeEllerFullmektig.identifiserendeInformasjon?.navn?.visningsnavn(),
+                navn =
+                    it.vergeEllerFullmektig.identifiserendeInformasjon
+                        ?.navn
+                        ?.visningsnavn(),
                 omfang = it.vergeEllerFullmektig.omfang,
             )
         }

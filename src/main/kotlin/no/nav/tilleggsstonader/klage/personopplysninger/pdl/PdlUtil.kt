@@ -46,7 +46,10 @@ inline fun <reified T : Any> feilsjekkOgReturnerData(pdlResponse: PdlBolkRespons
         loggAdvarselVedHentingFraPdl<T>()
         secureLoggAdvarselFraPdl<T>("{${pdlResponse.extensions?.warnings}}")
     }
-    val feil = pdlResponse.data.personBolk.filter { it.code != "ok" }.associate { it.ident to it.code }
+    val feil =
+        pdlResponse.data.personBolk
+            .filter { it.code != "ok" }
+            .associate { it.ident to it.code }
     if (feil.isNotEmpty()) {
         secureLoggFeilVedHentingFraPdl<T>("$feil")
         throw PdlRequestException("Feil ved henting av ${T::class} fra PDL. Se secure logg for detaljer.")

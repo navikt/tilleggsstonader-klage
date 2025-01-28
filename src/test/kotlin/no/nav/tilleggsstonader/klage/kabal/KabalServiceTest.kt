@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test
 import java.util.UUID
 
 internal class KabalServiceTest {
-
     val kabalClient = mockk<KabalClient>()
     val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>()
     val lenkeConfig = LenkeConfig(tilleggsstonaderSakLenke = "SAK_FRONTEND_URL")
@@ -64,7 +63,9 @@ internal class KabalServiceTest {
         assertThat(oversendelse.hjemler).containsAll(listOf(hjemmel.kabalHjemmel))
         assertThat(oversendelse.kildeReferanse).isEqualTo(behandling.eksternBehandlingId.toString())
         assertThat(oversendelse.innsynUrl)
-            .isEqualTo("${lenkeConfig.tilleggsstonaderSakLenke}/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}")
+            .isEqualTo(
+                "${lenkeConfig.tilleggsstonaderSakLenke}/fagsak/${fagsak.eksternId}/${påklagetVedtakDetaljer.eksternFagsystemBehandlingId}",
+            )
         assertThat(oversendelse.tilknyttedeJournalposter).isEmpty()
         assertThat(oversendelse.brukersHenvendelseMottattNavDato).isEqualTo(behandling.klageMottatt)
         assertThat(oversendelse.innsendtTilNav).isEqualTo(behandling.klageMottatt)

@@ -18,13 +18,14 @@ class KabalClient(
     @Qualifier("azure")
     restTemplate: RestTemplate,
 ) : AbstractRestClient(restTemplate) {
-
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     private val oversendelseUrl =
-        UriComponentsBuilder.fromUri(kabalUrl)
+        UriComponentsBuilder
+            .fromUri(kabalUrl)
             .pathSegment("api/oversendelse/v3/sak")
-            .build().toUriString()
+            .build()
+            .toUriString()
 
     fun sendTilKabal(oversendtKlage: OversendtKlageAnkeV3) {
         postForEntityNullable<Void>(oversendelseUrl, oversendtKlage)

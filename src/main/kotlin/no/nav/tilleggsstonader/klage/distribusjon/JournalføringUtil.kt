@@ -5,22 +5,21 @@ import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
 
 object JournalføringUtil {
-
-    fun mapAvsenderMottaker(brevmottakere: Brevmottakere): List<AvsenderMottaker> {
-        return brevmottakere.let { mottakere ->
+    fun mapAvsenderMottaker(brevmottakere: Brevmottakere): List<AvsenderMottaker> =
+        brevmottakere.let { mottakere ->
             mottakere.personer.map {
                 AvsenderMottaker(
                     id = it.personIdent,
                     navn = it.navn,
                     idType = BrukerIdType.FNR,
                 )
-            } + mottakere.organisasjoner.map {
-                AvsenderMottaker(
-                    id = it.organisasjonsnummer,
-                    navn = it.navnHosOrganisasjon,
-                    idType = BrukerIdType.ORGNR,
-                )
-            }
+            } +
+                mottakere.organisasjoner.map {
+                    AvsenderMottaker(
+                        id = it.organisasjonsnummer,
+                        navn = it.navnHosOrganisasjon,
+                        idType = BrukerIdType.ORGNR,
+                    )
+                }
         }
-    }
 }

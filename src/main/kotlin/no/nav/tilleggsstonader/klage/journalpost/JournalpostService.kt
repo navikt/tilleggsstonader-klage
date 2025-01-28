@@ -10,23 +10,24 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import org.springframework.stereotype.Service
 
 @Service
-class JournalpostService(private val tilleggsstønaderIntegrasjonerClient: TilleggsstønaderIntegrasjonerClient) {
-
+class JournalpostService(
+    private val tilleggsstønaderIntegrasjonerClient: TilleggsstønaderIntegrasjonerClient,
+) {
     fun finnJournalposter(
         personIdent: String,
         antall: Int = 200,
         typer: List<Journalposttype> = Journalposttype.entries,
-    ): List<Journalpost> {
-        return tilleggsstønaderIntegrasjonerClient.finnJournalposter(
+    ): List<Journalpost> =
+        tilleggsstønaderIntegrasjonerClient.finnJournalposter(
             JournalposterForBrukerRequest(
-                brukerId = Bruker(
-                    id = personIdent,
-                    type = BrukerIdType.FNR,
-                ),
+                brukerId =
+                    Bruker(
+                        id = personIdent,
+                        type = BrukerIdType.FNR,
+                    ),
                 antall = antall,
                 tema = listOf(Arkivtema.TSO),
                 journalposttype = typer,
             ),
         )
-    }
 }

@@ -31,38 +31,38 @@ class OpprettBehandleSakOppgaveTask(
     private val oppgaveService: OppgaveService,
     private val behandleSakOppgaveRepository: BehandleSakOppgaveRepository,
 ) : AsyncTaskStep {
-
     override fun doTask(task: Task) {
         val behandlingId = UUID.fromString(task.payload)
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         val behandling = behandlingService.hentBehandling(behandlingId)
 
-        val oppgaveRequest = OpprettOppgaveRequest(
-            ident = OppgaveIdentV2(ident = fagsak.hentAktivIdent(), gruppe = IdentGruppe.FOLKEREGISTERIDENT),
-            saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
-            tema = fagsak.stønadstype.tilTema(),
-            oppgavetype = Oppgavetype.BehandleSak,
-            fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),
-            beskrivelse = "Klagebehandling i ny løsning",
-            enhetsnummer = behandling.behandlendeEnhet,
-            behandlingstype = Behandlingstype.Klage.value,
-            behandlesAvApplikasjon = "tilleggsstonader-klage",
-            tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
-            behandlingstema = finnBehandlingstema(fagsak).value,
-            mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
-        )
+        val oppgaveRequest =
+            OpprettOppgaveRequest(
+                ident = OppgaveIdentV2(ident = fagsak.hentAktivIdent(), gruppe = IdentGruppe.FOLKEREGISTERIDENT),
+                saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
+                tema = fagsak.stønadstype.tilTema(),
+                oppgavetype = Oppgavetype.BehandleSak,
+                fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),
+                beskrivelse = "Klagebehandling i ny løsning",
+                enhetsnummer = behandling.behandlendeEnhet,
+                behandlingstype = Behandlingstype.Klage.value,
+                behandlesAvApplikasjon = "tilleggsstonader-klage",
+                tilordnetRessurs = task.metadata.getProperty(saksbehandlerMetadataKey),
+                behandlingstema = finnBehandlingstema(fagsak).value,
+                mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
+            )
 
         val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)
         behandleSakOppgaveRepository.insert(
             BehandleSakOppgave(behandlingId = behandling.id, oppgaveId = oppgaveId),
         )
     }
-    fun finnBehandlingstema(fagsak: Fagsak): Behandlingstema {
-        return when (fagsak.stønadstype) {
+
+    fun finnBehandlingstema(fagsak: Fagsak): Behandlingstema =
+        when (fagsak.stønadstype) {
             Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
             Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
         }
-    }
 
     companion object {
         const val TYPE = "opprettBehandleSakoppgave"

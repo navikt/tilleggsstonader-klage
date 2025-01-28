@@ -34,7 +34,6 @@ class BehandlingEventService(
     private val stegService: StegService,
     private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
 ) {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Transactional
@@ -74,17 +73,21 @@ class BehandlingEventService(
         taskService.save(BehandlingFeilregistrertTask.opprettTask(behandlingId))
     }
 
-    private fun lagreKlageresultat(behandlingEvent: BehandlingEvent, behandling: Behandling) {
-        val klageinstansResultat = KlageinstansResultat(
-            eventId = behandlingEvent.eventId,
-            type = behandlingEvent.type,
-            utfall = behandlingEvent.utfall(),
-            mottattEllerAvsluttetTidspunkt = behandlingEvent.mottattEllerAvsluttetTidspunkt(),
-            kildereferanse = UUID.fromString(behandlingEvent.kildeReferanse),
-            journalpostReferanser = StringListWrapper(behandlingEvent.journalpostReferanser()),
-            behandlingId = behandling.id,
-            årsakFeilregistrert = utledÅrsakFeilregistrert(behandlingEvent),
-        )
+    private fun lagreKlageresultat(
+        behandlingEvent: BehandlingEvent,
+        behandling: Behandling,
+    ) {
+        val klageinstansResultat =
+            KlageinstansResultat(
+                eventId = behandlingEvent.eventId,
+                type = behandlingEvent.type,
+                utfall = behandlingEvent.utfall(),
+                mottattEllerAvsluttetTidspunkt = behandlingEvent.mottattEllerAvsluttetTidspunkt(),
+                kildereferanse = UUID.fromString(behandlingEvent.kildeReferanse),
+                journalpostReferanser = StringListWrapper(behandlingEvent.journalpostReferanser()),
+                behandlingId = behandling.id,
+                årsakFeilregistrert = utledÅrsakFeilregistrert(behandlingEvent),
+            )
 
         klageresultatRepository.insert(klageinstansResultat)
     }
@@ -97,9 +100,15 @@ class BehandlingEventService(
             null
         }
 
-    private fun behandleKlageAvsluttet(behandling: Behandling, behandlingEvent: BehandlingEvent) {
+    private fun behandleKlageAvsluttet(
+        behandling: Behandling,
+        behandlingEvent: BehandlingEvent,
+    ) {
         when (behandling.status) {
-            BehandlingStatus.FERDIGSTILT -> logger.error("Mottatt event på ferdigstilt behandling $behandlingEvent - event kan være lest fra før")
+            BehandlingStatus.FERDIGSTILT ->
+                logger.error(
+                    "Mottatt event på ferdigstilt behandling $behandlingEvent - event kan være lest fra før",
+                )
             else -> {
                 opprettOppgaveTask(behandling, behandlingEvent)
                 ferdigstillKlagebehandling(behandling)
@@ -107,21 +116,26 @@ class BehandlingEventService(
         }
     }
 
-    private fun opprettOppgaveTask(behandling: Behandling, behandlingEvent: BehandlingEvent) {
-        val fagsakDomain = fagsakRepository.finnFagsakForBehandlingId(behandling.id)
-            ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
+    private fun opprettOppgaveTask(
+        behandling: Behandling,
+        behandlingEvent: BehandlingEvent,
+    ) {
+        val fagsakDomain =
+            fagsakRepository.finnFagsakForBehandlingId(behandling.id)
+                ?: error("Finner ikke fagsak for behandlingId: ${behandling.id}")
         val saksbehandlerIdent = behandling.sporbar.endret.endretAv
         val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
         val oppgaveTekst =
             "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
         val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
-        val opprettOppgavePayload = OpprettOppgavePayload(
-            klagebehandlingEksternId = klageBehandlingEksternId,
-            oppgaveTekst = oppgaveTekst,
-            fagsystem = fagsakDomain.fagsystem,
-            klageinstansUtfall = behandlingEvent.utfall(),
-            behandlingstema = finnBehandlingstema(fagsakDomain.stønadstype),
-        )
+        val opprettOppgavePayload =
+            OpprettOppgavePayload(
+                klagebehandlingEksternId = klageBehandlingEksternId,
+                oppgaveTekst = oppgaveTekst,
+                fagsystem = fagsakDomain.fagsystem,
+                klageinstansUtfall = behandlingEvent.utfall(),
+                behandlingstema = finnBehandlingstema(fagsakDomain.stønadstype),
+            )
         val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
     }
@@ -135,12 +149,11 @@ class BehandlingEventService(
             "Ukjent"
         }
 
-    private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema {
-        return when (stønadstype) {
+    private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema =
+        when (stønadstype) {
             Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
             Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
         }
-    }
 
     private fun ferdigstillKlagebehandling(behandling: Behandling) {
         stegService.oppdaterSteg(behandling.id, StegType.KABAL_VENTER_SVAR, StegType.BEHANDLING_FERDIGSTILT)

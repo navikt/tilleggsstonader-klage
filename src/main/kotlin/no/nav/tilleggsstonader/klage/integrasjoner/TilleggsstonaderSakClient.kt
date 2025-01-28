@@ -22,11 +22,13 @@ class TilleggsstonaderSakClient(
     @Qualifier("azure") restTemplate: RestTemplate,
     @Value("\${TILLEGGSSTONADER_SAK_URL}") private val sakUri: URI,
 ) : AbstractRestClient(restTemplate) {
-
     fun hentVedtak(fagsystemEksternFagsakId: String): List<FagsystemVedtak> {
-        val uri = UriComponentsBuilder.fromUri(sakUri)
-            .pathSegment("api", "klage", "ekstern-fagsak", "{fagsystemEksternFagsakId}", "vedtak")
-            .encode().toUriString()
+        val uri =
+            UriComponentsBuilder
+                .fromUri(sakUri)
+                .pathSegment("api", "klage", "ekstern-fagsak", "{fagsystemEksternFagsakId}", "vedtak")
+                .encode()
+                .toUriString()
         return getForEntity<Ressurs<List<FagsystemVedtak>>>(
             uri,
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
@@ -34,9 +36,12 @@ class TilleggsstonaderSakClient(
     }
 
     fun kanOppretteRevurdering(fagsystemEksternFagsakId: String): KanOppretteRevurderingResponse {
-        val uri = UriComponentsBuilder.fromUri(sakUri)
-            .pathSegment("api", "ekstern", "behandling", "kan-opprette-revurdering-klage", "{fagsystemEksternFagsakId}")
-            .encode().toUriString()
+        val uri =
+            UriComponentsBuilder
+                .fromUri(sakUri)
+                .pathSegment("api", "ekstern", "behandling", "kan-opprette-revurdering-klage", "{fagsystemEksternFagsakId}")
+                .encode()
+                .toUriString()
         return getForEntity<KanOppretteRevurderingResponse>(
             uri,
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
@@ -44,9 +49,12 @@ class TilleggsstonaderSakClient(
     }
 
     fun opprettRevurdering(fagsystemEksternFagsakId: String): OpprettRevurderingResponse {
-        val uri = UriComponentsBuilder.fromUri(sakUri)
-            .pathSegment("api", "ekstern", "behandling", "opprett-revurdering-klage", "{fagsystemEksternFagsakId}")
-            .encode().toUriString()
+        val uri =
+            UriComponentsBuilder
+                .fromUri(sakUri)
+                .pathSegment("api", "ekstern", "behandling", "opprett-revurdering-klage", "{fagsystemEksternFagsakId}")
+                .encode()
+                .toUriString()
         return postForEntity<OpprettRevurderingResponse>(
             uri,
             emptyMap<String, String>(),
@@ -54,17 +62,15 @@ class TilleggsstonaderSakClient(
         )
     }
 
-    fun sjekkTilgangTilPersonMedRelasjoner(ident: String): Tilgang {
-        return postForEntity<Tilgang>(
+    fun sjekkTilgangTilPersonMedRelasjoner(ident: String): Tilgang =
+        postForEntity<Tilgang>(
             URI.create("$sakUri/api/tilgang/person/sjekkTilgangTilPersonMedRelasjoner").toString(),
             IdentRequest(ident = ident),
         )
-    }
 
-    fun erEgenAnsatt(ident: String): Boolean {
-        return postForEntity<EgenAnsattResponse>(
+    fun erEgenAnsatt(ident: String): Boolean =
+        postForEntity<EgenAnsattResponse>(
             URI.create("$sakUri/api/tilgang/person/erEgenAnsatt").toString(),
             EgenAnsattRequest(ident),
         ).erEgenAnsatt
-    }
 }

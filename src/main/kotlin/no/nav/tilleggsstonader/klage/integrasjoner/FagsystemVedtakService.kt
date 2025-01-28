@@ -13,19 +13,19 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.UUID
 
-private val ukjentFeilVedOpprettRevurdering = OpprettRevurderingResponse(
-    IkkeOpprettet(
-        IkkeOpprettetÅrsak.FEIL,
-        "Ukjent feil ved opprettelse av revurdering",
-    ),
-)
+private val ukjentFeilVedOpprettRevurdering =
+    OpprettRevurderingResponse(
+        IkkeOpprettet(
+            IkkeOpprettetÅrsak.FEIL,
+            "Ukjent feil ved opprettelse av revurdering",
+        ),
+    )
 
 @Service
 class FagsystemVedtakService(
     private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
     private val fagsakService: FagsakService,
 ) {
-
     private val logger = LoggerFactory.getLogger(javaClass)
     private val secureLogger: Logger = LoggerFactory.getLogger("secureLogger")
 
@@ -34,9 +34,10 @@ class FagsystemVedtakService(
         return hentFagsystemVedtak(fagsak)
     }
 
-    private fun hentFagsystemVedtak(fagsak: Fagsak): List<FagsystemVedtak> = when (fagsak.fagsystem) {
-        Fagsystem.TILLEGGSSTONADER -> tilleggsstonaderSakClient.hentVedtak(fagsak.eksternId)
-    }
+    private fun hentFagsystemVedtak(fagsak: Fagsak): List<FagsystemVedtak> =
+        when (fagsak.fagsystem) {
+            Fagsystem.TILLEGGSSTONADER -> tilleggsstonaderSakClient.hentVedtak(fagsak.eksternId)
+        }
 
     fun hentFagsystemVedtakForPåklagetBehandlingId(
         behandlingId: UUID,

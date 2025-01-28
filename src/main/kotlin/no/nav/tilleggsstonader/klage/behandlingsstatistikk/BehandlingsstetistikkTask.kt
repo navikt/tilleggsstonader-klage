@@ -21,7 +21,6 @@ import java.util.UUID
 class BehandlingsstatistikkTask(
     private val behandlingStatistikkService: BehandlingsstatistikkService,
 ) : AsyncTaskStep {
-
     override fun doTask(task: Task) {
         val (behandlingId, hendelse, hendelseTidspunkt, gjeldendeSaksbehandler) =
             objectMapper.readValue<BehandlingsstatistikkTaskPayload>(task.payload)
@@ -34,7 +33,6 @@ class BehandlingsstatistikkTask(
     }
 
     companion object {
-
         fun opprettMottattTask(behandlingId: UUID): Task =
             opprettTask(
                 behandlingId = behandlingId,
@@ -79,20 +77,22 @@ class BehandlingsstatistikkTask(
         ): Task =
             Task(
                 type = TYPE,
-                payload = objectMapper.writeValueAsString(
-                    BehandlingsstatistikkTaskPayload(
-                        behandlingId,
-                        hendelse,
-                        hendelseTidspunkt,
-                        gjeldendeSaksbehandler,
+                payload =
+                    objectMapper.writeValueAsString(
+                        BehandlingsstatistikkTaskPayload(
+                            behandlingId,
+                            hendelse,
+                            hendelseTidspunkt,
+                            gjeldendeSaksbehandler,
+                        ),
                     ),
-                ),
-                properties = Properties().apply {
-                    this["saksbehandler"] = gjeldendeSaksbehandler
-                    this["behandlingId"] = behandlingId.toString()
-                    this["hendelse"] = hendelse.name
-                    this["hendelseTidspunkt"] = hendelseTidspunkt.toString()
-                },
+                properties =
+                    Properties().apply {
+                        this["saksbehandler"] = gjeldendeSaksbehandler
+                        this["behandlingId"] = behandlingId.toString()
+                        this["hendelse"] = hendelse.name
+                        this["hendelseTidspunkt"] = hendelseTidspunkt.toString()
+                    },
             )
 
         const val TYPE = "behandlingsstatistikkKlageTask"

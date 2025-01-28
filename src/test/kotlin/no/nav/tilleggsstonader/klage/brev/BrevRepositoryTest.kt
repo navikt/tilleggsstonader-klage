@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 internal class BrevRepositoryTest : IntegrationTest() {
-
     @Autowired
     lateinit var brevRepository: BrevRepository
 
@@ -54,22 +53,26 @@ internal class BrevRepositoryTest : IntegrationTest() {
         assertThat(oppdatertBrev.mottakereJournalposter).isEqualTo(oppdatertJournalposter)
     }
 
-    private fun brev() = Brev(
-        behandlingId = behandling.id,
-        saksbehandlerHtml = "html",
-        pdf = Fil("123".toByteArray()),
-        mottakere = Brevmottakere(
-            personer = listOf(
-                BrevmottakerPerson("ident", "navn", MottakerRolle.BRUKER),
-            ),
-            organisasjoner = listOf(BrevmottakerOrganisasjon("orgnr", "navn", "mottaker")),
-        ),
-        mottakereJournalposter = BrevmottakereJournalposter(listOf(brevmottakereJournalpost("distId"))),
-    )
+    private fun brev() =
+        Brev(
+            behandlingId = behandling.id,
+            saksbehandlerHtml = "html",
+            pdf = Fil("123".toByteArray()),
+            mottakere =
+                Brevmottakere(
+                    personer =
+                        listOf(
+                            BrevmottakerPerson("ident", "navn", MottakerRolle.BRUKER),
+                        ),
+                    organisasjoner = listOf(BrevmottakerOrganisasjon("orgnr", "navn", "mottaker")),
+                ),
+            mottakereJournalposter = BrevmottakereJournalposter(listOf(brevmottakereJournalpost("distId"))),
+        )
 
-    private fun brevmottakereJournalpost(distribusjonId: String? = null) = BrevmottakereJournalpost(
-        "ident",
-        "journalpostId",
-        distribusjonId,
-    )
+    private fun brevmottakereJournalpost(distribusjonId: String? = null) =
+        BrevmottakereJournalpost(
+            "ident",
+            "journalpostId",
+            distribusjonId,
+        )
 }

@@ -27,13 +27,10 @@ class OpprettBehandlingService(
     private val behandlingshistorikkService: BehandlingshistorikkService,
     private val taskService: TaskService,
 ) {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Transactional
-    fun opprettBehandling(
-        opprettKlagebehandlingRequest: OpprettKlagebehandlingRequest,
-    ): UUID {
+    fun opprettBehandling(opprettKlagebehandlingRequest: OpprettKlagebehandlingRequest): UUID {
         val klageMottatt = opprettKlagebehandlingRequest.klageMottatt
         val stønadstype = opprettKlagebehandlingRequest.stønadstype
         val eksternFagsakId = opprettKlagebehandlingRequest.eksternFagsakId
@@ -42,23 +39,27 @@ class OpprettBehandlingService(
             "Kan ikke opprette klage med krav mottatt frem i tid for eksternFagsakId=$eksternFagsakId"
         }
 
-        val fagsak = fagsakService.hentEllerOpprettFagsak(
-            ident = opprettKlagebehandlingRequest.ident,
-            eksternId = eksternFagsakId,
-            fagsystem = opprettKlagebehandlingRequest.fagsystem,
-            stønadstype = stønadstype,
-        )
+        val fagsak =
+            fagsakService.hentEllerOpprettFagsak(
+                ident = opprettKlagebehandlingRequest.ident,
+                eksternId = eksternFagsakId,
+                fagsystem = opprettKlagebehandlingRequest.fagsystem,
+                stønadstype = stønadstype,
+            )
 
-        val behandlingId = behandlingService.opprettBehandling(
-            Behandling(
-                fagsakId = fagsak.id,
-                påklagetVedtak = PåklagetVedtak(
-                    påklagetVedtakstype = PåklagetVedtakstype.IKKE_VALGT,
-                ),
-                klageMottatt = klageMottatt,
-                behandlendeEnhet = opprettKlagebehandlingRequest.behandlendeEnhet,
-            ),
-        ).id
+        val behandlingId =
+            behandlingService
+                .opprettBehandling(
+                    Behandling(
+                        fagsakId = fagsak.id,
+                        påklagetVedtak =
+                            PåklagetVedtak(
+                                påklagetVedtakstype = PåklagetVedtakstype.IKKE_VALGT,
+                            ),
+                        klageMottatt = klageMottatt,
+                        behandlendeEnhet = opprettKlagebehandlingRequest.behandlendeEnhet,
+                    ),
+                ).id
 
         behandlingshistorikkService.opprettBehandlingshistorikk(behandlingId, StegType.OPPRETTET)
 

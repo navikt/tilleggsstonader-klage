@@ -22,7 +22,6 @@ data class Ressurs<T>(
     val frontendFeilmelding: String? = null,
     val stacktrace: String?,
 ) {
-
     enum class Status {
         SUKSESS,
         FEILET,
@@ -32,49 +31,57 @@ data class Ressurs<T>(
     }
 
     companion object {
-        fun <T> success(data: T): Ressurs<T> = Ressurs(
-            data = data,
-            status = Status.SUKSESS,
-            melding = "Innhenting av data var vellykket",
-            stacktrace = null,
-        )
+        fun <T> success(data: T): Ressurs<T> =
+            Ressurs(
+                data = data,
+                status = Status.SUKSESS,
+                melding = "Innhenting av data var vellykket",
+                stacktrace = null,
+            )
 
-        fun <T> success(data: T, melding: String?): Ressurs<T> = Ressurs(
-            data = data,
-            status = Status.SUKSESS,
-            melding = melding ?: "Innhenting av data var vellykket",
-            stacktrace = null,
-        )
+        fun <T> success(
+            data: T,
+            melding: String?,
+        ): Ressurs<T> =
+            Ressurs(
+                data = data,
+                status = Status.SUKSESS,
+                melding = melding ?: "Innhenting av data var vellykket",
+                stacktrace = null,
+            )
 
         fun <T> failure(
             errorMessage: String? = null,
             frontendFeilmelding: String? = null,
             error: Throwable? = null,
-        ): Ressurs<T> = Ressurs(
-            data = null,
-            status = Status.FEILET,
-            melding = errorMessage ?: "En feil har oppstått: ${error?.message}",
-            frontendFeilmelding = frontendFeilmelding,
-            stacktrace = error?.textValue(),
-        )
+        ): Ressurs<T> =
+            Ressurs(
+                data = null,
+                status = Status.FEILET,
+                melding = errorMessage ?: "En feil har oppstått: ${error?.message}",
+                frontendFeilmelding = frontendFeilmelding,
+                stacktrace = error?.textValue(),
+            )
 
-        fun <T> ikkeTilgang(melding: String): Ressurs<T> = Ressurs(
-            data = null,
-            status = Status.IKKE_TILGANG,
-            melding = melding,
-            stacktrace = null,
-        )
+        fun <T> ikkeTilgang(melding: String): Ressurs<T> =
+            Ressurs(
+                data = null,
+                status = Status.IKKE_TILGANG,
+                melding = melding,
+                stacktrace = null,
+            )
 
         fun <T> funksjonellFeil(
             melding: String,
             frontendFeilmelding: String? = null,
-        ): Ressurs<T> = Ressurs(
-            data = null,
-            status = Status.FUNKSJONELL_FEIL,
-            melding = melding,
-            frontendFeilmelding = frontendFeilmelding,
-            stacktrace = null,
-        )
+        ): Ressurs<T> =
+            Ressurs(
+                data = null,
+                status = Status.FUNKSJONELL_FEIL,
+                melding = melding,
+                frontendFeilmelding = frontendFeilmelding,
+                stacktrace = null,
+            )
 
         private fun Throwable.textValue(): String {
             val sw = StringWriter()
@@ -85,21 +92,16 @@ data class Ressurs<T>(
 
     fun toJson(): String = objectMapper.writeValueAsString(this)
 
-    override fun toString(): String {
-        return "Ressurs(status=$status, melding='$melding')"
-    }
+    override fun toString(): String = "Ressurs(status=$status, melding='$melding')"
 
-    fun toSecureString(): String {
-        return "Ressurs(status=$status, melding='$melding', frontendFeilmelding='$frontendFeilmelding')"
-    }
+    fun toSecureString(): String = "Ressurs(status=$status, melding='$melding', frontendFeilmelding='$frontendFeilmelding')"
 }
 
-fun <T> Ressurs<T>.getDataOrThrow(): T {
-    return when (this.status) {
+fun <T> Ressurs<T>.getDataOrThrow(): T =
+    when (this.status) {
         Ressurs.Status.SUKSESS -> data ?: error("Data er null i Ressurs")
         else -> error(melding)
     }
-}
 
 data class PersonIdent(
     @field:Pattern(regexp = "(^$|.{11})", message = "PersonIdent er ikke riktig") val ident: String,

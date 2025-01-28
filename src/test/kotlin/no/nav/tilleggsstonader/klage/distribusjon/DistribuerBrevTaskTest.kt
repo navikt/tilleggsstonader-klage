@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test
 import java.util.UUID
 
 internal class DistribuerBrevTaskTest {
-
     private val brevService = mockk<BrevService>()
     private val distribusjonService = mockk<DistribusjonService>()
 
@@ -35,7 +34,6 @@ internal class DistribuerBrevTaskTest {
 
     @Nested
     inner class ManglerJournalposter {
-
         @Test
         internal fun `feiler hvis det ikke finnes noen journalpost`() {
             mockHentBrev(null)
@@ -111,8 +109,10 @@ internal class DistribuerBrevTaskTest {
         verify(exactly = antall) { brevService.oppdaterMottakerJournalpost(any(), any()) }
     }
 
-    private fun journalpost(journalpostId: String, distribusjonId: String? = null) =
-        BrevmottakereJournalpost("ident", journalpostId, distribusjonId = distribusjonId)
+    private fun journalpost(
+        journalpostId: String,
+        distribusjonId: String? = null,
+    ) = BrevmottakereJournalpost("ident", journalpostId, distribusjonId = distribusjonId)
 
     private fun doTask() {
         distribuerBrevTask.doTask(Task(DistribuerBrevTask.TYPE, behandlingId.toString()))

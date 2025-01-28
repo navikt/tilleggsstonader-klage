@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDateTime
 
 internal class RepositoryTest : IntegrationTest() {
-
     @Autowired
     lateinit var fagsakRepository: FagsakRepository
 

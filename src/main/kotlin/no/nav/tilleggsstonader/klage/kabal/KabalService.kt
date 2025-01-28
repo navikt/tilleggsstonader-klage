@@ -25,7 +25,12 @@ class KabalService(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun sendTilKabal(fagsak: Fagsak, behandling: Behandling, vurdering: Vurdering, saksbehandlerIdent: String) {
+    fun sendTilKabal(
+        fagsak: Fagsak,
+        behandling: Behandling,
+        vurdering: Vurdering,
+        saksbehandlerIdent: String,
+    ) {
         val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, hentSaksbehandlersEnhet(saksbehandlerIdent))
         kabalClient.sendTilKabal(oversendtKlageAnkeV3)
     }
@@ -41,15 +46,22 @@ class KabalService(
         }
     }
 
-    private fun lagKlageOversendelseV3(fagsak: Fagsak, behandling: Behandling, vurdering: Vurdering, saksbehandlersEnhet: String): OversendtKlageAnkeV3 {
-        return OversendtKlageAnkeV3(
+    private fun lagKlageOversendelseV3(
+        fagsak: Fagsak,
+        behandling: Behandling,
+        vurdering: Vurdering,
+        saksbehandlersEnhet: String,
+    ): OversendtKlageAnkeV3 =
+        OversendtKlageAnkeV3(
             type = Type.KLAGE,
-            klager = OversendtKlager(
-                id = OversendtPartId(
-                    type = OversendtPartIdType.PERSON,
-                    verdi = fagsak.hentAktivIdent(),
+            klager =
+                OversendtKlager(
+                    id =
+                        OversendtPartId(
+                            type = OversendtPartIdType.PERSON,
+                            verdi = fagsak.hentAktivIdent(),
+                        ),
                 ),
-            ),
             fagsak = OversendtSak(fagsakId = fagsak.eksternId, fagsystem = fagsak.fagsystem),
             kildeReferanse = behandling.eksternBehandlingId.toString(),
             innsynUrl = lagInnsynUrl(fagsak, behandling.påklagetVedtak),
@@ -61,9 +73,11 @@ class KabalService(
             kilde = fagsak.fagsystem,
             ytelse = Ytelse.TSO_TSO,
         )
-    }
 
-    private fun lagInnsynUrl(fagsak: Fagsak, påklagetVedtak: PåklagetVedtak): String {
+    private fun lagInnsynUrl(
+        fagsak: Fagsak,
+        påklagetVedtak: PåklagetVedtak,
+    ): String {
         val fagsystemUrl = lenkeConfig.tilleggsstonaderSakLenke
         val påklagetVedtakDetaljer = påklagetVedtak.påklagetVedtakDetaljer
 
