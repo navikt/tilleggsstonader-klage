@@ -26,10 +26,10 @@ spec:
     max: 4
   resources:
     limits:
-      memory: 2048Mi
+      memory: 1Gi # Lik request som default
     requests:
-      memory: 512Mi
-      cpu: 200m
+      memory: 1Gi
+      cpu: 50m
   observability:
     logging:
       destinations:
