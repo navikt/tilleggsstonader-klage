@@ -57,6 +57,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
                     klageMottatt = LocalDate.now(),
                     påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer),
                     henlagtÅrsak = HenlagtÅrsak.TRUKKET_TILBAKE,
+                    henlagtBegrunnelse = "Skal trekkes tilbake",
                     fagsystemRevurdering = fagsystemRevurdering,
                 ),
             )
@@ -70,6 +71,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
         assertThat(behandling.klageMottatt).isEqualTo(hentetBehandling.klageMottatt)
         assertThat(behandling.resultat).isEqualTo(hentetBehandling.resultat)
         assertThat(behandling.henlagtÅrsak).isEqualTo(HenlagtÅrsak.TRUKKET_TILBAKE)
+        assertThat(behandling.henlagtBegrunnelse).isEqualTo(hentetBehandling.henlagtBegrunnelse)
         assertThat(behandling.sporbar.opprettetAv).isEqualTo(hentetBehandling.sporbar.opprettetAv)
         assertThat(behandling.sporbar.opprettetTid).isEqualTo(hentetBehandling.sporbar.opprettetTid)
         assertThat(behandling.sporbar.endret.endretTid).isEqualTo(hentetBehandling.sporbar.endret.endretTid)
@@ -153,7 +155,8 @@ class BehandlingRepositoryTest : IntegrationTest() {
             val behandling = behandlingRepository.insert(behandling(fagsak))
             val behandling2 = behandlingRepository.insert(behandling(fagsak))
 
-            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
+            val behandlinger =
+                behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
             assertThat(behandlinger).hasSize(2)
             assertThat(behandlinger.map { it.id }).containsExactlyInAnyOrder(behandling.id, behandling2.id)
         }
@@ -163,7 +166,8 @@ class BehandlingRepositoryTest : IntegrationTest() {
             val behandling = behandlingRepository.insert(behandling(fagsak))
             val behandling2 = behandlingRepository.insert(behandling(fagsak))
 
-            val behandlinger = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
+            val behandlinger =
+                behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
             assertThat(behandlinger).hasSize(2)
             assertThat(behandlinger.map { it.id }).containsExactlyInAnyOrder(behandling.id, behandling2.id)
         }

@@ -79,6 +79,7 @@ object DomainUtil {
         resultat: BehandlingResultat = BehandlingResultat.IKKE_SATT,
         vedtakDato: LocalDateTime? = null,
         henlagtÅrsak: HenlagtÅrsak? = null,
+        henlagtBegrunnelse: String? = null,
         sporbar: Sporbar = Sporbar(),
         fagsystemRevurdering: FagsystemRevurdering? = null,
     ): Behandling =
@@ -93,6 +94,7 @@ object DomainUtil {
             behandlendeEnhet = behandlendeEnhet,
             resultat = resultat,
             henlagtÅrsak = henlagtÅrsak,
+            henlagtBegrunnelse = henlagtBegrunnelse,
             vedtakDato = vedtakDato,
             sporbar = sporbar,
             fagsystemRevurdering = fagsystemRevurdering,
