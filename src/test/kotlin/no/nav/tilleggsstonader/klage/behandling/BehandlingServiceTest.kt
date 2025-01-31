@@ -83,12 +83,13 @@ internal class BehandlingServiceTest {
         private fun henleggOgForventOk(
             behandling: Behandling,
             henlagtÅrsak: HenlagtÅrsak,
+            henlagtBegrunnelse: String,
         ) {
             every {
                 behandlingRepository.findByIdOrThrow(any())
             } returns behandling
 
-            behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak))
+            behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak, henlagtBegrunnelse))
             assertThat(behandlingSlot.captured.status).isEqualTo(BehandlingStatus.FERDIGSTILT)
             assertThat(behandlingSlot.captured.resultat).isEqualTo(BehandlingResultat.HENLAGT)
             assertThat(behandlingSlot.captured.steg).isEqualTo(StegType.BEHANDLING_FERDIGSTILT)
@@ -98,6 +99,7 @@ internal class BehandlingServiceTest {
         private fun henleggOgForventApiFeilmelding(
             behandling: Behandling,
             henlagtÅrsak: HenlagtÅrsak,
+            henlagtBegrunnelse: String,
         ) {
             every {
                 behandlingRepository.findByIdOrThrow(any())
@@ -105,7 +107,7 @@ internal class BehandlingServiceTest {
 
             val feil: ApiFeil =
                 assertThrows {
-                    behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak))
+                    behandlingService.henleggBehandling(behandling.id, HenlagtDto(henlagtÅrsak, henlagtBegrunnelse))
                 }
 
             assertThat(feil.httpStatus).isEqualTo(HttpStatus.BAD_REQUEST)
@@ -114,26 +116,26 @@ internal class BehandlingServiceTest {
         @Test
         internal fun `skal kunne henlegge behandling`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.UTREDES)
-            henleggOgForventOk(behandling, henlagtÅrsak = HenlagtÅrsak.FEILREGISTRERT)
+            henleggOgForventOk(behandling, henlagtÅrsak = HenlagtÅrsak.FEILREGISTRERT, "Begrunnelse")
             verify(exactly = 1) { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) }
         }
 
         @Test
         internal fun `skal ikke kunne henlegge behandling som er oversendt kabal`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.VENTER)
-            henleggOgForventApiFeilmelding(behandling, HenlagtÅrsak.FEILREGISTRERT)
+            henleggOgForventApiFeilmelding(behandling, HenlagtÅrsak.FEILREGISTRERT, "Begrunnelse")
         }
 
         @Test
         internal fun `skal ikke kunne henlegge behandling som er ferdigstilt`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.FERDIGSTILT)
-            henleggOgForventApiFeilmelding(behandling, TRUKKET_TILBAKE)
+            henleggOgForventApiFeilmelding(behandling, TRUKKET_TILBAKE, "Begrunnelse")
         }
 
         @Test
         internal fun `henlegg og forvent historikkinnslag`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.UTREDES)
-            henleggOgForventOk(behandling, TRUKKET_TILBAKE)
+            henleggOgForventOk(behandling, TRUKKET_TILBAKE, "Begrunnelse")
             verify { behandlinghistorikkService.opprettBehandlingshistorikk(any(), StegType.BEHANDLING_FERDIGSTILT) }
             verify(exactly = 1) { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) }
         }

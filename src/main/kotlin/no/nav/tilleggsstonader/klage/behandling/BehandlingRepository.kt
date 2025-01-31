@@ -49,7 +49,8 @@ interface BehandlingRepository :
              b.resultat,
              v.arsak,
              b.vedtak_dato vedtaksdato,
-             b.henlagt_arsak
+             b.henlagt_arsak,
+             b.henlagt_begrunnelse
             FROM behandling b
             JOIN fagsak f ON f.id = b.fagsak_id
             LEFT JOIN vurdering v ON v.behandling_id = b.id

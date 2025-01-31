@@ -31,6 +31,7 @@ data class Behandling(
     val eksternBehandlingId: UUID = UUID.randomUUID(),
     @Column("henlagt_arsak")
     val henlagtÅrsak: HenlagtÅrsak? = null,
+    val henlagtBegrunnelse: String? = null,
     val fagsystemRevurdering: FagsystemRevurdering? = null,
 )
 

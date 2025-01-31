@@ -27,6 +27,7 @@ data class Klagebehandlingsresultat(
     val vedtaksdato: LocalDateTime?,
     @Column("henlagt_arsak")
     val henlagtÅrsak: HenlagtÅrsak?,
+    val henlagtBegrunnelse: String?,
 )
 
 fun Klagebehandlingsresultat.tilEksternKlagebehandlingDto(klageinstansResultat: List<KlageinstansResultatDto>) =
@@ -41,4 +42,5 @@ fun Klagebehandlingsresultat.tilEksternKlagebehandlingDto(klageinstansResultat: 
         vedtaksdato = this.vedtaksdato,
         klageinstansResultat = klageinstansResultat,
         henlagtÅrsak = this.henlagtÅrsak,
+        henlagtBegrunnelse = this.henlagtBegrunnelse,
     )
