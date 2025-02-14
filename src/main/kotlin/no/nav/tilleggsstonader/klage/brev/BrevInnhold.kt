@@ -6,9 +6,10 @@ import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledLovtekst
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledÅrsakTilAvvisningstekst
 import no.nav.tilleggsstonader.klage.brev.dto.AvsnittDto
 import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
-import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.norskFormat
+import no.nav.tilleggsstonader.klage.felles.util.tilFagsystem
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import java.time.LocalDate
 
@@ -147,14 +148,12 @@ object BrevInnhold {
         )
 
     private fun Stønadstype.lesMerUrl() =
-        when (this) {
-            Stønadstype.BARNETILSYN -> "nav.no/tilleggsstonader"
-            Stønadstype.LÆREMIDLER -> "nav.no/tilleggsstonader"
+        when (this.tilFagsystem()) {
+            Fagsystem.TILLEGGSSTONADER -> "nav.no/tilleggsstonader"
         }
 
     private fun Stønadstype.klageUrl() =
-        when (this) {
-            Stønadstype.BARNETILSYN -> "klage.nav.no/nb/klage/tilleggsstonader"
-            Stønadstype.LÆREMIDLER -> "klage.nav.no/nb/klage/tilleggsstonader"
+        when (this.tilFagsystem()) {
+            Fagsystem.TILLEGGSSTONADER -> "klage.nav.no/nb/klage/tilleggsstonader"
         }
 }

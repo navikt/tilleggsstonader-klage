@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
+import no.nav.tilleggsstonader.klage.felles.util.tilFagsystem
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
@@ -168,12 +169,7 @@ object DomainUtil {
             stønadstype = stønadstype,
             sporbar = sporbar,
             eksternId = "1",
-            fagsystem =
-                when (stønadstype) {
-                    Stønadstype.BARNETILSYN,
-                    Stønadstype.LÆREMIDLER,
-                    -> Fagsystem.TILLEGGSSTONADER
-                },
+            fagsystem = stønadstype.tilFagsystem(),
         )
 
     fun klageresultat(

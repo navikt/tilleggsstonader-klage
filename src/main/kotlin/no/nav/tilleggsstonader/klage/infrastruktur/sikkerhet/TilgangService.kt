@@ -14,7 +14,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
-import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import org.springframework.cache.CacheManager
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -147,19 +147,17 @@ class TilgangService(
         fagsakId: UUID,
         minimumsrolle: BehandlerRolle,
     ): Boolean {
-        val stønadstype = hentFagsak(fagsakId).stønadstype
+        val stønadstype = hentFagsak(fagsakId).fagsystem
         return harTilgangTilGittRolle(stønadstype, minimumsrolle)
     }
 
     private fun harTilgangTilGittRolle(
-        stønadstype: Stønadstype,
+        fagsystem: Fagsystem,
         minimumsrolle: BehandlerRolle,
     ): Boolean {
         val rolleForFagsystem =
-            when (stønadstype) {
-                Stønadstype.BARNETILSYN,
-                Stønadstype.LÆREMIDLER,
-                -> rolleConfig.ts
+            when (fagsystem) {
+                Fagsystem.TILLEGGSSTONADER -> rolleConfig.ts
             }
         return harTilgangTilGittRolleForFagsystem(rolleForFagsystem, minimumsrolle)
     }
