@@ -14,8 +14,7 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
-import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
-import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.libs.http.client.ProblemDetailException
@@ -134,7 +133,7 @@ class BehandlingEventService(
                 oppgaveTekst = oppgaveTekst,
                 fagsystem = fagsakDomain.fagsystem,
                 klageinstansUtfall = behandlingEvent.utfall(),
-                behandlingstema = finnBehandlingstema(fagsakDomain.stønadstype),
+                behandlingstema = fagsakDomain.stønadstype.tilBehandlingstema(),
             )
         val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
@@ -147,12 +146,6 @@ class BehandlingEventService(
             logger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent")
             secureLogger.error("Kunne ikke hente enhet for saksbehandler med ident=$saksbehandlerIdent", e)
             "Ukjent"
-        }
-
-    private fun finnBehandlingstema(stønadstype: Stønadstype): Behandlingstema =
-        when (stønadstype) {
-            Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
-            Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
         }
 
     private fun ferdigstillKlagebehandling(behandling: Behandling) {

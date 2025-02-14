@@ -5,11 +5,9 @@ import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
-import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
-import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
-import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
@@ -48,7 +46,7 @@ class OpprettBehandleSakOppgaveTask(
                 behandlingstype = Behandlingstype.Klage.value,
                 behandlesAvApplikasjon = "tilleggsstonader-klage",
                 tilordnetRessurs = task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
-                behandlingstema = finnBehandlingstema(fagsak).value,
+                behandlingstema = fagsak.stønadstype.tilBehandlingstema().value,
                 mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
             )
 
@@ -57,12 +55,6 @@ class OpprettBehandleSakOppgaveTask(
             BehandleSakOppgave(behandlingId = behandling.id, oppgaveId = oppgaveId),
         )
     }
-
-    fun finnBehandlingstema(fagsak: Fagsak): Behandlingstema =
-        when (fagsak.stønadstype) {
-            Stønadstype.BARNETILSYN -> Behandlingstema.TilsynBarn
-            Stønadstype.LÆREMIDLER -> Behandlingstema.Læremidler
-        }
 
     companion object {
         const val TYPE = "opprettBehandleSakoppgave"
