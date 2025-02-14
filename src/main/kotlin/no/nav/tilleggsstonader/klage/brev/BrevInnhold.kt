@@ -31,7 +31,7 @@ object BrevInnhold {
                         deloverskrift = "",
                         innhold =
                             "Vi har ${klageMottatt.norskFormat()} fått klagen din på vedtaket om " +
-                                "${stønadstype.visningsnavn()} som ble gjort " +
+                                "${stønadstype.visningsnavn} som ble gjort " +
                                 "${påklagetVedtakDetaljer.vedtakstidspunkt.norskFormat()}, " +
                                 "og kommet frem til at vi ikke endrer vedtaket. Nav Klageinstans skal derfor vurdere saken din på nytt.",
                     ),
@@ -63,7 +63,7 @@ object BrevInnhold {
             formkrav.brevtekst ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
 
         return FritekstBrevRequestDto(
-            overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn()}",
+            overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn}",
             personIdent = ident,
             navn = navn,
             avsnitt =

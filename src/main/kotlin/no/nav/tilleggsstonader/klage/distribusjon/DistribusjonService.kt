@@ -5,7 +5,6 @@ import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeI
 import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeVedtaksbrev
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
-import no.nav.tilleggsstonader.klage.felles.util.StønadstypeVisningsnavn.visningsnavn
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
@@ -135,6 +134,6 @@ class DistribusjonService(
                 else -> error("Kan ikke utlede brevtittel for behandlingsresultat ${behandling.resultat}")
             }
 
-        return "$tittelPrefix - ${stønadstype.visningsnavn()}"
+        return "$tittelPrefix - ${stønadstype.visningsnavn}"
     }
 }
