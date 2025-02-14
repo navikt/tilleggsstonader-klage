@@ -1,8 +1,6 @@
 package no.nav.tilleggsstonader.klage.distribusjon
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
-import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeInterntVedtak
-import no.nav.tilleggsstonader.klage.distribusjon.DokumenttypeUtil.dokumenttypeVedtaksbrev
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
@@ -12,6 +10,7 @@ import no.nav.tilleggsstonader.kontrakter.dokarkiv.AvsenderMottaker
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokument
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Dokumenttype
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.Filtype
+import no.nav.tilleggsstonader.kontrakter.dokarkiv.dokumenttyper
 import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
@@ -39,7 +38,7 @@ class DistribusjonService(
             fagsak = fagsak,
             pdf = brev,
             tittel = utledBrevtittel(behandlingId),
-            dokumenttype = dokumenttypeVedtaksbrev(fagsak.stønadstype),
+            dokumenttype = fagsak.stønadstype.dokumenttyper.klageVedtaksbrev,
             saksbehandler = saksbehandler,
             suffixEksternReferanseId = "-$index",
             avsenderMottaker = mottaker,
@@ -58,7 +57,7 @@ class DistribusjonService(
             fagsak = fagsak,
             pdf = saksbehandlingsblankettPdf,
             tittel = "Blankett for klage på ${fagsak.stønadstype.name.storForbokstav()}",
-            dokumenttype = dokumenttypeInterntVedtak(fagsak.stønadstype),
+            dokumenttype = fagsak.stønadstype.dokumenttyper.klageInterntVedtak,
             saksbehandler = saksbehandler,
             suffixEksternReferanseId = "-blankett",
         )
