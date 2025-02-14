@@ -7,5 +7,6 @@ fun Stønadstype.tilFagsystem(): Fagsystem =
     when (this) {
         Stønadstype.BARNETILSYN,
         Stønadstype.LÆREMIDLER,
+        Stønadstype.BOUTGIFTER,
         -> Fagsystem.TILLEGGSSTONADER
     }
