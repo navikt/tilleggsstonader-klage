@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250102104603_293d453"
 val tilleggsstønaderLibsVersion = "2025.01.21-10.26.933160d62458"
-val tilleggsstønaderKontrakterVersion = "2025.02.14-06.56.a3889f3f7fb9"
+val tilleggsstønaderKontrakterVersion = "2025.02.19-08.07.9480bf6879c8"
 val tokenSupportVersion = "5.0.14"
 val wiremockVersion = "3.10.0"
 val mockkVersion = "1.13.16"
