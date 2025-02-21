@@ -29,6 +29,7 @@ enum class Type(
     ANKE("Anke"),
     ANKE_I_TRYGDERETTEN("Anke i trygderetten"),
     OMGJOERINGSKRAV("Omgjoeringskrav"),
+    BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET("Behandling etter Trygderetten opphevet"),
 }
 
 enum class OversendtPartIdType {
