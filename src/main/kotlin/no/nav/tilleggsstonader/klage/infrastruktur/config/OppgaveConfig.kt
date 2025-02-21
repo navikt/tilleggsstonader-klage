@@ -16,6 +16,13 @@ class OppgaveConfig(
             .build()
             .toUri()
 
+    val oppgaveVentUri =
+        UriComponentsBuilder
+            .fromUri(oppgaveUri)
+            .pathSegment("vent")
+            .build()
+            .toUri()
+
     companion object {
         private const val PATH_OPPGAVE = "api/oppgave"
     }

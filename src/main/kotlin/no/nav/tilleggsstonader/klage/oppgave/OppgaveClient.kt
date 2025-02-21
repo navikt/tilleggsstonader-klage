@@ -2,13 +2,20 @@ package no.nav.tilleggsstonader.klage.oppgave
 
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppgaveConfig
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.OppdaterPåVentRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentResponse
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.TaAvVentRequest
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.ProblemDetailException
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
@@ -20,6 +27,7 @@ class OppgaveClient(
     oppgaveConfig: OppgaveConfig,
 ) : AbstractRestClient(restTemplate) {
     private val oppgaveUri: URI = oppgaveConfig.oppgaveUri
+    private val oppgaveVentUri: URI = oppgaveConfig.oppgaveVentUri
 
     fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long {
         val uri = URI.create("$oppgaveUri/opprett").toString()
@@ -86,4 +94,45 @@ class OppgaveClient(
                 ),
         )
     }
+
+    fun settPåVent(settPåVent: SettPåVentRequest): SettPåVentResponse {
+        val uri =
+            UriComponentsBuilder
+                .fromUri(oppgaveVentUri)
+                .pathSegment("sett-pa-vent")
+                .encode()
+                .toUriString()
+        return kastBrukerFeilHvisBadRequest { postForEntity<SettPåVentResponse>(uri, settPåVent) }
+    }
+
+    fun oppdaterPåVent(oppdaterPåVent: OppdaterPåVentRequest): SettPåVentResponse {
+        val uri =
+            UriComponentsBuilder
+                .fromUri(oppgaveVentUri)
+                .pathSegment("oppdater-pa-vent")
+                .encode()
+                .toUriString()
+        return kastBrukerFeilHvisBadRequest { postForEntity<SettPåVentResponse>(uri, oppdaterPåVent) }
+    }
+
+    fun taAvVent(taAvVent: TaAvVentRequest): SettPåVentResponse {
+        val uri =
+            UriComponentsBuilder
+                .fromUri(oppgaveVentUri)
+                .pathSegment("ta-av-vent")
+                .encode()
+                .toUriString()
+        return kastBrukerFeilHvisBadRequest { postForEntity<SettPåVentResponse>(uri, taAvVent) }
+    }
+
+    private fun <T> kastBrukerFeilHvisBadRequest(fn: () -> T): T =
+        try {
+            fn()
+        } catch (e: ProblemDetailException) {
+            val detail = e.detail.detail
+            brukerfeilHvis(e.httpStatus == HttpStatus.BAD_REQUEST && detail != null) {
+                detail ?: "Ukjent feil"
+            }
+            throw e
+        }
 }

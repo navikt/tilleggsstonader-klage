@@ -8,6 +8,10 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.OppdaterPåVentRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentResponse
+import no.nav.tilleggsstonader.kontrakter.oppgave.vent.TaAvVentRequest
 import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import no.nav.tilleggsstonader.libs.spring.cache.getValue
 import org.slf4j.LoggerFactory
@@ -98,4 +102,10 @@ class OppgaveService(
             }
             mappeRespons.mapper
         }
+
+    fun settPåVent(settPåVent: SettPåVentRequest): SettPåVentResponse = oppgaveClient.settPåVent(settPåVent)
+
+    fun oppdaterPåVent(oppdaterPåVent: OppdaterPåVentRequest): SettPåVentResponse = oppgaveClient.oppdaterPåVent(oppdaterPåVent)
+
+    fun taAvVent(taAvVent: TaAvVentRequest): SettPåVentResponse = oppgaveClient.taAvVent(taAvVent)
 }

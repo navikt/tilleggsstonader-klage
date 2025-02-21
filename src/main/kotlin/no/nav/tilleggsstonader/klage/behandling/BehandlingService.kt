@@ -26,16 +26,19 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvisIkke
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
+import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.tilDto
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
+import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus.FERDIGSTILT
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -79,6 +82,24 @@ class BehandlingService(
         val behandling = hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
         return Pair(fagsak.hentAktivIdent(), fagsak)
+    }
+
+    fun oppdaterStatusPåBehandling(
+        behandlingId: BehandlingId,
+        status: BehandlingStatus,
+    ): Behandling {
+        val behandling = hentBehandling(behandlingId)
+        secureLogger.info(
+            "${SikkerhetContext.hentSaksbehandler()} endrer status på behandling $behandlingId " +
+                "fra ${behandling.status} til $status",
+        )
+
+        if (BehandlingStatus.UTREDES == status) {
+            // TODO er dette riktig ??
+            taskService.save(BehandlingsstatistikkTask.opprettPåbegyntTask(behandlingId))
+        }
+
+        return behandlingRepository.update(behandling.copy(status = status))
     }
 
     fun oppdaterBehandlingMedResultat(

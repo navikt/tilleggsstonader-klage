@@ -67,7 +67,17 @@ fun PåklagetVedtakstype.harManuellVedtaksdato(): Boolean =
 fun BehandlingStatus.erLåstForVidereBehandling() =
     when (SikkerhetContext.hentSaksbehandler()) {
         SikkerhetContext.SYSTEM_FORKORTELSE -> this != BehandlingStatus.VENTER
-        else -> setOf(BehandlingStatus.VENTER, BehandlingStatus.FERDIGSTILT).contains(this)
+        else ->
+            when (this) {
+                BehandlingStatus.OPPRETTET,
+                BehandlingStatus.UTREDES,
+                -> false
+
+                BehandlingStatus.SATT_PÅ_VENT,
+                BehandlingStatus.VENTER,
+                BehandlingStatus.FERDIGSTILT,
+                -> true
+            }
     }
 
 fun BehandlingStatus.erUnderArbeidAvSaksbehandler() = setOf(BehandlingStatus.OPPRETTET, BehandlingStatus.UTREDES).contains(this)

@@ -20,6 +20,7 @@ import java.time.LocalDateTime
 enum class BehandlingsstatistikkHendelse {
     MOTTATT,
     PÅBEGYNT,
+    VENTER,
     FERDIG,
     SENDT_TIL_KA,
 }

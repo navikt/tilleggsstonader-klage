@@ -7,6 +7,8 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
 import org.springframework.context.annotation.Profile
 import org.springframework.data.repository.findByIdOrNull
@@ -35,6 +37,8 @@ class TestoppsettService(
                 ),
             ).tilFagsakMedPerson(person.identer)
     }
+
+    fun hentBehandling(behandlingId: BehandlingId) = behandlingRepository.findByIdOrThrow(behandlingId)
 
     fun lagreBehandling(behandling: Behandling): Behandling = behandlingRepository.insert(behandling)
 

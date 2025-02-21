@@ -71,6 +71,8 @@ class FormService(
     }
 
     private fun opprettBehandlingsstatistikk(behandlingId: BehandlingId) {
+        // TODO ??
+        // Burde man sjekke på behandlingstatus her og?
         behandlingshistorikkService.hentBehandlingshistorikk(behandlingId).find { it.steg == StegType.FORMKRAV }
             ?: run {
                 taskService.save(BehandlingsstatistikkTask.opprettPåbegyntTask(behandlingId = behandlingId))
