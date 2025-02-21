@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppgaveConfig
 import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
@@ -17,9 +17,9 @@ import java.net.URI
 @Component
 class OppgaveClient(
     @Qualifier("azure") restTemplate: RestTemplate,
-    integrasjonerConfig: IntegrasjonerConfig,
+    oppgaveConfig: OppgaveConfig,
 ) : AbstractRestClient(restTemplate) {
-    private val oppgaveUri: URI = integrasjonerConfig.oppgaveUri
+    private val oppgaveUri: URI = oppgaveConfig.oppgaveUri
 
     fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long {
         val uri = URI.create("$oppgaveUri/opprett").toString()

@@ -30,6 +30,10 @@ Appen starter da opp med en in memory-database og er da tilgjengelig under `loca
 Databasen kan aksesseres på `localhost:8093/h2-console`. Log på jdbc url `jdbc:h2:mem:testdb` med bruker `sa` og blankt
 passord.
 
+* Hvis man ønsker å bruke samme oppgaver som brukes i tilleggsstonader-sak så kan man kalle på sak for å hente/opprette oppgaver 
+  * Kommenter ut `mock-oppgave`
+  * Kommenter inn `bruk-sak-oppgave`
+
 ### Kjøring med postgres-database
 
 For å kjøre opp appen lokalt med en postgres-database, kan en kjøre `KlageAppLocalPostgres`.

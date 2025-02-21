@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.infrastruktur.mocks
 
 import io.mockk.every
 import io.mockk.mockk
+import no.nav.tilleggsstonader.klage.infrastruktur.config.OppgaveConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveMappe
@@ -16,21 +17,31 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.StatusEnum
 import no.nav.tilleggsstonader.libs.utils.osloDateNow
 import no.nav.tilleggsstonader.libs.utils.osloNow
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
+import org.springframework.web.client.RestTemplate
+import java.net.URI
 import java.time.format.DateTimeFormatter
 import java.util.Optional
 
 @Configuration
-@Profile("mock-oppgave")
 class OppgaveClientConfig {
     var maxOppgaveId = 0L
     final var journalPostId = 0L
     val oppgavelager = mutableMapOf<Long, Oppgave>()
 
+    @Profile("bruk-sak-oppgave")
+    @Bean
+    @Primary
+    fun oppgaveClientSak(
+        @Qualifier("azure") restTemplate: RestTemplate,
+    ): OppgaveClient = OppgaveClient(restTemplate, OppgaveConfig(URI.create("http://localhost:8101/test")))
+
+    @Profile("mock-oppgave")
     @Bean
     @Primary
     fun oppgaveClient(): OppgaveClient {

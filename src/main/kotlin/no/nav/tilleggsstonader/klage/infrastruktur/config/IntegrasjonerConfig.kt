@@ -9,13 +9,6 @@ import java.net.URI
 class IntegrasjonerConfig(
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}") private val integrasjonUri: URI,
 ) {
-    val oppgaveUri: URI =
-        UriComponentsBuilder
-            .fromUri(integrasjonUri)
-            .pathSegment(PATH_OPPGAVE)
-            .build()
-            .toUri()
-
     val journalPostUri: URI =
         UriComponentsBuilder
             .fromUri(integrasjonUri)
@@ -38,7 +31,6 @@ class IntegrasjonerConfig(
             .toUri()
 
     companion object {
-        private const val PATH_OPPGAVE = "api/oppgave"
         private const val PATH_JOURNALPOST = "api/journalpost"
         private const val PATH_SAKSBEHANDLER = "api/saksbehandler"
         private const val PATH_DOKDIST = "api/dist"

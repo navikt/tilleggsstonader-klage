@@ -4,7 +4,6 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.okJson
-import com.github.tomakehurst.wiremock.client.WireMock.patch
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
@@ -23,7 +22,6 @@ import no.nav.tilleggsstonader.kontrakter.journalpost.Journalposttype
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalstatus
 import no.nav.tilleggsstonader.kontrakter.journalpost.LogiskVedlegg
 import no.nav.tilleggsstonader.kontrakter.journalpost.RelevantDato
-import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveResponse
 import no.nav.tilleggsstonader.kontrakter.sak.DokumentBrevkode
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -35,8 +33,6 @@ import org.springframework.web.client.RestTemplate
 import java.net.URI
 import java.time.LocalDateTime
 import java.util.UUID
-import kotlin.math.absoluteValue
-import kotlin.random.Random
 
 @Component
 class IntegrasjonerMock(
@@ -68,10 +64,6 @@ class IntegrasjonerMock(
                         ),
                     ).withStatus(200),
                 ),
-            post(urlEqualTo("${integrasjonerConfig.oppgaveUri.path}/opprett"))
-                .willReturn(okJson(objectMapper.writeValueAsString(OppgaveResponse(Random.nextLong().absoluteValue)))),
-            patch(urlPathMatching("${integrasjonerConfig.oppgaveUri.path}/([0-9]*)/ferdigstill"))
-                .willReturn(okJson(objectMapper.writeValueAsString(OppgaveResponse(Random.nextLong().absoluteValue)))),
         )
 
     @Bean("mock-integrasjoner")
