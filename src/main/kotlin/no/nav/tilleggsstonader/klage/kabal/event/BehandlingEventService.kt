@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
@@ -68,7 +69,7 @@ class BehandlingEventService(
         }
     }
 
-    private fun opprettBehandlingFeilregistretTask(behandlingId: UUID) {
+    private fun opprettBehandlingFeilregistretTask(behandlingId: BehandlingId) {
         taskService.save(BehandlingFeilregistrertTask.opprettTask(behandlingId))
     }
 

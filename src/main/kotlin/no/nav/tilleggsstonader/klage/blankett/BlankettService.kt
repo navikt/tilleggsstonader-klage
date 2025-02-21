@@ -5,13 +5,13 @@ import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.brev.BrevClient
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 class BlankettService(
@@ -22,7 +22,7 @@ class BlankettService(
     private val vurderingService: VurderingService,
     private val brevClient: BrevClient,
 ) {
-    fun lagBlankett(behandlingId: UUID): ByteArray {
+    fun lagBlankett(behandlingId: BehandlingId): ByteArray {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
         val formkrav = formService.hentFormDto(behandlingId)

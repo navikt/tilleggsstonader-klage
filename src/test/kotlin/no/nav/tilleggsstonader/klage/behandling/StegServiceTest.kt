@@ -11,6 +11,7 @@ import io.mockk.verify
 import io.mockk.verifyOrder
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
@@ -23,7 +24,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.util.UUID
 
 internal class StegServiceTest {
     val behandlingRepository = mockk<BehandlingRepository>()
@@ -37,7 +37,7 @@ internal class StegServiceTest {
             behandlingshistorikkService,
             tilgangService,
         )
-    val behandlingId: UUID = UUID.randomUUID()
+    val behandlingId: BehandlingId = BehandlingId.random()
     val behandling = behandling(id = behandlingId)
 
     val historikkSlot = mutableListOf<StegType>()
@@ -131,7 +131,7 @@ internal class StegServiceTest {
         val feil =
             assertThrows<Feil> {
                 stegService.oppdaterSteg(
-                    UUID.randomUUID(),
+                    BehandlingId.random(),
                     StegType.VURDERING,
                     StegType.BREV,
                 )

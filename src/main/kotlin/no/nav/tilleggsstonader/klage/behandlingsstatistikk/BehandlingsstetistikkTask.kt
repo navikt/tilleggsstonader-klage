@@ -4,12 +4,12 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.familie.prosessering.AsyncTaskStep
 import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.Properties
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -33,7 +33,7 @@ class BehandlingsstatistikkTask(
     }
 
     companion object {
-        fun opprettMottattTask(behandlingId: UUID): Task =
+        fun opprettMottattTask(behandlingId: BehandlingId): Task =
             opprettTask(
                 behandlingId = behandlingId,
                 hendelse = BehandlingsstatistikkHendelse.MOTTATT,
@@ -41,7 +41,7 @@ class BehandlingsstatistikkTask(
                 gjeldendeSaksbehandler = SikkerhetContext.hentSaksbehandler(),
             )
 
-        fun opprettPåbegyntTask(behandlingId: UUID): Task =
+        fun opprettPåbegyntTask(behandlingId: BehandlingId): Task =
             opprettTask(
                 behandlingId = behandlingId,
                 hendelse = BehandlingsstatistikkHendelse.PÅBEGYNT,
@@ -49,7 +49,7 @@ class BehandlingsstatistikkTask(
                 gjeldendeSaksbehandler = SikkerhetContext.hentSaksbehandler(true),
             )
 
-        fun opprettFerdigTask(behandlingId: UUID): Task =
+        fun opprettFerdigTask(behandlingId: BehandlingId): Task =
             opprettTask(
                 behandlingId = behandlingId,
                 hendelse = BehandlingsstatistikkHendelse.FERDIG,
@@ -58,7 +58,7 @@ class BehandlingsstatistikkTask(
             )
 
         fun opprettSendtTilKATask(
-            behandlingId: UUID,
+            behandlingId: BehandlingId,
             hendelseTidspunkt: LocalDateTime = LocalDateTime.now(),
             gjeldendeSaksbehandler: String = SikkerhetContext.hentSaksbehandler(true),
         ): Task =
@@ -70,7 +70,7 @@ class BehandlingsstatistikkTask(
             )
 
         private fun opprettTask(
-            behandlingId: UUID,
+            behandlingId: BehandlingId,
             hendelse: BehandlingsstatistikkHendelse,
             hendelseTidspunkt: LocalDateTime = LocalDateTime.now(),
             gjeldendeSaksbehandler: String,
@@ -100,7 +100,7 @@ class BehandlingsstatistikkTask(
 }
 
 data class BehandlingsstatistikkTaskPayload(
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val hendelse: BehandlingsstatistikkHendelse,
     val hendelseTidspunkt: LocalDateTime,
     val gjeldendeSaksbehandler: String?,

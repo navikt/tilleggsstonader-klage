@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.distribusjon
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TekstUtil.storForbokstav
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.dokarkiv.ArkiverDokumentRequest
@@ -16,7 +17,6 @@ import no.nav.tilleggsstonader.kontrakter.dokdist.Distribusjonstype
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 class DistribusjonService(
@@ -25,7 +25,7 @@ class DistribusjonService(
     private val behandlingService: BehandlingService,
 ) {
     fun journalførVedtaksbrev(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         brev: ByteArray,
         saksbehandler: String,
         index: Int = 0,
@@ -46,7 +46,7 @@ class DistribusjonService(
     }
 
     fun journalførInterntVedtak(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         saksbehandlingsblankettPdf: ByteArray,
         saksbehandler: String,
     ): String {
@@ -64,7 +64,7 @@ class DistribusjonService(
     }
 
     private fun journalfør(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         fagsak: Fagsak,
         pdf: ByteArray,
         tittel: String,
@@ -122,7 +122,7 @@ class DistribusjonService(
             dokumenttype = dokumenttype,
         )
 
-    private fun utledBrevtittel(behandlingId: UUID): String {
+    private fun utledBrevtittel(behandlingId: BehandlingId): String {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val stønadstype = fagsakService.hentFagsakForBehandling(behandlingId).stønadstype
 

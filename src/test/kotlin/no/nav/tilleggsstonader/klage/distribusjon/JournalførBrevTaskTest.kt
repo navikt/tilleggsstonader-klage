@@ -16,6 +16,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.brev.domain.MottakerRolle
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak
@@ -27,7 +28,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.util.Properties
-import java.util.UUID
 
 internal class JournalførBrevTaskTest {
     val behandlingService = mockk<BehandlingService>()
@@ -43,7 +43,7 @@ internal class JournalførBrevTaskTest {
             brevService = brevService,
         )
 
-    val behandlingId: UUID = UUID.randomUUID()
+    val behandlingId: BehandlingId = BehandlingId.random()
     val journalpostId = "12345678"
     val propertiesMedJournalpostId =
         Properties().apply {

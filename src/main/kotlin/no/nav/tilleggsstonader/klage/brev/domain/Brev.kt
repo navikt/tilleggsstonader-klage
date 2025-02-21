@@ -1,14 +1,14 @@
 package no.nav.tilleggsstonader.klage.brev.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Embedded
-import java.util.UUID
 
 data class Brev(
     @Id
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val saksbehandlerHtml: String,
     val pdf: Fil? = null,
     val mottakere: Brevmottakere? = null,

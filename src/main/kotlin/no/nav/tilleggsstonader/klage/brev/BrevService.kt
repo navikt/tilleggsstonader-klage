@@ -18,6 +18,7 @@ import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
 import no.nav.tilleggsstonader.klage.brev.dto.tilDomene
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
@@ -32,7 +33,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
-import java.util.UUID
 
 @Service
 class BrevService(
@@ -46,15 +46,15 @@ class BrevService(
     private val vurderingService: VurderingService,
     private val personopplysningerService: PersonopplysningerService,
 ) {
-    fun hentBrev(behandlingId: UUID): Brev = brevRepository.findByIdOrThrow(behandlingId)
+    fun hentBrev(behandlingId: BehandlingId): Brev = brevRepository.findByIdOrThrow(behandlingId)
 
-    fun hentBrevmottakere(behandlingId: UUID): Brevmottakere {
+    fun hentBrevmottakere(behandlingId: BehandlingId): Brevmottakere {
         val brev = brevRepository.findByIdOrThrow(behandlingId)
         return brev.mottakere ?: Brevmottakere()
     }
 
     fun settBrevmottakere(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         brevmottakere: BrevmottakereDto,
     ) {
         val behandling = behandlingService.hentBehandling(behandlingId)
@@ -69,7 +69,7 @@ class BrevService(
         brevRepository.update(brev.copy(mottakere = mottakere))
     }
 
-    fun lagBrev(behandlingId: UUID): ByteArray {
+    fun lagBrev(behandlingId: BehandlingId): ByteArray {
         val personopplysninger = personopplysningerService.hentPersonopplysninger(behandlingId)
         val navn = personopplysninger.navn
         val behandling = behandlingService.hentBehandling(behandlingId)
@@ -159,12 +159,12 @@ class BrevService(
         }
     }
 
-    fun hentBrevPdf(behandlingId: UUID): ByteArray =
+    fun hentBrevPdf(behandlingId: BehandlingId): ByteArray =
         brevRepository.findByIdOrThrow(behandlingId).pdf?.bytes
             ?: error("Finner ikke brev-pdf for behandling=$behandlingId")
 
     private fun lagreEllerOppdaterBrev(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         saksbehandlerHtml: String,
         fagsak: Fagsak,
     ): Brev {
@@ -183,7 +183,7 @@ class BrevService(
     }
 
     private fun initialiserBrevmottakere(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         fagsak: Fagsak,
     ) = Brevmottakere(
         personer =
@@ -196,7 +196,7 @@ class BrevService(
             ),
     )
 
-    fun lagBrevPdf(behandlingId: UUID) {
+    fun lagBrevPdf(behandlingId: BehandlingId) {
         val brev = brevRepository.findByIdOrThrow(behandlingId)
         feilHvis(brev.pdf != null) {
             "Det finnes allerede en lagret pdf"
@@ -208,13 +208,13 @@ class BrevService(
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun oppdaterMottakerJournalpost(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         brevmottakereJournalposter: BrevmottakereJournalposter,
     ) {
         brevRepository.oppdaterMottakerJournalpost(behandlingId, brevmottakereJournalposter)
     }
 
-    private fun utledBehandlingResultat(behandlingId: UUID): BehandlingResultat =
+    private fun utledBehandlingResultat(behandlingId: BehandlingId): BehandlingResultat =
         if (formService.formkravErOppfyltForBehandling(behandlingId)) {
             vurderingService.hentVurdering(behandlingId)?.vedtak?.tilBehandlingResultat()
                 ?: throw Feil("Burde funnet behandling $behandlingId")

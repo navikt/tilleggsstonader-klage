@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.personopplysninger
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.fullmakt.FullmaktService
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
@@ -14,7 +15,6 @@ import no.nav.tilleggsstonader.klage.personopplysninger.pdl.gjeldende
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.visningsnavn
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 class PersonopplysningerService(
@@ -25,7 +25,7 @@ class PersonopplysningerService(
     private val tilleggsstonaderSakClient: TilleggsstonaderSakClient,
 ) {
     @Cacheable("hentPersonopplysninger", cacheManager = "shortCache")
-    fun hentPersonopplysninger(behandlingId: UUID): PersonopplysningerDto {
+    fun hentPersonopplysninger(behandlingId: BehandlingId): PersonopplysningerDto {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
 

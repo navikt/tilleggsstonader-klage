@@ -14,6 +14,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.Behandlingshistorikk
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
@@ -46,7 +47,7 @@ internal class FormServiceTest {
             taskService,
         )
 
-    private val behandlingId = UUID.randomUUID()
+    private val behandlingId = BehandlingId.random()
 
     @BeforeEach
     internal fun setUp() {
@@ -132,7 +133,7 @@ internal class FormServiceTest {
             val behandlingshistorikk =
                 Behandlingshistorikk(
                     UUID.randomUUID(),
-                    UUID.randomUUID(),
+                    BehandlingId.random(),
                     StegType.OPPRETTET,
                 )
             every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns
@@ -149,7 +150,7 @@ internal class FormServiceTest {
             val behandlingshistorikk =
                 Behandlingshistorikk(
                     UUID.randomUUID(),
-                    UUID.randomUUID(),
+                    BehandlingId.random(),
                     StegType.FORMKRAV,
                 )
             every { SikkerhetContext.hentSaksbehandler(any()) } returns "saksbehandler"

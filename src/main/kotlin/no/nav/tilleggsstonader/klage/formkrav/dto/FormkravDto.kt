@@ -1,14 +1,14 @@
 package no.nav.tilleggsstonader.klage.formkrav.dto
 
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
 import java.time.LocalDateTime
-import java.util.UUID
 
 data class FormkravDto(
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val klagePart: FormVilkår,
     val klageKonkret: FormVilkår,
     val klagefristOverholdt: FormVilkår,

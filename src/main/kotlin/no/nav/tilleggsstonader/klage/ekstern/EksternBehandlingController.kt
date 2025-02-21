@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.tilEksternKlagebehandlingDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping(path = ["/api/ekstern/behandling"])
@@ -83,7 +83,7 @@ class EksternBehandlingController(
 
     @PatchMapping("{behandlingId}/gjelder-tilbakekreving")
     fun oppdaterOppgaveTilÅGjeldeTilbakekreving(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ) {
         oppgaveService.oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId)
     }

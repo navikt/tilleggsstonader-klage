@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.infrastruktur
 import no.nav.security.token.support.core.api.Unprotected
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
@@ -33,7 +34,7 @@ class TestHendelseController(
 ) {
     @GetMapping("{behandlingId}")
     fun hentBehandling(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ): Behandling = behandlingRepository.findByIdOrThrow(behandlingId)
 
     @PostMapping
@@ -45,7 +46,7 @@ class TestHendelseController(
 
     @PostMapping("{behandlingId}/dummy")
     fun opprettDummyKabalEvent(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
         behandlingEventService.handleEvent(
@@ -69,7 +70,7 @@ class TestHendelseController(
 
     @PostMapping("{behandlingId}/startanke")
     fun opprettDummyKabalAnkeEvent(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
         behandlingEventService.handleEvent(
@@ -92,7 +93,7 @@ class TestHendelseController(
 
     @PostMapping("{behandlingId}/avsluttanke")
     fun opprettDummyKabalAvsluttAnkeEvent(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
         behandlingEventService.handleEvent(

@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.vurdering.dto
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
-import java.util.UUID
 
 data class VurderingDto(
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val vedtak: Vedtak,
     val årsak: Årsak? = null,
     val begrunnelseOmgjøring: String? = null,

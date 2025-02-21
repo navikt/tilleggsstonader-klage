@@ -7,9 +7,9 @@ import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -21,7 +21,7 @@ class DistribuerBrevTask(
     private val distribusjonService: DistribusjonService,
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
         val brev = brevService.hentBrev(behandlingId)
         val journalposter = mottakereJournalpost(brev)
 
@@ -38,7 +38,7 @@ class DistribuerBrevTask(
     }
 
     private fun distribuerOgLagreJournalposter(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         acc: List<BrevmottakereJournalpost>,
         journalpost: BrevmottakereJournalpost,
     ): List<BrevmottakereJournalpost> =
@@ -59,7 +59,7 @@ class DistribuerBrevTask(
         }
 
     private fun validerHarJournalposter(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         journalposter: List<BrevmottakereJournalpost>,
     ) {
         feilHvis(journalposter.isEmpty()) {

@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.brev
 import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagFormkravAvvistBrev
 import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagFormkravAvvistBrevIkkePåklagetVedtak
 import no.nav.tilleggsstonader.klage.brev.BrevInnhold.lagOpprettholdelseBrev
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.påklagetVedtakDetaljer
@@ -11,7 +12,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
 
 internal class BrevInnholdTest {
     private val mottattDato = LocalDate.of(2020, 1, 1)
@@ -69,5 +69,7 @@ internal class BrevInnholdTest {
         assertThat(brev.avsnitt.size).isEqualTo(6)
     }
 
-    private fun ikkeOppfyltForm() = oppfyltForm(UUID.randomUUID()).copy(klagePart = FormVilkår.IKKE_OPPFYLT, brevtekst = "brevtekst")
+    private fun ikkeOppfyltForm() =
+        oppfyltForm(BehandlingId.random())
+            .copy(klagePart = FormVilkår.IKKE_OPPFYLT, brevtekst = "brevtekst")
 }

@@ -4,12 +4,12 @@ import no.nav.familie.prosessering.AsyncTaskStep
 import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.distribusjon.DistribusjonService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.Properties
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -23,7 +23,7 @@ class LagSaksbehandlingsblankettTask(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun doTask(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
         val blankettPdf = blankettService.lagBlankett(behandlingId)
         val journalpostId =
             distribusjonService.journalførInterntVedtak(
@@ -38,7 +38,7 @@ class LagSaksbehandlingsblankettTask(
     companion object {
         const val TYPE = "LagSaksbehandlingsblankett"
 
-        fun opprettTask(behandlingId: UUID): Task =
+        fun opprettTask(behandlingId: BehandlingId): Task =
             Task(
                 type = TYPE,
                 payload = behandlingId.toString(),

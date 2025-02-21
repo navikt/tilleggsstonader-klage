@@ -5,6 +5,7 @@ import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettKlagebehandlingRequest
@@ -29,7 +30,7 @@ class TestController(
     @PostMapping("opprett")
     fun opprettDummybehandling(
         @RequestBody request: DummybehandlingRequest,
-    ): Ressurs<UUID> {
+    ): Ressurs<BehandlingId> {
         val fagsakPerson = fagsakPersonService.hentEllerOpprettPerson(setOf(request.ident), request.ident)
         // findByEksternIdAndFagsystemAndStønadstype ?
         val eksternFagsakId =

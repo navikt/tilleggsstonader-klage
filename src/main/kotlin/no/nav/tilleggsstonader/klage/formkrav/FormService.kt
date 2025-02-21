@@ -7,6 +7,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.dto.tilDto
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.alleVilkårOppfylt
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.utledFormresultat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
@@ -17,7 +18,6 @@ import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
 
 @Service
 class FormService(
@@ -28,10 +28,10 @@ class FormService(
     private val vurderingService: VurderingService,
     private val taskService: TaskService,
 ) {
-    fun hentForm(behandlingId: UUID): Form = formRepository.findByIdOrThrow(behandlingId)
+    fun hentForm(behandlingId: BehandlingId): Form = formRepository.findByIdOrThrow(behandlingId)
 
     @Transactional
-    fun opprettInitielleFormkrav(behandlingId: UUID): Form = formRepository.insert(Form(behandlingId = behandlingId))
+    fun opprettInitielleFormkrav(behandlingId: BehandlingId): Form = formRepository.insert(Form(behandlingId = behandlingId))
 
     @Transactional
     fun oppdaterFormkrav(formkrav: FormkravDto): FormkravDto {
@@ -70,19 +70,19 @@ class FormService(
         return formRepository.update(oppdaterteFormkrav).tilDto(nyttPåklagetVedtak)
     }
 
-    private fun opprettBehandlingsstatistikk(behandlingId: UUID) {
+    private fun opprettBehandlingsstatistikk(behandlingId: BehandlingId) {
         behandlingshistorikkService.hentBehandlingshistorikk(behandlingId).find { it.steg == StegType.FORMKRAV }
             ?: run {
                 taskService.save(BehandlingsstatistikkTask.opprettPåbegyntTask(behandlingId = behandlingId))
             }
     }
 
-    fun formkravErOppfyltForBehandling(behandlingId: UUID): Boolean {
+    fun formkravErOppfyltForBehandling(behandlingId: BehandlingId): Boolean {
         val form = formRepository.findByIdOrThrow(behandlingId)
         return alleVilkårOppfylt(form)
     }
 
-    fun hentFormDto(behandlingId: UUID): FormkravDto {
+    fun hentFormDto(behandlingId: BehandlingId): FormkravDto {
         val påklagetVedtak = behandlingService.hentBehandling(behandlingId).påklagetVedtak
         return hentForm(behandlingId).tilDto(påklagetVedtak.tilDto())
     }

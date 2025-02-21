@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveTaskService
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
-import java.util.UUID
 
 @Service
 class OpprettBehandlingService(
@@ -30,7 +30,7 @@ class OpprettBehandlingService(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Transactional
-    fun opprettBehandling(opprettKlagebehandlingRequest: OpprettKlagebehandlingRequest): UUID {
+    fun opprettBehandling(opprettKlagebehandlingRequest: OpprettKlagebehandlingRequest): BehandlingId {
         val klageMottatt = opprettKlagebehandlingRequest.klageMottatt
         val stønadstype = opprettKlagebehandlingRequest.stønadstype
         val eksternFagsakId = opprettKlagebehandlingRequest.eksternFagsakId

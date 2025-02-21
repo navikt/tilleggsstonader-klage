@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
@@ -15,7 +16,7 @@ import java.util.UUID
  * Aggregering av behandling, fagsak, vedtak for å hente ut relevant informasjon i en spørring
  */
 data class Klagebehandlingsresultat(
-    val id: UUID,
+    val id: BehandlingId,
     val fagsakId: UUID,
     val fagsakPersonId: UUID,
     val status: BehandlingStatus,
@@ -32,7 +33,7 @@ data class Klagebehandlingsresultat(
 
 fun Klagebehandlingsresultat.tilEksternKlagebehandlingDto(klageinstansResultat: List<KlageinstansResultatDto>) =
     KlagebehandlingDto(
-        id = this.id,
+        id = this.id.id,
         fagsakId = this.fagsakId,
         status = this.status,
         opprettet = this.opprettet,

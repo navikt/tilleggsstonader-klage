@@ -7,6 +7,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
@@ -23,12 +24,12 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
 
 class BehandlingRepositoryTest : IntegrationTest() {
     @Autowired private lateinit var behandlingRepository: BehandlingRepository
 
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("1")))
+    val behandlingId = BehandlingId.random()
 
     @BeforeEach
     fun setUp() {
@@ -37,8 +38,6 @@ class BehandlingRepositoryTest : IntegrationTest() {
 
     @Test
     fun insertBehandling() {
-        val id = UUID.randomUUID()
-
         val påklagetVedtakDetaljer =
             PåklagetVedtakDetaljer(
                 fagsystemType = FagsystemType.ORDNIÆR,
@@ -53,7 +52,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
             behandlingRepository.insert(
                 behandling(
                     fagsak = fagsak,
-                    id = id,
+                    id = behandlingId,
                     klageMottatt = LocalDate.now(),
                     påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer),
                     henlagtÅrsak = HenlagtÅrsak.TRUKKET_TILBAKE,
@@ -62,7 +61,7 @@ class BehandlingRepositoryTest : IntegrationTest() {
                 ),
             )
 
-        val hentetBehandling = behandlingRepository.findByIdOrThrow(id)
+        val hentetBehandling = behandlingRepository.findByIdOrThrow(behandlingId)
 
         assertThat(behandling.id).isEqualTo(hentetBehandling.id)
         assertThat(behandling.fagsakId).isEqualTo(hentetBehandling.fagsakId)
@@ -81,31 +80,27 @@ class BehandlingRepositoryTest : IntegrationTest() {
 
     @Test
     fun updateStatus() {
-        val id = UUID.randomUUID()
-
-        val behandling = behandlingRepository.insert(behandling(fagsak, id))
+        val behandling = behandlingRepository.insert(behandling(fagsak, behandlingId))
 
         assertThat(behandling.status).isEqualTo(BehandlingStatus.OPPRETTET)
 
         val nyStatus = BehandlingStatus.UTREDES
 
-        behandlingRepository.updateStatus(id, nyStatus)
+        behandlingRepository.updateStatus(behandlingId, nyStatus)
 
-        assertThat(behandlingRepository.findByIdOrThrow(id).status).isEqualTo(nyStatus)
+        assertThat(behandlingRepository.findByIdOrThrow(behandlingId).status).isEqualTo(nyStatus)
     }
 
     @Test
     fun updateSteg() {
-        val id = UUID.randomUUID()
-
-        val behandling = behandlingRepository.insert(behandling(fagsak, id))
+        val behandling = behandlingRepository.insert(behandling(fagsak, behandlingId))
 
         assertThat(behandling.steg).isEqualTo(StegType.FORMKRAV)
 
         val nyttSteg = StegType.VURDERING
-        behandlingRepository.updateSteg(id, nyttSteg)
+        behandlingRepository.updateSteg(behandlingId, nyttSteg)
 
-        assertThat(behandlingRepository.findByIdOrThrow(id).steg).isEqualTo(nyttSteg)
+        assertThat(behandlingRepository.findByIdOrThrow(behandlingId).steg).isEqualTo(nyttSteg)
     }
 
     @Test

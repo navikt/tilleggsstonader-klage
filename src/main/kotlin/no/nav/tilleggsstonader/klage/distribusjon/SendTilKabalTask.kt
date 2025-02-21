@@ -5,11 +5,11 @@ import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata
 import no.nav.tilleggsstonader.klage.kabal.KabalService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -23,7 +23,7 @@ class SendTilKabalTask(
     private val vurderingService: VurderingService,
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
         val saksbehandlerIdent = task.metadata[TaskMetadata.SAKSBEHANDLER_METADATA_KEY].toString()
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)

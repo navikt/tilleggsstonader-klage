@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.formkrav.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Embedded
-import java.util.UUID
 
 data class Form(
     @Id
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val klagePart: FormVilkår = FormVilkår.IKKE_SATT,
     val klagefristOverholdt: FormVilkår = FormVilkår.IKKE_SATT,
     val klagefristOverholdtUnntak: FormkravFristUnntak = FormkravFristUnntak.IKKE_SATT,

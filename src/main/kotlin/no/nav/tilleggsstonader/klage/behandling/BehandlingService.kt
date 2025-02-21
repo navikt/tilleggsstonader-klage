@@ -19,6 +19,7 @@ import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkSe
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
@@ -39,7 +40,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Service
 class BehandlingService(
@@ -53,9 +53,9 @@ class BehandlingService(
 ) {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
-    fun hentBehandling(behandlingId: UUID): Behandling = behandlingRepository.findByIdOrThrow(behandlingId)
+    fun hentBehandling(behandlingId: BehandlingId): Behandling = behandlingRepository.findByIdOrThrow(behandlingId)
 
-    fun hentBehandlingDto(behandlingId: UUID): BehandlingDto {
+    fun hentBehandlingDto(behandlingId: BehandlingId): BehandlingDto {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return behandlingRepository
             .findByIdOrThrow(behandlingId)
@@ -64,7 +64,7 @@ class BehandlingService(
 
     fun opprettBehandling(behandling: Behandling): Behandling = behandlingRepository.insert(behandling)
 
-    fun hentKlageresultatDto(behandlingId: UUID): List<KlageinstansResultatDto> {
+    fun hentKlageresultatDto(behandlingId: BehandlingId): List<KlageinstansResultatDto> {
         val klageresultater = klageresultatRepository.findByBehandlingId(behandlingId)
         return klageresultater.tilDto()
     }
@@ -74,14 +74,14 @@ class BehandlingService(
         fagsystem: Fagsystem,
     ): List<Klagebehandlingsresultat> = behandlingRepository.finnKlagebehandlingsresultat(eksternFagsakId, fagsystem)
 
-    fun hentAktivIdent(behandlingId: UUID): Pair<String, Fagsak> {
+    fun hentAktivIdent(behandlingId: BehandlingId): Pair<String, Fagsak> {
         val behandling = hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
         return Pair(fagsak.hentAktivIdent(), fagsak)
     }
 
     fun oppdaterBehandlingMedResultat(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         behandlingsresultat: BehandlingResultat,
         opprettetRevurdering: FagsystemRevurdering?,
     ) {
@@ -100,7 +100,7 @@ class BehandlingService(
 
     @Transactional
     fun oppdaterPåklagetVedtak(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         påklagetVedtakDto: PåklagetVedtakDto,
     ) {
         val behandling = hentBehandling(behandlingId)
@@ -129,7 +129,7 @@ class BehandlingService(
     }
 
     private fun påklagetVedtakDetaljer(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         påklagetVedtakDto: PåklagetVedtakDto,
     ): PåklagetVedtakDetaljer? {
         if (påklagetVedtakDto.påklagetVedtakstype.harManuellVedtaksdato()) {
@@ -161,7 +161,7 @@ class BehandlingService(
 
     @Transactional
     fun henleggBehandling(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         henlagt: HenlagtDto,
     ) {
         val behandling = hentBehandling(behandlingId)

@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.PdlClient
@@ -41,7 +42,7 @@ class FagsakService(
         return fagsak.tilFagsakMedPerson(fagsakPersonService.hentIdenter(fagsak.fagsakPersonId))
     }
 
-    fun hentFagsakForBehandling(behandlingId: UUID): Fagsak {
+    fun hentFagsakForBehandling(behandlingId: BehandlingId): Fagsak {
         val fagsak = fagsakRepository.finnFagsakForBehandlingId(behandlingId)
         return fagsak?.tilFagsakMedPerson(fagsakPersonService.hentIdenter(fagsak.fagsakPersonId))
             ?: throw Feil("Finner ikke fagsak til behandlingId=$behandlingId")

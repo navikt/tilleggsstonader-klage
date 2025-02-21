@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
@@ -10,5 +11,5 @@ import java.util.UUID
 interface KlageresultatRepository :
     RepositoryInterface<KlageinstansResultat, UUID>,
     InsertUpdateRepository<KlageinstansResultat> {
-    fun findByBehandlingId(behandlingId: UUID): List<KlageinstansResultat>
+    fun findByBehandlingId(behandlingId: BehandlingId): List<KlageinstansResultat>
 }

@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
@@ -16,7 +17,7 @@ import java.util.UUID
 
 data class Behandling(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    val id: BehandlingId = BehandlingId.random(),
     val fagsakId: UUID,
     val steg: StegType = StegType.FORMKRAV,
     val status: BehandlingStatus = BehandlingStatus.OPPRETTET,

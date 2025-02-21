@@ -10,12 +10,12 @@ import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.util.UUID
 
 internal class DistribuerBrevTaskTest {
     private val brevService = mockk<BrevService>()
@@ -23,7 +23,7 @@ internal class DistribuerBrevTaskTest {
 
     val distribuerBrevTask = DistribuerBrevTask(brevService, distribusjonService)
 
-    val behandlingId: UUID = UUID.randomUUID()
+    val behandlingId: BehandlingId = BehandlingId.random()
     val slotJournalposter = mutableListOf<BrevmottakereJournalposter>()
 
     @BeforeEach

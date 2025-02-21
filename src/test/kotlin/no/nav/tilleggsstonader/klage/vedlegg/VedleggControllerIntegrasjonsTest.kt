@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
@@ -13,7 +14,6 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.UUID
 
 internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
     final val fagsak = DomainUtil.fagsakDomain().tilFagsak()
@@ -40,7 +40,7 @@ internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
         førsteDokumentMetadata ?: error("Mangler metadata til dokument")
     }
 
-    private fun finnVedlegg(behandlingId: UUID): ResponseEntity<List<DokumentinfoDto>> =
+    private fun finnVedlegg(behandlingId: BehandlingId): ResponseEntity<List<DokumentinfoDto>> =
         restTemplate.exchange(
             localhost("/api/vedlegg/$behandlingId"),
             HttpMethod.GET,

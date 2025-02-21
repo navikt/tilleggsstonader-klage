@@ -1,6 +1,7 @@
 package no.nav.tilleggsstonader.klage.fagsak
 
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
@@ -26,5 +27,5 @@ interface FagsakRepository :
                         ON b.fagsak_id = f.id 
                     WHERE b.id = :behandlingId""",
     )
-    fun finnFagsakForBehandlingId(behandlingId: UUID): FagsakDomain?
+    fun finnFagsakForBehandlingId(behandlingId: BehandlingId): FagsakDomain?
 }

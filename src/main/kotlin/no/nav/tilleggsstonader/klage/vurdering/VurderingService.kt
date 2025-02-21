@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.vurdering
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.brev.BrevRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.vurdering.VurderingValidator.validerVurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
@@ -11,7 +12,6 @@ import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
 
 @Service
 class VurderingService(
@@ -19,9 +19,9 @@ class VurderingService(
     private val stegService: StegService,
     private val brevRepository: BrevRepository,
 ) {
-    fun hentVurdering(behandlingId: UUID): Vurdering? = vurderingRepository.findByIdOrNull(behandlingId)
+    fun hentVurdering(behandlingId: BehandlingId): Vurdering? = vurderingRepository.findByIdOrNull(behandlingId)
 
-    fun hentVurderingDto(behandlingId: UUID): VurderingDto? = hentVurdering(behandlingId)?.tilDto()
+    fun hentVurderingDto(behandlingId: BehandlingId): VurderingDto? = hentVurdering(behandlingId)?.tilDto()
 
     @Transactional
     fun opprettEllerOppdaterVurdering(vurdering: VurderingDto): VurderingDto {
@@ -40,7 +40,7 @@ class VurderingService(
         }
     }
 
-    fun slettVurderingForBehandling(behandlingId: UUID) {
+    fun slettVurderingForBehandling(behandlingId: BehandlingId) {
         vurderingRepository.deleteById(behandlingId)
     }
 

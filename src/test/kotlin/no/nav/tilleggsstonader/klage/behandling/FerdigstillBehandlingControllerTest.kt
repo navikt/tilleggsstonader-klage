@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.distribusjon.DistribuerBrevTask
 import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
@@ -31,7 +32,6 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.UUID
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -97,7 +97,7 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
         }
     }
 
-    private fun ferdigstill(behandlingId: UUID): ResponseEntity<Ressurs<Unit>> =
+    private fun ferdigstill(behandlingId: BehandlingId): ResponseEntity<Ressurs<Unit>> =
         restTemplate.exchange(
             localhost("/api/behandling/$behandlingId/ferdigstill"),
             HttpMethod.POST,

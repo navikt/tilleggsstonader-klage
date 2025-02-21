@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.InsertUpdateRepository
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.RepositoryInterface
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
@@ -15,14 +16,14 @@ import java.util.UUID
 
 @Repository
 interface BehandlingRepository :
-    RepositoryInterface<Behandling, UUID>,
+    RepositoryInterface<Behandling, BehandlingId>,
     InsertUpdateRepository<Behandling> {
     @Modifying
     @Query(
-        """UPDATE behandling SET steg = :steg WHERE id = :behandling_id""",
+        """UPDATE behandling SET steg = :steg WHERE id = :behandlingId""",
     )
     fun updateSteg(
-        behandling_id: UUID,
+        behandlingId: BehandlingId,
         steg: StegType,
     )
 
@@ -31,7 +32,7 @@ interface BehandlingRepository :
         """UPDATE behandling SET status = :nyStatus WHERE id = :behandling_id""",
     )
     fun updateStatus(
-        @Param("behandling_id") behandlingId: UUID,
+        @Param("behandling_id") behandlingId: BehandlingId,
         nyStatus: BehandlingStatus,
     )
 

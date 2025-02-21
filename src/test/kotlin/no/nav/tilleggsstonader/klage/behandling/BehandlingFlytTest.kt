@@ -5,6 +5,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.brev.BrevService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
@@ -170,7 +171,7 @@ class BehandlingFlytTest : IntegrationTest() {
             )
         }
 
-        private fun lagEllerOppdaterBrev(behandlingId: UUID) {
+        private fun lagEllerOppdaterBrev(behandlingId: BehandlingId) {
             brevService.lagBrev(behandlingId)
         }
     }
@@ -188,11 +189,11 @@ class BehandlingFlytTest : IntegrationTest() {
         )
 
     private fun oppfyltFormDto(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         påklagetVedtakDto: PåklagetVedtakDto = DomainUtil.påklagetVedtakDto(),
     ) = DomainUtil.oppfyltForm(behandlingId).tilDto(påklagetVedtakDto)
 
-    private fun ikkeOppfyltFormDto(behandlingId: UUID) =
+    private fun ikkeOppfyltFormDto(behandlingId: BehandlingId) =
         DomainUtil.oppfyltForm(behandlingId).tilDto(DomainUtil.påklagetVedtakDto()).copy(
             klagePart = FormVilkår.IKKE_OPPFYLT,
             saksbehandlerBegrunnelse = "Ok",

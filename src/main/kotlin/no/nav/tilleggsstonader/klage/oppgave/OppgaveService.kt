@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.oppgave
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.erUnderArbeidAvSaksbehandler
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
@@ -24,7 +25,7 @@ class OppgaveService(
 
     fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long = oppgaveClient.opprettOppgave(opprettOppgaveRequest)
 
-    fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: UUID) {
+    fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: BehandlingId) {
         val behandling = behandlingService.hentBehandling(behandlingId)
 
         // Skal ikke oppdatere tema for oppgaver som alt er ferdigstilt
@@ -49,7 +50,7 @@ class OppgaveService(
     fun hentBehandlingIderForOppgaver(oppgaveIder: List<Long>): Map<Long, UUID> =
         behandleSakOppgaveRepository
             .finnForOppgaveIder(oppgaveIder)
-            .associate { it.oppgaveId to it.behandlingId }
+            .associate { it.oppgaveId to it.behandlingId.id }
 
     fun finnMappe(
         enhet: String,

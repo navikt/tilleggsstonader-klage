@@ -8,11 +8,11 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -28,7 +28,7 @@ class BehandlingFeilregistrertTask(
     private val fagsakService: FagsakService,
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
 
         taskService.save(lagOpprettOppgaveTask(behandlingId))
 
@@ -39,7 +39,7 @@ class BehandlingFeilregistrertTask(
         )
     }
 
-    private fun lagOpprettOppgaveTask(behandlingId: UUID): Task {
+    private fun lagOpprettOppgaveTask(behandlingId: BehandlingId): Task {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         val årsakFeilregistrert =
@@ -65,6 +65,6 @@ class BehandlingFeilregistrertTask(
     companion object {
         const val TYPE = "BehandlingFeilregistrert"
 
-        fun opprettTask(behandlingId: UUID): Task = Task(TYPE, behandlingId.toString())
+        fun opprettTask(behandlingId: BehandlingId): Task = Task(TYPE, behandlingId.toString())
     }
 }

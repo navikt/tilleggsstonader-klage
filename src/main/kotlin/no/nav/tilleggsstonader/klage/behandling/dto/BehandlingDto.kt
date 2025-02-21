@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDT
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
@@ -19,7 +20,7 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 data class BehandlingDto(
-    val id: UUID,
+    val id: BehandlingId,
     val fagsakId: UUID,
     val steg: StegType,
     val status: BehandlingStatus,

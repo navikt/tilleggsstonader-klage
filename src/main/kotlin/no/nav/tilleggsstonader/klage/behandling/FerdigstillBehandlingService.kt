@@ -12,6 +12,7 @@ import no.nav.tilleggsstonader.klage.behandlingsstatistikk.Behandlingsstatistikk
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
 import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
@@ -28,7 +29,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat.MEDHOLD
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Properties
-import java.util.UUID
 
 @Service
 class FerdigstillBehandlingService(
@@ -45,7 +45,7 @@ class FerdigstillBehandlingService(
      * Skal ikke være @transactional fordi det er mulig å komme delvis igjennom løypa
      */
     @Transactional
-    fun ferdigstillKlagebehandling(behandlingId: UUID) {
+    fun ferdigstillKlagebehandling(behandlingId: BehandlingId) {
         val behandling = behandlingService.hentBehandling(behandlingId)
         val behandlingsresultat = utledBehandlingResultat(behandlingId)
 
@@ -85,7 +85,7 @@ class FerdigstillBehandlingService(
             null
         }
 
-    private fun opprettJournalførBrevTask(behandlingId: UUID) {
+    private fun opprettJournalførBrevTask(behandlingId: BehandlingId) {
         val journalførBrevTask =
             Task(
                 type = JournalførBrevTask.TYPE,
@@ -114,7 +114,7 @@ class FerdigstillBehandlingService(
         }
     }
 
-    private fun utledBehandlingResultat(behandlingId: UUID): BehandlingResultat =
+    private fun utledBehandlingResultat(behandlingId: BehandlingId): BehandlingResultat =
         if (formService.formkravErOppfyltForBehandling(behandlingId)) {
             vurderingService.hentVurdering(behandlingId)?.vedtak?.tilBehandlingResultat()
                 ?: throw Feil("Burde funnet behandling $behandlingId")

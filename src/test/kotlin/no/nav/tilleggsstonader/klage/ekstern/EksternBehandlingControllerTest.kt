@@ -89,7 +89,7 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
             assertThat(entry.value).hasSize(1)
 
             val klagebehandling = entry.value.single()
-            assertThat(klagebehandling.id).isEqualTo(behandling.id)
+            assertThat(klagebehandling.id).isEqualTo(behandling.id.id)
             assertThat(klagebehandling.fagsakId).isEqualTo(behandling.fagsakId)
             assertThat(klagebehandling.status).isEqualTo(behandling.status)
             assertThat(klagebehandling.mottattDato).isEqualTo(behandling.klageMottatt)

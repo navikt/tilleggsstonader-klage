@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.vedlegg
 import io.mockk.every
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
@@ -11,7 +12,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
-import java.util.UUID
 
 internal class VedleggServiceTest {
     val behandlingServiceMock = mockk<BehandlingService>()
@@ -43,7 +43,7 @@ internal class VedleggServiceTest {
 
         every { journalpostServiceMock.finnJournalposter(any(), any()) } returns listOf(journalPost)
 
-        val vedlegg = vedleggService.finnVedleggPåBehandling(UUID.randomUUID())
+        val vedlegg = vedleggService.finnVedleggPåBehandling(BehandlingId.random())
 
         Assertions.assertThat(vedlegg.first().dato).isEqualToIgnoringNanos(datoRegistrert.dato)
     }
@@ -58,7 +58,7 @@ internal class VedleggServiceTest {
 
         every { journalpostServiceMock.finnJournalposter(any(), any()) } returns listOf(journalPost)
 
-        val vedlegg = vedleggService.finnVedleggPåBehandling(UUID.randomUUID())
+        val vedlegg = vedleggService.finnVedleggPåBehandling(BehandlingId.random())
 
         Assertions.assertThat(vedlegg.first().dato).isEqualToIgnoringNanos(datoJournalført.dato)
     }
@@ -73,7 +73,7 @@ internal class VedleggServiceTest {
 
         every { journalpostServiceMock.finnJournalposter(any(), any()) } returns listOf(journalPost)
 
-        val vedlegg = vedleggService.finnVedleggPåBehandling(UUID.randomUUID())
+        val vedlegg = vedleggService.finnVedleggPåBehandling(BehandlingId.random())
 
         Assertions.assertThat(vedlegg.first().dato).isEqualToIgnoringNanos(datoDokument.dato)
     }
@@ -88,7 +88,7 @@ internal class VedleggServiceTest {
 
         every { journalpostServiceMock.finnJournalposter(any(), any()) } returns listOf(journalPost)
 
-        val vedlegg = vedleggService.finnVedleggPåBehandling(UUID.randomUUID())
+        val vedlegg = vedleggService.finnVedleggPåBehandling(BehandlingId.random())
 
         Assertions.assertThat(vedlegg.first().dato).isEqualToIgnoringNanos(datoOpprettet.dato)
     }
@@ -103,7 +103,7 @@ internal class VedleggServiceTest {
 
         every { journalpostServiceMock.finnJournalposter(any(), any()) } returns listOf(journalPost)
 
-        val vedlegg = vedleggService.finnVedleggPåBehandling(UUID.randomUUID())
+        val vedlegg = vedleggService.finnVedleggPåBehandling(BehandlingId.random())
 
         Assertions.assertThat(vedlegg.first().dato).isNull()
     }

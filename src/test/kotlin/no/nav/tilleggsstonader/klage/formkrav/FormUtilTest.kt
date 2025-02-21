@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.formkrav
 
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.alleVilkårOppfylt
 import no.nav.tilleggsstonader.klage.formkrav.FormUtil.utledFormresultat
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
@@ -11,14 +12,13 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.util.UUID
 
 internal class FormUtilTest {
     val påklagetVedtakMedBehandling = PåklagetVedtakDto(eksternFagsystemBehandlingId = "123", PåklagetVedtakstype.VEDTAK)
     val påklagetVedtakUtenBehandling = PåklagetVedtakDto(eksternFagsystemBehandlingId = null, PåklagetVedtakstype.UTEN_VEDTAK)
     val påklagetVedtakIkkeValgt = PåklagetVedtakDto(eksternFagsystemBehandlingId = null, PåklagetVedtakstype.IKKE_VALGT)
 
-    val behandlingId: UUID = UUID.randomUUID()
+    val behandlingId: BehandlingId = BehandlingId.random()
     val oppfyltForm = oppfyltForm(behandlingId)
     val ikkeOppfyltForm =
         oppfyltForm.copy(
@@ -26,7 +26,7 @@ internal class FormUtilTest {
             klagePart = FormVilkår.IKKE_OPPFYLT,
             brevtekst = "brevtekst",
         )
-    val ikkeFerdigUtfyltForm = Form(UUID.randomUUID())
+    val ikkeFerdigUtfyltForm = Form(BehandlingId.random())
 
     @Nested
     inner class UtledFormresultat {

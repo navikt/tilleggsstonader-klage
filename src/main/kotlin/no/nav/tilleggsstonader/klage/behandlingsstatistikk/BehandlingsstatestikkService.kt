@@ -5,6 +5,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkHendelse.FERDIG
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkHendelse.SENDT_TIL_KA
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
@@ -15,7 +16,6 @@ import no.nav.tilleggsstonader.kontrakter.saksstatistikk.SakYtelseDvh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.util.UUID
 
 enum class BehandlingsstatistikkHendelse {
     MOTTATT,
@@ -34,7 +34,7 @@ class BehandlingsstatistikkService(
 ) {
     @Transactional
     fun sendBehandlingstatistikk(
-        behandlingsId: UUID,
+        behandlingsId: BehandlingId,
         hendelse: BehandlingsstatistikkHendelse,
         hendelseTidspunkt: LocalDateTime,
         gjeldendeSaksbehandler: String?,
@@ -46,7 +46,7 @@ class BehandlingsstatistikkService(
 
     // TODO: Denne mangler anti-corruption layer. Hvis vi f.eks. endrer på BehandlingResultat.Årsak-enumen, vil kontrakten med DVH påvirkes.
     private fun mapTilBehandlingStatistikk(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         hendelse: BehandlingsstatistikkHendelse,
         hendelseTidspunkt: LocalDateTime,
         gjeldendeSaksbehandler: String?,

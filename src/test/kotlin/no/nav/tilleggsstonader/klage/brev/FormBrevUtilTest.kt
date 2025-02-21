@@ -8,21 +8,21 @@ import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGE_SIG
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledIkkeOppfylteFormkrav
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledLovtekst
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.utledÅrsakTilAvvisningstekst
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår.IKKE_OPPFYLT
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.oppfyltForm
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.util.UUID
 
 internal class FormBrevUtilTest {
     @Test
     internal fun `et formkrav ikke oppfylt`() {
-        val klagePart = oppfyltForm(UUID.randomUUID()).copy(klagePart = IKKE_OPPFYLT)
-        val klageKonkret = oppfyltForm(UUID.randomUUID()).copy(klageKonkret = IKKE_OPPFYLT)
-        val klageSignert = oppfyltForm(UUID.randomUUID()).copy(klageSignert = IKKE_OPPFYLT)
-        val klagefristOverholdt = oppfyltForm(UUID.randomUUID()).copy(klagefristOverholdt = IKKE_OPPFYLT)
+        val klagePart = oppfyltForm(BehandlingId.random()).copy(klagePart = IKKE_OPPFYLT)
+        val klageKonkret = oppfyltForm(BehandlingId.random()).copy(klageKonkret = IKKE_OPPFYLT)
+        val klageSignert = oppfyltForm(BehandlingId.random()).copy(klageSignert = IKKE_OPPFYLT)
+        val klagefristOverholdt = oppfyltForm(BehandlingId.random()).copy(klagefristOverholdt = IKKE_OPPFYLT)
 
         assertThat(utledIkkeOppfylteFormkrav(klagePart)).isEqualTo(setOf(KLAGE_PART))
         assertThat(utledIkkeOppfylteFormkrav(klageKonkret)).isEqualTo(setOf(KLAGE_KONKRET))
@@ -33,7 +33,7 @@ internal class FormBrevUtilTest {
     @Test
     internal fun `ingen formkrav oppfylt`() {
         val formkravFireIkkeOppfylt =
-            oppfyltForm(UUID.randomUUID()).copy(
+            oppfyltForm(BehandlingId.random()).copy(
                 klagePart = IKKE_OPPFYLT,
                 klageSignert = IKKE_OPPFYLT,
                 klageKonkret = IKKE_OPPFYLT,

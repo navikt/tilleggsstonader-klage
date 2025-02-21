@@ -7,6 +7,7 @@ import io.mockk.verify
 import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.brev.BrevRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
@@ -15,7 +16,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
-import java.util.UUID
 
 class VurderingServiceTest {
     val vurderingRepository = mockk<VurderingRepository>()
@@ -25,7 +25,7 @@ class VurderingServiceTest {
 
     val omgjørVedtakVurdering =
         vurdering(
-            behandlingId = UUID.randomUUID(),
+            behandlingId = BehandlingId.random(),
             vedtak = Vedtak.OMGJØR_VEDTAK,
             hjemmel = null,
             årsak = Årsak.FEIL_I_LOVANDVENDELSE,
@@ -34,7 +34,7 @@ class VurderingServiceTest {
 
     val opprettholdVedtakVurdering =
         vurdering(
-            behandlingId = UUID.randomUUID(),
+            behandlingId = BehandlingId.random(),
             vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
             hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN,
         )

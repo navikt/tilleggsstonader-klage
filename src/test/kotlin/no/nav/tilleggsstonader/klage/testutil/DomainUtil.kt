@@ -11,6 +11,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
 import no.nav.tilleggsstonader.klage.felles.util.tilFagsystem
@@ -70,7 +71,7 @@ object DomainUtil {
 
     fun behandling(
         fagsak: Fagsak = fagsak(),
-        id: UUID = UUID.randomUUID(),
+        id: BehandlingId = BehandlingId.random(),
         eksternBehandlingId: UUID = UUID.randomUUID(),
         påklagetVedtak: PåklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.IKKE_VALGT, null),
         klageMottatt: LocalDate = LocalDate.now(),
@@ -102,7 +103,7 @@ object DomainUtil {
         )
 
     fun vurdering(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
         hjemmel: Hjemmel? = Hjemmel.FS_TILL_ST_10_TILSYN,
         årsak: Årsak? = null,
@@ -119,7 +120,7 @@ object DomainUtil {
     )
 
     fun vurderingDto(
-        behandlingId: UUID = UUID.randomUUID(),
+        behandlingId: BehandlingId = BehandlingId.random(),
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
         årsak: Årsak? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) null else Årsak.FEIL_I_LOVANDVENDELSE,
         begrunnelseOmgjøring: String? = null,
@@ -136,7 +137,7 @@ object DomainUtil {
         interntNotat = interntNotat,
     )
 
-    fun oppfyltForm(behandlingId: UUID) =
+    fun oppfyltForm(behandlingId: BehandlingId) =
         Form(
             behandlingId = behandlingId,
             klagePart = FormVilkår.OPPFYLT,
@@ -179,7 +180,7 @@ object DomainUtil {
         mottattEllerAvsluttetTidspunkt: LocalDateTime = SporbarUtils.now(),
         kildereferanse: UUID = UUID.randomUUID(),
         journalpostReferanser: List<String> = listOf("1", "2"),
-        behandlingId: UUID = UUID.randomUUID(),
+        behandlingId: BehandlingId = BehandlingId.random(),
     ): KlageinstansResultat =
         KlageinstansResultat(
             eventId = eventId,

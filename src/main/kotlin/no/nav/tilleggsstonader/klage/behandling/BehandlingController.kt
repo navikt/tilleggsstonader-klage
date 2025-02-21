@@ -4,6 +4,7 @@ import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.tilleggsstonader.klage.behandling.dto.BehandlingDto
 import no.nav.tilleggsstonader.klage.behandling.dto.HenlagtDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.integrasjoner.FagsystemVedtakService
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping(path = ["/api/behandling"])
@@ -31,7 +31,7 @@ class BehandlingController(
 ) {
     @GetMapping("{behandlingId}")
     fun hentBehandling(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ): BehandlingDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)
@@ -40,7 +40,7 @@ class BehandlingController(
 
     @PostMapping("{behandlingId}/ferdigstill")
     fun ferdigstillBehandling(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.CREATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
@@ -49,7 +49,7 @@ class BehandlingController(
 
     @PostMapping("{behandlingId}/henlegg")
     fun henleggBehandling(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
         @RequestBody henlegg: HenlagtDto,
     ) {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
@@ -59,7 +59,7 @@ class BehandlingController(
 
     @GetMapping("{behandlingId}/fagsystem-vedtak")
     fun hentFagsystemVedtak(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ): List<FagsystemVedtak> {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)
@@ -68,7 +68,7 @@ class BehandlingController(
 
     @GetMapping("{behandlingId}/kan-opprette-revurdering")
     fun kanOppretteRevurdering(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ): KanOppretteRevurderingResponse {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
         tilgangService.validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId)

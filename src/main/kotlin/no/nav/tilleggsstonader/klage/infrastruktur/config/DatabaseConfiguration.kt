@@ -9,6 +9,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.felles.domain.Endret
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.IdConverters.alleValueClassConverters
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.apache.commons.lang3.StringUtils
 import org.postgresql.util.PGobject
@@ -66,7 +67,7 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
                 BytearrayTilPåklagetVedtakDetaljerConverter(),
                 OpprettetRevurderingTilBytearrayConverter(),
                 BytearrayTilOpprettetRevurderingConverter(),
-            ),
+            ) + alleValueClassConverters,
         )
 
     @Bean

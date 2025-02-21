@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.vurdering.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.kabal.domain.KabalHjemmel
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
@@ -7,11 +8,10 @@ import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Embedded
-import java.util.UUID
 
 data class Vurdering(
     @Id
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     val vedtak: Vedtak,
     @Column("arsak")
     val årsak: Årsak? = null,

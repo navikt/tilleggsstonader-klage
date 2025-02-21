@@ -6,6 +6,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLogger
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlerRolle
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.CustomKeyValue
 import no.nav.tilleggsstonader.klage.felles.domain.Sporingsdata
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
@@ -29,7 +30,7 @@ class TilgangService(
     private val fagsakService: FagsakService,
 ) {
     fun validerTilgangTilPersonMedRelasjonerForBehandling(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         event: AuditLoggerEvent,
     ) {
         val personIdent =
@@ -109,11 +110,11 @@ class TilgangService(
             fagsakService.hentFagsak(fagsakId)
         }
 
-    fun validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId: UUID) {
+    fun validerHarSaksbehandlerrolleTilStønadForBehandling(behandlingId: BehandlingId) {
         validerHarRolleForBehandling(behandlingId, BehandlerRolle.SAKSBEHANDLER)
     }
 
-    fun validerHarVeilederrolleTilStønadForBehandling(behandlingId: UUID) {
+    fun validerHarVeilederrolleTilStønadForBehandling(behandlingId: BehandlingId) {
         validerHarRolleForBehandling(behandlingId, BehandlerRolle.VEILEDER)
     }
 
@@ -122,7 +123,7 @@ class TilgangService(
     }
 
     private fun validerHarRolleForBehandling(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         minumumRolle: BehandlerRolle,
     ) {
         if (!harTilgangTilBehandlingGittRolle(behandlingId, minumumRolle)) {
@@ -139,7 +140,7 @@ class TilgangService(
         harTilgangTilGittRolleForFagsystem(rolleConfig.ts, minimumsrolle)
 
     fun harTilgangTilBehandlingGittRolle(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         minimumsrolle: BehandlerRolle,
     ): Boolean = harTilgangTilFagsakGittRolle(behandlingService.hentBehandling(behandlingId).fagsakId, minimumsrolle)
 

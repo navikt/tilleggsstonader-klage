@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.formkrav
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import org.springframework.validation.annotation.Validated
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping(path = ["/api/formkrav"])
@@ -23,7 +23,7 @@ class FormController(
 ) {
     @GetMapping("vilkar/{behandlingId}")
     fun hentVilkår(
-        @PathVariable behandlingId: UUID,
+        @PathVariable behandlingId: BehandlingId,
     ): FormkravDto {
         tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.ACCESS)
         tilgangService.validerHarVeilederrolleTilStønadForBehandling(behandlingId)

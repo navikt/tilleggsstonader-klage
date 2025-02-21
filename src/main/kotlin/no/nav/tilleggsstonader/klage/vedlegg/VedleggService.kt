@@ -1,20 +1,20 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.journalpost.JournalpostService
 import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo
 import no.nav.tilleggsstonader.kontrakter.journalpost.Dokumentvariantformat
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Service
 class VedleggService(
     private val behandlingService: BehandlingService,
     private val journalpostService: JournalpostService,
 ) {
-    fun finnVedleggPåBehandling(behandlingId: UUID): List<DokumentinfoDto> {
+    fun finnVedleggPåBehandling(behandlingId: BehandlingId): List<DokumentinfoDto> {
         val (personIdent) = behandlingService.hentAktivIdent(behandlingId)
         val journalposter = journalpostService.finnJournalposter(personIdent)
 

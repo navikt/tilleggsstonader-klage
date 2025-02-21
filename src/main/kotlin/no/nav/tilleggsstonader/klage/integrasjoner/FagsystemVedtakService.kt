@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
@@ -11,7 +12,6 @@ import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 private val ukjentFeilVedOpprettRevurdering =
     OpprettRevurderingResponse(
@@ -29,7 +29,7 @@ class FagsystemVedtakService(
     private val logger = LoggerFactory.getLogger(javaClass)
     private val secureLogger: Logger = LoggerFactory.getLogger("secureLogger")
 
-    fun hentFagsystemVedtak(behandlingId: UUID): List<FagsystemVedtak> {
+    fun hentFagsystemVedtak(behandlingId: BehandlingId): List<FagsystemVedtak> {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return hentFagsystemVedtak(fagsak)
     }
@@ -40,7 +40,7 @@ class FagsystemVedtakService(
         }
 
     fun hentFagsystemVedtakForPåklagetBehandlingId(
-        behandlingId: UUID,
+        behandlingId: BehandlingId,
         påklagetBehandlingId: String,
     ): FagsystemVedtak =
         hentFagsystemVedtak(behandlingId)
@@ -48,14 +48,14 @@ class FagsystemVedtakService(
             ?: error("Finner ikke vedtak for behandling=$behandlingId eksternBehandling=$påklagetBehandlingId")
 
     // Burde denne og bruket av denne slettes, den er ikke helt i bruk
-    fun kanOppretteRevurdering(behandlingId: UUID): KanOppretteRevurderingResponse {
+    fun kanOppretteRevurdering(behandlingId: BehandlingId): KanOppretteRevurderingResponse {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return when (fagsak.fagsystem) {
             Fagsystem.TILLEGGSSTONADER -> tilleggsstonaderSakClient.kanOppretteRevurdering(fagsak.eksternId)
         }
     }
 
-    fun opprettRevurdering(behandlingId: UUID): OpprettRevurderingResponse {
+    fun opprettRevurdering(behandlingId: BehandlingId): OpprettRevurderingResponse {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return try {
             when (fagsak.fagsystem) {

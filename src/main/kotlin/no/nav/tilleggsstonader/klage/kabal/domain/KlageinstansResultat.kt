@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal.domain
 
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
@@ -19,7 +20,7 @@ class KlageinstansResultat(
     val mottattEllerAvsluttetTidspunkt: LocalDateTime,
     val kildereferanse: UUID,
     val journalpostReferanser: StringListWrapper,
-    val behandlingId: UUID,
+    val behandlingId: BehandlingId,
     @Column("arsak_feilregistrert")
     val årsakFeilregistrert: String? = null,
 )

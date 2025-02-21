@@ -12,11 +12,11 @@ import no.nav.tilleggsstonader.klage.brev.domain.Brevmottakere
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.distribusjon.JournalføringUtil.mapAvsenderMottaker
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.personopplysninger.pdl.logger
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
@@ -30,7 +30,7 @@ class JournalførBrevTask(
     private val brevService: BrevService,
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
         val saksbehandler = task.metadata[SAKSBEHANDLER_METADATA_KEY].toString()
 
         val brev = brevService.hentBrev(behandlingId)
@@ -69,7 +69,7 @@ class JournalførBrevTask(
     }
 
     override fun onCompletion(task: Task) {
-        val behandlingId = UUID.fromString(task.payload)
+        val behandlingId = BehandlingId.fromString(task.payload)
         val behandling = behandlingService.hentBehandling(behandlingId)
         if (behandling.resultat == BehandlingResultat.IKKE_MEDHOLD) {
             opprettSendTilKabalTask(task)
