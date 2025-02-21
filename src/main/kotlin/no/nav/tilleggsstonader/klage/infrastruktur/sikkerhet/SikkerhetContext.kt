@@ -55,6 +55,8 @@ object SikkerhetContext {
                 onFailure = { emptyList() },
             )
 
+    fun erSaksbehandler(): Boolean = hentSaksbehandler() != SYSTEM_FORKORTELSE
+
     private fun TokenValidationContext.getClaim(name: String) = this.getJwtToken("azuread")?.jwtTokenClaims?.get(name)
 
     fun harRolle(rolle: String): Boolean = hentGrupperFraToken().contains(rolle)
