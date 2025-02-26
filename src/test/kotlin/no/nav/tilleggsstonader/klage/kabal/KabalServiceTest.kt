@@ -53,7 +53,7 @@ internal class KabalServiceTest {
     fun sendTilKabal() {
         val påklagetVedtakDetaljer = påklagetVedtakDetaljer()
         val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.VEDTAK, påklagetVedtakDetaljer))
-        val vurdering = vurdering(behandlingId = behandling.id, hjemmel = hjemmel)
+        val vurdering = vurdering(behandlingId = behandling.id, hjemler = listOf(hjemmel))
 
         kabalService.sendTilKabal(fagsak, behandling, vurdering, saksbehandlerA.navIdent)
 
@@ -81,7 +81,7 @@ internal class KabalServiceTest {
     @Test
     internal fun `skal sette innsynUrl til saksoversikten hvis påklaget vedtak ikke er satt`() {
         val behandling = behandling(fagsak, påklagetVedtak = PåklagetVedtak(PåklagetVedtakstype.UTEN_VEDTAK))
-        val vurdering = vurdering(behandlingId = behandling.id, hjemmel = hjemmel)
+        val vurdering = vurdering(behandlingId = behandling.id, hjemler = listOf(hjemmel))
 
         kabalService.sendTilKabal(fagsak, behandling, vurdering, saksbehandlerB.navIdent)
 

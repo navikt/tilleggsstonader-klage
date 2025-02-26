@@ -64,7 +64,7 @@ class BlankettService(
                 vedtak = it.vedtak,
                 årsak = it.årsak,
                 begrunnelseOmgjøring = it.begrunnelseOmgjøring,
-                hjemmel = it.hjemmel,
+                hjemler = it.hjemler, // TODO map i blankettløsningen
                 innstillingKlageinstans = it.innstillingKlageinstans,
                 interntNotat = it.interntNotat,
             )

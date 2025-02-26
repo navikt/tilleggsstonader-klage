@@ -66,7 +66,7 @@ class KabalService(
             fagsak = OversendtSak(fagsakId = fagsak.eksternId, fagsystem = fagsak.fagsystem),
             kildeReferanse = behandling.eksternBehandlingId.toString(),
             innsynUrl = lagInnsynUrl(fagsak, behandling.påklagetVedtak),
-            hjemler = vurdering.hjemmel?.let { listOf(it.kabalHjemmel) } ?: emptyList(),
+            hjemler = vurdering.hjemler?.hjemler?.map { it.kabalHjemmel } ?: emptyList(),
             forrigeBehandlendeEnhet = saksbehandlersEnhet,
             tilknyttedeJournalposter = listOf(),
             brukersHenvendelseMottattNavDato = behandling.klageMottatt,

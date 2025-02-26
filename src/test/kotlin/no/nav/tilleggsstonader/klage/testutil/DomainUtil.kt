@@ -23,6 +23,7 @@ import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Adressebeskyttelse
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.Folkeregisterpersonstatus
 import no.nav.tilleggsstonader.klage.personopplysninger.dto.PersonopplysningerDto
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
@@ -105,14 +106,14 @@ object DomainUtil {
     fun vurdering(
         behandlingId: BehandlingId,
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-        hjemmel: Hjemmel? = Hjemmel.FS_TILL_ST_10_TILSYN,
+        hjemler: List<Hjemmel>? = listOf(Hjemmel.FS_TILL_ST_10_TILSYN),
         årsak: Årsak? = null,
         begrunnelseOmgjøring: String? = null,
         interntNotat: String? = null,
     ) = Vurdering(
         behandlingId = behandlingId,
         vedtak = vedtak,
-        hjemmel = hjemmel,
+        hjemler = hjemler?.let { Hjemler(hjemler) },
         innstillingKlageinstans = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) "En begrunnelse" else null,
         årsak = årsak,
         begrunnelseOmgjøring = begrunnelseOmgjøring,
@@ -124,7 +125,7 @@ object DomainUtil {
         vedtak: Vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
         årsak: Årsak? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) null else Årsak.FEIL_I_LOVANDVENDELSE,
         begrunnelseOmgjøring: String? = null,
-        hjemmel: Hjemmel? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) Hjemmel.FS_TILL_ST_10_TILSYN else null,
+        hjemler: List<Hjemmel>? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) listOf(Hjemmel.FS_TILL_ST_10_TILSYN) else null,
         innstillingKlageinstans: String? = if (vedtak == Vedtak.OPPRETTHOLD_VEDTAK) "En begrunnelse" else null,
         interntNotat: String? = null,
     ) = VurderingDto(
@@ -132,7 +133,7 @@ object DomainUtil {
         vedtak = vedtak,
         årsak = årsak,
         begrunnelseOmgjøring = begrunnelseOmgjøring,
-        hjemmel = hjemmel,
+        hjemler = hjemler,
         innstillingKlageinstans = innstillingKlageinstans,
         interntNotat = interntNotat,
     )

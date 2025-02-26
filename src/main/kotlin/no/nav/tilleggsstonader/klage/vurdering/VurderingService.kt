@@ -5,6 +5,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.brev.BrevRepository
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.vurdering.VurderingValidator.validerVurdering
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
@@ -51,7 +52,7 @@ class VurderingService(
                 vedtak = vurdering.vedtak,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemmel = vurdering.hjemmel,
+                hjemler = vurdering.hjemler?.let { Hjemler(it) },
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 interntNotat = vurdering.interntNotat,
             ),
@@ -67,7 +68,7 @@ class VurderingService(
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemmel = vurdering.hjemmel,
+                hjemler = vurdering.hjemler?.let { Hjemler(it) },
                 interntNotat = vurdering.interntNotat,
             ),
         )

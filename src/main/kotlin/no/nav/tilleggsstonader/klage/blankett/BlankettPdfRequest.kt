@@ -50,7 +50,7 @@ data class BlankettVurderingDto(
     val vedtak: Vedtak,
     val årsak: Årsak?,
     val begrunnelseOmgjøring: String?,
-    val hjemmel: Hjemmel?,
+    val hjemler: List<Hjemmel>?,
     val innstillingKlageinstans: String?,
     val interntNotat: String?,
 )
