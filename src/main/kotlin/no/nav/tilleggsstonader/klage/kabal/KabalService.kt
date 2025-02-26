@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSak
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
 import no.nav.tilleggsstonader.klage.kabal.domain.Ytelse
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -71,8 +72,16 @@ class KabalService(
             brukersHenvendelseMottattNavDato = behandling.klageMottatt,
             innsendtTilNav = behandling.klageMottatt,
             kilde = fagsak.fagsystem,
-            ytelse = Ytelse.TSO_TSO,
+            ytelse = mapYtelse(fagsak),
         )
+
+    private fun mapYtelse(fagsak: Fagsak): Ytelse =
+        when (fagsak.stønadstype) {
+            Stønadstype.BARNETILSYN -> Ytelse.TSO_TSO
+            Stønadstype.LÆREMIDLER -> Ytelse.TSO_TSO
+            Stønadstype.BOUTGIFTER -> Ytelse.TSO_TSO
+            else -> error("Har ikke lagt til mapping mellom ${fagsak.stønadstype} og ytelse")
+        }
 
     private fun lagInnsynUrl(
         fagsak: Fagsak,

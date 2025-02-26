@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
             "mock-kabal",
             "mock-ereg",
             "mock-oppgave",
-            //"bruk-sak-oppgave",
+            // "bruk-sak-oppgave",
             "mock-kafka",
         ).run(*args)
 }
