@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
@@ -121,6 +122,9 @@ tasks.test {
     useJUnitPlatform()
     testLogging {
         events = setOf(TestLogEvent.FAILED)
+        exceptionFormat = TestExceptionFormat.FULL
+        showStackTraces = false
+        showCauses = false
     }
 }
 
