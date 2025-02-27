@@ -175,12 +175,12 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
         override fun convert(o: Hjemler): PGobject =
             PGobject().apply {
                 type = "json"
-                value = objectMapper.writeValueAsString(o)
+                value = objectMapper.writeValueAsString(o.hjemler)
             }
     }
 
     @ReadingConverter
     class JsonTilHjemlerConverter : Converter<PGobject, Hjemler> {
-        override fun convert(pGobject: PGobject): Hjemler = objectMapper.readValue(pGobject.value!!)
+        override fun convert(pGobject: PGobject): Hjemler = Hjemler(objectMapper.readValue(pGobject.value!!))
     }
 }
