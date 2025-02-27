@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.felles.domain.Endret
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.IdConverters.alleValueClassConverters
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.apache.commons.lang3.StringUtils
 import org.postgresql.util.PGobject
@@ -67,6 +68,8 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
                 BytearrayTilPåklagetVedtakDetaljerConverter(),
                 OpprettetRevurderingTilBytearrayConverter(),
                 BytearrayTilOpprettetRevurderingConverter(),
+                HjemlerTilJsonConverter(),
+                JsonTilHjemlerConverter(),
             ) + alleValueClassConverters,
         )
 
@@ -165,5 +168,19 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
     @ReadingConverter
     class BytearrayTilOpprettetRevurderingConverter : Converter<PGobject, FagsystemRevurdering> {
         override fun convert(pGobject: PGobject): FagsystemRevurdering = objectMapper.readValue(pGobject.value!!)
+    }
+
+    @WritingConverter
+    class HjemlerTilJsonConverter : Converter<Hjemler, PGobject> {
+        override fun convert(o: Hjemler): PGobject =
+            PGobject().apply {
+                type = "json"
+                value = objectMapper.writeValueAsString(o.hjemler)
+            }
+    }
+
+    @ReadingConverter
+    class JsonTilHjemlerConverter : Converter<PGobject, Hjemler> {
+        override fun convert(pGobject: PGobject): Hjemler = Hjemler(objectMapper.readValue(pGobject.value!!))
     }
 }

@@ -31,7 +31,6 @@ import java.time.LocalDateTime
 /**
  * For å teste breven:
  * * Ta inn @Disabled
- * * Sett SKAL_SKRIVE_TIL_FIL til true
  * * Kjør tester
  * * Formatter html
  * * Kommenter ut @Disabled
@@ -41,8 +40,8 @@ class BrevGenereringTest {
     val htmlifyClient: HtmlifyClient = lagHtmlifyClient()
     val familieDokumentClient: FamilieDokumentClient = lagFamilieDokumentClient()
 
-    @Test
     @Disabled
+    @Test
     fun `generer internt vedtak`() {
         val html = htmlifyClient.genererBlankett(BlankettTestData.request)
         val filnavn = "brev/blankett"
@@ -177,7 +176,7 @@ private object BlankettTestData {
             vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
             årsak = Årsak.FEIL_PROSESSUELL,
             begrunnelseOmgjøring = "begrunnelse omgjøring",
-            hjemmel = Hjemmel.FL_10,
+            hjemler = listOf(Hjemmel.FL_10),
             innstillingKlageinstans = "Instilling",
             interntNotat = "Internt notat",
         )

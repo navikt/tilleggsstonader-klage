@@ -17,7 +17,7 @@ data class Vurdering(
     val årsak: Årsak? = null,
     @Column("begrunnelse_omgjoring")
     val begrunnelseOmgjøring: String? = null,
-    val hjemmel: Hjemmel? = null,
+    val hjemler: Hjemler? = null,
     val innstillingKlageinstans: String? = null,
     @Embedded(onEmpty = Embedded.OnEmpty.USE_EMPTY)
     val sporbar: Sporbar = Sporbar(),
@@ -35,6 +35,10 @@ enum class Vedtak {
             OPPRETTHOLD_VEDTAK -> BehandlingResultat.IKKE_MEDHOLD
         }
 }
+
+data class Hjemler(
+    val hjemler: List<Hjemmel>,
+)
 
 enum class Hjemmel(
     val kabalHjemmel: KabalHjemmel,

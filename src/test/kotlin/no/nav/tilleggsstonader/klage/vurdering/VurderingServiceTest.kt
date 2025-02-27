@@ -27,7 +27,7 @@ class VurderingServiceTest {
         vurdering(
             behandlingId = BehandlingId.random(),
             vedtak = Vedtak.OMGJØR_VEDTAK,
-            hjemmel = null,
+            hjemler = null,
             årsak = Årsak.FEIL_I_LOVANDVENDELSE,
             begrunnelseOmgjøring = "begrunnelse",
         )
@@ -36,7 +36,7 @@ class VurderingServiceTest {
         vurdering(
             behandlingId = BehandlingId.random(),
             vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-            hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN,
+            hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN),
         )
 
     @BeforeEach

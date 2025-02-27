@@ -17,7 +17,7 @@ internal class VurderingValidatorTest {
             validerVurdering(
                 vurderingDto(
                     vedtak = Vedtak.OMGJØR_VEDTAK,
-                    hjemmel = null,
+                    hjemler = null,
                     årsak = Årsak.FEIL_I_LOVANDVENDELSE,
                     begrunnelseOmgjøring = "begrunnelse",
                 ),
@@ -27,7 +27,7 @@ internal class VurderingValidatorTest {
         @Test
         internal fun `skal feile når årsak er null`() {
             assertThatThrownBy {
-                validerVurdering(vurderingDto(vedtak = Vedtak.OMGJØR_VEDTAK, hjemmel = null, årsak = null))
+                validerVurdering(vurderingDto(vedtak = Vedtak.OMGJØR_VEDTAK, hjemler = null, årsak = null))
             }.hasMessage("Mangler årsak på omgjør vedtak")
         }
 
@@ -37,7 +37,7 @@ internal class VurderingValidatorTest {
                 validerVurdering(
                     vurderingDto(
                         vedtak = Vedtak.OMGJØR_VEDTAK,
-                        hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN,
+                        hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN),
                         årsak = Årsak.ANNET,
                         begrunnelseOmgjøring = "begrunnelse",
                     ),
@@ -57,13 +57,13 @@ internal class VurderingValidatorTest {
     inner class OpprettholdVedtak {
         @Test
         internal fun `skal validere når man har med hjemmel, men årsak er null`() {
-            validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN, årsak = null))
+            validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN), årsak = null))
         }
 
         @Test
         internal fun `skal feile når hjemmel er null`() {
             assertThatThrownBy {
-                validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = null, årsak = null))
+                validerVurdering(vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemler = null, årsak = null))
             }.hasMessage("Mangler hjemmel på oppretthold vedtak")
         }
 
@@ -71,7 +71,7 @@ internal class VurderingValidatorTest {
         internal fun `skal feile når årsak ikke er null`() {
             assertThatThrownBy {
                 validerVurdering(
-                    vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN, årsak = Årsak.ANNET),
+                    vurderingDto(vedtak = Vedtak.OPPRETTHOLD_VEDTAK, hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN), årsak = Årsak.ANNET),
                 )
             }.hasMessage("Kan ikke lagre årsak på oppretthold vedtak")
         }
@@ -82,7 +82,7 @@ internal class VurderingValidatorTest {
                 validerVurdering(
                     vurderingDto(
                         vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-                        hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN,
+                        hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN),
                         begrunnelseOmgjøring = "begrunnelse",
                     ),
                 )

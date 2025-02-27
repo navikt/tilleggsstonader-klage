@@ -84,7 +84,7 @@ internal class BlankettServiceTest {
                 vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
                 årsak = Årsak.FEIL_I_LOVANDVENDELSE,
                 begrunnelseOmgjøring = "begrunnelse",
-                hjemmel = Hjemmel.FS_TILL_ST_10_TILSYN,
+                hjemler = listOf(Hjemmel.FS_TILL_ST_10_TILSYN),
                 interntNotat = "interntNotat",
                 innstillingKlageinstans = "innstillingKlageinstans",
             )

@@ -11,7 +11,7 @@ data class VurderingDto(
     val vedtak: Vedtak,
     val årsak: Årsak? = null,
     val begrunnelseOmgjøring: String? = null,
-    val hjemmel: Hjemmel? = null,
+    val hjemler: List<Hjemmel>? = null,
     val innstillingKlageinstans: String? = null,
     val interntNotat: String?,
 )
@@ -22,7 +22,7 @@ fun Vurdering.tilDto(): VurderingDto =
         vedtak = this.vedtak,
         årsak = this.årsak,
         begrunnelseOmgjøring = this.begrunnelseOmgjøring,
-        hjemmel = this.hjemmel,
+        hjemler = this.hjemler?.hjemler,
         innstillingKlageinstans = this.innstillingKlageinstans,
         interntNotat = this.interntNotat,
     )

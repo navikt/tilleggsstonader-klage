@@ -27,7 +27,7 @@
     "vedtak" : "OPPRETTHOLD_VEDTAK",
     "årsak" : "FEIL_I_LOVANDVENDELSE",
     "begrunnelseOmgjøring" : "begrunnelse",
-    "hjemmel" : "FS_TILL_ST_10_TILSYN",
+    "hjemler" : [ "FS_TILL_ST_10_TILSYN" ],
     "innstillingKlageinstans" : "innstillingKlageinstans",
     "interntNotat" : "interntNotat"
   }
