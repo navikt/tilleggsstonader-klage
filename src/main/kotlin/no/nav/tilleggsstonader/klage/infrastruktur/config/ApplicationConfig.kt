@@ -25,7 +25,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableOAuth2Client(cacheEnabled = true)
 @EnableScheduling
 class ApplicationConfig {
-
     @Bean
     fun prosesseringInfoProvider(
         @Value("\${prosessering.rolle}") prosesseringRolle: String,
