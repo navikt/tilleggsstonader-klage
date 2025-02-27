@@ -44,7 +44,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
     "mock-oauth",
     "mock-pdl",
     "mock-integrasjoner",
-    "mock-brev",
+    "mock-htmlify",
     "mock-kabal",
     "mock-dokument",
     "mock-tilleggsstonader-sak",

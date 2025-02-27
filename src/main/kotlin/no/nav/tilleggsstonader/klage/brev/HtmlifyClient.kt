@@ -2,7 +2,6 @@ package no.nav.tilleggsstonader.klage.brev
 
 import no.nav.tilleggsstonader.klage.blankett.BlankettPdfRequest
 import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
-import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -12,14 +11,14 @@ import org.springframework.web.client.RestTemplate
 import java.net.URI
 
 @Component
-class BrevClient(
-    @Value("\${FAMILIE_BREV_API_URL}")
-    private val familieBrevUri: URI,
+class HtmlifyClient(
+    @Value("\${TILLEGGSSTONADER_HTMLIFY_URL}")
+    private val uri: URI,
     @Qualifier("utenAuth")
     restTemplate: RestTemplate,
 ) : AbstractRestClient(restTemplate) {
-    private val pdfUri = URI.create("$familieBrevUri/blankett/klage/pdf").toString()
-    private val genererHtmlFritekstbrevUri = URI.create("$familieBrevUri/api/fritekst-brev/html").toString()
+    private val interntVedtakUri = URI.create("$uri/api/klage/internt-vedtak").toString()
+    private val fritekstBrevUri = URI.create("$uri/api/klage/fritekst-brev").toString()
 
     fun genererHtmlFritekstbrev(
         fritekstBrev: FritekstBrevRequestDto,
@@ -27,17 +26,16 @@ class BrevClient(
         enhet: String,
     ): String =
         postForEntity(
-            genererHtmlFritekstbrevUri,
+            fritekstBrevUri,
             FritekstBrevRequestMedSignatur(
                 fritekstBrev,
                 saksbehandlerNavn,
                 enhet,
             ),
-            HttpHeaders().medContentTypeJsonUTF8(),
+            HttpHeaders(),
         )
 
-    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): ByteArray =
-        postForEntity(pdfUri, blankettPdfRequest, HttpHeaders().medContentTypeJsonUTF8())
+    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): String = postForEntity(interntVedtakUri, blankettPdfRequest, HttpHeaders())
 }
 
 data class FritekstBrevRequestMedSignatur(

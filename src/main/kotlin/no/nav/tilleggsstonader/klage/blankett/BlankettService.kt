@@ -2,7 +2,8 @@ package no.nav.tilleggsstonader.klage.blankett
 
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
-import no.nav.tilleggsstonader.klage.brev.BrevClient
+import no.nav.tilleggsstonader.klage.brev.FamilieDokumentClient
+import no.nav.tilleggsstonader.klage.brev.HtmlifyClient
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
@@ -20,7 +21,8 @@ class BlankettService(
     private val personopplysningerService: PersonopplysningerService,
     private val formService: FormService,
     private val vurderingService: VurderingService,
-    private val brevClient: BrevClient,
+    private val htmlifyClient: HtmlifyClient,
+    private val familieDokumentClient: FamilieDokumentClient,
 ) {
     fun lagBlankett(behandlingId: BehandlingId): ByteArray {
         val behandling = behandlingService.hentBehandling(behandlingId)
@@ -43,7 +45,8 @@ class BlankettService(
                 formkrav = mapFormkrav(formkrav),
                 vurdering = mapVurdering(vurdering),
             )
-        return brevClient.genererBlankett(blankettPdfRequest)
+        val blankett = htmlifyClient.genererBlankett(blankettPdfRequest)
+        return familieDokumentClient.genererPdfFraHtml(blankett)
     }
 
     private fun mapPåklagetVedtak(behandling: Behandling): BlankettPåklagetVedtakDto? =

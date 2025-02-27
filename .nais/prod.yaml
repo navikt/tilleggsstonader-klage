@@ -82,8 +82,7 @@ spec:
       rules:
         - application: tilleggsstonader-sak
         - application: tilleggsstonader-integrasjoner
-        - application: familie-brev
-          namespace: teamfamilie
+        - application: tilleggsstonader-htmlify
         - application: familie-dokument
           namespace: teamfamilie
         - application: kabal-api

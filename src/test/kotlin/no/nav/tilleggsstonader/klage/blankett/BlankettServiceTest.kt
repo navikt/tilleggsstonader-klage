@@ -6,7 +6,8 @@ import io.mockk.slot
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
-import no.nav.tilleggsstonader.klage.brev.BrevClient
+import no.nav.tilleggsstonader.klage.brev.FamilieDokumentClient
+import no.nav.tilleggsstonader.klage.brev.HtmlifyClient
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.formkrav.FormService
@@ -38,7 +39,8 @@ internal class BlankettServiceTest {
     private val formService = mockk<FormService>()
     private val vurderingService = mockk<VurderingService>()
     private val fagsystemVedtakService = mockk<FagsystemVedtakService>()
-    private val brevClient = mockk<BrevClient>()
+    private val htmlifyClient = mockk<HtmlifyClient>()
+    private val familieDokumentClient = mockk<FamilieDokumentClient>()
 
     private val service =
         BlankettService(
@@ -47,7 +49,8 @@ internal class BlankettServiceTest {
             personopplysningerService,
             formService,
             vurderingService,
-            brevClient,
+            htmlifyClient,
+            familieDokumentClient,
         )
 
     private val eksternFagsystemBehandlingId = "eksternFagsystemBehandlingId"
@@ -85,7 +88,8 @@ internal class BlankettServiceTest {
                 interntNotat = "interntNotat",
                 innstillingKlageinstans = "innstillingKlageinstans",
             )
-        every { brevClient.genererBlankett(capture(blankettRequestSpot)) } returns byteArrayOf()
+        every { htmlifyClient.genererBlankett(capture(blankettRequestSpot)) } returns "html"
+        every { familieDokumentClient.genererPdfFraHtml(any()) } returns byteArrayOf(1)
         every { fagsystemVedtakService.hentFagsystemVedtak(behandlingId) } returns
             listOf(
                 fagsystemVedtak(eksternBehandlingId = eksternFagsystemBehandlingId),

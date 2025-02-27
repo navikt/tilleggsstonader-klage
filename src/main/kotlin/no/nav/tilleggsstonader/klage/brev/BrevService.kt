@@ -36,7 +36,7 @@ import java.time.LocalDate
 
 @Service
 class BrevService(
-    private val brevClient: BrevClient,
+    private val htmlifyClient: HtmlifyClient,
     private val brevRepository: BrevRepository,
     private val behandlingService: BehandlingService,
     private val familieDokumentClient: FamilieDokumentClient,
@@ -82,7 +82,7 @@ class BrevService(
         val signaturMedEnhet = brevsignaturService.lagSignatur(personopplysninger)
 
         val html =
-            brevClient.genererHtmlFritekstbrev(
+            htmlifyClient.genererHtmlFritekstbrev(
                 fritekstBrev = brevRequest,
                 saksbehandlerNavn = signaturMedEnhet.navn,
                 enhet = signaturMedEnhet.enhet,

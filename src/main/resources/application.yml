@@ -152,7 +152,7 @@ ON_PREM_URL_ENV: prod
 AZURE_APP_TENANT_ID: navq.onmicrosoft.com
 AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/${AZURE_APP_TENANT_ID}/oauth2/v2.0/token
 
-FAMILIE_BREV_API_URL: http://familie-brev.teamfamilie
+TILLEGGSSTONADER_HTMLIFY_URL: http://tilleggsstonader-htmlify
 FAMILIE_DOKUMENT_URL: http://familie-dokument.teamfamilie
 
 TILLEGGSSTONADER_SAK_URL: http://tilleggsstonader-sak
