@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.repository
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem

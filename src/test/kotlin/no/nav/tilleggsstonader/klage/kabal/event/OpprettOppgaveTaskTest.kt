@@ -3,13 +3,13 @@ package no.nav.tilleggsstonader.klage.kabal.event
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload

@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.behandling
 
 import no.nav.familie.prosessering.domene.Status
 import no.nav.familie.prosessering.internal.TaskService
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
@@ -11,8 +12,6 @@ import no.nav.tilleggsstonader.klage.distribusjon.JournalførBrevTask
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
-import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgave
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgaveRepository
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
@@ -27,11 +26,11 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.web.client.exchange
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.client.exchange
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -50,9 +49,6 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
 
     @Autowired
     private lateinit var behandleSakOppgaveRepository: BehandleSakOppgaveRepository
-
-    @Autowired
-    private lateinit var rolleConfig: RolleConfig
 
     val fagsak = fagsakDomain().tilFagsak()
     val behandling = behandling(fagsak = fagsak)

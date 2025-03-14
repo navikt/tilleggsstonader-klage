@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.brev
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakerOrganisasjon
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakerPerson
@@ -8,7 +9,6 @@ import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalpost
 import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.brev.domain.MottakerRolle
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsak

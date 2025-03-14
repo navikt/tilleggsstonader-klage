@@ -1,10 +1,10 @@
 package no.nav.tilleggsstonader.klage.behandling
 
 import io.mockk.every
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandling.dto.tilPåklagetVedtakDetaljer
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.TilleggsstonaderSakClientMock
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil

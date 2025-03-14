@@ -1,19 +1,17 @@
 package no.nav.tilleggsstonader.klage.vedlegg
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
-import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.client.exchange
 
 internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
     final val fagsak = DomainUtil.fagsakDomain().tilFagsak()
@@ -24,11 +22,6 @@ internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
         headers.setBearerAuth(lokalTestToken)
         testoppsettService.lagreFagsak(fagsak)
         testoppsettService.lagreBehandling(behandling)
-    }
-
-    @AfterEach
-    internal fun tearDown() {
-        BrukerContextUtil.clearBrukerContext()
     }
 
     @Test

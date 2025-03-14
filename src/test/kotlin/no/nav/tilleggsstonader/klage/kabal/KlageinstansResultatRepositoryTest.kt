@@ -1,8 +1,8 @@
 package no.nav.tilleggsstonader.klage.kabal
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling

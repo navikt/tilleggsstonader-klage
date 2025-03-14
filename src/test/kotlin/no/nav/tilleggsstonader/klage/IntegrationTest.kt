@@ -1,4 +1,4 @@
-package no.nav.tilleggsstonader.klage.infrastruktur.config
+package no.nav.tilleggsstonader.klage
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.read.ListAppender
@@ -7,7 +7,6 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.familie.prosessering.domene.TaskLogg
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
-import no.nav.tilleggsstonader.klage.Application
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.Behandlingshistorikk
 import no.nav.tilleggsstonader.klage.brev.domain.Avsnitt
@@ -16,6 +15,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.formkrav.domain.Form
+import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.db.DbContainerInitializer
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgave
@@ -26,15 +26,24 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.cache.CacheManager
 import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.data.jdbc.core.JdbcAggregateOperations
 import org.springframework.http.HttpHeaders
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.web.client.RestTemplate
+
+@Configuration
+class DefaultRestTemplateConfiguration {
+    @Bean
+    fun restTemplate(restTemplateBuilder: RestTemplateBuilder) = restTemplateBuilder.build()
+}
 
 @ExtendWith(SpringExtension::class)
 @ContextConfiguration(initializers = [DbContainerInitializer::class])
@@ -55,8 +64,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 abstract class IntegrationTest {
     protected val listAppender = initLoggingEventListAppender()
     protected var loggingEvents: MutableList<ILoggingEvent> = listAppender.list
-    protected val restTemplate = TestRestTemplate()
     protected val headers = HttpHeaders()
+
+    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    protected lateinit var restTemplate: RestTemplate
 
     @Autowired
     private lateinit var jdbcAggregateOperations: JdbcAggregateOperations
@@ -68,7 +80,7 @@ abstract class IntegrationTest {
     private lateinit var cacheManager: CacheManager
 
     @Autowired
-    private lateinit var rolleConfig: RolleConfig
+    protected lateinit var rolleConfig: RolleConfig
 
     @Autowired
     private lateinit var mockOAuth2Server: MockOAuth2Server

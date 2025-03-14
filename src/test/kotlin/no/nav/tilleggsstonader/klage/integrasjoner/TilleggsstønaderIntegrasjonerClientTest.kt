@@ -3,8 +3,8 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrasjonerConfig
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import org.assertj.core.api.Assertions.assertThat

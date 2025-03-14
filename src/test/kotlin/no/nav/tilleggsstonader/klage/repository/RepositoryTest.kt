@@ -1,9 +1,9 @@
 package no.nav.tilleggsstonader.klage.repository
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakPerson
 import no.nav.tilleggsstonader.klage.felles.domain.Endret
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain

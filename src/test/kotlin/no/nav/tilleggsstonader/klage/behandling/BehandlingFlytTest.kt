@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
@@ -10,8 +11,6 @@ import no.nav.tilleggsstonader.klage.formkrav.FormService
 import no.nav.tilleggsstonader.klage.formkrav.domain.FormVilkår
 import no.nav.tilleggsstonader.klage.formkrav.dto.tilDto
 import no.nav.tilleggsstonader.klage.infrastruktur.TestHendelseController
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
-import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerContext
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurderingDto
@@ -51,9 +50,6 @@ class BehandlingFlytTest : IntegrationTest() {
 
     @Autowired
     private lateinit var behandlingshistorikkService: BehandlingshistorikkService
-
-    @Autowired
-    private lateinit var rolleConfig: RolleConfig
 
     @Nested
     inner class Historikk {

@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.metrics
 
+import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
-import no.nav.tilleggsstonader.klage.infrastruktur.config.IntegrationTest
 import no.nav.tilleggsstonader.klage.metrics.domain.AntallVedtak
 import no.nav.tilleggsstonader.klage.metrics.domain.BehandlingerPerStatus
 import no.nav.tilleggsstonader.klage.metrics.domain.MålerRepository
