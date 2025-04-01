@@ -71,7 +71,6 @@ class PdlClientMock {
                             motpartsPersonident = ANNEN_FORELDER_FNR,
                             identifiserendeInformasjon = IdentifiserendeInformasjon(navn = null),
                             omfang = "personligeOgOekonomiskeInteresser",
-                            omfangetErInnenPersonligOmraade = false,
                         ),
                 ),
                 VergemaalEllerFremtidsfullmakt(
@@ -83,7 +82,6 @@ class PdlClientMock {
                             motpartsPersonident = ANNEN_FORELDER_FNR,
                             identifiserendeInformasjon = null,
                             omfang = "personligeOgOekonomiskeInteresser",
-                            omfangetErInnenPersonligOmraade = false,
                         ),
                 ),
             )

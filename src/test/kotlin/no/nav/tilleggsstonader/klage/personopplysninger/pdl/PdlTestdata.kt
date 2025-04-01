@@ -49,7 +49,6 @@ object PdlTestdata {
                                 identifiserendeInformasjon = IdentifiserendeInformasjon(navn = Personnavn("", "", "")),
                                 motpartsPersonident = "",
                                 omfang = "",
-                                omfangetErInnenPersonligOmraade = true,
                             ),
                     ),
                 ),

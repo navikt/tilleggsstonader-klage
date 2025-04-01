@@ -104,7 +104,6 @@ internal class PersonopplysningerServiceTest {
                         IdentifiserendeInformasjon(Personnavn("", "", null)),
                         "vergeIdent",
                         "omfang",
-                        true,
                     ),
                 ),
             ),
