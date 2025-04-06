@@ -2,9 +2,9 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250324083707_24007c5"
+val familieProsesseringVersion = "2.20250331103528_ed988de"
 val tilleggsstønaderLibsVersion = "2025.03.28-12.05.78567a42f6ae"
-val tilleggsstønaderKontrakterVersion = "2025.03.24-08.34.c5f84c4f3794"
+val tilleggsstønaderKontrakterVersion = "2025.04.04-11.57.4d5d45684538"
 val tokenSupportVersion = "5.0.24"
 val wiremockVersion = "3.12.1"
 val mockkVersion = "1.13.17"
@@ -64,9 +64,9 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.5.0")
+    implementation("org.flywaydb:flyway-core:11.6.0")
 
-    implementation("net.logstash.logback:logstash-logback-encoder:8.0")
+    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     // For auditlogger. August 2014, men det er den som blir brukt på NAV
