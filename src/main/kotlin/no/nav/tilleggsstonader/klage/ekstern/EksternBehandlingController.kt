@@ -1,14 +1,12 @@
 package no.nav.tilleggsstonader.klage.ekstern
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.tilEksternKlagebehandlingDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
-import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
@@ -39,28 +37,7 @@ class EksternBehandlingController(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @GetMapping("{fagsystem}")
-    fun finnKlagebehandlingsresultat(
-        @PathVariable fagsystem: Fagsystem,
-        @RequestParam("eksternFagsakId") eksternFagsakIder: Set<String>,
-    ): Ressurs<Map<String, List<KlagebehandlingDto>>> {
-        feilHvis(eksternFagsakIder.isEmpty()) {
-            "Mangler eksternFagsakId i query param"
-        }
-        val behandlinger =
-            eksternFagsakIder.associateWith { eksternFagsakId ->
-                behandlingService.finnKlagebehandlingsresultat(eksternFagsakId, fagsystem).map {
-                    it.tilEksternKlagebehandlingDto(behandlingService.hentKlageresultatDto(behandlingId = it.id))
-                }
-            }
-        val antallTreff = behandlinger.entries.associate { it.key to it.value.size }
-        logger.info("Henter klagebehandlingsresultat for eksternFagsakIder=$eksternFagsakIder antallTreff=$antallTreff")
-        validerTilgang(behandlinger)
-
-        return Ressurs.success(behandlinger)
-    }
-
-    @GetMapping("{fagsystem}/v2")
+    @GetMapping(path = ["/{fagsystem}", "/{fagsystem}/v2"])
     fun finnKlagebehandlingsresultatV2(
         @PathVariable fagsystem: Fagsystem,
         @RequestParam("eksternFagsakId") eksternFagsakIder: Set<String>,
@@ -83,15 +60,7 @@ class EksternBehandlingController(
             }
     }
 
-    @PostMapping("finn-oppgaver")
-    fun hentBehandlingIderForOppgaver(
-        @RequestBody request: OppgaverBehandlingerRequest,
-    ): Ressurs<OppgaverBehandlingerResponse> {
-        val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
-        return Ressurs.success(OppgaverBehandlingerResponse(oppgaver = behandlingIdPåOppgaveId))
-    }
-
-    @PostMapping("finn-oppgaver/v2")
+    @PostMapping(path = ["finn-oppgaver", "finn-oppgaver/v2"])
     fun hentBehandlingIderForOppgaverv2(
         @RequestBody request: OppgaverBehandlingerRequest,
     ): OppgaverBehandlingerResponse {
