@@ -7,6 +7,7 @@ import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.tilEksternKlagebehandlingDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.TilgangService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
@@ -59,12 +60,43 @@ class EksternBehandlingController(
         return Ressurs.success(behandlinger)
     }
 
+    @GetMapping("{fagsystem}/v2")
+    fun finnKlagebehandlingsresultatV2(
+        @PathVariable fagsystem: Fagsystem,
+        @RequestParam("eksternFagsakId") eksternFagsakIder: Set<String>,
+    ): Map<String, List<KlagebehandlingDto>> {
+        brukerfeilHvis(eksternFagsakIder.isEmpty()) {
+            "Mangler eksternFagsakId i query param"
+        }
+        return eksternFagsakIder
+            .associateWith {
+                behandlingService
+                    .finnKlagebehandlingsresultat(eksternFagsakId = it, fagsystem = fagsystem)
+                    .map {
+                        it.tilEksternKlagebehandlingDto(
+                            klageinstansResultat = behandlingService.hentKlageresultatDto(behandlingId = it.id),
+                        )
+                    }
+            }.also {
+                loggAntallTreffPerFagsak(behandlinger = it)
+                validerTilgang(behandlinger = it)
+            }
+    }
+
     @PostMapping("finn-oppgaver")
     fun hentBehandlingIderForOppgaver(
         @RequestBody request: OppgaverBehandlingerRequest,
     ): Ressurs<OppgaverBehandlingerResponse> {
         val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
         return Ressurs.success(OppgaverBehandlingerResponse(oppgaver = behandlingIdPåOppgaveId))
+    }
+
+    @PostMapping("finn-oppgaver/v2")
+    fun hentBehandlingIderForOppgaverv2(
+        @RequestBody request: OppgaverBehandlingerRequest,
+    ): OppgaverBehandlingerResponse {
+        val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
+        return OppgaverBehandlingerResponse(oppgaver = behandlingIdPåOppgaveId)
     }
 
     private fun validerTilgang(behandlinger: Map<String, List<KlagebehandlingDto>>) {
@@ -86,5 +118,10 @@ class EksternBehandlingController(
         @PathVariable behandlingId: BehandlingId,
     ) {
         oppgaveService.oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId)
+    }
+
+    private fun loggAntallTreffPerFagsak(behandlinger: Map<String, List<KlagebehandlingDto>>) {
+        val antallTreffPerFagsak = behandlinger.entries.associate { it.key to it.value.size }
+        logger.info("Antall klagebehandlinger funnet per fagsak: $antallTreffPerFagsak")
     }
 }
