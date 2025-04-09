@@ -3,7 +3,6 @@ package no.nav.tilleggsstonader.klage.behandling
 import no.nav.familie.prosessering.domene.Status
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.IntegrationTest
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.brev.BrevService
@@ -93,7 +92,7 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
         }
     }
 
-    private fun ferdigstill(behandlingId: BehandlingId): ResponseEntity<Ressurs<Unit>> =
+    private fun ferdigstill(behandlingId: BehandlingId): ResponseEntity<Unit> =
         restTemplate.exchange(
             localhost("/api/behandling/$behandlingId/ferdigstill"),
             HttpMethod.POST,

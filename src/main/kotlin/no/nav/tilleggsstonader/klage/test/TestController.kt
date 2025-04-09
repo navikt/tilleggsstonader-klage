@@ -1,7 +1,6 @@
 package no.nav.tilleggsstonader.klage.test
 
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
@@ -30,7 +29,7 @@ class TestController(
     @PostMapping("opprett")
     fun opprettDummybehandling(
         @RequestBody request: DummybehandlingRequest,
-    ): Ressurs<BehandlingId> {
+    ): BehandlingId {
         val fagsakPerson = fagsakPersonService.hentEllerOpprettPerson(setOf(request.ident), request.ident)
         // findByEksternIdAndFagsystemAndStønadstype ?
         val eksternFagsakId =
@@ -39,16 +38,14 @@ class TestController(
                 .find { it.fagsakPersonId == fagsakPerson.id && it.stønadstype == request.stønadstype }
                 ?.eksternId ?: UUID.randomUUID().toString()
 
-        return Ressurs.success(
-            opprettBehandlingService.opprettBehandling(
-                OpprettKlagebehandlingRequest(
-                    request.ident,
-                    request.stønadstype,
-                    eksternFagsakId,
-                    request.fagsystem,
-                    request.klageMottatt,
-                    request.behandlendeEnhet,
-                ),
+        return opprettBehandlingService.opprettBehandling(
+            OpprettKlagebehandlingRequest(
+                request.ident,
+                request.stønadstype,
+                eksternFagsakId,
+                request.fagsystem,
+                request.klageMottatt,
+                request.behandlendeEnhet,
             ),
         )
     }

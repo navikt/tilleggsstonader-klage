@@ -1,8 +1,6 @@
 package no.nav.tilleggsstonader.klage.ekstern
 
 import no.nav.tilleggsstonader.klage.IntegrationTest
-import no.nav.tilleggsstonader.klage.Ressurs
-import no.nav.tilleggsstonader.klage.Ressurs.Status
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.SporbarUtils
@@ -61,8 +59,7 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
 
             assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
             val body = response.body!!
-            assertThat(body.status).isEqualTo(Status.SUKSESS)
-            assertThat(body.data).isEqualTo(mapOf(externFagsakId to emptyList<KlagebehandlingDto>()))
+            assertThat(body).isEqualTo(mapOf(externFagsakId to emptyList<KlagebehandlingDto>()))
         }
 
         @Test
@@ -81,35 +78,35 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
 
             assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
             val body = response.body!!
-            assertThat(body.status).isEqualTo(Status.SUKSESS)
-            val data = body.data
-            assertThat(data!!).hasSize(1)
-            val entry = data.entries.single()
-            assertThat(entry.key).isEqualTo(fagsak.eksternId)
-            assertThat(entry.value).hasSize(1)
+            assertThat(body).hasSize(1)
+            val behandlingerPerFagsak = body.entries.single()
+            assertThat(behandlingerPerFagsak.key).isEqualTo(fagsak.eksternId)
+            assertThat(behandlingerPerFagsak.value).hasSize(1)
 
-            val klagebehandling = entry.value.single()
-            assertThat(klagebehandling.id).isEqualTo(behandling.id.id)
-            assertThat(klagebehandling.fagsakId).isEqualTo(behandling.fagsakId)
-            assertThat(klagebehandling.status).isEqualTo(behandling.status)
-            assertThat(klagebehandling.mottattDato).isEqualTo(behandling.klageMottatt)
-            assertThat(klagebehandling.opprettet).isEqualTo(behandling.sporbar.opprettetTid)
-            assertThat(klagebehandling.resultat).isEqualTo(BehandlingResultat.IKKE_SATT)
-            assertThat(klagebehandling.årsak).isEqualTo(Årsak.FEIL_PROSESSUELL)
-            assertThat(klagebehandling.vedtaksdato).isEqualTo(vedtakDato)
-            assertThat(klagebehandling.henlagtÅrsak).isEqualTo(henlagtÅrsak)
+            with(behandlingerPerFagsak.value.single()) {
+                assertThat(id).isEqualTo(behandling.id.id)
+                assertThat(fagsakId).isEqualTo(behandling.fagsakId)
+                assertThat(status).isEqualTo(behandling.status)
+                assertThat(mottattDato).isEqualTo(behandling.klageMottatt)
+                assertThat(opprettet).isEqualTo(behandling.sporbar.opprettetTid)
+                assertThat(resultat).isEqualTo(BehandlingResultat.IKKE_SATT)
+                assertThat(årsak).isEqualTo(Årsak.FEIL_PROSESSUELL)
+                assertThat(vedtaksdato).isEqualTo(vedtakDato)
+                assertThat(henlagtÅrsak).isEqualTo(henlagtÅrsak)
+            }
 
-            val klageinstansResultat = klagebehandling.klageinstansResultat
-            assertThat(klageinstansResultat).hasSize(1)
-            assertThat(klageinstansResultat[0].type).isEqualTo(klageresultat.type)
-            assertThat(klageinstansResultat[0].utfall).isEqualTo(klageresultat.utfall)
-            assertThat(klageinstansResultat[0].mottattEllerAvsluttetTidspunkt)
-                .isEqualTo(klageresultat.mottattEllerAvsluttetTidspunkt)
-            assertThat(klageinstansResultat[0].journalpostReferanser)
-                .containsExactlyInAnyOrderElementsOf(klageresultat.journalpostReferanser.verdier)
+            val klageinstansResultat = behandlingerPerFagsak.value.single().klageinstansResultat
+            with(klageinstansResultat.single()) {
+                assertThat(type).isEqualTo(klageresultat.type)
+                assertThat(utfall).isEqualTo(klageresultat.utfall)
+                assertThat(mottattEllerAvsluttetTidspunkt)
+                    .isEqualTo(klageresultat.mottattEllerAvsluttetTidspunkt)
+                assertThat(journalpostReferanser)
+                    .containsExactlyInAnyOrderElementsOf(klageresultat.journalpostReferanser.verdier)
+            }
         }
 
         private fun hentBehandlinger(url: String) =
-            restTemplate.exchange<Ressurs<Map<String, List<KlagebehandlingDto>>>>(url, HttpMethod.GET, HttpEntity(null, headers))
+            restTemplate.exchange<Map<String, List<KlagebehandlingDto>>>(url, HttpMethod.GET, HttpEntity(null, headers))
     }
 }
