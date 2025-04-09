@@ -1,10 +1,8 @@
 package no.nav.tilleggsstonader.klage.integrasjoner
 
-import no.nav.tilleggsstonader.klage.Ressurs
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
-import no.nav.tilleggsstonader.klage.getDataOrThrow
 import no.nav.tilleggsstonader.kontrakter.felles.IdentRequest
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
@@ -26,13 +24,13 @@ class TilleggsstonaderSakClient(
         val uri =
             UriComponentsBuilder
                 .fromUri(sakUri)
-                .pathSegment("api", "klage", "ekstern-fagsak", "{fagsystemEksternFagsakId}", "vedtak")
+                .path("api/klage/ekstern-fagsak/{fagsystemEksternFagsakId}/vedtak/v2")
                 .encode()
                 .toUriString()
-        return getForEntity<Ressurs<List<FagsystemVedtak>>>(
+        return getForEntity<List<FagsystemVedtak>>(
             uri,
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
-        ).getDataOrThrow()
+        )
     }
 
     fun kanOppretteRevurdering(fagsystemEksternFagsakId: String): KanOppretteRevurderingResponse {
