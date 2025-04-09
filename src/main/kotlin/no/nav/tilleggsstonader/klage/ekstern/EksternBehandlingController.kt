@@ -37,8 +37,8 @@ class EksternBehandlingController(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @GetMapping(path = ["/{fagsystem}", "/{fagsystem}/v2"])
-    fun finnKlagebehandlingsresultatV2(
+    @GetMapping(path = ["/{fagsystem}"])
+    fun finnKlagebehandlingsresultat(
         @PathVariable fagsystem: Fagsystem,
         @RequestParam("eksternFagsakId") eksternFagsakIder: Set<String>,
     ): Map<String, List<KlagebehandlingDto>> {
@@ -60,8 +60,8 @@ class EksternBehandlingController(
             }
     }
 
-    @PostMapping(path = ["finn-oppgaver", "finn-oppgaver/v2"])
-    fun hentBehandlingIderForOppgaverv2(
+    @PostMapping(path = ["finn-oppgaver"])
+    fun hentBehandlingIderForOppgaver(
         @RequestBody request: OppgaverBehandlingerRequest,
     ): OppgaverBehandlingerResponse {
         val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
