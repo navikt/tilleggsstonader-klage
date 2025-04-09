@@ -24,7 +24,7 @@ class TilleggsstonaderSakClient(
         val uri =
             UriComponentsBuilder
                 .fromUri(sakUri)
-                .path("api/klage/ekstern-fagsak/{fagsystemEksternFagsakId}/vedtak/v2")
+                .path("api/klage/ekstern-fagsak/{fagsystemEksternFagsakId}/vedtak")
                 .encode()
                 .toUriString()
         return getForEntity<List<FagsystemVedtak>>(
