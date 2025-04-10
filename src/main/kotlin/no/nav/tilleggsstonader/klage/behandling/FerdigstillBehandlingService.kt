@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandling.domain.tilFagsystemRevurdering
+import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
@@ -40,6 +41,7 @@ class FerdigstillBehandlingService(
     private val oppgaveTaskService: OppgaveTaskService,
     private val brevService: BrevService,
     private val fagsystemVedtakService: FagsystemVedtakService,
+    private val behandlingshistorikkService: BehandlingshistorikkService,
 ) {
     /**
      * Skal ikke være @transactional fordi det er mulig å komme delvis igjennom løypa
@@ -65,6 +67,8 @@ class FerdigstillBehandlingService(
         if (behandlingsresultat == IKKE_MEDHOLD) {
             taskService.save(BehandlingsstatistikkTask.opprettSendtTilKATask(behandlingId = behandlingId))
         }
+
+        behandlingshistorikkService.slettFritekstMetadataVedFerdigstillelse(behandlingId)
 
         taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId))
     }

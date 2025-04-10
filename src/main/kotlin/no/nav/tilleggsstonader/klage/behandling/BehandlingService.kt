@@ -201,6 +201,7 @@ class BehandlingService(
             )
 
         behandlinghistorikkService.opprettBehandlingshistorikk(behandlingId, BEHANDLING_FERDIGSTILT, StegUtfall.HENLAGT)
+        behandlinghistorikkService.slettFritekstMetadataVedFerdigstillelse(behandlingId)
         oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id)
         behandlingRepository.update(henlagtBehandling)
         taskService.save(taskService.save(BehandlingsstatistikkTask.opprettFerdigTask(behandlingId = behandlingId)))

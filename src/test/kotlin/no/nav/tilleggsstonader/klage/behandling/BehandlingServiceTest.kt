@@ -1,6 +1,7 @@
 package no.nav.tilleggsstonader.klage.behandling
 
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
@@ -70,6 +71,7 @@ internal class BehandlingServiceTest {
             behandlingSlot.captured
         }
         every { behandlinghistorikkService.opprettBehandlingshistorikk(any(), any(), any()) } returns mockk()
+        justRun { behandlinghistorikkService.slettFritekstMetadataVedFerdigstillelse(any()) }
         every { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) } returns mockk()
         every { taskService.save(any()) } returns mockk<Task>()
     }
@@ -119,6 +121,7 @@ internal class BehandlingServiceTest {
             val behandling = behandling(fagsak(), status = BehandlingStatus.UTREDES)
             henleggOgForventOk(behandling, henlagtÅrsak = HenlagtÅrsak.FEILREGISTRERT, "Begrunnelse")
             verify(exactly = 1) { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) }
+            verify(exactly = 1) { behandlinghistorikkService.slettFritekstMetadataVedFerdigstillelse(behandling.id) }
         }
 
         @Test

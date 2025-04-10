@@ -81,7 +81,7 @@ class SettPåVentServiceTest : IntegrationTest() {
                     oppgavetype = Oppgavetype.BehandleSak,
                     mappeId = 1234L,
                     beskrivelse = "Oppgavetekst",
-                    tilordnetRessurs = dummySaksbehandler
+                    tilordnetRessurs = dummySaksbehandler,
                 ),
             )
     }

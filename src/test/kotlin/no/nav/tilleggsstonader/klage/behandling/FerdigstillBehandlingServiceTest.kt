@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.blankett.LagSaksbehandlingsblankettTask
 import no.nav.tilleggsstonader.klage.brev.BrevService
@@ -54,6 +55,7 @@ internal class FerdigstillBehandlingServiceTest {
     val oppgaveTaskService = mockk<OppgaveTaskService>()
     val brevService = mockk<BrevService>()
     val fagsystemVedtakService = mockk<FagsystemVedtakService>()
+    val behandlingshistorikkService = mockk<BehandlingshistorikkService>()
 
     val ferdigstillBehandlingService =
         FerdigstillBehandlingService(
@@ -65,6 +67,7 @@ internal class FerdigstillBehandlingServiceTest {
             oppgaveTaskService = oppgaveTaskService,
             brevService = brevService,
             fagsystemVedtakService = fagsystemVedtakService,
+            behandlingshistorikkService = behandlingshistorikkService,
         )
     val fagsak = DomainUtil.fagsakDomain().tilFagsak()
     val behandling = DomainUtil.behandling(fagsak = fagsak, steg = StegType.BREV, status = BehandlingStatus.UTREDES)
@@ -102,6 +105,7 @@ internal class FerdigstillBehandlingServiceTest {
         every { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(behandling.id) } just Runs
         justRun { brevService.lagBrevPdf(any()) }
         every { fagsystemVedtakService.opprettRevurdering(any()) } returns OpprettRevurderingResponse(Opprettet("opprettetId"))
+        justRun { behandlingshistorikkService.slettFritekstMetadataVedFerdigstillelse(behandling.id) }
     }
 
     @AfterEach

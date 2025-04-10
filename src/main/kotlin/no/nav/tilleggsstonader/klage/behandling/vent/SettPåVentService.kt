@@ -2,10 +2,8 @@ package no.nav.tilleggsstonader.klage.behandling.vent
 
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
-import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
-import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.StegUtfall
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
@@ -57,7 +55,7 @@ class SettPåVentService(
             "Kan ikke sette behandling på vent når behandling har status=${behandling.status}"
         }
 
-        opprettHistorikkInnslagPåVent(behandling, årsaker = dto.årsaker, kommentar = dto.kommentar)
+        behandlingshistorikkService.sattPåVent(behandling, årsaker = dto.årsaker, kommentar = dto.kommentar)
         behandlingService.oppdaterStatusPåBehandling(behandlingId, BehandlingStatus.SATT_PÅ_VENT)
 
         val oppgave = oppgaveService.hentOppgaveIdForBehandling(behandlingId)
@@ -113,7 +111,7 @@ class SettPåVentService(
         val settPåVent = finnAktivSattPåVent(behandlingId)
 
         if (harEndretÅrsaker(settPåVent, dto) || harEndretKommentar(settPåVent, dto)) {
-            opprettHistorikkInnslagPåVent(
+            behandlingshistorikkService.sattPåVent(
                 behandling,
                 årsaker = dto.årsaker,
                 kommentar = dto.kommentar,
@@ -185,11 +183,16 @@ class SettPåVentService(
         }
         behandlingService.oppdaterStatusPåBehandling(behandlingId, BehandlingStatus.UTREDES)
 
-        val settPåVent = finnAktivSattPåVent(behandlingId).copy(aktiv = false, taAvVentKommentar = taAvVentDto?.kommentar)
+        val settPåVent =
+            finnAktivSattPåVent(behandlingId).copy(aktiv = false, taAvVentKommentar = taAvVentDto?.kommentar)
         settPåVentRepository.update(settPåVent)
 
-        opprettHistorikkInnslagTaAvVent(behandling, taAvVentDto?.kommentar)
-        taOppgaveAvVent(settPåVent.oppgaveId, settPåVent, skalTilordnesRessurs = taAvVentDto?.skalTilordnesRessurs ?: true)
+        behandlingshistorikkService.taAvVent(behandling, taAvVentDto?.kommentar)
+        taOppgaveAvVent(
+            settPåVent.oppgaveId,
+            settPåVent,
+            skalTilordnesRessurs = taAvVentDto?.skalTilordnesRessurs ?: true,
+        )
     }
 
     private fun finnAktivSattPåVent(behandlingId: BehandlingId) =
@@ -208,36 +211,5 @@ class SettPåVentService(
                 kommentar = settPåVent.taAvVentKommentar,
             )
         oppgaveService.taAvVent(taAvVent)
-    }
-
-    private fun opprettHistorikkInnslagPåVent(
-        behandling: Behandling,
-        kommentar: String?,
-        årsaker: List<ÅrsakSettPåVent>,
-    ) {
-        val metadata: MutableMap<String, Any> =
-            mutableMapOf(
-                "årsaker" to årsaker,
-            )
-        kommentar?.let { metadata["kommentarSettPåVent"] = it }
-
-        behandlingshistorikkService.opprettBehandlingshistorikk(
-            behandlingId = behandling.id,
-            steg = behandling.steg,
-            utfall = StegUtfall.SATT_PÅ_VENT,
-            metadata = metadata,
-        )
-    }
-
-    private fun opprettHistorikkInnslagTaAvVent(
-        behandling: Behandling,
-        kommentar: String?,
-    ) {
-        behandlingshistorikkService.opprettBehandlingshistorikk(
-            behandlingId = behandling.id,
-            steg = behandling.steg,
-            utfall = StegUtfall.TATT_AV_VENT,
-            metadata = kommentar?.takeIf { it.isNotEmpty() }?.let { mapOf("kommentar" to it) },
-        )
     }
 }
