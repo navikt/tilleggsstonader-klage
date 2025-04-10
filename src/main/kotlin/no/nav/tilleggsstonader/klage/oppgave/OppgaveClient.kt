@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.oppgave
 
 import no.nav.tilleggsstonader.klage.felles.util.medContentTypeJsonUTF8
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppgaveConfig
+import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
@@ -129,10 +130,20 @@ class OppgaveClient(
         try {
             fn()
         } catch (e: ProblemDetailException) {
+            sjekkOgHåndtertConflict(e)
             val detail = e.detail.detail
             brukerfeilHvis(e.httpStatus == HttpStatus.BAD_REQUEST && detail != null) {
                 detail ?: "Ukjent feil"
             }
             throw e
         }
+
+    private fun sjekkOgHåndtertConflict(e: ProblemDetailException) {
+        if (e.httpStatus == HttpStatus.CONFLICT) {
+            throw ApiFeil(
+                "Oppgaven har endret seg siden du sist hentet oppgaver. For å kunne gjøre endringer må du laste inn siden på nytt",
+                HttpStatus.CONFLICT,
+            )
+        }
+    }
 }
