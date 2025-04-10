@@ -12,10 +12,10 @@ import no.nav.tilleggsstonader.klage.felles.domain.Sporingsdata
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.infrastruktur.config.FagsystemRolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
-import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.libs.spring.cache.getValue
 import org.springframework.cache.CacheManager
 import org.springframework.stereotype.Service
 import java.util.UUID
