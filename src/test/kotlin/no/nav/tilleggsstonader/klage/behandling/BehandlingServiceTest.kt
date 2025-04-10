@@ -12,6 +12,7 @@ import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandling.dto.HenlagtDto
 import no.nav.tilleggsstonader.klage.behandling.dto.PåklagetVedtakDto
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
+import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.StegUtfall
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ApiFeil
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
@@ -68,7 +69,7 @@ internal class BehandlingServiceTest {
         } answers {
             behandlingSlot.captured
         }
-        every { behandlinghistorikkService.opprettBehandlingshistorikk(any(), any()) } returns mockk()
+        every { behandlinghistorikkService.opprettBehandlingshistorikk(any(), any(), any()) } returns mockk()
         every { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) } returns mockk()
         every { taskService.save(any()) } returns mockk<Task>()
     }
@@ -136,7 +137,13 @@ internal class BehandlingServiceTest {
         internal fun `henlegg og forvent historikkinnslag`() {
             val behandling = behandling(fagsak(), status = BehandlingStatus.UTREDES)
             henleggOgForventOk(behandling, TRUKKET_TILBAKE, "Begrunnelse")
-            verify { behandlinghistorikkService.opprettBehandlingshistorikk(any(), StegType.BEHANDLING_FERDIGSTILT) }
+            verify {
+                behandlinghistorikkService.opprettBehandlingshistorikk(
+                    behandlingId = any(),
+                    steg = StegType.BEHANDLING_FERDIGSTILT,
+                    utfall = StegUtfall.HENLAGT,
+                )
+            }
             verify(exactly = 1) { oppgaveTaskService.lagFerdigstillOppgaveForBehandlingTask(any()) }
         }
     }
