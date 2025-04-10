@@ -25,6 +25,8 @@ no.nav.security.jwt:
 AZUREAD_TOKEN_ENDPOINT_URL: https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/v2.0/token
 TILLEGGSSTONADER_INTEGRASJONER_URL: http://localhost:8386
 TILLEGGSSTONADER_SAK_URL: http://localhost:8101
+# For å kunne bruke OppgaveTestController i sak fra klage for felles oppgaver
+TILLEGGSSTONADER_OPPGAVE_URL: ${TILLEGGSSTONADER_SAK_URL}/test
 TILLEGGSSTONADER_HTMLIFY_URL: http://localhost:8001
 FAMILIE_DOKUMENT_URL: http://localhost:8082
 
@@ -42,6 +44,8 @@ rolle:
     beslutter: "dab3f549-f5f0-4a9c-9f5b-1f6a15ae8424"
     saksbehandler: "31a99292-9461-40bf-b2d0-a815697dfbb4"
 
-prosessering.rolle: "928636f4-fd0d-4149-978e-a6fb68bb19de" # 0000-GA-STDAPPS
+prosessering:
+  fixedDelayString.in.milliseconds: 3000
+  rolle: "928636f4-fd0d-4149-978e-a6fb68bb19de" # 0000-GA-STDAPPS
 
 NAIS_APP_NAME: tilleggsstonader-klage

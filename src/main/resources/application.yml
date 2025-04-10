@@ -166,6 +166,7 @@ PDL_SCOPE: api://${DEPLOY_ENV}-fss.pdl.pdl-api/.default
 
 TILLEGGSSTONADER_INTEGRASJONER_URL: http://tilleggsstonader-integrasjoner
 TILLEGGSSTONADER_INTEGRASJONER_SCOPE: api://${DEPLOY_ENV}-gcp.tilleggsstonader.tilleggsstonader-integrasjoner/.default
+TILLEGGSSTONADER_OPPGAVE_URL: ${TILLEGGSSTONADER_INTEGRASJONER_URL}
 
 KABAL_URL: http://kabal-api.klage
 KABAL_SCOPE: api://${DEPLOY_ENV}-gcp.klage.kabal-api/.default

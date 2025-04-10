@@ -7,7 +7,7 @@ import java.net.URI
 
 @Configuration
 class OppgaveConfig(
-    @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}") private val integrasjonUri: URI,
+    @Value("\${TILLEGGSSTONADER_OPPGAVE_URL}") private val integrasjonUri: URI,
 ) {
     val oppgaveUri: URI =
         UriComponentsBuilder
