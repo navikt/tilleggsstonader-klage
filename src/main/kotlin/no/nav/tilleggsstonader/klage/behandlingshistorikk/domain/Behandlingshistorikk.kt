@@ -18,7 +18,7 @@ data class Behandlingshistorikk(
     val metadata: JsonWrapper? = null,
     val opprettetAvNavn: String? = null,
     val opprettetAv: String = SikkerhetContext.hentSaksbehandler(),
-    val endretTid: LocalDateTime? = SporbarUtils.now(),
+    val endretTid: LocalDateTime = SporbarUtils.now(),
     val gitVersjon: String?,
 )
 
