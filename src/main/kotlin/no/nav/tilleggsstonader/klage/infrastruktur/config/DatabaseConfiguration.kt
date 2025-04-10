@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.klage.brev.domain.BrevmottakereJournalposter
 import no.nav.tilleggsstonader.klage.felles.domain.Endret
 import no.nav.tilleggsstonader.klage.felles.domain.Fil
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.IdConverters.alleValueClassConverters
+import no.nav.tilleggsstonader.klage.infrastruktur.repository.JsonWrapper
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import org.apache.commons.lang3.StringUtils
@@ -70,6 +71,8 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
                 BytearrayTilOpprettetRevurderingConverter(),
                 HjemlerTilJsonConverter(),
                 JsonTilHjemlerConverter(),
+                PGobjectTilJsonWrapperConverter(),
+                JsonWrapperTilPGobjectConverter(),
             ) + alleValueClassConverters,
         )
 
@@ -182,5 +185,19 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
     @ReadingConverter
     class JsonTilHjemlerConverter : Converter<PGobject, Hjemler> {
         override fun convert(pGobject: PGobject): Hjemler = Hjemler(objectMapper.readValue(pGobject.value!!))
+    }
+
+    @ReadingConverter
+    class PGobjectTilJsonWrapperConverter : Converter<PGobject, JsonWrapper?> {
+        override fun convert(pGobject: PGobject): JsonWrapper? = pGobject.value?.let { JsonWrapper(it) }
+    }
+
+    @WritingConverter
+    class JsonWrapperTilPGobjectConverter : Converter<JsonWrapper, PGobject> {
+        override fun convert(jsonWrapper: JsonWrapper): PGobject =
+            PGobject().apply {
+                type = "json"
+                value = jsonWrapper.json
+            }
     }
 }

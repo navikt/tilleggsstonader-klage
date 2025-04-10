@@ -132,14 +132,13 @@ internal class FormServiceTest {
         internal fun `ingen behandlingshistorikk av StegType FORMKRAV, skal opprette task for statistikk`() {
             val behandlingshistorikk =
                 Behandlingshistorikk(
-                    UUID.randomUUID(),
-                    BehandlingId.random(),
-                    StegType.OPPRETTET,
+                    id = UUID.randomUUID(),
+                    behandlingId = BehandlingId.random(),
+                    steg = StegType.OPPRETTET,
+                    utfall = null,
+                    gitVersjon = null,
                 )
-            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns
-                listOf(
-                    behandlingshistorikk,
-                )
+            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns listOf(behandlingshistorikk)
             every { taskService.save(any()) } returns mockk<Task>()
             service.oppdaterFormkrav(oppfyltFormDto())
             verify { taskService.save(any()) }
@@ -149,15 +148,14 @@ internal class FormServiceTest {
         internal fun `finnes behandlingshistorikk av StegType FORMKRAV, skal ikke opprette task for statistikk`() {
             val behandlingshistorikk =
                 Behandlingshistorikk(
-                    UUID.randomUUID(),
-                    BehandlingId.random(),
-                    StegType.FORMKRAV,
+                    id = UUID.randomUUID(),
+                    behandlingId = BehandlingId.random(),
+                    steg = StegType.FORMKRAV,
+                    utfall = null,
+                    gitVersjon = null,
                 )
             every { SikkerhetContext.hentSaksbehandler(any()) } returns "saksbehandler"
-            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns
-                listOf(
-                    behandlingshistorikk,
-                )
+            every { behandlingshistorikkService.hentBehandlingshistorikk(any()) } returns listOf(behandlingshistorikk)
             every { taskService.save(any()) } returns mockk<Task>()
             service.oppdaterFormkrav(oppfyltFormDto())
             verify(exactly = 0) { taskService.save(any()) }

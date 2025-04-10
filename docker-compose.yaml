@@ -13,10 +13,5 @@ services:
       POSTGRES_PASSWORD: "test"
       POSTGRES_DB: "tilleggsstonader-klage"
 
-  tilleggsstonader-htmlify:
-    image: "ghcr.io/navikt/tilleggsstonader-htmlify:latest"
-    ports:
-      - "8001:8001"
-
 volumes:
   tilleggsstonader-klage-data:
