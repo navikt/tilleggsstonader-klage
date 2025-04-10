@@ -7,6 +7,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.getValue
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.LoggerFactory
@@ -57,13 +58,16 @@ class OppgaveService(
         oppgaveMappe: OppgaveMappe,
     ) = finnMapper(enhet)
         .let { alleMapper ->
-            val aktuelleMapper = alleMapper.filter { it.navn.endsWith(oppgaveMappe.navn, ignoreCase = true) }
+            val aktuelleMapper =
+                alleMapper.filter { mappe ->
+                    oppgaveMappe.navn.any { mappe.navn.endsWith(it, ignoreCase = true) }
+                }
             if (aktuelleMapper.size != 1) {
                 secureLogger.error("Finner ${aktuelleMapper.size} mapper for enhet=$enhet navn=$oppgaveMappe - mapper=$alleMapper")
                 error("Finner ikke mapper for enhet=$enhet navn=$oppgaveMappe. Se secure logs for mer info")
             }
             aktuelleMapper.single()
-        }.id
+        }
 
     fun finnMapper(enhet: String): List<MappeDto> =
         cacheManager.getValue("oppgave-mappe", enhet) {

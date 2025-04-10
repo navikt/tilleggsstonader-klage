@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.springframework.stereotype.Service
@@ -47,7 +48,7 @@ class OpprettBehandleSakOppgaveTask(
                 behandlesAvApplikasjon = "tilleggsstonader-klage",
                 tilordnetRessurs = task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
                 behandlingstema = fagsak.stønadstype.tilBehandlingstema().value,
-                mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR),
+                mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR).id,
             )
 
         val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)

@@ -13,6 +13,8 @@ import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Com
 import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
+import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.assertj.core.api.Assertions.assertThat
@@ -47,7 +49,8 @@ internal class OppgaveTaskServiceTest {
         BrukerContextUtil.mockBrukerContext()
         every { fagsakService.hentFagsakForBehandling(behandling.id) } returns fagsak
         every { behandlingService.hentBehandling(behandling.id) } returns behandling
-        every { oppgaveService.finnMappe("4462", OppgaveMappe.KLAR) } returns MAPPE_ID_KLAR
+        every { oppgaveService.finnMappe("4462", OppgaveMappe.KLAR) } returns
+            MappeDto(MAPPE_ID_KLAR, OppgaveMappe.KLAR.navn.first(), "4462", "TSO")
     }
 
     @AfterEach

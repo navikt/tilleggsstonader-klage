@@ -5,13 +5,13 @@ import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.infrastruktur.config.OppgaveConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveClient
-import no.nav.tilleggsstonader.klage.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.StatusEnum
@@ -61,8 +61,8 @@ class OppgaveClientConfig {
 
         val mapper =
             listOf(
-                MappeDto(MAPPE_ID_PÅ_VENT, OppgaveMappe.KLAR.navn, "4462"),
-                MappeDto(MAPPE_ID_KLAR, OppgaveMappe.PÅ_VENT.navn, "4462"),
+                MappeDto(MAPPE_ID_PÅ_VENT, OppgaveMappe.PÅ_VENT.navn.first(), "4462"),
+                MappeDto(MAPPE_ID_KLAR, OppgaveMappe.KLAR.navn.first(), "4462"),
             )
         every { oppgaveClient.finnMapper(any(), any()) } returns FinnMappeResponseDto(mapper.size, mapper)
 
