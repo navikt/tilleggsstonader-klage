@@ -28,7 +28,6 @@ class OpprettBehandleSakOppgaveTask(
     private val fagsakService: FagsakService,
     private val behandlingService: BehandlingService,
     private val oppgaveService: OppgaveService,
-    private val behandleSakOppgaveRepository: BehandleSakOppgaveRepository,
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
         val behandlingId = BehandlingId.fromString(task.payload)
@@ -51,10 +50,7 @@ class OpprettBehandleSakOppgaveTask(
                 mappeId = oppgaveService.finnMappe(behandling.behandlendeEnhet, OppgaveMappe.KLAR).id,
             )
 
-        val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest = oppgaveRequest)
-        behandleSakOppgaveRepository.insert(
-            BehandleSakOppgave(behandlingId = behandling.id, oppgaveId = oppgaveId),
-        )
+        oppgaveService.opprettOppgave(behandlingId, opprettOppgaveRequest = oppgaveRequest)
     }
 
     companion object {

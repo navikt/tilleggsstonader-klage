@@ -8,6 +8,7 @@ import no.nav.familie.prosessering.domene.TaskLogg
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.vent.SettPåVent
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.Behandlingshistorikk
 import no.nav.tilleggsstonader.klage.brev.domain.Avsnitt
 import no.nav.tilleggsstonader.klage.brev.domain.Brev
@@ -59,6 +60,7 @@ class DefaultRestTemplateConfiguration {
     "mock-tilleggsstonader-sak",
     "mock-ereg",
     "mock-inntekt",
+    "mock-oppgave",
 )
 @EnableMockOAuth2Server
 abstract class IntegrationTest {
@@ -114,6 +116,7 @@ abstract class IntegrationTest {
 
     private fun resetDatabase() {
         listOf(
+            SettPåVent::class,
             BehandleSakOppgave::class,
             Behandlingshistorikk::class,
             Avsnitt::class,

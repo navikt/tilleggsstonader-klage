@@ -48,7 +48,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
     @BeforeEach
     fun setup() {
         opprettOppgaveTask = OpprettKabalEventOppgaveTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
-        every { oppgaveService.opprettOppgave(capture(opprettOppgaveRequestSlot)) } answers { 9L }
+        every { oppgaveService.opprettOppgaveUtenÅLagreIRepository(capture(opprettOppgaveRequestSlot)) } answers { 9L }
 
         fagsak =
             testoppsettService.lagreFagsak(

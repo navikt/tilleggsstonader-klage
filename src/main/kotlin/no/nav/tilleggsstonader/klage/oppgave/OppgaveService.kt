@@ -24,7 +24,17 @@ class OppgaveService(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun opprettOppgave(opprettOppgaveRequest: OpprettOppgaveRequest): Long = oppgaveClient.opprettOppgave(opprettOppgaveRequest)
+    fun opprettOppgaveUtenÅLagreIRepository(opprettOppgaveRequest: OpprettOppgaveRequest): Long =
+        oppgaveClient.opprettOppgave(opprettOppgaveRequest)
+
+    fun opprettOppgave(
+        behandlingId: BehandlingId,
+        opprettOppgaveRequest: OpprettOppgaveRequest,
+    ): Long {
+        val oppgaveId = oppgaveClient.opprettOppgave(opprettOppgaveRequest)
+        behandleSakOppgaveRepository.insert(BehandleSakOppgave(behandlingId = behandlingId, oppgaveId = oppgaveId))
+        return oppgaveId
+    }
 
     fun oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId: BehandlingId) {
         val behandling = behandlingService.hentBehandling(behandlingId)
@@ -52,6 +62,9 @@ class OppgaveService(
         behandleSakOppgaveRepository
             .finnForOppgaveIder(oppgaveIder)
             .associate { it.oppgaveId to it.behandlingId.id }
+
+    fun hentOppgaveIdForBehandling(behandlingId: BehandlingId): BehandleSakOppgave =
+        behandleSakOppgaveRepository.findByBehandlingId(behandlingId)
 
     fun finnMappe(
         enhet: String,

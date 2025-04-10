@@ -64,7 +64,7 @@ class OpprettKabalEventOppgaveTask(
                 prioritet = prioritet,
             )
 
-        val oppgaveId = oppgaveService.opprettOppgave(opprettOppgaveRequest)
+        val oppgaveId = oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
 
