@@ -3,7 +3,7 @@ package no.nav.tilleggsstonader.klage.kabal
 import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
-import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
+import no.nav.tilleggsstonader.klage.kabal.event.KabalBehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
@@ -17,7 +17,7 @@ import java.util.UUID
 
 @Component
 class KabalKafkaListener(
-    val behandlingEventService: BehandlingEventService,
+    val kabalBehandlingEventService: KabalBehandlingEventService,
 ) : ConsumerSeekAware {
     private val secureLogger = LoggerFactory.getLogger("secureLogger")
     val støttedeFagsystemer = listOf(Fagsystem.TILLEGGSSTONADER.name)
@@ -29,12 +29,12 @@ class KabalKafkaListener(
     )
     fun listen(behandlingEventJson: String) {
         secureLogger.info("Klage-kabal-event: $behandlingEventJson")
-        val behandlingEvent = objectMapper.readValue<BehandlingEvent>(behandlingEventJson)
+        val kabalBehandlingEvent = objectMapper.readValue<KabalBehandlingEvent>(behandlingEventJson)
 
-        if (støttedeFagsystemer.contains(behandlingEvent.kilde)) {
-            behandlingEventService.handleEvent(behandlingEvent)
+        if (støttedeFagsystemer.contains(kabalBehandlingEvent.kilde)) {
+            kabalBehandlingEventService.handleEvent(kabalBehandlingEvent)
         }
-        secureLogger.info("Serialisert behandlingEvent: $behandlingEvent")
+        secureLogger.info("Serialisert behandlingEvent: $kabalBehandlingEvent")
     }
 
 //  Beholdes for å enkelt kunne lese fra en spesifikk offsett ved behov
@@ -67,7 +67,7 @@ class KabalKafkaListener(
 }
 
 // se no.nav.tilleggsstonader.klage.kabal.OversendtKlageAnkeV3
-data class BehandlingEvent(
+data class KabalBehandlingEvent(
     val eventId: UUID,
     val kildeReferanse: String,
     val kilde: String,

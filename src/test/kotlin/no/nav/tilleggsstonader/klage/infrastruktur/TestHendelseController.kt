@@ -8,9 +8,9 @@ import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingDetaljer
-import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
+import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.KlagebehandlingAvsluttetDetaljer
-import no.nav.tilleggsstonader.klage.kabal.event.BehandlingEventService
+import no.nav.tilleggsstonader.klage.kabal.event.KabalBehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
@@ -30,7 +30,7 @@ import java.util.UUID
 @Unprotected
 class TestHendelseController(
     private val behandlingRepository: BehandlingRepository,
-    private val behandlingEventService: BehandlingEventService,
+    private val kabalBehandlingEventService: KabalBehandlingEventService,
 ) {
     @GetMapping("{behandlingId}")
     fun hentBehandling(
@@ -39,9 +39,9 @@ class TestHendelseController(
 
     @PostMapping
     fun opprettKabalEvent(
-        @RequestBody behandlingEvent: BehandlingEvent,
+        @RequestBody kabalBehandlingEvent: KabalBehandlingEvent,
     ) {
-        behandlingEventService.handleEvent(behandlingEvent)
+        kabalBehandlingEventService.handleEvent(kabalBehandlingEvent)
     }
 
     @PostMapping("{behandlingId}/dummy")
@@ -49,8 +49,8 @@ class TestHendelseController(
         @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
-        behandlingEventService.handleEvent(
-            BehandlingEvent(
+        kabalBehandlingEventService.handleEvent(
+            KabalBehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
                 kilde = Fagsystem.TILLEGGSSTONADER.name,
@@ -73,8 +73,8 @@ class TestHendelseController(
         @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
-        behandlingEventService.handleEvent(
-            BehandlingEvent(
+        kabalBehandlingEventService.handleEvent(
+            KabalBehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
                 kilde = Fagsystem.TILLEGGSSTONADER.name,
@@ -96,8 +96,8 @@ class TestHendelseController(
         @PathVariable behandlingId: BehandlingId,
     ) {
         val behandling = behandlingRepository.findByIdOrThrow(behandlingId)
-        behandlingEventService.handleEvent(
-            BehandlingEvent(
+        kabalBehandlingEventService.handleEvent(
+            KabalBehandlingEvent(
                 eventId = UUID.randomUUID(),
                 kildeReferanse = behandling.eksternBehandlingId.toString(),
                 kilde = Fagsystem.TILLEGGSSTONADER.name,

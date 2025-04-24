@@ -9,8 +9,8 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
-import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
+import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-class BehandlingEventService(
+class KabalBehandlingEventService(
     private val behandlingRepository: BehandlingRepository,
     private val fagsakRepository: FagsakRepository,
     private val taskService: TaskService,
@@ -37,23 +37,23 @@ class BehandlingEventService(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Transactional
-    fun handleEvent(behandlingEvent: BehandlingEvent) {
-        val finnesKlageresultat = klageresultatRepository.existsById(behandlingEvent.eventId)
+    fun handleEvent(kabalBehandlingEvent: KabalBehandlingEvent) {
+        val finnesKlageresultat = klageresultatRepository.existsById(kabalBehandlingEvent.eventId)
         if (finnesKlageresultat) {
-            logger.warn("Hendelse fra kabal med eventId: ${behandlingEvent.eventId} er allerede lest - prosesserer ikke hendelse.")
+            logger.warn("Hendelse fra kabal med eventId: ${kabalBehandlingEvent.eventId} er allerede lest - prosesserer ikke hendelse.")
         } else {
-            logger.info("Prosesserer hendelse fra kabal med eventId: ${behandlingEvent.eventId}")
-            val eksternBehandlingId = UUID.fromString(behandlingEvent.kildeReferanse)
+            logger.info("Prosesserer hendelse fra kabal med eventId: ${kabalBehandlingEvent.eventId}")
+            val eksternBehandlingId = UUID.fromString(kabalBehandlingEvent.kildeReferanse)
             val behandling = behandlingRepository.findByEksternBehandlingId(eksternBehandlingId)
 
-            lagreKlageresultat(behandlingEvent, behandling)
+            lagreKlageresultat(kabalBehandlingEvent, behandling)
 
-            when (behandlingEvent.type) {
-                BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET -> behandleKlageAvsluttet(behandling, behandlingEvent)
+            when (kabalBehandlingEvent.type) {
+                BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET -> behandleKlageAvsluttet(behandling, kabalBehandlingEvent)
                 BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
                 BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
                 BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
-                -> opprettOppgaveTask(behandling, behandlingEvent)
+                -> opprettOppgaveTask(behandling, kabalBehandlingEvent)
 
                 BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
                 BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
@@ -74,27 +74,27 @@ class BehandlingEventService(
     }
 
     private fun lagreKlageresultat(
-        behandlingEvent: BehandlingEvent,
+        kabalBehandlingEvent: KabalBehandlingEvent,
         behandling: Behandling,
     ) {
         val klageinstansResultat =
             KlageinstansResultat(
-                eventId = behandlingEvent.eventId,
-                type = behandlingEvent.type,
-                utfall = behandlingEvent.utfall(),
-                mottattEllerAvsluttetTidspunkt = behandlingEvent.mottattEllerAvsluttetTidspunkt(),
-                kildereferanse = UUID.fromString(behandlingEvent.kildeReferanse),
-                journalpostReferanser = StringListWrapper(behandlingEvent.journalpostReferanser()),
+                eventId = kabalBehandlingEvent.eventId,
+                type = kabalBehandlingEvent.type,
+                utfall = kabalBehandlingEvent.utfall(),
+                mottattEllerAvsluttetTidspunkt = kabalBehandlingEvent.mottattEllerAvsluttetTidspunkt(),
+                kildereferanse = UUID.fromString(kabalBehandlingEvent.kildeReferanse),
+                journalpostReferanser = StringListWrapper(kabalBehandlingEvent.journalpostReferanser()),
                 behandlingId = behandling.id,
-                årsakFeilregistrert = utledÅrsakFeilregistrert(behandlingEvent),
+                årsakFeilregistrert = utledÅrsakFeilregistrert(kabalBehandlingEvent),
             )
 
         klageresultatRepository.insert(klageinstansResultat)
     }
 
-    private fun utledÅrsakFeilregistrert(behandlingEvent: BehandlingEvent) =
-        if (behandlingEvent.type == BehandlingEventType.BEHANDLING_FEILREGISTRERT) {
-            behandlingEvent.detaljer.behandlingFeilregistrert?.reason
+    private fun utledÅrsakFeilregistrert(kabalBehandlingEvent: KabalBehandlingEvent) =
+        if (kabalBehandlingEvent.type == BehandlingEventType.BEHANDLING_FEILREGISTRERT) {
+            kabalBehandlingEvent.detaljer.behandlingFeilregistrert?.reason
                 ?: error("Finner ikke årsak til feilregistrering")
         } else {
             null
@@ -102,15 +102,15 @@ class BehandlingEventService(
 
     private fun behandleKlageAvsluttet(
         behandling: Behandling,
-        behandlingEvent: BehandlingEvent,
+        kabalBehandlingEvent: KabalBehandlingEvent,
     ) {
         when (behandling.status) {
             BehandlingStatus.FERDIGSTILT ->
                 logger.error(
-                    "Mottatt event på ferdigstilt behandling $behandlingEvent - event kan være lest fra før",
+                    "Mottatt event på ferdigstilt behandling $kabalBehandlingEvent - event kan være lest fra før",
                 )
             else -> {
-                opprettOppgaveTask(behandling, behandlingEvent)
+                opprettOppgaveTask(behandling, kabalBehandlingEvent)
                 ferdigstillKlagebehandling(behandling)
             }
         }
@@ -118,7 +118,7 @@ class BehandlingEventService(
 
     private fun opprettOppgaveTask(
         behandling: Behandling,
-        behandlingEvent: BehandlingEvent,
+        kabalBehandlingEvent: KabalBehandlingEvent,
     ) {
         val fagsakDomain =
             fagsakRepository.finnFagsakForBehandlingId(behandling.id)
@@ -126,14 +126,14 @@ class BehandlingEventService(
         val saksbehandlerIdent = behandling.sporbar.endret.endretAv
         val saksbehandlerEnhet = utledSaksbehandlerEnhet(saksbehandlerIdent)
         val oppgaveTekst =
-            "${behandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
-        val klageBehandlingEksternId = UUID.fromString(behandlingEvent.kildeReferanse)
+            "${kabalBehandlingEvent.detaljer.oppgaveTekst(saksbehandlerEnhet)} Gjelder: ${fagsakDomain.stønadstype}"
+        val klageBehandlingEksternId = UUID.fromString(kabalBehandlingEvent.kildeReferanse)
         val opprettOppgavePayload =
             OpprettOppgavePayload(
                 klagebehandlingEksternId = klageBehandlingEksternId,
                 oppgaveTekst = oppgaveTekst,
                 fagsystem = fagsakDomain.fagsystem,
-                klageinstansUtfall = behandlingEvent.utfall(),
+                klageinstansUtfall = kabalBehandlingEvent.utfall(),
                 behandlingstema = fagsakDomain.stønadstype.tilBehandlingstema(),
             )
         val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)

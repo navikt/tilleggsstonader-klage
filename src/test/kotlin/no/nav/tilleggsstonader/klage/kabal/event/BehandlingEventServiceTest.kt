@@ -15,9 +15,9 @@ import no.nav.tilleggsstonader.klage.kabal.AnkeITrygderettenbehandlingOpprettetD
 import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer
-import no.nav.tilleggsstonader.klage.kabal.BehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
+import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.KlagebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.OmgjoeringskravbehandlingAvsluttetDetaljer
@@ -43,8 +43,8 @@ internal class BehandlingEventServiceTest {
     private val klageresultatRepository = mockk<KlageresultatRepository>(relaxed = true)
     private val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>(relaxed = true)
 
-    val behandlingEventService =
-        BehandlingEventService(
+    val kabalBehandlingEventService =
+        KabalBehandlingEventService(
             behandlingRepository = behandlingRepository,
             fagsakRepository = fagsakRepository,
             stegService = stegService,
@@ -68,7 +68,7 @@ internal class BehandlingEventServiceTest {
     fun `Skal lage oppgave og ferdigstille behandling for klage som ikke er ferdigstilt`() {
         val behandlingEvent = lagBehandlingEvent()
 
-        behandlingEventService.handleEvent(behandlingEvent)
+        kabalBehandlingEventService.handleEvent(behandlingEvent)
 
         verify(exactly = 1) { taskService.save(any()) }
         verify(exactly = 1) {
@@ -91,7 +91,7 @@ internal class BehandlingEventServiceTest {
                     ),
             )
 
-        behandlingEventService.handleEvent(behandlingEvent)
+        kabalBehandlingEventService.handleEvent(behandlingEvent)
 
         verify(exactly = 0) { taskService.save(any()) }
         verify(exactly = 0) { stegService.oppdaterSteg(any(), any(), any()) }
@@ -102,7 +102,7 @@ internal class BehandlingEventServiceTest {
         val behandlingEvent = lagBehandlingEvent()
         val behandling = DomainUtil.behandling(status = BehandlingStatus.FERDIGSTILT)
         every { behandlingRepository.findByEksternBehandlingId(any()) } returns behandling
-        behandlingEventService.handleEvent(behandlingEvent)
+        kabalBehandlingEventService.handleEvent(behandlingEvent)
 
         verify(exactly = 0) { taskService.save(any()) }
         verify(exactly = 0) { stegService.oppdaterSteg(behandling.id, any(), StegType.BEHANDLING_FERDIGSTILT) }
@@ -112,7 +112,7 @@ internal class BehandlingEventServiceTest {
     internal fun `Skal ikke behandle event hvis det allerede er behandlet`() {
         every { klageresultatRepository.existsById(any()) } returns true
 
-        behandlingEventService.handleEvent(lagBehandlingEvent())
+        kabalBehandlingEventService.handleEvent(lagBehandlingEvent())
 
         verify(exactly = 0) { behandlingRepository.findByEksternBehandlingId(any()) }
         verify(exactly = 0) { klageresultatRepository.insert(any()) }
@@ -120,7 +120,7 @@ internal class BehandlingEventServiceTest {
 
     @Test
     internal fun `Skal lagre event hvis det ikke allerede er behandlet`() {
-        behandlingEventService.handleEvent(lagBehandlingEvent())
+        kabalBehandlingEventService.handleEvent(lagBehandlingEvent())
 
         verify(exactly = 1) { behandlingRepository.findByEksternBehandlingId(any()) }
         verify(exactly = 1) { klageresultatRepository.insert(any()) }
@@ -130,7 +130,7 @@ internal class BehandlingEventServiceTest {
     internal fun `Skal kunne lagre resultat for behandlingsevent ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET`() {
         val klageinstansResultatSlot = slot<KlageinstansResultat>()
 
-        behandlingEventService.handleEvent(
+        kabalBehandlingEventService.handleEvent(
             lagBehandlingEvent(
                 BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
                 BehandlingDetaljer(
@@ -159,7 +159,7 @@ internal class BehandlingEventServiceTest {
                 KlageinstansUtfall.HEVET,
                 emptyList(),
             )
-        behandlingEventService.handleEvent(
+        kabalBehandlingEventService.handleEvent(
             lagBehandlingEvent(
                 BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
                 BehandlingDetaljer(omgjoeringskravbehandlingAvsluttet = omgjoeringskravbehandlingAvsluttet),
@@ -182,7 +182,7 @@ internal class BehandlingEventServiceTest {
                 utfall = KlageinstansUtfall.HEVET,
                 journalpostReferanser = emptyList(),
             )
-        behandlingEventService.handleEvent(
+        kabalBehandlingEventService.handleEvent(
             lagBehandlingEvent(
                 BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
                 BehandlingDetaljer(behandlingEtterTrygderettenOpphevetAvsluttet = detaljer),
@@ -198,7 +198,7 @@ internal class BehandlingEventServiceTest {
 
     @Test
     internal fun `Skal ikke ferdigstille behandling for behandlingsevent ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET`() {
-        behandlingEventService.handleEvent(
+        kabalBehandlingEventService.handleEvent(
             lagBehandlingEvent(
                 BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
                 BehandlingDetaljer(
@@ -223,7 +223,7 @@ internal class BehandlingEventServiceTest {
 
         every { taskService.save(capture(taskSlot)) } returns mockk()
 
-        behandlingEventService.handleEvent(
+        kabalBehandlingEventService.handleEvent(
             lagBehandlingEvent(
                 BehandlingEventType.BEHANDLING_FEILREGISTRERT,
                 BehandlingDetaljer(behandlingFeilregistrert = behandlingFeilregistrertDetaljer),
@@ -254,7 +254,7 @@ internal class BehandlingEventServiceTest {
                 behandlingEventType = BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
                 behandlingDetaljer = detaljer,
             )
-        behandlingEventService.handleEvent(event)
+        kabalBehandlingEventService.handleEvent(event)
 
         assertThat(taskSlot.captured.type).isEqualTo(OpprettKabalEventOppgaveTask.TYPE)
         assertThat(
@@ -265,8 +265,8 @@ internal class BehandlingEventServiceTest {
     private fun lagBehandlingEvent(
         behandlingEventType: BehandlingEventType = BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET,
         behandlingDetaljer: BehandlingDetaljer? = null,
-    ): BehandlingEvent =
-        BehandlingEvent(
+    ): KabalBehandlingEvent =
+        KabalBehandlingEvent(
             eventId = UUID.randomUUID(),
             kildeReferanse = UUID.randomUUID().toString(),
             kilde = "TS",
