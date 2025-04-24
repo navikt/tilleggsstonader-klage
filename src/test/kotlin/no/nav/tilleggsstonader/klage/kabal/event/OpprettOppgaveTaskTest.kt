@@ -11,7 +11,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
-import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
+import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.fagsakDomain
@@ -39,7 +39,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
     private val oppgaveService = mockk<OppgaveService>()
     private val opprettOppgaveRequestSlot = slot<OpprettOppgaveRequest>()
 
-    private lateinit var opprettOppgaveTask: OpprettKabalEventOppgaveTask
+    private lateinit var opprettOppgaveTask: OpprettOppgaveForKlagehendelseTask
 
     val personIdent = "12345678901"
     private lateinit var fagsak: Fagsak
@@ -47,7 +47,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
     @BeforeEach
     fun setup() {
-        opprettOppgaveTask = OpprettKabalEventOppgaveTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
+        opprettOppgaveTask = OpprettOppgaveForKlagehendelseTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
         every { oppgaveService.opprettOppgaveUtenÅLagreIRepository(capture(opprettOppgaveRequestSlot)) } answers { 9L }
 
         fagsak =
@@ -75,7 +75,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
                 null,
                 behandlingstema = Behandlingstema.TilsynBarn,
             )
-        opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
+        opprettOppgaveTask.doTask(OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.tema).isEqualTo(Tema.TSO)
         assertThat(opprettOppgaveRequestSlot.captured.beskrivelse).contains("tekst")
@@ -90,7 +90,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
     fun `skal gi høy prioritet til oppgaver med klageinnstansutfall lik opphevet`() {
         val opprettOppgavePayload =
             OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.OPPHEVET)
-        opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
+        opprettOppgaveTask.doTask(OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.HOY)
     }
@@ -99,7 +99,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
     fun `skal gi norm prioritet til oppgaver med klageinnstansutfall ikke lik opphevet`() {
         val opprettOppgavePayload =
             OpprettOppgavePayload(behandling.eksternBehandlingId, "tekst", Fagsystem.TILLEGGSSTONADER, KlageinstansUtfall.MEDHOLD)
-        opprettOppgaveTask.doTask(OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload))
+        opprettOppgaveTask.doTask(OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload))
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)
     }

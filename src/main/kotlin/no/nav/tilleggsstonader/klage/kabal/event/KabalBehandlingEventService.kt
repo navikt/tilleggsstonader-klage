@@ -9,11 +9,11 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration.StringListWrapper
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
-import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
+import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
-import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
+import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
@@ -49,11 +49,15 @@ class KabalBehandlingEventService(
             lagreKlageresultat(kabalBehandlingEvent, behandling)
 
             when (kabalBehandlingEvent.type) {
-                BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET -> behandleKlageAvsluttet(behandling, kabalBehandlingEvent)
+                BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET ->
+                    opprettVurderKonsekvensForYtelseOppgaveOgFerdigstillKlagebehandlingen(
+                        behandling,
+                        kabalBehandlingEvent,
+                    )
                 BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
                 BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
                 BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
-                -> opprettOppgaveTask(behandling, kabalBehandlingEvent)
+                -> opprettVurderKonsekvensForYtelseOppgave(behandling, kabalBehandlingEvent)
 
                 BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
                 BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
@@ -64,13 +68,14 @@ class KabalBehandlingEventService(
                      * */
                 }
 
+                // Klagen er returnert fra KA fordi den er feilregistrert
                 BehandlingEventType.BEHANDLING_FEILREGISTRERT -> opprettBehandlingFeilregistretTask(behandling.id)
             }
         }
     }
 
     private fun opprettBehandlingFeilregistretTask(behandlingId: BehandlingId) {
-        taskService.save(BehandlingFeilregistrertTask.opprettTask(behandlingId))
+        taskService.save(KabalBehandlingFeilregistrertTask.opprettTask(behandlingId))
     }
 
     private fun lagreKlageresultat(
@@ -100,7 +105,7 @@ class KabalBehandlingEventService(
             null
         }
 
-    private fun behandleKlageAvsluttet(
+    private fun opprettVurderKonsekvensForYtelseOppgaveOgFerdigstillKlagebehandlingen(
         behandling: Behandling,
         kabalBehandlingEvent: KabalBehandlingEvent,
     ) {
@@ -110,13 +115,13 @@ class KabalBehandlingEventService(
                     "Mottatt event på ferdigstilt behandling $kabalBehandlingEvent - event kan være lest fra før",
                 )
             else -> {
-                opprettOppgaveTask(behandling, kabalBehandlingEvent)
+                opprettVurderKonsekvensForYtelseOppgave(behandling, kabalBehandlingEvent)
                 ferdigstillKlagebehandling(behandling)
             }
         }
     }
 
-    private fun opprettOppgaveTask(
+    private fun opprettVurderKonsekvensForYtelseOppgave(
         behandling: Behandling,
         kabalBehandlingEvent: KabalBehandlingEvent,
     ) {
@@ -136,7 +141,7 @@ class KabalBehandlingEventService(
                 klageinstansUtfall = kabalBehandlingEvent.utfall(),
                 behandlingstema = fagsakDomain.stønadstype.tilBehandlingstema(),
             )
-        val opprettOppgaveTask = OpprettKabalEventOppgaveTask.opprettTask(opprettOppgavePayload)
+        val opprettOppgaveTask = OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
     }
 

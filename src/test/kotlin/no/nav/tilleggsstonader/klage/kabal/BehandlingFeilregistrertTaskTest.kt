@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.infrastruktur.config.DatabaseConfiguration
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
-import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
+import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
@@ -41,7 +41,7 @@ class BehandlingFeilregistrertTaskTest : IntegrationTest() {
 
     @Autowired lateinit var klageresultatRepository: KlageresultatRepository
 
-    private lateinit var behandlingFeilregistrertTask: BehandlingFeilregistrertTask
+    private lateinit var kabalBehandlingFeilregistrertTask: KabalBehandlingFeilregistrertTask
 
     val personIdent = "12345678901"
     private lateinit var fagsak: Fagsak
@@ -49,8 +49,8 @@ class BehandlingFeilregistrertTaskTest : IntegrationTest() {
 
     @BeforeEach
     fun setup() {
-        behandlingFeilregistrertTask =
-            BehandlingFeilregistrertTask(stegService, taskService, behandlingService, fagsakService)
+        kabalBehandlingFeilregistrertTask =
+            KabalBehandlingFeilregistrertTask(stegService, taskService, behandlingService, fagsakService)
 
         fagsak =
             testoppsettService.lagreFagsak(
@@ -89,13 +89,13 @@ class BehandlingFeilregistrertTaskTest : IntegrationTest() {
         assertThat(behandling.steg).isEqualTo(StegType.KABAL_VENTER_SVAR)
         assertThat(behandling.status).isEqualTo(BehandlingStatus.VENTER)
 
-        behandlingFeilregistrertTask.doTask(BehandlingFeilregistrertTask.opprettTask(behandling.id))
+        kabalBehandlingFeilregistrertTask.doTask(KabalBehandlingFeilregistrertTask.opprettTask(behandling.id))
 
         val oppdatertBehandling = behandlingService.hentBehandling(behandling.id)
         assertThat(oppdatertBehandling.steg).isEqualTo(StegType.BEHANDLING_FERDIGSTILT)
         assertThat(oppdatertBehandling.status).isEqualTo(BehandlingStatus.FERDIGSTILT)
 
-        val opprettOppgaveTask = taskService.findAll().single { it.type == OpprettKabalEventOppgaveTask.TYPE }
+        val opprettOppgaveTask = taskService.findAll().single { it.type == OpprettOppgaveForKlagehendelseTask.TYPE }
         val opprettOppgavePayload = objectMapper.readValue<OpprettOppgavePayload>(opprettOppgaveTask.payload)
         assertThat(
             opprettOppgavePayload.oppgaveTekst,

@@ -9,19 +9,19 @@ import no.nav.tilleggsstonader.klage.behandling.StegService
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
-import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
+import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import org.springframework.stereotype.Service
 
 @Service
 @TaskStepBeskrivelse(
-    taskStepType = BehandlingFeilregistrertTask.TYPE,
-    beskrivelse = "Håndter feilregistret klage fra kabal",
+    taskStepType = KabalBehandlingFeilregistrertTask.TYPE,
+    beskrivelse = "Håndter feilregistrert klage fra kabal",
     maxAntallFeil = 1,
     settTilManuellOppfølgning = true,
 )
-class BehandlingFeilregistrertTask(
+class KabalBehandlingFeilregistrertTask(
     private val stegService: StegService,
     private val taskService: TaskService,
     private val behandlingService: BehandlingService,
@@ -33,9 +33,9 @@ class BehandlingFeilregistrertTask(
         taskService.save(lagOpprettOppgaveTask(behandlingId))
 
         stegService.oppdaterSteg(
-            behandlingId,
-            StegType.KABAL_VENTER_SVAR,
-            StegType.BEHANDLING_FERDIGSTILT,
+            behandlingId = behandlingId,
+            nåværendeSteg = StegType.KABAL_VENTER_SVAR,
+            nesteSteg = StegType.BEHANDLING_FERDIGSTILT,
         )
     }
 
@@ -48,7 +48,7 @@ class BehandlingFeilregistrertTask(
                 .single()
                 .årsakFeilregistrert ?: error("Fant ikke årsak for feilregistrering")
 
-        return OpprettKabalEventOppgaveTask.opprettTask(
+        return OpprettOppgaveForKlagehendelseTask.opprettTask(
             OpprettOppgavePayload(
                 klagebehandlingEksternId = behandling.eksternBehandlingId,
                 oppgaveTekst = lagOppgavebeskrivelse(årsakFeilregistrert),

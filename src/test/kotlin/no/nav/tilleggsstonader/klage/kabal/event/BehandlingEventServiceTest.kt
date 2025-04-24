@@ -16,14 +16,14 @@ import no.nav.tilleggsstonader.klage.kabal.AnkebehandlingOpprettetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingEtterTrygderettenOpphevetAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertDetaljer
-import no.nav.tilleggsstonader.klage.kabal.BehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
+import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KlagebehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.OmgjoeringskravbehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
-import no.nav.tilleggsstonader.klage.oppgave.OpprettKabalEventOppgaveTask
+import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
@@ -230,7 +230,7 @@ internal class BehandlingEventServiceTest {
             ),
         )
 
-        assertThat(taskSlot.captured.type).isEqualTo(BehandlingFeilregistrertTask.TYPE)
+        assertThat(taskSlot.captured.type).isEqualTo(KabalBehandlingFeilregistrertTask.TYPE)
         assertThat(taskSlot.captured.payload).isEqualTo(behandlingMedStatusVenter.id.toString())
     }
 
@@ -256,7 +256,7 @@ internal class BehandlingEventServiceTest {
             )
         kabalBehandlingEventService.handleEvent(event)
 
-        assertThat(taskSlot.captured.type).isEqualTo(OpprettKabalEventOppgaveTask.TYPE)
+        assertThat(taskSlot.captured.type).isEqualTo(OpprettOppgaveForKlagehendelseTask.TYPE)
         assertThat(
             taskSlot.captured.payload,
         ).contains("Hendelse fra klage av type behandling etter trygderetten opphevet avsluttet med utfall: HEVET mottatt.")

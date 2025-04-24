@@ -26,10 +26,10 @@ import java.util.UUID
 
 @Service
 @TaskStepBeskrivelse(
-    taskStepType = OpprettKabalEventOppgaveTask.TYPE,
-    beskrivelse = "Opprett oppgave for relevant hendelse fra kabal",
+    taskStepType = OpprettOppgaveForKlagehendelseTask.TYPE,
+    beskrivelse = "Opprett 'Vurder konsekvens for ytelse'-oppgave for klagehendelse",
 )
-class OpprettKabalEventOppgaveTask(
+class OpprettOppgaveForKlagehendelseTask(
     private val fagsakRepository: FagsakRepository,
     private val behandlingRepository: BehandlingRepository,
     private val personRepository: FagsakPersonRepository,
@@ -50,7 +50,7 @@ class OpprettKabalEventOppgaveTask(
         val aktivIdent = personRepository.hentAktivIdent(personId)
         val prioritet = utledOppgavePrioritet(opprettOppgavePayload.klageinstansUtfall)
 
-        val opprettOppgaveRequest =
+        val opprettVurderKonsekvensForYtelseOppgaveRequest =
             OpprettOppgaveRequest(
                 ident = OppgaveIdentV2(ident = aktivIdent, gruppe = IdentGruppe.FOLKEREGISTERIDENT),
                 saksreferanse = fagsakDomain.eksternId,
@@ -64,7 +64,7 @@ class OpprettKabalEventOppgaveTask(
                 prioritet = prioritet,
             )
 
-        val oppgaveId = oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettOppgaveRequest)
+        val oppgaveId = oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettVurderKonsekvensForYtelseOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
 
