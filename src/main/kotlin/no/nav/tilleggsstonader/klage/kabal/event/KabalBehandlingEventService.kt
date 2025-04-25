@@ -38,39 +38,38 @@ class KabalBehandlingEventService(
 
     @Transactional
     fun handleEvent(kabalBehandlingEvent: KabalBehandlingEvent) {
-        val finnesKlageresultat = klageresultatRepository.existsById(kabalBehandlingEvent.eventId)
-        if (finnesKlageresultat) {
+        val klagersultatEksisterer = klageresultatRepository.existsById(kabalBehandlingEvent.eventId)
+        if (klagersultatEksisterer) {
             logger.warn("Hendelse fra kabal med eventId: ${kabalBehandlingEvent.eventId} er allerede lest - prosesserer ikke hendelse.")
-        } else {
-            logger.info("Prosesserer hendelse fra kabal med eventId: ${kabalBehandlingEvent.eventId}")
-            val eksternBehandlingId = UUID.fromString(kabalBehandlingEvent.kildeReferanse)
-            val behandling = behandlingRepository.findByEksternBehandlingId(eksternBehandlingId)
+            return
+        }
 
-            lagreKlageresultat(kabalBehandlingEvent, behandling)
+        logger.info("Prosesserer hendelse fra kabal med eventId: ${kabalBehandlingEvent.eventId}")
+        val eksternBehandlingId = UUID.fromString(kabalBehandlingEvent.kildeReferanse)
+        val behandling = behandlingRepository.findByEksternBehandlingId(eksternBehandlingId)
 
-            when (kabalBehandlingEvent.type) {
-                BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET ->
-                    opprettVurderKonsekvensForYtelseOppgaveOgFerdigstillKlagebehandlingen(
-                        behandling,
-                        kabalBehandlingEvent,
-                    )
-                BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
-                BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
-                BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
-                -> opprettVurderKonsekvensForYtelseOppgave(behandling, kabalBehandlingEvent)
+        lagreKlageresultat(kabalBehandlingEvent, behandling)
 
-                BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
-                BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
-                -> {
-                    /*
-                     * Skal ikke gjøre noe dersom eventtype er ANKEBEHANDLING_OPPRETTET
-                     * eller ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET
-                     * */
-                }
+        when (kabalBehandlingEvent.type) {
+            BehandlingEventType.KLAGEBEHANDLING_AVSLUTTET ->
+                opprettVurderKonsekvensForYtelseOppgaveOgFerdigstillKlagebehandlingen(
+                    behandling = behandling,
+                    kabalBehandlingEvent = kabalBehandlingEvent,
+                )
 
-                // Klagen er returnert fra KA fordi den er feilregistrert
-                BehandlingEventType.BEHANDLING_FEILREGISTRERT -> opprettBehandlingFeilregistretTask(behandling.id)
+            BehandlingEventType.ANKEBEHANDLING_AVSLUTTET,
+            BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET,
+            BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
+            -> opprettVurderKonsekvensForYtelseOppgave(behandling, kabalBehandlingEvent)
+
+            BehandlingEventType.ANKEBEHANDLING_OPPRETTET,
+            BehandlingEventType.ANKE_I_TRYGDERETTENBEHANDLING_OPPRETTET,
+            -> {
+                // Skal ikke gjøre noe i disse tilfellene
             }
+
+            // Klagen er returnert fra KA fordi den er feilregistrert
+            BehandlingEventType.BEHANDLING_FEILREGISTRERT -> opprettBehandlingFeilregistretTask(behandling.id)
         }
     }
 
