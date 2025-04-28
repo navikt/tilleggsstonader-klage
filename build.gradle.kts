@@ -3,13 +3,13 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250331103528_ed988de"
-val tilleggsstønaderLibsVersion = "2025.04.10-08.25.0ca8cd61400e"
-val tilleggsstønaderKontrakterVersion = "2025.04.10-12.36.bba001bf0307"
-val tokenSupportVersion = "5.0.24"
-val wiremockVersion = "3.12.1"
-val mockkVersion = "1.13.17"
-val testcontainerVersion = "1.20.6"
+val familieProsesseringVersion = "2.20250409144459_df36248"
+val tilleggsstønaderLibsVersion = "2025.04.28-12.53.f687c00288d5"
+val tilleggsstønaderKontrakterVersion = "2025.04.24-13.44.e5fcab84c3fe"
+val tokenSupportVersion = "5.0.25"
+val wiremockVersion = "3.13.0"
+val mockkVersion = "1.14.0"
+val testcontainerVersion = "1.21.0"
 val springDocVersion = "2.8.6"
 
 group = "no.nav.tilleggsstonader.klage"
@@ -21,11 +21,11 @@ plugins {
     kotlin("jvm") version "2.1.20"
     kotlin("plugin.spring") version "2.1.20"
 
-    id("com.diffplug.spotless") version "7.0.2"
+    id("com.diffplug.spotless") version "7.0.3"
     id("com.github.ben-manes.versions") version "0.52.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.4.4"
+    id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
 
     id("org.cyclonedx.bom") version "2.2.0"
@@ -65,7 +65,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.6.0")
+    implementation("org.flywaydb:flyway-core:11.8.0")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
