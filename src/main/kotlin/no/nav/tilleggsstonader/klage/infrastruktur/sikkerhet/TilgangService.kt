@@ -30,6 +30,30 @@ class TilgangService(
     private val behandlingService: BehandlingService,
     private val fagsakService: FagsakService,
 ) {
+    /**
+     * Kun ved tilgangskontroll for enkeltperson (eks når man skal hente tilgang til fagsystem)
+     * Ellers bruk [validerTilgangTilStønadstype]
+     */
+    fun validerTilgangTilPerson(
+        personIdent: String,
+        event: AuditLoggerEvent,
+    ) {
+        val tilgang = harTilgangTilPerson(personIdent)
+        auditLogger.log(
+            Sporingsdata(
+                event,
+                personIdent = personIdent,
+                tilgang,
+            ),
+        )
+        if (!tilgang.harTilgang) {
+            throw ManglerTilgang(
+                melding = "Saksbehandler ${SikkerhetContext.hentSaksbehandler()} har ikke tilgang til person",
+                frontendFeilmelding = "Mangler tilgang til opplysningene. ${tilgang.utledÅrsakstekst()}",
+            )
+        }
+    }
+
     fun validerTilgangTilPersonMedRelasjonerForBehandling(
         behandlingId: BehandlingId,
         event: AuditLoggerEvent,
@@ -59,15 +83,17 @@ class TilgangService(
     private fun harTilgangTilPerson(fagsak: Fagsak): Tilgang {
         val identStønadstype = IdentStønadstype(ident = fagsak.hentAktivIdent(), stønadstype = fagsak.stønadstype)
         return harSaksbehandlerTilgang(
-            "harTilgangTilPerson",
+            "harTilgangTilPersonStønadsspeifik",
             identStønadstype,
         ) {
-            tilleggsstonaderSakClient.sjekkTilgangTilPerson(
-                ident = identStønadstype.ident,
-                identStønadstype.stønadstype,
-            )
+            tilleggsstonaderSakClient.sjekkTilgangTilPerson(identStønadstype)
         }
     }
+
+    private fun harTilgangTilPerson(personIdent: String): Tilgang =
+        harSaksbehandlerTilgang("harTilgangTilPerson", personIdent) {
+            tilleggsstonaderSakClient.sjekkTilgangTilPerson(ident = personIdent)
+        }
 
     /**
      * Sjekker cache om tilgangen finnes siden tidligere, hvis ikke hentes verdiet med [hentVerdi]
@@ -83,31 +109,6 @@ class TilgangService(
         cacheManager.getValue(cacheName, Pair(verdi, SikkerhetContext.hentSaksbehandler(true))) {
             hentVerdi()
         }
-
-    fun validerTilgangTilPersonMedRelasjonerForFagsak(
-        fagsakId: UUID,
-        event: AuditLoggerEvent,
-    ) {
-        val fagsak = hentFagsak(fagsakId)
-
-        val tilgang = harTilgangTilPerson(fagsak)
-        auditLogger.log(
-            Sporingsdata(
-                event,
-                personIdent = fagsak.hentAktivIdent(),
-                tilgang,
-                custom1 = CustomKeyValue("fagsak", fagsakId.toString()),
-            ),
-        )
-        if (!tilgang.harTilgang) {
-            throw ManglerTilgang(
-                melding =
-                    "Saksbehandler ${SikkerhetContext.hentSaksbehandler()} " +
-                        "har ikke tilgang til fagsak=$fagsakId",
-                frontendFeilmelding = "Mangler tilgang til opplysningene. ${tilgang.utledÅrsakstekst()}",
-            )
-        }
-    }
 
     private fun hentFagsakForBehandling(behandlingId: BehandlingId): Fagsak =
         cacheManager.getValue("fagsakForBehandling", behandlingId) {
@@ -127,8 +128,8 @@ class TilgangService(
         validerHarRolleForBehandling(behandlingId, BehandlerRolle.VEILEDER)
     }
 
-    fun validerHarVeilederrolleTilStønadForFagsak(fagsakId: UUID) {
-        harTilgangTilFagsakGittRolle(fagsakId, BehandlerRolle.VEILEDER)
+    fun validerHarVeilederrolleTilStønadForFagsystem(fagsystem: Fagsystem) {
+        harTilgangTilFagsystem(fagsystem, BehandlerRolle.VEILEDER)
     }
 
     private fun validerHarRolleForBehandling(
@@ -158,10 +159,10 @@ class TilgangService(
         minimumsrolle: BehandlerRolle,
     ): Boolean {
         val fagsystem = hentFagsak(fagsakId).fagsystem
-        return harTilgangTilGittRolle(fagsystem, minimumsrolle)
+        return harTilgangTilFagsystem(fagsystem, minimumsrolle)
     }
 
-    private fun harTilgangTilGittRolle(
+    fun harTilgangTilFagsystem(
         fagsystem: Fagsystem,
         minimumsrolle: BehandlerRolle,
     ): Boolean {

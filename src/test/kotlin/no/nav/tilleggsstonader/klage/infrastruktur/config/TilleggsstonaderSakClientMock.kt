@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
+import no.nav.tilleggsstonader.kontrakter.felles.IdentStønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.IkkeOpprettet
@@ -35,7 +36,13 @@ class TilleggsstonaderSakClientMock {
 
             every { mock.erEgenAnsatt(any()) } returns false
 
-            every { mock.sjekkTilgangTilPerson(any(), any()) } returns
+            every { mock.sjekkTilgangTilPerson(any<String>()) } returns
+                Tilgang(
+                    harTilgang = true,
+                    begrunnelse = null,
+                )
+
+            every { mock.sjekkTilgangTilPerson(any<IdentStønadstype>()) } returns
                 Tilgang(
                     harTilgang = true,
                     begrunnelse = null,

@@ -62,7 +62,7 @@ interface BehandlingRepository :
         """,
     )
     fun finnKlagebehandlingsresultat(
-        @Param("eksternFagsakId") eksternFagsakId: String,
-        @Param("fagsystem") fagsystem: Fagsystem,
+        eksternFagsakId: String,
+        fagsystem: Fagsystem,
     ): List<Klagebehandlingsresultat>
 }

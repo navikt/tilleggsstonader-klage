@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.ekstern
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.OpprettBehandlingService
+import no.nav.tilleggsstonader.klage.behandling.domain.Klagebehandlingsresultat
 import no.nav.tilleggsstonader.klage.behandling.domain.tilEksternKlagebehandlingDto
 import no.nav.tilleggsstonader.klage.felles.domain.AuditLoggerEvent
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
@@ -42,21 +43,25 @@ class EksternBehandlingController(
         @PathVariable fagsystem: Fagsystem,
         @RequestParam("eksternFagsakId") eksternFagsakIder: Set<String>,
     ): Map<String, List<KlagebehandlingDto>> {
+        tilgangService.validerHarVeilederrolleTilStønadForFagsystem(fagsystem)
+
         brukerfeilHvis(eksternFagsakIder.isEmpty()) {
             "Mangler eksternFagsakId i query param"
         }
+
         return eksternFagsakIder
             .associateWith {
                 behandlingService
                     .finnKlagebehandlingsresultat(eksternFagsakId = it, fagsystem = fagsystem)
-                    .map {
-                        it.tilEksternKlagebehandlingDto(
-                            klageinstansResultat = behandlingService.hentKlageresultatDto(behandlingId = it.id),
-                        )
-                    }
             }.also {
                 loggAntallTreffPerFagsak(behandlinger = it)
                 validerTilgang(behandlinger = it)
+            }.mapValues { (_, behandlinger) ->
+                behandlinger.map {
+                    it.tilEksternKlagebehandlingDto(
+                        klageinstansResultat = behandlingService.hentKlageresultatDto(behandlingId = it.id),
+                    )
+                }
             }
     }
 
@@ -66,13 +71,6 @@ class EksternBehandlingController(
     ): OppgaverBehandlingerResponse {
         val behandlingIdPåOppgaveId = oppgaveService.hentBehandlingIderForOppgaver(request.oppgaveIder)
         return OppgaverBehandlingerResponse(oppgaver = behandlingIdPåOppgaveId)
-    }
-
-    private fun validerTilgang(behandlinger: Map<String, List<KlagebehandlingDto>>) {
-        behandlinger.entries.flatMap { it.value }.map { it.fagsakId }.distinct().forEach {
-            tilgangService.validerTilgangTilPersonMedRelasjonerForFagsak(it, AuditLoggerEvent.ACCESS)
-            tilgangService.validerHarVeilederrolleTilStønadForFagsak(it)
-        }
     }
 
     @PostMapping("/opprett")
@@ -89,8 +87,14 @@ class EksternBehandlingController(
         oppgaveService.oppdaterOppgaveTilÅGjeldeTilbakekreving(behandlingId)
     }
 
-    private fun loggAntallTreffPerFagsak(behandlinger: Map<String, List<KlagebehandlingDto>>) {
+    private fun loggAntallTreffPerFagsak(behandlinger: Map<String, List<Klagebehandlingsresultat>>) {
         val antallTreffPerFagsak = behandlinger.entries.associate { it.key to it.value.size }
         logger.info("Antall klagebehandlinger funnet per fagsak: $antallTreffPerFagsak")
+    }
+
+    private fun validerTilgang(behandlinger: Map<String, List<Klagebehandlingsresultat>>) {
+        behandlinger.entries.flatMap { it.value }.map { it.ident }.distinct().forEach {
+            tilgangService.validerTilgangTilPerson(it, AuditLoggerEvent.ACCESS)
+        }
     }
 }
