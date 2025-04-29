@@ -29,6 +29,7 @@ data class Klagebehandlingsresultat(
     @Column("henlagt_arsak")
     val henlagtÅrsak: HenlagtÅrsak?,
     val henlagtBegrunnelse: String?,
+    val ident: String,
 )
 
 fun Klagebehandlingsresultat.tilEksternKlagebehandlingDto(klageinstansResultat: List<KlageinstansResultatDto>) =

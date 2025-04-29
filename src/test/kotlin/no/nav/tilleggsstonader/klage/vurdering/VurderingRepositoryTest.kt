@@ -13,14 +13,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 
 class VurderingRepositoryTest : IntegrationTest() {
     @Autowired
     lateinit var vurderingRepository: VurderingRepository
-
-    @Autowired
-    lateinit var jdbcTemplate: NamedParameterJdbcTemplate
 
     val behandlingId = BehandlingId.random()
 

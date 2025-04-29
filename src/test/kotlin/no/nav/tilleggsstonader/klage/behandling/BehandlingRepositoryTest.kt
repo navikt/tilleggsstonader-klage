@@ -7,6 +7,8 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakDetaljer
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.fagsak.domain.FagsakDomain
 import no.nav.tilleggsstonader.klage.fagsak.domain.PersonIdent
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
@@ -26,7 +28,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class BehandlingRepositoryTest : IntegrationTest() {
-    @Autowired private lateinit var behandlingRepository: BehandlingRepository
+    @Autowired
+    private lateinit var behandlingRepository: BehandlingRepository
+
+    @Autowired
+    private lateinit var fagsakRepository: FagsakRepository
 
     val fagsak = fagsakDomain().tilFagsakMedPerson(setOf(PersonIdent("1")))
     val behandlingId = BehandlingId.random()
@@ -165,6 +171,39 @@ class BehandlingRepositoryTest : IntegrationTest() {
                 behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, Fagsystem.TILLEGGSSTONADER)
             assertThat(behandlinger).hasSize(2)
             assertThat(behandlinger.map { it.id }).containsExactlyInAnyOrder(behandling.id, behandling2.id)
+        }
+
+        @Test
+        fun `skal finne en treff med siste identen hvis det finnes flere identer på en fagsak`() {
+            val behandling = behandlingRepository.insert(behandling(fagsak))
+            val fagsak = fagsakRepository.findByIdOrThrow(behandling.fagsakId)
+            jdbcTemplate.update("DELETE FROM person_ident", emptyMap<String, String>())
+            leggInnPersonIdent(fagsak, "1", LocalDateTime.now().minusDays(2))
+            leggInnPersonIdent(fagsak, "2", LocalDateTime.now())
+            leggInnPersonIdent(fagsak, "3", LocalDateTime.now().minusDays(1))
+
+            val resultat = behandlingRepository.finnKlagebehandlingsresultat(fagsak.eksternId, fagsak.fagsystem)
+            assertThat(resultat).hasSize(1)
+            assertThat(resultat.single().ident).isEqualTo("2")
+        }
+
+        private fun leggInnPersonIdent(
+            fagsak: FagsakDomain,
+            ident: String,
+            tidspunkt: LocalDateTime,
+        ) {
+            jdbcTemplate.update(
+                "INSERT INTO person_ident (fagsak_person_id, ident, opprettet_tid, opprettet_av, endret_tid, endret_av) " +
+                    "VALUES (:fagsakPersonId, :ident, :opprettetTid, :opprettetAv, :endretTid, :endretAv)",
+                mapOf(
+                    "fagsakPersonId" to fagsak.fagsakPersonId,
+                    "ident" to ident,
+                    "opprettetTid" to tidspunkt,
+                    "opprettetAv" to "VL",
+                    "endretTid" to tidspunkt,
+                    "endretAv" to "VL",
+                ),
+            )
         }
     }
 }
