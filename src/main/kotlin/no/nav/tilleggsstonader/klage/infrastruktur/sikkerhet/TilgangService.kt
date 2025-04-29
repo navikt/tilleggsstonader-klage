@@ -15,6 +15,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.RolleConfig
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.ManglerTilgang
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstonaderSakClient
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
+import no.nav.tilleggsstonader.kontrakter.felles.IdentStønadstype
 import no.nav.tilleggsstonader.libs.spring.cache.getValue
 import org.springframework.cache.CacheManager
 import org.springframework.stereotype.Service
@@ -33,16 +34,13 @@ class TilgangService(
         behandlingId: BehandlingId,
         event: AuditLoggerEvent,
     ) {
-        val personIdent =
-            cacheManager.getValue("behandlingPersonIdent", behandlingId) {
-                behandlingService.hentAktivIdent(behandlingId).first
-            }
+        val fagsak = hentFagsakForBehandling(behandlingId)
 
-        val tilgang = harTilgangTilPersonMedRelasjoner(personIdent)
+        val tilgang = harTilgangTilPerson(fagsak)
         auditLogger.log(
             Sporingsdata(
                 event = event,
-                personIdent = personIdent,
+                personIdent = fagsak.hentAktivIdent(),
                 tilgang = tilgang,
                 custom1 = CustomKeyValue("behandling", behandlingId.toString()),
             ),
@@ -58,10 +56,18 @@ class TilgangService(
         }
     }
 
-    private fun harTilgangTilPersonMedRelasjoner(personIdent: String): Tilgang =
-        harSaksbehandlerTilgang("validerTilgangTilPersonMedBarn", personIdent) {
-            tilleggsstonaderSakClient.sjekkTilgangTilPersonMedRelasjoner(personIdent)
+    private fun harTilgangTilPerson(fagsak: Fagsak): Tilgang {
+        val identStønadstype = IdentStønadstype(ident = fagsak.hentAktivIdent(), stønadstype = fagsak.stønadstype)
+        return harSaksbehandlerTilgang(
+            "harTilgangTilPerson",
+            identStønadstype,
+        ) {
+            tilleggsstonaderSakClient.sjekkTilgangTilPerson(
+                ident = identStønadstype.ident,
+                identStønadstype.stønadstype,
+            )
         }
+    }
 
     /**
      * Sjekker cache om tilgangen finnes siden tidligere, hvis ikke hentes verdiet med [hentVerdi]
@@ -73,24 +79,22 @@ class TilgangService(
         cacheName: String,
         verdi: T,
         hentVerdi: () -> Tilgang,
-    ): Tilgang {
-        val cache = cacheManager.getCache(cacheName) ?: error("Finner ikke cache=$cacheName")
-        return cache.get(Pair(verdi, SikkerhetContext.hentSaksbehandler(true))) {
+    ): Tilgang =
+        cacheManager.getValue(cacheName, Pair(verdi, SikkerhetContext.hentSaksbehandler(true))) {
             hentVerdi()
-        } ?: error("Finner ikke verdi fra cache=$cacheName")
-    }
+        }
 
     fun validerTilgangTilPersonMedRelasjonerForFagsak(
         fagsakId: UUID,
         event: AuditLoggerEvent,
     ) {
-        val personIdent = hentFagsak(fagsakId).hentAktivIdent()
+        val fagsak = hentFagsak(fagsakId)
 
-        val tilgang = harTilgangTilPersonMedRelasjoner(personIdent)
+        val tilgang = harTilgangTilPerson(fagsak)
         auditLogger.log(
             Sporingsdata(
                 event,
-                personIdent,
+                personIdent = fagsak.hentAktivIdent(),
                 tilgang,
                 custom1 = CustomKeyValue("fagsak", fagsakId.toString()),
             ),
@@ -104,6 +108,11 @@ class TilgangService(
             )
         }
     }
+
+    private fun hentFagsakForBehandling(behandlingId: BehandlingId): Fagsak =
+        cacheManager.getValue("fagsakForBehandling", behandlingId) {
+            fagsakService.hentFagsakForBehandling(behandlingId)
+        }
 
     private fun hentFagsak(fagsakId: UUID): Fagsak =
         cacheManager.getValue("fagsak", fagsakId) {
@@ -148,8 +157,8 @@ class TilgangService(
         fagsakId: UUID,
         minimumsrolle: BehandlerRolle,
     ): Boolean {
-        val stønadstype = hentFagsak(fagsakId).fagsystem
-        return harTilgangTilGittRolle(stønadstype, minimumsrolle)
+        val fagsystem = hentFagsak(fagsakId).fagsystem
+        return harTilgangTilGittRolle(fagsystem, minimumsrolle)
     }
 
     private fun harTilgangTilGittRolle(

@@ -75,6 +75,7 @@ class KabalService(
             ytelse = mapYtelse(fagsak),
         )
 
+    @Suppress("REDUNDANT_ELSE_IN_WHEN")
     private fun mapYtelse(fagsak: Fagsak): Ytelse =
         when (fagsak.stønadstype) {
             Stønadstype.BARNETILSYN -> Ytelse.TSO_TSO

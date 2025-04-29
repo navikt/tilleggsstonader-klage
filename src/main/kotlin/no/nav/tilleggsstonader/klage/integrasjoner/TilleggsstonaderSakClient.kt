@@ -3,7 +3,8 @@ package no.nav.tilleggsstonader.klage.integrasjoner
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattRequest
 import no.nav.tilleggsstonader.klage.felles.dto.EgenAnsattResponse
 import no.nav.tilleggsstonader.klage.felles.dto.Tilgang
-import no.nav.tilleggsstonader.kontrakter.felles.IdentRequest
+import no.nav.tilleggsstonader.kontrakter.felles.IdentStønadstype
+import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
@@ -60,10 +61,13 @@ class TilleggsstonaderSakClient(
         )
     }
 
-    fun sjekkTilgangTilPersonMedRelasjoner(ident: String): Tilgang =
+    fun sjekkTilgangTilPerson(
+        ident: String,
+        stønadstype: Stønadstype,
+    ): Tilgang =
         postForEntity<Tilgang>(
-            URI.create("$sakUri/api/tilgang/person/sjekkTilgangTilPersonMedRelasjoner").toString(),
-            IdentRequest(ident = ident),
+            URI.create("$sakUri/api/tilgang/person/sjekk-tilgang").toString(),
+            IdentStønadstype(ident = ident, stønadstype = stønadstype),
         )
 
     fun erEgenAnsatt(ident: String): Boolean =
