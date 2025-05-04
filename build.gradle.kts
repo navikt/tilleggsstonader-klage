@@ -5,10 +5,10 @@ import java.io.ByteArrayOutputStream
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250409144459_df36248"
 val tilleggsstønaderLibsVersion = "2025.04.28-12.53.f687c00288d5"
-val tilleggsstønaderKontrakterVersion = "2025.04.24-13.44.e5fcab84c3fe"
+val tilleggsstønaderKontrakterVersion = "2025.04.29-14.53.429d5d590bc7"
 val tokenSupportVersion = "5.0.25"
 val wiremockVersion = "3.13.0"
-val mockkVersion = "1.14.0"
+val mockkVersion = "1.14.2"
 val testcontainerVersion = "1.21.0"
 val springDocVersion = "2.8.6"
 
@@ -28,7 +28,7 @@ plugins {
     id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
 
-    id("org.cyclonedx.bom") version "2.2.0"
+    id("org.cyclonedx.bom") version "2.3.0"
 }
 
 repositories {
