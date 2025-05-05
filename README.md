@@ -70,3 +70,6 @@ Spørsmål knyttet til koden eller prosjektet kan opprettes under [Issues](https
 ## For NAV-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #po_aap_tilleggsstønader
+
+## Kode generert av GitHub Copilot
+Dette repoet bruker GitHub Copilot til å generere kode.
