@@ -24,7 +24,6 @@ import org.springframework.core.env.Environment
 import org.springframework.data.convert.ReadingConverter
 import org.springframework.data.convert.WritingConverter
 import org.springframework.data.domain.AuditorAware
-import org.springframework.data.jdbc.core.convert.JdbcCustomConversions
 import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration
 import org.springframework.data.jdbc.repository.config.EnableJdbcAuditing
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories
@@ -54,30 +53,27 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
             Optional.of(Endret())
         }
 
-    @Bean
-    override fun jdbcCustomConversions(): JdbcCustomConversions =
-        JdbcCustomConversions(
-            listOf(
-                PropertiesWrapperTilStringConverter(),
-                StringTilPropertiesWrapperConverter(),
-                StringListTilStringConverter(),
-                StringTilStringList(),
-                FilTilBytearrayConverter(),
-                BytearrayTilFilConverter(),
-                BrevmottakereTilBytearrayConverter(),
-                BytearrayTilBrevmottakereConverter(),
-                BrevmottakereJournalposterTilBytearrayConverter(),
-                BytearrayTilBrevmottakereJournalposterConverter(),
-                PåklagetVedtakDetaljerTilBytearrayConverter(),
-                BytearrayTilPåklagetVedtakDetaljerConverter(),
-                OpprettetRevurderingTilBytearrayConverter(),
-                BytearrayTilOpprettetRevurderingConverter(),
-                HjemlerTilJsonConverter(),
-                JsonTilHjemlerConverter(),
-                PGobjectTilJsonWrapperConverter(),
-                JsonWrapperTilPGobjectConverter(),
-            ) + alleValueClassConverters,
-        )
+    override fun userConverters(): List<*> =
+        listOf(
+            PropertiesWrapperTilStringConverter(),
+            StringTilPropertiesWrapperConverter(),
+            StringListTilStringConverter(),
+            StringTilStringList(),
+            FilTilBytearrayConverter(),
+            BytearrayTilFilConverter(),
+            BrevmottakereTilBytearrayConverter(),
+            BytearrayTilBrevmottakereConverter(),
+            BrevmottakereJournalposterTilBytearrayConverter(),
+            BytearrayTilBrevmottakereJournalposterConverter(),
+            PåklagetVedtakDetaljerTilBytearrayConverter(),
+            BytearrayTilPåklagetVedtakDetaljerConverter(),
+            OpprettetRevurderingTilBytearrayConverter(),
+            BytearrayTilOpprettetRevurderingConverter(),
+            HjemlerTilJsonConverter(),
+            JsonTilHjemlerConverter(),
+            PGobjectTilJsonWrapperConverter(),
+            JsonWrapperTilPGobjectConverter(),
+        ) + alleValueClassConverters
 
     @Bean
     fun verifyIgnoreIfProd(
