@@ -17,7 +17,7 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.LocalTime
 
 @Service
 @TaskStepBeskrivelse(
@@ -40,7 +40,7 @@ class OpprettBehandleSakOppgaveTask(
                 saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
                 tema = fagsak.stønadstype.tilTema(),
                 oppgavetype = Oppgavetype.BehandleSak,
-                fristFerdigstillelse = lagFristForOppgave(LocalDateTime.now()),
+                fristFerdigstillelse = lagFristForOppgave(behandling.klageMottatt.atTime(LocalTime.now())),
                 beskrivelse = "Klagebehandling i ny løsning",
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstype = Behandlingstype.Klage.value,
