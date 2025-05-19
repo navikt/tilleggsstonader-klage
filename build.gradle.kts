@@ -3,14 +3,14 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250409144459_df36248"
+val familieProsesseringVersion = "2.20250519094842_e8bd711"
 val tilleggsstønaderLibsVersion = "2025.04.28-12.53.f687c00288d5"
-val tilleggsstønaderKontrakterVersion = "2025.04.24-13.44.e5fcab84c3fe"
-val tokenSupportVersion = "5.0.25"
+val tilleggsstønaderKontrakterVersion = "2025.05.19-16.09.454035001955"
+val tokenSupportVersion = "5.0.27"
 val wiremockVersion = "3.13.0"
-val mockkVersion = "1.14.0"
+val mockkVersion = "1.14.2"
 val testcontainerVersion = "1.21.0"
-val springDocVersion = "2.8.6"
+val springDocVersion = "2.8.8"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -18,8 +18,8 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.1.20"
-    kotlin("plugin.spring") version "2.1.20"
+    kotlin("jvm") version "2.1.21"
+    kotlin("plugin.spring") version "2.1.21"
 
     id("com.diffplug.spotless") version "7.0.3"
     id("com.github.ben-manes.versions") version "0.52.0"
@@ -28,7 +28,7 @@ plugins {
     id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
 
-    id("org.cyclonedx.bom") version "2.2.0"
+    id("org.cyclonedx.bom") version "2.3.0"
 }
 
 repositories {
@@ -65,7 +65,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.8.0")
+    implementation("org.flywaydb:flyway-core:11.8.2")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
