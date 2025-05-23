@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.behandling.domain
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
@@ -27,9 +26,7 @@ data class Behandling(
     val resultat: BehandlingResultat = BehandlingResultat.IKKE_SATT,
     val vedtakDato: LocalDateTime? = null,
     @Embedded(onEmpty = Embedded.OnEmpty.USE_EMPTY)
-    @JsonFormat(pattern = "d.MMMM.yyyy", locale = "no")
     val påklagetVedtak: PåklagetVedtak,
-    @JsonFormat(pattern = "d.MMMM.yyyy", locale = "no")
     val klageMottatt: LocalDate,
     val behandlendeEnhet: String,
     val eksternBehandlingId: UUID = UUID.randomUUID(),
