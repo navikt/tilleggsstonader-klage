@@ -1,5 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandling.dto
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
@@ -27,12 +28,14 @@ data class BehandlingDto(
     val sistEndret: LocalDateTime,
     val resultat: BehandlingResultat,
     val opprettet: LocalDateTime,
+    @JsonFormat(pattern = "d.MMMM.yyyy", locale = "no")
     val vedtaksdato: LocalDateTime? = null,
     val stønadstype: Stønadstype,
     val klageinstansResultat: List<KlageinstansResultatDto>,
     val påklagetVedtak: PåklagetVedtakDto,
     val eksternFagsystemFagsakId: String,
     val fagsystem: Fagsystem,
+    @JsonFormat(pattern = "d.MMMM.yyyy", locale = "no")
     val klageMottatt: LocalDate,
     val fagsystemRevurdering: FagsystemRevurdering?,
 )
