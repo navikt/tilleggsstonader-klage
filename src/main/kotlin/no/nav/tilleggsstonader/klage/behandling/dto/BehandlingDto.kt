@@ -1,12 +1,8 @@
 package no.nav.tilleggsstonader.klage.behandling.dto
 
-import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
-import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
-import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
+import no.nav.tilleggsstonader.klage.behandling.domain.*
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.IKKE_VALGT
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
-import no.nav.tilleggsstonader.klage.behandling.domain.StegType
-import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
@@ -17,7 +13,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 data class BehandlingDto(
     val id: BehandlingId,
