@@ -4,9 +4,9 @@ import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250519094842_e8bd711"
-val tilleggsstønaderLibsVersion = "2025.05.19-16.10.856a8b28ebfb"
-val tilleggsstønaderKontrakterVersion = "2025.05.19-16.09.454035001955"
-val tokenSupportVersion = "5.0.27"
+val tilleggsstønaderLibsVersion = "2025.05.23-10.14.932a51a654b1"
+val tilleggsstønaderKontrakterVersion = "2025.05.20-14.35.7e4341942f5c"
+val tokenSupportVersion = "5.0.28"
 val wiremockVersion = "3.13.0"
 val mockkVersion = "1.14.2"
 val testcontainerVersion = "1.21.0"
@@ -25,10 +25,10 @@ plugins {
     id("com.github.ben-manes.versions") version "0.52.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
 
-    id("org.springframework.boot") version "3.4.5"
+    id("org.springframework.boot") version "3.5.0"
     id("io.spring.dependency-management") version "1.1.7"
 
-    id("org.cyclonedx.bom") version "2.3.0"
+    id("org.cyclonedx.bom") version "2.3.1"
 }
 
 repositories {
