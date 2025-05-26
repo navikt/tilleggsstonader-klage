@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250519094842_e8bd711"
 val tilleggsstønaderLibsVersion = "2025.05.19-16.10.856a8b28ebfb"
-val tilleggsstønaderKontrakterVersion = "2025.05.19-16.09.454035001955"
+val tilleggsstønaderKontrakterVersion = "2025.05.26-09.25.f07899b2b19c"
 val tokenSupportVersion = "5.0.27"
 val wiremockVersion = "3.13.0"
 val mockkVersion = "1.14.2"
@@ -86,7 +86,7 @@ dependencies {
     implementation("no.nav.tilleggsstonader-libs:unleash:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:spring:$tilleggsstønaderLibsVersion")
 
-    implementation("no.nav.tilleggsstonader.kontrakter:tilleggsstonader-kontrakter:$tilleggsstønaderKontrakterVersion")
+    implementation("no.nav.tilleggsstonader.kontrakter:kontrakter-felles:$tilleggsstønaderKontrakterVersion")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
