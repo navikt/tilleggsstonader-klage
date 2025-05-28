@@ -72,6 +72,8 @@ spec:
           namespace: teamfamilie
         - application: kabal-api
           namespace: klage
+        - application: logging
+          namespace: nais-system
       external:
         - host: pdl-api.dev-fss-pub.nais.io
 
