@@ -30,7 +30,7 @@ internal class BrevInnholdTest {
             )
 
         assertThat(brev.avsnitt.first().innhold).isEqualTo(
-            "Vi har 01.01.2020 fått klagen din på vedtaket om stønad til pass av barn som ble gjort 05.11.2021, " +
+            "Vi har 1.januar 2020 fått klagen din på vedtaket om stønad til pass av barn som ble gjort 5.november 2021, " +
                 "og kommet frem til at vi ikke endrer vedtaket. Nav Klageinstans skal derfor vurdere saken din på nytt.",
         )
     }
