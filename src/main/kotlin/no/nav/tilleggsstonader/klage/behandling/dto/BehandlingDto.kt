@@ -13,7 +13,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansResultatDto
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 data class BehandlingDto(
     val id: BehandlingId,
