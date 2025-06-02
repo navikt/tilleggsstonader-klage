@@ -1,8 +1,12 @@
 package no.nav.tilleggsstonader.klage.behandling.dto
 
-import no.nav.tilleggsstonader.klage.behandling.domain.*
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
+import no.nav.tilleggsstonader.klage.behandling.domain.FagsystemRevurdering
+import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.IKKE_VALGT
 import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtakstype.VEDTAK
+import no.nav.tilleggsstonader.klage.behandling.domain.StegType
+import no.nav.tilleggsstonader.klage.behandling.domain.harManuellVedtaksdato
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
