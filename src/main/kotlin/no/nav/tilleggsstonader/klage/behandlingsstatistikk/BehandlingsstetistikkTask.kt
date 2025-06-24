@@ -7,7 +7,6 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
-import no.nav.tilleggsstonader.libs.utils.osloNow
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.Properties
@@ -54,7 +53,7 @@ class BehandlingsstatistikkTask(
             opprettTask(
                 behandlingId = behandlingId,
                 hendelse = BehandlingsstatistikkHendelse.VENTER,
-                hendelseTidspunkt = osloNow(),
+                hendelseTidspunkt = LocalDateTime.now(),
                 gjeldendeSaksbehandler = SikkerhetContext.hentSaksbehandler(true),
             )
 

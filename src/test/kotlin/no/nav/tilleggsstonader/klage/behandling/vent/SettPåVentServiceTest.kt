@@ -20,13 +20,13 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
-import no.nav.tilleggsstonader.libs.utils.osloDateNow
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import java.time.LocalDate
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -52,14 +52,14 @@ class SettPåVentServiceTest : IntegrationTest() {
     val settPåVentDto =
         SettPåVentDto(
             årsaker = listOf(ÅrsakSettPåVent.ANNET),
-            frist = osloDateNow().plusDays(3),
+            frist = LocalDate.now().plusDays(3),
             kommentar = "ny beskrivelse",
         )
 
     val oppdaterSettPåVentDto =
         OppdaterSettPåVentDto(
             årsaker = listOf(ÅrsakSettPåVent.REGISTRERING_AV_TILTAK),
-            frist = osloDateNow().plusDays(5),
+            frist = LocalDate.now().plusDays(5),
             kommentar = "oppdatert beskrivelse",
             oppgaveVersjon = 1,
         )
@@ -74,7 +74,7 @@ class SettPåVentServiceTest : IntegrationTest() {
                 behandling.id,
                 OpprettOppgaveRequest(
                     ident = OppgaveIdentV2(ident = "123456789012", gruppe = IdentGruppe.AKTOERID),
-                    fristFerdigstillelse = osloDateNow().plusDays(3),
+                    fristFerdigstillelse = LocalDate.now().plusDays(3),
                     behandlingstema = "behandlingstema",
                     enhetsnummer = "enhetsnummer",
                     tema = Tema.TSO,
@@ -303,7 +303,7 @@ class SettPåVentServiceTest : IntegrationTest() {
             with(oppgaveService.hentOppgave(oppgaveId)) {
                 assertThat(tilordnetRessurs).isEqualTo(tilordnetRessurs)
                 assertThat(beskrivelse).contains("Tatt av vent")
-                assertThat(fristFerdigstillelse).isEqualTo(osloDateNow())
+                assertThat(fristFerdigstillelse).isEqualTo(LocalDate.now())
                 assertThat(mappeId).isEqualTo(Optional.of(MAPPE_ID_KLAR))
             }
         }

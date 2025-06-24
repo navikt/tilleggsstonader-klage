@@ -21,8 +21,6 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.vent.OppdaterPåVentRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentResponse
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.TaAvVentRequest
-import no.nav.tilleggsstonader.libs.utils.osloDateNow
-import no.nav.tilleggsstonader.libs.utils.osloNow
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -32,6 +30,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Optional
 
@@ -94,9 +93,9 @@ class OppgaveClientConfig {
             }
             val oppdatertOppgave =
                 oppgave.copy(
-                    versjon = oppgave.versjon!! + 1,
+                    versjon = oppgave.versjon + 1,
                     status = StatusEnum.FERDIGSTILT,
-                    ferdigstiltTidspunkt = osloNow().format(DateTimeFormatter.ISO_DATE_TIME),
+                    ferdigstiltTidspunkt = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
                 )
             oppgavelager[oppgave.id] = oppdatertOppgave
         }
@@ -105,7 +104,7 @@ class OppgaveClientConfig {
             val oppdaterOppgave =
                 firstArg<Oppgave>().let {
                     val eksisterendeOppgave = oppgavelager[it.id]!!
-                    val versjon = it.versjon!!
+                    val versjon = it.versjon
                     feilHvis(versjon != eksisterendeOppgave.versjon, HttpStatus.CONFLICT) {
                         "Oppgaven har endret seg siden du sist hentet oppgaver. versjon=$versjon (${eksisterendeOppgave.versjon}) " +
                             "For å kunne gjøre endringer må du hente oppgaver på nytt."
@@ -208,7 +207,7 @@ class OppgaveClientConfig {
                 behandlingstype = oppgaveDto.behandlingstype,
                 behandlesAvApplikasjon = oppgaveDto.behandlesAvApplikasjon,
                 mappeId = oppgaveDto.mappeId?.let { Optional.of(it) },
-                opprettetTidspunkt = osloNow().format(DateTimeFormatter.ISO_DATE_TIME),
+                opprettetTidspunkt = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
             )
         oppgavelager[oppgave.id] = oppgave
         return oppgave
@@ -218,7 +217,7 @@ class OppgaveClientConfig {
         OpprettOppgaveRequest(
             tema = Tema.TSO,
             oppgavetype = Oppgavetype.Journalføring,
-            fristFerdigstillelse = osloDateNow().plusDays(14),
+            fristFerdigstillelse = LocalDate.now().plusDays(14),
             beskrivelse = "Dummy søknad",
             behandlingstema = "ab0300",
             enhetsnummer = "",
