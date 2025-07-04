@@ -8,5 +8,7 @@ fun Stønadstype.tilFagsystem(): Fagsystem =
         Stønadstype.BARNETILSYN,
         Stønadstype.LÆREMIDLER,
         Stønadstype.BOUTGIFTER,
+        Stønadstype.DAGLIG_REISE_TSO,
+        Stønadstype.DAGLIG_REISE_TSR,
         -> Fagsystem.TILLEGGSSTONADER
     }
