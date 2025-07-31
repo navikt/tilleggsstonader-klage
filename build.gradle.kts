@@ -95,6 +95,10 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:$testcontainerVersion")
     testImplementation("no.nav.security:token-validation-spring-test:$tokenSupportVersion")
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
+
+    // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.81")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.81")
 }
 
 application {
