@@ -10,6 +10,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgave
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.OppdaterPåVentRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentRequest
@@ -17,6 +18,7 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentResponse
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.TaAvVentRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 @Service
@@ -192,6 +194,11 @@ class SettPåVentService(
             settPåVent.oppgaveId,
             settPåVent,
             skalTilordnesRessurs = taAvVentDto?.skalTilordnesRessurs ?: true,
+            frist =
+                fristBehandleSakOppgave(
+                    klageMottatt = behandling.klageMottatt,
+                    behandlingOpprettet = behandling.sporbar.opprettetTid,
+                ),
         )
     }
 
@@ -203,12 +210,14 @@ class SettPåVentService(
         oppgaveId: Long,
         settPåVent: SettPåVent,
         skalTilordnesRessurs: Boolean,
+        frist: LocalDate,
     ) {
         val taAvVent =
             TaAvVentRequest(
                 oppgaveId = oppgaveId,
                 beholdOppgave = skalTilordnesRessurs,
                 kommentar = settPåVent.taAvVentKommentar,
+                frist = frist,
             )
         oppgaveService.taAvVent(taAvVent)
     }

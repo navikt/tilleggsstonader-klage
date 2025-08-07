@@ -7,7 +7,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
-import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
@@ -17,7 +17,6 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.springframework.stereotype.Service
-import java.time.LocalTime
 
 @Service
 @TaskStepBeskrivelse(
@@ -40,7 +39,11 @@ class OpprettBehandleSakOppgaveTask(
                 saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
                 tema = fagsak.stønadstype.tilTema(),
                 oppgavetype = Oppgavetype.BehandleSak,
-                fristFerdigstillelse = lagFristForOppgave(behandling.klageMottatt.atTime(LocalTime.now())),
+                fristFerdigstillelse =
+                    fristBehandleSakOppgave(
+                        klageMottatt = behandling.klageMottatt,
+                        behandlingOpprettet = behandling.sporbar.opprettetTid,
+                    ),
                 beskrivelse = "Klagebehandling i ny løsning",
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstype = Behandlingstype.Klage.value,
