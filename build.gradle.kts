@@ -3,14 +3,14 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250814122631_d951dfb"
-val tilleggsstønaderLibsVersion = "2025.08.11-14.15.9c7175a12117"
-val tilleggsstønaderKontrakterVersion = "2025.08.14-14.32.8ca76f605ce3"
+val familieProsesseringVersion = "2.20250818112609_c5f9e80"
+val tilleggsstønaderLibsVersion = "2025.08.18-09.30.6e87d5f8ea6d"
+val tilleggsstønaderKontrakterVersion = "2025.08.21-08.34.d72c34cf2ed9"
 val tokenSupportVersion = "5.0.34"
 val wiremockVersion = "3.13.1"
 val mockkVersion = "1.14.5"
 val testcontainerVersion = "1.21.3"
-val springDocVersion = "2.8.9"
+val springDocVersion = "2.8.11"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -25,7 +25,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.52.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "3.5.4"
+    id("org.springframework.boot") version "3.5.5"
     id("io.spring.dependency-management") version "1.1.7"
 
     id("org.cyclonedx.bom") version "2.3.1"
@@ -65,7 +65,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.11.1")
+    implementation("org.flywaydb:flyway-core:11.11.2")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
