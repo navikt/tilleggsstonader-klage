@@ -15,6 +15,11 @@ import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.UUID
 
+/**
+ * Håndterer meldinger fra Klageinstansen (KA) sitt saksbehandlingssystem Kabal.
+ *
+ * Behov for å lese fra en spesifikk offset? Se f.eks. commit e37f2f8e
+ */
 @Component
 class KabalKafkaListener(
     val kabalBehandlingEventService: KabalBehandlingEventService,
@@ -36,34 +41,6 @@ class KabalKafkaListener(
         }
         secureLogger.info("Serialisert behandlingEvent: $kabalBehandlingEvent")
     }
-
-//  Beholdes for å enkelt kunne lese fra en spesifikk offsett ved behov
-//  val offsett = 12120
-//    override fun onPartitionsAssigned(
-//        assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
-//        callback: ConsumerSeekAware.ConsumerSeekCallback
-//    ) {
-//        secureLogger.info("overrided onPartitionsAssigned")
-//        assignments.keys.stream()
-//            .filter { it.topic() == "klage.behandling-events.v1" }
-//            .forEach {
-//                callback.seek("klage.behandling-events.v1", it.partition(), offsett)
-//            }
-//    }
-
-    /* Beholdes for å enkelt kunne lese fra start ved behov
-    override fun onPartitionsAssigned(
-        assignments: MutableMap<org.apache.kafka.common.TopicPartition, Long>,
-        callback: ConsumerSeekAware.ConsumerSeekCallback
-    ) {
-        logger.info("overrided onPartitionsAssigned seekToBeginning")
-        assignments.keys.stream()
-            .filter { it.topic() == "klage.behandling-events.v1" }
-            .forEach {
-                callback.seekToBeginning("klage.behandling-events.v1", it.partition())
-            }
-    }
-     */
 }
 
 // se no.nav.tilleggsstonader.klage.kabal.OversendtKlageAnkeV3
