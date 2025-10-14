@@ -27,8 +27,6 @@ plugins {
 
     id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
-
-    id("org.cyclonedx.bom") version "3.0.0"
 }
 
 repositories {
@@ -129,10 +127,6 @@ tasks.test {
         showStackTraces = false
         showCauses = false
     }
-}
-
-tasks.cyclonedxBom {
-    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath"))
 }
 
 // Oppretter version.properties med git-sha som version
