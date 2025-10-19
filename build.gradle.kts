@@ -4,8 +4,8 @@ import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250922094930_4bb329c"
-val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
-val tilleggsstønaderKontrakterVersion = "2025.10.02-10.48.58856917dc95"
+val tilleggsstønaderLibsVersion = "2025.10.14-11.02.0ba3aa7f0dc3"
+val tilleggsstønaderKontrakterVersion = "2025.10.17-12.11.c565284fc91f"
 val tokenSupportVersion = "5.0.37"
 val wiremockVersion = "3.13.1"
 val mockkVersion = "1.14.6"
@@ -63,7 +63,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.13.2")
+    implementation("org.flywaydb:flyway-core:11.14.1")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
