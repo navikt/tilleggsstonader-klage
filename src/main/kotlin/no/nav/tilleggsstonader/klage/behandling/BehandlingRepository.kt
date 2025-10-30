@@ -65,4 +65,6 @@ interface BehandlingRepository :
         eksternFagsakId: String,
         fagsystem: Fagsystem,
     ): List<Klagebehandlingsresultat>
+
+    fun findByFagsakId(fagsakId: UUID): List<Behandling>
 }

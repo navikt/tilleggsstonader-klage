@@ -7,6 +7,7 @@ import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.StegUtfall
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.dto.BehandlingshistorikkDto
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.dto.Hendelse
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.dto.tilDto
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Companion.MAPPE_ID_KLAR
 import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Companion.MAPPE_ID_PÅ_VENT
@@ -27,10 +28,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class SettPåVentServiceTest : IntegrationTest() {
+    @Autowired
+    private lateinit var fagsakService: FagsakService
+
     @Autowired
     lateinit var settPåVentService: SettPåVentService
 
@@ -320,6 +325,36 @@ class SettPåVentServiceTest : IntegrationTest() {
                     assertThat(metadata).isNull()
                 }
             }
+        }
+    }
+
+    @Nested
+    inner class KanTaAvVent {
+        @BeforeEach
+        fun setUp() {
+            testWithBrukerContext(preferredUsername = dummySaksbehandler) {
+                settPåVentService.settPåVent(behandling.id, settPåVentDto)
+            }
+        }
+
+        @Test
+        fun `retunerer OK når behandlingen kan tas av vent`() {
+            val res =
+                testWithBrukerContext {
+                    settPåVentService.kanTaAvVent(behandling.id)
+                }
+            assertThat(res).isEqualTo(KanTaAvVentDto(resultat = KanTaAvVentStatus.OK))
+        }
+
+        @Test
+        fun `retunerer ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAGKEN når det er annen aktiv behandling på fagsaken`() {
+            val fagsak = fagsakService.hentFagsak(behandling.fagsakId)
+            val aktivBehandling =
+                behandling(fagsak = fagsak, status = BehandlingStatus.UTREDES)
+            testoppsettService.lagreBehandling(aktivBehandling)
+
+            val res = settPåVentService.kanTaAvVent(behandling.id)
+            assertThat(res).isEqualTo(KanTaAvVentDto(resultat = KanTaAvVentStatus.ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN))
         }
     }
 

@@ -1,0 +1,37 @@
+package no.nav.tilleggsstonader.klage.behandling.vent
+
+import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Ja.PåkrevdHandling
+import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Nei.Årsak
+
+data class KanTaAvVentDto(
+    val resultat: KanTaAvVentStatus,
+) {
+    companion object {
+        fun fraDomene(kanTaAvVent: KanTaAvVent): KanTaAvVentDto =
+            KanTaAvVentDto(
+                resultat =
+                    when (kanTaAvVent) {
+                        is KanTaAvVent.Ja -> {
+                            when (kanTaAvVent.påkrevdHandling) {
+                                PåkrevdHandling.MåHåndtereNyttVedtakPåFagsaken -> KanTaAvVentStatus.MÅ_NULLSTILLE_BEHANDLING
+                                PåkrevdHandling.Ingen -> KanTaAvVentStatus.OK
+                            }
+                        }
+
+                        is KanTaAvVent.Nei -> {
+                            when (kanTaAvVent.årsak) {
+                                Årsak.AnnenAktivBehandlingPåFagsaken -> KanTaAvVentStatus.ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN
+                                Årsak.ErIkkePåVent -> KanTaAvVentStatus.ER_IKKE_PÅ_VENT
+                            }
+                        }
+                    },
+            )
+    }
+}
+
+enum class KanTaAvVentStatus {
+    OK,
+    MÅ_NULLSTILLE_BEHANDLING,
+    ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN,
+    ER_IKKE_PÅ_VENT,
+}

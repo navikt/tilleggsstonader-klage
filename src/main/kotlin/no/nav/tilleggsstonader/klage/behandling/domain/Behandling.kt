@@ -34,7 +34,13 @@ data class Behandling(
     val henlagtÅrsak: HenlagtÅrsak? = null,
     val henlagtBegrunnelse: String? = null,
     val fagsystemRevurdering: FagsystemRevurdering? = null,
-)
+) {
+    fun erFerdigstilt(): Boolean = status == BehandlingStatus.FERDIGSTILT
+
+    fun erHenlagt(): Boolean = resultat == BehandlingResultat.HENLAGT
+
+    fun erAktiv(): Boolean = !(erFerdigstilt() || status == BehandlingStatus.SATT_PÅ_VENT)
+}
 
 data class PåklagetVedtakDetaljer(
     val fagsystemType: FagsystemType = FagsystemType.ORDNIÆR,

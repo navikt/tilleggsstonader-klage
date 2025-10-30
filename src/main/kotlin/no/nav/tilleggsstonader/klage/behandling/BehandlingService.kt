@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Service
 class BehandlingService(
@@ -65,6 +66,8 @@ class BehandlingService(
             .findByIdOrThrow(behandlingId)
             .tilDto(fagsak, hentKlageresultatDto(behandlingId))
     }
+
+    fun hentBehandlinger(fagsakId: UUID): List<Behandling> = behandlingRepository.findByFagsakId(fagsakId)
 
     fun opprettBehandling(behandling: Behandling): Behandling = behandlingRepository.insert(behandling)
 
@@ -212,4 +215,10 @@ class BehandlingService(
             "Kan ikke henlegge behandling med status ${behandling.status}"
         }
     }
+
+    fun finnSisteBehandlingSomHarVedtakPåFagsaken(fagsakId: UUID): Behandling? =
+        hentBehandlinger(fagsakId)
+            .filter { it.erFerdigstilt() }
+            .filterNot { it.erHenlagt() }
+            .lastOrNull()
 }

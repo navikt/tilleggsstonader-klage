@@ -2,7 +2,10 @@ package no.nav.tilleggsstonader.klage.behandling.vent
 
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
+import no.nav.tilleggsstonader.klage.behandling.domain.Behandling
 import no.nav.tilleggsstonader.klage.behandling.domain.erLåstForVidereBehandling
+import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Ja.PåkrevdHandling
+import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Nei.Årsak
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
@@ -202,6 +205,43 @@ class SettPåVentService(
         )
     }
 
+    fun kanTaAvVent(behandlingId: BehandlingId): KanTaAvVentDto {
+        val behandling = behandlingService.hentBehandling(behandlingId)
+        return KanTaAvVentDto.fraDomene(kanTaAvVent = utledTaAvVentStatus(behandling))
+    }
+
+    private fun utledTaAvVentStatus(behandling: Behandling): KanTaAvVent {
+        if (behandling.status != BehandlingStatus.SATT_PÅ_VENT) {
+            return KanTaAvVent.Nei(årsak = Årsak.ErIkkePåVent)
+        }
+
+        if (detFinnesAndreAktiveBehandlingerPåFagsaken(behandling)) {
+            return KanTaAvVent.Nei(årsak = Årsak.AnnenAktivBehandlingPåFagsaken)
+        }
+
+        return if (detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling)) {
+            KanTaAvVent
+                .Ja(påkrevdHandling = PåkrevdHandling.MåHåndtereNyttVedtakPåFagsaken)
+        } else {
+            KanTaAvVent
+                .Ja(påkrevdHandling = PåkrevdHandling.Ingen)
+        }
+    }
+
+    private fun detFinnesAndreAktiveBehandlingerPåFagsaken(behandling: Behandling): Boolean =
+        behandlingService
+            .hentBehandlinger(behandling.fagsakId)
+            .filter { it.id != behandling.id }
+            .any { it.erAktiv() }
+
+    private fun detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling: Behandling): Boolean {
+        val sisteVedtakstidspunktPåFagsaken =
+            behandlingService.finnSisteBehandlingSomHarVedtakPåFagsaken(behandling.fagsakId)?.vedtakDato
+                ?: return false
+        val tidspunktBehandlingenSistBleSattPåVent = finnAktivSattPåVent(behandling.id).sporbar.opprettetTid
+        return sisteVedtakstidspunktPåFagsaken.isAfter(tidspunktBehandlingenSistBleSattPåVent)
+    }
+
     private fun finnAktivSattPåVent(behandlingId: BehandlingId) =
         settPåVentRepository.findByBehandlingIdAndAktivIsTrue(behandlingId)
             ?: error("Finner ikke settPåVent for behandling=$behandlingId")
@@ -220,5 +260,27 @@ class SettPåVentService(
                 frist = frist,
             )
         oppgaveService.taAvVent(taAvVent)
+    }
+}
+
+sealed class KanTaAvVent {
+    data class Ja(
+        val påkrevdHandling: PåkrevdHandling,
+    ) : KanTaAvVent() {
+        sealed class PåkrevdHandling {
+            data object Ingen : PåkrevdHandling()
+
+            data object MåHåndtereNyttVedtakPåFagsaken : PåkrevdHandling()
+        }
+    }
+
+    data class Nei(
+        val årsak: Årsak,
+    ) : KanTaAvVent() {
+        sealed class Årsak {
+            data object ErIkkePåVent : Årsak()
+
+            data object AnnenAktivBehandlingPåFagsaken : Årsak()
+        }
     }
 }
