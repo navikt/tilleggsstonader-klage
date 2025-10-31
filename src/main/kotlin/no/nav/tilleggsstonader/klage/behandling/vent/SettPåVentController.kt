@@ -58,4 +58,13 @@ class SettPåVentController(
         tilgangService.harMinimumRolleTversFagsystem(BehandlerRolle.SAKSBEHANDLER)
         settPåVentService.taAvVent(behandlingId, taAvVentDto)
     }
+
+    @GetMapping("{behandlingId}/kan-ta-av-vent")
+    fun kanTaAvVent(
+        @PathVariable behandlingId: BehandlingId,
+    ): KanTaAvVentDto {
+        tilgangService.validerTilgangTilPersonMedRelasjonerForBehandling(behandlingId, AuditLoggerEvent.UPDATE)
+        tilgangService.harMinimumRolleTversFagsystem(BehandlerRolle.SAKSBEHANDLER)
+        return settPåVentService.kanTaAvVent(behandlingId)
+    }
 }
