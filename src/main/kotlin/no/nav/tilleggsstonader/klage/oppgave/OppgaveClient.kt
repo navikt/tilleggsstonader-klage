@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
+import java.util.Optional
 
 @Component
 class OppgaveClient(
@@ -37,11 +38,15 @@ class OppgaveClient(
         return respons.oppgaveId
     }
 
-    fun ferdigstillOppgave(oppgaveId: Long) {
+    fun ferdigstillOppgave(
+        oppgaveId: Long,
+        endretAvEnhetsnr: String?,
+    ) {
         val uri =
             UriComponentsBuilder
                 .fromUri(oppgaveUri)
                 .pathSegment("{oppgaveId}", "ferdigstill")
+                .queryParamIfPresent("endretAvEnhetsnr", Optional.ofNullable(endretAvEnhetsnr))
                 .encode()
                 .toUriString()
         patchForEntity<OppgaveResponse>(uri, "", uriVariables = mapOf("oppgaveId" to oppgaveId))

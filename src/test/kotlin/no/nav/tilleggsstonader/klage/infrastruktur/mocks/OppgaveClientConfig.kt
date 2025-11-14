@@ -86,7 +86,7 @@ class OppgaveClientConfig {
             )
         every { oppgaveClient.finnMapper(any(), any()) } returns FinnMappeResponseDto(mapper.size, mapper)
 
-        every { oppgaveClient.ferdigstillOppgave(any()) } answers {
+        every { oppgaveClient.ferdigstillOppgave(any(), any()) } answers {
             val oppgave = oppgavelager.getValue(firstArg())
             if (oppgave.status == StatusEnum.FERDIGSTILT) {
                 error("Allerede ferdigstilt")

@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250922094930_4bb329c"
 val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
-val tilleggsstønaderKontrakterVersion = "2025.10.02-10.48.58856917dc95"
+val tilleggsstønaderKontrakterVersion = "2025.11.06-15.32.58415e2f2680"
 val tokenSupportVersion = "5.0.37"
 val wiremockVersion = "3.13.1"
 val mockkVersion = "1.14.6"

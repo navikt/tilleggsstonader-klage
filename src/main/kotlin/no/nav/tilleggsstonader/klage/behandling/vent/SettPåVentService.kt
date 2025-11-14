@@ -8,12 +8,14 @@ import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Ja.PåkrevdHand
 import no.nav.tilleggsstonader.klage.behandling.vent.KanTaAvVent.Nei.Årsak
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.BehandlingshistorikkService
 import no.nav.tilleggsstonader.klage.behandlingsstatistikk.BehandlingsstatistikkTask
+import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.brukerfeilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.oppgave.BehandleSakOppgave
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
+import no.nav.tilleggsstonader.kontrakter.felles.behandlendeEnhet
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.OppdaterPåVentRequest
 import no.nav.tilleggsstonader.kontrakter.oppgave.vent.SettPåVentRequest
@@ -31,6 +33,7 @@ class SettPåVentService(
     private val oppgaveService: OppgaveService,
     private val taskService: TaskService,
     private val settPåVentRepository: SettPåVentRepository,
+    private val fagsakService: FagsakService,
 ) {
     fun hentStatusSettPåVent(behandlingId: BehandlingId): StatusPåVentDto {
         val settPåVent = finnAktivSattPåVent(behandlingId)
@@ -101,6 +104,7 @@ class SettPåVentService(
                 kommentar = dto.kommentar,
                 frist = dto.frist,
                 beholdOppgave = dto.beholdOppgave,
+                endretAvEnhetsnr = hentBehandlendeEnhetForBehandlingId(oppgave.behandlingId),
             ),
         )
 
@@ -153,6 +157,7 @@ class SettPåVentService(
                 kommentar = dto.kommentar,
                 frist = dto.frist,
                 beholdOppgave = dto.beholdOppgave,
+                endretAvEnhetsnr = hentBehandlendeEnhetForBehandlingId(settPåVent.behandlingId),
             )
         return oppgaveService.oppdaterPåVent(oppdatertOppgave)
     }
@@ -258,9 +263,17 @@ class SettPåVentService(
                 beholdOppgave = skalTilordnesRessurs,
                 kommentar = settPåVent.taAvVentKommentar,
                 frist = frist,
+                endretAvEnhetsnr = hentBehandlendeEnhetForBehandlingId(settPåVent.behandlingId),
             )
         oppgaveService.taAvVent(taAvVent)
     }
+
+    private fun hentBehandlendeEnhetForBehandlingId(behandlingId: BehandlingId) =
+        fagsakService
+            .hentFagsakForBehandling(behandlingId)
+            .stønadstype
+            .behandlendeEnhet()
+            .enhetsnr
 }
 
 sealed class KanTaAvVent {
