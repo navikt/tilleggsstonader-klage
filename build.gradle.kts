@@ -3,14 +3,14 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250922094930_4bb329c"
-val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
-val tilleggsstønaderKontrakterVersion = "2025.11.06-15.32.58415e2f2680"
-val tokenSupportVersion = "5.0.37"
-val wiremockVersion = "3.13.1"
+val familieProsesseringVersion = "2.20251117095517_cc54714"
+val tilleggsstønaderLibsVersion = "2025.10.14-11.02.0ba3aa7f0dc3"
+val tilleggsstønaderKontrakterVersion = "2025.11.18-10.08.5ff6c9eb94c5"
+val tokenSupportVersion = "6.0.0"
+val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.6"
 val testcontainerVersion = "1.21.3"
-val springDocVersion = "2.8.13"
+val springDocVersion = "3.0.0"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -18,14 +18,14 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.2.20"
-    kotlin("plugin.spring") version "2.2.20"
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.spring") version "2.2.21"
 
-    id("com.diffplug.spotless") version "8.0.0"
+    id("com.diffplug.spotless") version "8.1.0"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "3.5.6"
+    id("org.springframework.boot") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -63,9 +63,9 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.13.2")
+    implementation("org.flywaydb:flyway-core:11.17.1")
 
-    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
+    implementation("net.logstash.logback:logstash-logback-encoder:9.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
