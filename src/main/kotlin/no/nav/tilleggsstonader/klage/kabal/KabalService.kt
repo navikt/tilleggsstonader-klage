@@ -6,10 +6,8 @@ import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV4
-import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlager
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartId
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartIdType
-import no.nav.tilleggsstonader.klage.kabal.domain.OversendtProsessfullmektig
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSak
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSakenGjelder
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
