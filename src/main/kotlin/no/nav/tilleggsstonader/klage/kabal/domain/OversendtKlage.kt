@@ -4,20 +4,18 @@ import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import java.time.LocalDate
 
 // objektet som skal sendes til kabal
-data class OversendtKlageAnkeV3(
+data class OversendtKlageAnkeV4(
     val type: Type,
-    val klager: OversendtKlager,
-    val sakenGjelder: OversendtSakenGjelder? = null,
-    val fagsak: OversendtSak? = null,
+    val sakenGjelder: OversendtSakenGjelder,
+    val klager: OversendtKlager? = null,
+    val prosessfullmektig: OversendtProsessfullmektig? = null,
+    val fagsak: OversendtSak,
     val kildeReferanse: String,
     val dvhReferanse: String? = null,
-    val innsynUrl: String? = null, // url til vår løsning
     val hjemler: List<KabalHjemmel>,
     val forrigeBehandlendeEnhet: String,
     val tilknyttedeJournalposter: List<OversendtDokumentReferanse> = emptyList(),
-    val brukersHenvendelseMottattNavDato: LocalDate,
-    val innsendtTilNav: LocalDate,
-    val kilde: Fagsystem,
+    val brukersKlageMottattVedtaksinstans: LocalDate,
     val ytelse: Ytelse,
     val kommentar: String? = null,
 )
@@ -44,21 +42,29 @@ data class OversendtPartId(
 
 data class OversendtKlager(
     val id: OversendtPartId,
-    val klagersProsessfullmektig: OversendtProsessfullmektig? = null,
 )
 
 data class OversendtProsessfullmektig(
-    val id: OversendtPartId,
-    val skalKlagerMottaKopi: Boolean,
+    val id: OversendtPartId?,
+    val navn: String? = null,
+    val adresse: OversendtAdresse? = null,
+)
+
+data class OversendtAdresse(
+    val adresselinje1: String?,
+    val adresselinje2: String?,
+    val adresselinje3: String?,
+    val postnummer: String?,
+    val poststed: String?,
+    val land: String,
 )
 
 data class OversendtSakenGjelder(
     val id: OversendtPartId,
-    val skalMottaKopi: Boolean,
 )
 
 data class OversendtSak(
-    val fagsakId: String? = null,
+    val fagsakId: String,
     val fagsystem: Fagsystem,
 )
 

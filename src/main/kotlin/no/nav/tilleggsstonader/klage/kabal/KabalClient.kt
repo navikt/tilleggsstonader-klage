@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.kabal
 
-import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV3
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV4
 import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -23,11 +23,11 @@ class KabalClient(
     private val oversendelseUrl =
         UriComponentsBuilder
             .fromUri(kabalUrl)
-            .pathSegment("api/oversendelse/v3/sak")
+            .pathSegment("api/oversendelse/v4/sak")
             .build()
             .toUriString()
 
-    fun sendTilKabal(oversendtKlage: OversendtKlageAnkeV3) {
+    fun sendTilKabal(oversendtKlage: OversendtKlageAnkeV4) {
         postForEntityNullable<Void>(oversendelseUrl, oversendtKlage)
     }
 }

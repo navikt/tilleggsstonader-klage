@@ -5,11 +5,13 @@ import no.nav.tilleggsstonader.klage.behandling.domain.PåklagetVedtak
 import no.nav.tilleggsstonader.klage.fagsak.domain.Fagsak
 import no.nav.tilleggsstonader.klage.infrastruktur.config.LenkeConfig
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
-import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV3
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlageAnkeV4
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtKlager
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartId
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtPartIdType
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtProsessfullmektig
 import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSak
+import no.nav.tilleggsstonader.klage.kabal.domain.OversendtSakenGjelder
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
 import no.nav.tilleggsstonader.klage.kabal.domain.Ytelse
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
@@ -32,8 +34,8 @@ class KabalService(
         vurdering: Vurdering,
         saksbehandlerIdent: String,
     ) {
-        val oversendtKlageAnkeV3 = lagKlageOversendelseV3(fagsak, behandling, vurdering, hentSaksbehandlersEnhet(saksbehandlerIdent))
-        kabalClient.sendTilKabal(oversendtKlageAnkeV3)
+        val oversendtKlageAnkeV4 = lagKlageOversendelseV4(fagsak, behandling, vurdering, hentSaksbehandlersEnhet(saksbehandlerIdent))
+        kabalClient.sendTilKabal(oversendtKlageAnkeV4)
     }
 
     private fun hentSaksbehandlersEnhet(saksbehandlerIdent: String): String {
@@ -47,16 +49,16 @@ class KabalService(
         }
     }
 
-    private fun lagKlageOversendelseV3(
+    private fun lagKlageOversendelseV4(
         fagsak: Fagsak,
         behandling: Behandling,
         vurdering: Vurdering,
         saksbehandlersEnhet: String,
-    ): OversendtKlageAnkeV3 =
-        OversendtKlageAnkeV3(
+    ): OversendtKlageAnkeV4 =
+        OversendtKlageAnkeV4(
             type = Type.KLAGE,
-            klager =
-                OversendtKlager(
+            sakenGjelder =
+                OversendtSakenGjelder(
                     id =
                         OversendtPartId(
                             type = OversendtPartIdType.PERSON,
@@ -65,13 +67,10 @@ class KabalService(
                 ),
             fagsak = OversendtSak(fagsakId = fagsak.eksternId, fagsystem = fagsak.fagsystem),
             kildeReferanse = behandling.eksternBehandlingId.toString(),
-            innsynUrl = lagInnsynUrl(fagsak, behandling.påklagetVedtak),
             hjemler = vurdering.hjemler?.hjemler?.map { it.kabalHjemmel } ?: emptyList(),
             forrigeBehandlendeEnhet = saksbehandlersEnhet,
             tilknyttedeJournalposter = listOf(),
-            brukersHenvendelseMottattNavDato = behandling.klageMottatt,
-            innsendtTilNav = behandling.klageMottatt,
-            kilde = fagsak.fagsystem,
+            brukersKlageMottattVedtaksinstans = behandling.klageMottatt,
             ytelse = mapYtelse(fagsak),
         )
 
