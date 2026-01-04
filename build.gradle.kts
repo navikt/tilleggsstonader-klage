@@ -3,14 +3,14 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250922094930_4bb329c"
-val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
+val familieProsesseringVersion = "2.20251222111020_cec9344"
+val tilleggsstønaderLibsVersion = "2025.11.25-13.58.8d8ad22db88d"
 val tilleggsstønaderKontrakterVersion = "2025.11.06-15.32.58415e2f2680"
 val tokenSupportVersion = "5.0.37"
-val wiremockVersion = "3.13.1"
-val mockkVersion = "1.14.6"
-val testcontainerVersion = "1.21.3"
-val springDocVersion = "2.8.13"
+val wiremockVersion = "3.13.2"
+val mockkVersion = "1.14.7"
+val testcontainerVersion = "1.21.4"
+val springDocVersion = "3.0.0"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -18,14 +18,14 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.2.20"
-    kotlin("plugin.spring") version "2.2.20"
+    kotlin("jvm") version "2.3.0"
+    kotlin("plugin.spring") version "2.3.0"
 
-    id("com.diffplug.spotless") version "8.0.0"
+    id("com.diffplug.spotless") version "8.1.0"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "3.5.6"
+    id("org.springframework.boot") version "4.0.1"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -63,9 +63,9 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.13.2")
+    implementation("org.flywaydb:flyway-core:11.20.0")
 
-    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
+    implementation("net.logstash.logback:logstash-logback-encoder:9.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
@@ -95,8 +95,8 @@ dependencies {
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
     // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
-    testImplementation("org.bouncycastle:bcutil-jdk18on:1.82")
-    testImplementation("org.bouncycastle:bcprov-jdk18on:1.82")
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.83")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.83")
 }
 
 application {
