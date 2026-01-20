@@ -26,7 +26,7 @@ class JournalpostService(
                         type = BrukerIdType.FNR,
                     ),
                 antall = antall,
-                tema = listOf(Arkivtema.TSO),
+                tema = listOf(Arkivtema.TSO, Arkivtema.TSR),
                 journalposttype = typer,
             ),
         )
