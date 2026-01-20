@@ -51,6 +51,9 @@ Lokalt finnes ingen kafka, så for å kunne generere et svar fra kabal kan man b
 * `POST mot http://localhost:8090/api/test/kabal/<behandling_id>/dummy`, med curl eller i postman (uten
   Authorization-header for å unngå at man prøver å sende inn det som saksbehandler)
 
+### Koble til Sak lokal
+For å koble mot ts-sak lokalt må man kommentere ut profilene `mock-oauth` og `mock-tilleggsstonder-sak` i klage. I ts-sak må man kommentre ut `mock-klage`.
+
 ## Produksjonssetting
 
 Applikasjonen vil deployes til produksjon ved ny commit på master-branchen. Det er dermed tilstrekkelig å merge PR for å
