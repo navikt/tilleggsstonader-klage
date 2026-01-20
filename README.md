@@ -30,9 +30,9 @@ Appen starter da opp med en in memory-database og er da tilgjengelig under `loca
 Databasen kan aksesseres på `localhost:8093/h2-console`. Log på jdbc url `jdbc:h2:mem:testdb` med bruker `sa` og blankt
 passord.
 
-* Hvis man ønsker å bruke samme oppgaver som brukes i tilleggsstonader-sak så kan man kalle på sak for å hente/opprette oppgaver 
-  * Kommenter ut `mock-oppgave`
-  * Kommenter inn `bruk-sak-oppgave`
+* Hvis man ønsker å bruke samme oppgaver som brukes i tilleggsstonader-sak så kan man kalle på sak for å hente/opprette oppgaver
+    * Kommenter ut `mock-oppgave`
+    * Kommenter inn `bruk-sak-oppgave`
 
 ### Kjøring med postgres-database
 
@@ -52,7 +52,9 @@ Lokalt finnes ingen kafka, så for å kunne generere et svar fra kabal kan man b
   Authorization-header for å unngå at man prøver å sende inn det som saksbehandler)
 
 ### Koble til Sak lokal
-For å koble mot ts-sak lokalt må man kommentere ut profilene `mock-oauth` og `mock-tilleggsstonder-sak` i klage. I ts-sak må man kommentre ut `mock-klage`.
+
+For å koble mot ts-sak lokalt må man kommentere ut profilen `mock-tilleggsstonder-sak` i klage (`KlageAppLocal` og/eller
+`KlageAppLocalPostgres`). I ts-sak må man kommentre ut `mock-klage`.
 
 ## Produksjonssetting
 
@@ -68,11 +70,13 @@ Testbrukeren som opprettes i IDA må ha minst en av følgende roller:
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan opprettes under [Issues](https://github.com/navikt/tilleggsstonader-klage/issues) her på GitHub.
+Spørsmål knyttet til koden eller prosjektet kan opprettes under [Issues](https://github.com/navikt/tilleggsstonader-klage/issues) her på
+GitHub.
 
 ## For NAV-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #po_aap_tilleggsstønader
 
 ## Kode generert av GitHub Copilot
+
 Dette repoet bruker GitHub Copilot til å generere kode.

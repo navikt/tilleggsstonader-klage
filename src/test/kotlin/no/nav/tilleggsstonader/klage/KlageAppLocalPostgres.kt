@@ -21,7 +21,6 @@ fun main(args: Array<String>) {
     SpringApplicationBuilder(KlageAppLocalPostgres::class.java)
         .profiles(
             "local",
-            "mock-oauth",
             "mock-integrasjoner",
             "mock-pdl",
             "mock-fullmakt",
