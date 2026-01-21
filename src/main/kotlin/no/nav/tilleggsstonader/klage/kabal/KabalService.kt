@@ -78,6 +78,7 @@ class KabalService(
             Stønadstype.BARNETILSYN -> Ytelse.TSO_TSO
             Stønadstype.LÆREMIDLER -> Ytelse.TSO_TSO
             Stønadstype.BOUTGIFTER -> Ytelse.TSO_TSO
+            Stønadstype.DAGLIG_REISE_TSO -> Ytelse.TSO_TSO
             else -> error("Har ikke lagt til mapping mellom ${fagsak.stønadstype} og ytelse")
         }
 
