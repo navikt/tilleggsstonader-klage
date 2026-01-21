@@ -1,11 +1,10 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import java.io.ByteArrayOutputStream
 
 val javaVersion = 21
 val familieProsesseringVersion = "2.20250922094930_4bb329c"
 val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
-val tilleggsstønaderKontrakterVersion = "2025.11.06-15.32.58415e2f2680"
+val tilleggsstønaderKontrakterVersion = "2026.01.21-08.50.92e01d71aa93"
 val tokenSupportVersion = "5.0.37"
 val wiremockVersion = "3.13.1"
 val mockkVersion = "1.14.6"
