@@ -26,9 +26,9 @@ enum class Type(
     KLAGE("Klage"),
     ANKE("Anke"),
     ANKE_I_TRYGDERETTEN("Anke i trygderetten"),
-    OMGJOERINGSKRAV("Omgjoeringskrav"),
+    OMGJOERINGSKRAV("Omgjøringskrav"),
     BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET("Behandling etter Trygderetten opphevet"),
-    BEGJAERING_OM_GJENOPPTAK("Begjaering om gjennoptak"),
+    BEGJAERING_OM_GJENOPPTAK("Begjæring om gjenopptak"),
 }
 
 enum class OversendtPartIdType {
