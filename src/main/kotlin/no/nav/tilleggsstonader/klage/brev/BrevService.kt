@@ -27,6 +27,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
+import no.nav.tilleggsstonader.kontrakter.felles.behandlendeEnhet
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -79,7 +80,11 @@ class BrevService(
 
         val brevRequest = lagBrevRequest(behandling, fagsak, navn, påklagetVedtakDetaljer, behandling.klageMottatt)
 
-        val signaturMedEnhet = brevsignaturService.lagSignatur(personopplysninger)
+        val signaturMedEnhet =
+            brevsignaturService.lagSignatur(
+                personopplysningerDto = personopplysninger,
+                enhet = fagsak.stønadstype.behandlendeEnhet(),
+            )
 
         val html =
             htmlifyClient.genererHtmlFritekstbrev(
@@ -133,6 +138,7 @@ class BrevService(
                     klageMottatt = klageMottatt,
                 )
             }
+
             BehandlingResultat.IKKE_MEDHOLD_FORMKRAV_AVVIST -> {
                 val formkrav = formService.hentForm(behandling.id)
                 return when (behandling.påklagetVedtak.påklagetVedtakstype) {
@@ -143,6 +149,7 @@ class BrevService(
                             formkrav = formkrav,
                             stønadstype = fagsak.stønadstype,
                         )
+
                     else ->
                         BrevInnhold.lagFormkravAvvistBrev(
                             ident = fagsak.hentAktivIdent(),
@@ -152,6 +159,7 @@ class BrevService(
                         )
                 }
             }
+
             BehandlingResultat.MEDHOLD,
             BehandlingResultat.IKKE_SATT,
             BehandlingResultat.HENLAGT,
