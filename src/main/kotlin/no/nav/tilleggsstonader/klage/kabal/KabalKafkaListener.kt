@@ -1,17 +1,17 @@
 package no.nav.tilleggsstonader.klage.kabal
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
 import no.nav.tilleggsstonader.klage.kabal.event.KabalBehandlingEventService
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.listener.ConsumerSeekAware
 import org.springframework.stereotype.Component
+import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -34,7 +34,7 @@ class KabalKafkaListener(
     )
     fun listen(behandlingEventJson: String) {
         secureLogger.info("Klage-kabal-event: $behandlingEventJson")
-        val kabalBehandlingEvent = objectMapper.readValue<KabalBehandlingEvent>(behandlingEventJson)
+        val kabalBehandlingEvent = jsonMapper.readValue<KabalBehandlingEvent>(behandlingEventJson)
 
         if (støttedeFagsystemer.contains(kabalBehandlingEvent.kilde)) {
             kabalBehandlingEventService.handleEvent(kabalBehandlingEvent)

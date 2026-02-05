@@ -7,11 +7,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.client.exchange
+import org.springframework.test.web.servlet.client.expectBody
 
 internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
     final val fagsak = DomainUtil.fagsakDomain().tilFagsak()
@@ -27,16 +23,18 @@ internal class VedleggControllerIntegrasjonsTest : IntegrationTest() {
     @Test
     internal fun `skal hente ut all metadata om dokumenter samt ett vedlegg`() {
         val vedleggMetadataResponse = finnVedlegg(behandling.id)
-        assertThat(vedleggMetadataResponse.statusCode).isEqualTo(HttpStatus.OK)
-        val førsteDokumentMetadata = vedleggMetadataResponse.body?.first()
+        val førsteDokumentMetadata = vedleggMetadataResponse.first()
         assertThat(førsteDokumentMetadata).isNotNull
-        førsteDokumentMetadata ?: error("Mangler metadata til dokument")
     }
 
-    private fun finnVedlegg(behandlingId: BehandlingId): ResponseEntity<List<DokumentinfoDto>> =
-        restTemplate.exchange(
-            localhost("/api/vedlegg/$behandlingId"),
-            HttpMethod.GET,
-            HttpEntity(null, headers),
-        )
+    private fun finnVedlegg(behandlingId: BehandlingId): List<DokumentinfoDto> =
+        restTestClient
+            .get()
+            .uri(
+                localhost("/api/vedlegg/$behandlingId"),
+            ).headers { it.addAll(headers) }
+            .exchangeSuccessfully()
+            .expectBody<List<DokumentinfoDto>>()
+            .returnResult()
+            .responseBody!!
 }

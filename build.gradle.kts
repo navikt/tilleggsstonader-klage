@@ -2,14 +2,14 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20250922094930_4bb329c"
-val tilleggsstønaderLibsVersion = "2025.09.11-09.26.d3123ecc47ce"
-val tilleggsstønaderKontrakterVersion = "2026.01.21-08.50.92e01d71aa93"
-val tokenSupportVersion = "5.0.37"
+val familieProsesseringVersion = "2.20260120121808_b5446a9"
+val tilleggsstønaderLibsVersion = "2026.02.02-12.36.8345e89eeee3"
+val tilleggsstønaderKontrakterVersion = "2026.02.02-12.31.36d4a490969b"
+val tokenSupportVersion = "6.0.1"
 val wiremockVersion = "3.13.1"
 val mockkVersion = "1.14.6"
 val testcontainerVersion = "1.21.3"
-val springDocVersion = "2.8.13"
+val springDocVersion = "3.0.1"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -17,14 +17,14 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.2.20"
-    kotlin("plugin.spring") version "2.2.20"
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.spring") version "2.2.21"
 
     id("com.diffplug.spotless") version "8.0.0"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "3.5.6"
+    id("org.springframework.boot") version "4.0.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -57,18 +57,20 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-jackson")
+    implementation("org.springframework.boot:spring-boot-starter-kafka")
+    implementation("org.springframework.boot:spring-boot-starter-flyway")
+
+    implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.postgresql:postgresql")
-    implementation("org.flywaydb:flyway-core:11.13.2")
+    implementation("org.flywaydb:flyway-database-postgresql")
 
     implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
-    implementation("org.springdoc:springdoc-openapi-starter-common:$springDocVersion")
 
     implementation("no.nav.familie:prosessering-core:$familieProsesseringVersion")
 
@@ -86,6 +88,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
     }
+    testImplementation("org.springframework.boot:spring-boot-webmvc-test")
+    testImplementation("org.springframework.boot:spring-boot-resttestclient")
+
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.wiremock:wiremock-standalone:$wiremockVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")

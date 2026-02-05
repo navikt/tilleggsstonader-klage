@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.behandlingshistorikk
 
-import no.nav.security.mock.oauth2.http.objectMapper
 import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.Behandlingshistorikk
@@ -8,6 +7,7 @@ import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.StegUtfall
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.JsonWrapper
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.findByIdOrThrow
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,7 +31,7 @@ class BehandlingshistorikkRepositoryTest : IntegrationTest() {
                 behandlingId = behandling.id,
                 steg = StegType.OPPRETTET,
                 utfall = StegUtfall.SATT_PÅ_VENT,
-                metadata = JsonWrapper(objectMapper.writeValueAsString(mapOf("key" to "value"))),
+                metadata = JsonWrapper(jsonMapper.writeValueAsString(mapOf("key" to "value"))),
                 opprettetAvNavn = "OpprettetAvNavn",
                 opprettetAv = "Navn",
                 gitVersjon = "abc",

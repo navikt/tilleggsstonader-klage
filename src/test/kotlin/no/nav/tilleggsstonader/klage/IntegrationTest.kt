@@ -26,26 +26,18 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.cache.CacheManager
 import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.data.jdbc.core.JdbcAggregateOperations
 import org.springframework.http.HttpHeaders
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.web.client.RestTemplate
-
-@Configuration
-class DefaultRestTemplateConfiguration {
-    @Bean
-    fun restTemplate(restTemplateBuilder: RestTemplateBuilder) = restTemplateBuilder.build()
-}
+import org.springframework.test.web.servlet.client.RestTestClient
 
 @ExtendWith(SpringExtension::class)
 @ContextConfiguration(initializers = [DbContainerInitializer::class])
@@ -64,14 +56,14 @@ class DefaultRestTemplateConfiguration {
     "mock-oppgave",
 )
 @EnableMockOAuth2Server
+@AutoConfigureRestTestClient
 abstract class IntegrationTest {
     protected val listAppender = initLoggingEventListAppender()
     protected var loggingEvents: MutableList<ILoggingEvent> = listAppender.list
-    protected val headers = HttpHeaders()
+    val headers = HttpHeaders()
 
-    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    protected lateinit var restTemplate: RestTemplate
+    lateinit var restTestClient: RestTestClient
 
     @Autowired
     private lateinit var jdbcAggregateOperations: JdbcAggregateOperations

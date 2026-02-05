@@ -1,10 +1,10 @@
 package no.nav.tilleggsstonader.klage.behandlingshistorikk.dto
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.tilleggsstonader.klage.behandling.domain.StegType
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.Behandlingshistorikk
 import no.nav.tilleggsstonader.klage.behandlingshistorikk.domain.StegUtfall
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
+import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 
 data class BehandlingshistorikkDto(
@@ -21,7 +21,7 @@ fun List<Behandlingshistorikk>.tilDto() =
             BehandlingshistorikkDto(
                 steg = it.steg,
                 hendelse = mapHendelse(it),
-                metadata = it.metadata?.json?.let { objectMapper.readValue<Map<String, Any>>(it) },
+                metadata = it.metadata?.json?.let { jsonMapper.readValue<Map<String, Any>>(it) },
                 endretAvNavn = it.opprettetAvNavn ?: it.opprettetAv,
                 endretTid = it.endretTid,
             )

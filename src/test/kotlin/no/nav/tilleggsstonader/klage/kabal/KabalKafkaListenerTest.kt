@@ -3,7 +3,7 @@ package no.nav.tilleggsstonader.klage.kabal
 import io.mockk.mockk
 import io.mockk.verify
 import no.nav.tilleggsstonader.klage.kabal.event.KabalBehandlingEventService
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import org.junit.jupiter.api.BeforeEach
@@ -51,6 +51,6 @@ class KabalKafkaListenerTest {
                     ),
                 ),
             )
-        return objectMapper.writeValueAsString(kabalBehandlingEvent)
+        return jsonMapper.writeValueAsString(kabalBehandlingEvent)
     }
 }
