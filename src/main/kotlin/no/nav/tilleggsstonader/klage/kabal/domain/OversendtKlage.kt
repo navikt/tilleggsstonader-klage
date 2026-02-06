@@ -85,6 +85,7 @@ enum class MottakDokumentType {
 
 enum class Ytelse {
     TSO_TSO,
+    TSR_ASO,
 }
 
 interface Kode {
