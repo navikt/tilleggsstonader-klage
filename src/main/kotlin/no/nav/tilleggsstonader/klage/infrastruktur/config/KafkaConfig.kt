@@ -1,7 +1,7 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.config
 
 import no.nav.tilleggsstonader.libs.kafka.KafkaErrorHandler
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -22,12 +22,12 @@ class KafkaConfig {
     fun klageEventListenerContainerFactory(
         properties: KafkaProperties,
         kafkaErrorHandler: KafkaErrorHandler,
-    ): ConcurrentKafkaListenerContainerFactory<String, String> {
-        val factory = ConcurrentKafkaListenerContainerFactory<String, String>()
-        factory.consumerFactory = DefaultKafkaConsumerFactory(properties.buildConsumerProperties())
-        factory.setCommonErrorHandler(kafkaErrorHandler)
-        return factory
-    }
+    ): ConcurrentKafkaListenerContainerFactory<String, String> =
+        ConcurrentKafkaListenerContainerFactory<String, String>().apply {
+            @Suppress("UsePropertyAccessSyntax")
+            setConsumerFactory(DefaultKafkaConsumerFactory(properties.buildConsumerProperties()))
+            setCommonErrorHandler(kafkaErrorHandler)
+        }
 
     @Bean
     fun kafkaTemplate(properties: KafkaProperties): KafkaTemplate<String, String> {
@@ -35,7 +35,7 @@ class KafkaConfig {
         producerListener.setIncludeContents(false)
         val producerFactory = DefaultKafkaProducerFactory<String, String>(properties.buildProducerProperties())
 
-        return KafkaTemplate(producerFactory).apply<KafkaTemplate<String, String>> {
+        return KafkaTemplate(producerFactory).apply {
             setProducerListener(producerListener)
         }
     }

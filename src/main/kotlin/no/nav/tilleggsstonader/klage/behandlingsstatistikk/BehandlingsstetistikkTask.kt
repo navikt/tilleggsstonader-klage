@@ -1,13 +1,13 @@
 package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.familie.prosessering.AsyncTaskStep
 import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import org.springframework.stereotype.Service
+import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.Properties
 
@@ -23,7 +23,7 @@ class BehandlingsstatistikkTask(
 ) : AsyncTaskStep {
     override fun doTask(task: Task) {
         val (behandlingId, hendelse, hendelseTidspunkt, gjeldendeSaksbehandler) =
-            objectMapper.readValue<BehandlingsstatistikkTaskPayload>(task.payload)
+            jsonMapper.readValue<BehandlingsstatistikkTaskPayload>(task.payload)
         behandlingStatistikkService.sendBehandlingstatistikk(
             behandlingId,
             hendelse,
@@ -86,7 +86,7 @@ class BehandlingsstatistikkTask(
             Task(
                 type = TYPE,
                 payload =
-                    objectMapper.writeValueAsString(
+                    jsonMapper.writeValueAsString(
                         BehandlingsstatistikkTaskPayload(
                             behandlingId,
                             hendelse,

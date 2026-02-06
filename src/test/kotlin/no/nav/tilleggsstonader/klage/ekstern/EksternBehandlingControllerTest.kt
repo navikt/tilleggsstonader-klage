@@ -21,10 +21,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.web.client.exchange
+import org.springframework.test.web.servlet.client.expectBody
 
 internal class EksternBehandlingControllerTest : IntegrationTest() {
     @Autowired
@@ -55,11 +52,9 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
         internal fun `skal returnere tomt svar når det ikke finnes noen behandlinger på fagsaken`() {
             val externFagsakId = "200"
             val url = "$hentBehandlingUrl?eksternFagsakId=$externFagsakId"
-            val response = hentBehandlinger(url)
+            val behandlinger = hentBehandlinger(url)
 
-            assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-            val body = response.body!!
-            assertThat(body).isEqualTo(mapOf(externFagsakId to emptyList<KlagebehandlingDto>()))
+            assertThat(behandlinger).isEqualTo(mapOf(externFagsakId to emptyList<KlagebehandlingDto>()))
         }
 
         @Test
@@ -74,12 +69,10 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
             val klageresultat = klageresultatRepository.insert(klageresultat(behandlingId = behandling.id))
 
             val url = "$hentBehandlingUrl?eksternFagsakId=${fagsak.eksternId}"
-            val response = hentBehandlinger(url)
+            val behandlinger = hentBehandlinger(url)
 
-            assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-            val body = response.body!!
-            assertThat(body).hasSize(1)
-            val behandlingerPerFagsak = body.entries.single()
+            assertThat(behandlinger).hasSize(1)
+            val behandlingerPerFagsak = behandlinger.entries.single()
             assertThat(behandlingerPerFagsak.key).isEqualTo(fagsak.eksternId)
             assertThat(behandlingerPerFagsak.value).hasSize(1)
 
@@ -106,7 +99,14 @@ internal class EksternBehandlingControllerTest : IntegrationTest() {
             }
         }
 
-        private fun hentBehandlinger(url: String) =
-            restTemplate.exchange<Map<String, List<KlagebehandlingDto>>>(url, HttpMethod.GET, HttpEntity(null, headers))
+        private fun hentBehandlinger(url: String): Map<String, List<KlagebehandlingDto>> =
+            restTestClient
+                .get()
+                .uri(url)
+                .headers { it.addAll(headers) }
+                .exchangeSuccessfully()
+                .expectBody<Map<String, List<KlagebehandlingDto>>>()
+                .returnResult()
+                .responseBody!!
     }
 }

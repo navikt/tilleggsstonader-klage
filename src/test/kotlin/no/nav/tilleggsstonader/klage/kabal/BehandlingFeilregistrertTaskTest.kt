@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.kabal
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.IntegrationTest
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
@@ -16,7 +15,7 @@ import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
@@ -25,6 +24,7 @@ import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -96,7 +96,7 @@ class BehandlingFeilregistrertTaskTest : IntegrationTest() {
         assertThat(oppdatertBehandling.status).isEqualTo(BehandlingStatus.FERDIGSTILT)
 
         val opprettOppgaveTask = taskService.findAll().single { it.type == OpprettOppgaveForKlagehendelseTask.TYPE }
-        val opprettOppgavePayload = objectMapper.readValue<OpprettOppgavePayload>(opprettOppgaveTask.payload)
+        val opprettOppgavePayload = jsonMapper.readValue<OpprettOppgavePayload>(opprettOppgaveTask.payload)
         assertThat(
             opprettOppgavePayload.oppgaveTekst,
         ).isEqualTo("Klagebehandlingen er sendt tilbake fra KA med status feilregistrert.\n\nBegrunnelse fra KA: \"fordi det var feil\"")

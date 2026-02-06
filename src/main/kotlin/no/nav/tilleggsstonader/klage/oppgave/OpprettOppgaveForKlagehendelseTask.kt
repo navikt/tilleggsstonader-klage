@@ -1,6 +1,5 @@
 package no.nav.tilleggsstonader.klage.oppgave
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.familie.prosessering.AsyncTaskStep
 import no.nav.familie.prosessering.TaskStepBeskrivelse
 import no.nav.familie.prosessering.domene.Task
@@ -11,7 +10,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
@@ -21,6 +20,7 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -38,7 +38,7 @@ class OpprettOppgaveForKlagehendelseTask(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun doTask(task: Task) {
-        val opprettOppgavePayload = objectMapper.readValue<OpprettOppgavePayload>(task.payload)
+        val opprettOppgavePayload = jsonMapper.readValue<OpprettOppgavePayload>(task.payload)
         val behandling = behandlingRepository.findByEksternBehandlingId(opprettOppgavePayload.klagebehandlingEksternId)
         val fagsakDomain = fagsakRepository.finnFagsakForBehandlingId(behandling.id)
         val personId =
@@ -74,7 +74,7 @@ class OpprettOppgaveForKlagehendelseTask(
         fun opprettTask(opprettOppgavePayload: OpprettOppgavePayload): Task =
             Task(
                 TYPE,
-                objectMapper.writeValueAsString(opprettOppgavePayload),
+                jsonMapper.writeValueAsString(opprettOppgavePayload),
             )
     }
 

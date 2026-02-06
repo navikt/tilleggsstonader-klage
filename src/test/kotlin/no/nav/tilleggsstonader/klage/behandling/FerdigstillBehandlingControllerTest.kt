@@ -25,11 +25,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.client.exchange
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -81,8 +76,7 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
 
     @Test
     internal fun `skal ferdigstille behandling og opprette tasks for distribuering av data til dokarkiv og kabal`() {
-        val ferdigstillResponse = ferdigstill(behandlingId = behandling.id)
-        assertThat(ferdigstillResponse.statusCode).isEqualTo(HttpStatus.OK)
+        ferdigstill(behandlingId = behandling.id)
         val journalførTask = taskService.finnTaskMedPayloadOgType(behandling.id.toString(), JournalførBrevTask.TYPE)
         assertThat(journalførTask).isNotNull
         println(journalførTask)
@@ -92,10 +86,10 @@ internal class FerdigstillBehandlingControllerTest : IntegrationTest() {
         }
     }
 
-    private fun ferdigstill(behandlingId: BehandlingId): ResponseEntity<Unit> =
-        restTemplate.exchange(
-            localhost("/api/behandling/$behandlingId/ferdigstill"),
-            HttpMethod.POST,
-            HttpEntity(null, headers),
-        )
+    private fun ferdigstill(behandlingId: BehandlingId) =
+        restTestClient
+            .post()
+            .uri("/api/behandling/$behandlingId/ferdigstill")
+            .headers { it.addAll(headers) }
+            .exchangeSuccessfully()
 }

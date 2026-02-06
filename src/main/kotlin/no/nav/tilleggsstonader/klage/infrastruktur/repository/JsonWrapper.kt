@@ -1,10 +1,10 @@
 package no.nav.tilleggsstonader.klage.infrastruktur.repository
 
-import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
+import tools.jackson.module.kotlin.readValue
 
 data class JsonWrapper(
     val json: String,
 )
 
-fun JsonWrapper?.tilJson(): Map<String, Any>? = this?.json?.let { objectMapper.readValue(it) }
+fun JsonWrapper?.tilJson(): Map<String, Any>? = this?.json?.let { jsonMapper.readValue(it) }

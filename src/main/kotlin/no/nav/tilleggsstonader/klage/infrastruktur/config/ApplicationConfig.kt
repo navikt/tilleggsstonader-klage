@@ -45,7 +45,8 @@ class ApplicationConfig {
     @Bean
     fun navIdentFilter(): FilterRegistrationBean<NAVIdentFilter> {
         val filterRegistration = FilterRegistrationBean<NAVIdentFilter>()
-        filterRegistration.filter = NAVIdentFilter()
+        @Suppress("UsePropertyAccessSyntax")
+        filterRegistration.setFilter(NAVIdentFilter())
         filterRegistration.order = 1 // Samme nivå som LogFilter sånn at navIdent blir med på RequestTimeFilter
         return filterRegistration
     }

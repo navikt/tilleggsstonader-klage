@@ -11,7 +11,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 import no.nav.tilleggsstonader.klage.infrastruktur.config.PdfMock.PDF_AS_BASE64_STRING
 import no.nav.tilleggsstonader.klage.integrasjoner.TilleggsstønaderIntegrasjonerClient
 import no.nav.tilleggsstonader.kontrakter.felles.BrukerIdType
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.journalpost.Bruker
 import no.nav.tilleggsstonader.kontrakter.journalpost.DokumentInfo
@@ -41,25 +41,25 @@ class IntegrasjonerMock(
     private val responses =
         listOf(
             get(urlPathMatching("${integrasjonerConfig.saksbehandlerUri.path}/([A-Za-z0-9]*)"))
-                .willReturn(okJson(objectMapper.writeValueAsString(saksbehandler))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(saksbehandler))),
             get(urlPathEqualTo(integrasjonerConfig.journalPostUri.path))
                 .withQueryParam("journalpostId", equalTo("1234"))
-                .willReturn(okJson(objectMapper.writeValueAsString(journalpost))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(journalpost))),
             get(urlPathEqualTo(integrasjonerConfig.journalPostUri.path))
                 .withQueryParam("journalpostId", equalTo("2345"))
-                .willReturn(okJson(objectMapper.writeValueAsString(journalpostPapirsøknad))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(journalpostPapirsøknad))),
             post(urlPathEqualTo(integrasjonerConfig.journalPostUri.path))
-                .willReturn(okJson(objectMapper.writeValueAsString(journalposter))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(journalposter))),
             get(urlPathMatching("${integrasjonerConfig.journalPostUri.path}/hentdokument/([0-9]*)/([0-9]*)"))
                 .withQueryParam("variantFormat", equalTo("ORIGINAL"))
-                .willReturn(okJson(objectMapper.writeValueAsString(dummyPdf))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(dummyPdf))),
             get(urlPathMatching("${integrasjonerConfig.journalPostUri.path}/hentdokument/([0-9]*)/([0-9]*)"))
                 .withQueryParam("variantFormat", equalTo("ARKIV"))
-                .willReturn(okJson(objectMapper.writeValueAsString(PDF_AS_BASE64_STRING))),
+                .willReturn(okJson(jsonMapper.writeValueAsString(PDF_AS_BASE64_STRING))),
             post(urlEqualTo(integrasjonerConfig.distribuerDokumentUri.path))
                 .willReturn(
                     okJson(
-                        objectMapper.writeValueAsString(
+                        jsonMapper.writeValueAsString(
                             "123",
                         ),
                     ).withStatus(200),

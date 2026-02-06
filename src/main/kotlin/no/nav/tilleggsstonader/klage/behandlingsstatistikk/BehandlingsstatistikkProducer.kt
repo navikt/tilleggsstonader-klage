@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.behandlingsstatistikk
 
-import no.nav.tilleggsstonader.klage.infrastruktur.config.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -36,5 +36,5 @@ class BehandlingsstatistikkProducer(
         }
     }
 
-    private fun Any.toJson(): String = objectMapper.writeValueAsString(this)
+    private fun Any.toJson(): String = jsonMapper.writeValueAsString(this)
 }

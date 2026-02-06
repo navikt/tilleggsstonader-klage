@@ -13,16 +13,16 @@ import no.nav.tilleggsstonader.klage.formkrav.domain.FormkravFristUnntak
 import no.nav.tilleggsstonader.klage.util.FileUtil
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.resttestclient.TestRestTemplate
 import org.springframework.http.converter.StringHttpMessageConverter
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter
 import java.io.File
 import java.net.URI
 import java.time.LocalDate
@@ -109,12 +109,9 @@ class BrevGenereringTest {
         restTemplate.messageConverters =
             listOf(
                 StringHttpMessageConverter(),
-                MappingJackson2HttpMessageConverter(ObjectMapperProvider.objectMapper),
+                JacksonJsonHttpMessageConverter(jsonMapper),
             )
-        return HtmlifyClient(
-            uri = URI.create("http://localhost:8001"),
-            restTemplate = restTemplate,
-        )
+        return HtmlifyClient(uri = URI.create("http://localhost:8001"), restTemplate = restTemplate)
     }
 
     private fun lagFamilieDokumentClient(): FamilieDokumentClient {

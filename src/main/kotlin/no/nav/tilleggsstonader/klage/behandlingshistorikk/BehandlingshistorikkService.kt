@@ -10,7 +10,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.repository.JsonWrapper
 import no.nav.tilleggsstonader.klage.infrastruktur.repository.tilJson
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import no.nav.tilleggsstonader.klage.util.Applikasjonsversjon
-import no.nav.tilleggsstonader.kontrakter.felles.ObjectMapperProvider.objectMapper
+import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import org.springframework.stereotype.Service
 
 @Service
@@ -86,5 +86,5 @@ class BehandlingshistorikkService(
         }
     }
 
-    private fun wrapper(obj: Any): JsonWrapper = JsonWrapper(objectMapper.writeValueAsString(obj))
+    private fun wrapper(obj: Any): JsonWrapper = JsonWrapper(jsonMapper.writeValueAsString(obj))
 }

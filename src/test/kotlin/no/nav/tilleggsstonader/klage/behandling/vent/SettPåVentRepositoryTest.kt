@@ -20,7 +20,17 @@ class SettPåVentRepositoryTest : IntegrationTest() {
         val aktiv = repository.insert(settPåVent(behandling, aktiv = true))
         repository.insert(settPåVent(behandling, aktiv = false))
 
-        val settPåVent = repository.findByBehandlingIdAndAktivIsTrue(behandling.id)
+        val settPåVent = repository.findByBehandlingIdAndAktivIsTrue(behandling.id)!!
+
+        assertThat(settPåVent.id).isEqualTo(aktiv.id)
+        assertThat(settPåVent.behandlingId).isEqualTo(aktiv.behandlingId)
+        assertThat(settPåVent.oppgaveId).isEqualTo(aktiv.oppgaveId)
+        assertThat(settPåVent.årsaker).isEqualTo(aktiv.årsaker)
+        assertThat(settPåVent.kommentar).isEqualTo(aktiv.kommentar)
+        assertThat(settPåVent.aktiv).isEqualTo(aktiv.aktiv)
+        assertThat(settPåVent.taAvVentKommentar).isEqualTo(aktiv.taAvVentKommentar)
+        assertThat(settPåVent.sporbar).isEqualTo(aktiv.sporbar)
+
         assertThat(settPåVent).isEqualTo(aktiv)
     }
 
