@@ -5,10 +5,10 @@ val javaVersion = 21
 val familieProsesseringVersion = "2.20260120121808_b5446a9"
 val tilleggsstønaderLibsVersion = "2026.02.02-12.36.8345e89eeee3"
 val tilleggsstønaderKontrakterVersion = "2026.02.02-12.31.36d4a490969b"
-val tokenSupportVersion = "6.0.1"
-val wiremockVersion = "3.13.1"
-val mockkVersion = "1.14.6"
-val testcontainerVersion = "1.21.3"
+val tokenSupportVersion = "6.0.2"
+val wiremockVersion = "3.13.2"
+val mockkVersion = "1.14.9"
+val testcontainerVersion = "1.21.4"
 val springDocVersion = "3.0.1"
 
 group = "no.nav.tilleggsstonader.klage"
@@ -20,7 +20,7 @@ plugins {
     kotlin("jvm") version "2.2.21"
     kotlin("plugin.spring") version "2.2.21"
 
-    id("com.diffplug.spotless") version "8.0.0"
+    id("com.diffplug.spotless") version "8.2.1"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
@@ -67,7 +67,7 @@ dependencies {
     implementation("org.postgresql:postgresql")
     implementation("org.flywaydb:flyway-database-postgresql")
 
-    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
+    implementation("net.logstash.logback:logstash-logback-encoder:9.0")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
@@ -99,8 +99,8 @@ dependencies {
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
     // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
-    testImplementation("org.bouncycastle:bcutil-jdk18on:1.82")
-    testImplementation("org.bouncycastle:bcprov-jdk18on:1.82")
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.83")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.83")
 }
 
 application {
