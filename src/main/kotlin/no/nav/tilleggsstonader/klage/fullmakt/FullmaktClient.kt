@@ -2,7 +2,7 @@ package no.nav.tilleggsstonader.klage.fullmakt
 
 import no.nav.tilleggsstonader.kontrakter.felles.IdentRequest
 import no.nav.tilleggsstonader.kontrakter.fullmakt.FullmektigDto
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -12,10 +12,10 @@ import java.net.URI
 
 @Service
 class FullmaktClient(
-    @Qualifier("azure") restTemplate: RestTemplate,
+    @Qualifier("azure") private val restTemplate: RestTemplate,
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,
-) : AbstractRestClient(restTemplate) {
+) {
     private val uriFullmektige =
         UriComponentsBuilder
             .fromUri(integrasjonUri)
@@ -24,7 +24,7 @@ class FullmaktClient(
             .toUriString()
 
     fun hentFullmektige(fullmaktsgiversIdent: String): List<FullmektigDto> =
-        postForEntity(
+        restTemplate.postForEntity(
             uri = uriFullmektige,
             payload = IdentRequest(fullmaktsgiversIdent),
         )

@@ -4,7 +4,7 @@ import no.nav.tilleggsstonader.klage.infrastruktur.config.PdlConfig
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
@@ -17,8 +17,8 @@ import java.net.URI
 @Service
 class PdlClient(
     @Value("\${PDL_URL}") private val pdlUrl: URI,
-    @Qualifier("azureClientCredential") restTemplate: RestTemplate,
-) : AbstractRestClient(restTemplate) {
+    @Qualifier("azureClientCredential") private val restTemplate: RestTemplate,
+) {
     val pdlUri = UriComponentsBuilder.fromUri(pdlUrl).pathSegment(PdlConfig.PATH_GRAPHQL).toUriString()
 
     @Cacheable("hentPerson", cacheManager = "shortCache")
@@ -32,7 +32,7 @@ class PdlClient(
                 query = PdlConfig.søkerQuery,
             )
         val pdlResponse: PdlResponse<PdlSøkerData> =
-            postForEntity(
+            restTemplate.postForEntity(
                 pdlUri,
                 pdlPersonRequest,
                 httpHeaders(stønadstype.tilTema()),
@@ -52,7 +52,7 @@ class PdlClient(
                 query = PdlConfig.bolkNavnQuery,
             )
         val pdlResponse: PdlBolkResponse<PdlNavn> =
-            postForEntity(
+            restTemplate.postForEntity(
                 pdlUri,
                 pdlPersonRequest,
                 httpHeaders(stønadstype.tilTema()),
@@ -77,7 +77,7 @@ class PdlClient(
                 query = PdlConfig.hentIdentQuery,
             )
         val pdlResponse: PdlResponse<PdlHentIdenter> =
-            postForEntity(
+            restTemplate.postForEntity(
                 pdlUri,
                 pdlIdentRequest,
                 httpHeaders(tema),

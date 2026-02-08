@@ -8,7 +8,8 @@ import no.nav.tilleggsstonader.kontrakter.felles.IdentStønadstype
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemVedtak
 import no.nav.tilleggsstonader.kontrakter.klage.KanOppretteRevurderingResponse
 import no.nav.tilleggsstonader.kontrakter.klage.OpprettRevurderingResponse
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.getForEntity
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -18,9 +19,9 @@ import java.net.URI
 
 @Component
 class TilleggsstonaderSakClient(
-    @Qualifier("azure") restTemplate: RestTemplate,
+    @Qualifier("azure") private val restTemplate: RestTemplate,
     @Value("\${TILLEGGSSTONADER_SAK_URL}") private val sakUri: URI,
-) : AbstractRestClient(restTemplate) {
+) {
     fun hentVedtak(fagsystemEksternFagsakId: String): List<FagsystemVedtak> {
         val uri =
             UriComponentsBuilder
@@ -28,7 +29,7 @@ class TilleggsstonaderSakClient(
                 .path("api/klage/ekstern-fagsak/{fagsystemEksternFagsakId}/vedtak")
                 .encode()
                 .toUriString()
-        return getForEntity<List<FagsystemVedtak>>(
+        return restTemplate.getForEntity<List<FagsystemVedtak>>(
             uri,
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
         )
@@ -41,7 +42,7 @@ class TilleggsstonaderSakClient(
                 .pathSegment("api", "ekstern", "behandling", "kan-opprette-revurdering-klage", "{fagsystemEksternFagsakId}")
                 .encode()
                 .toUriString()
-        return getForEntity<KanOppretteRevurderingResponse>(
+        return restTemplate.getForEntity<KanOppretteRevurderingResponse>(
             uri,
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
         )
@@ -54,7 +55,7 @@ class TilleggsstonaderSakClient(
                 .pathSegment("api", "ekstern", "behandling", "opprett-revurdering-klage", "{fagsystemEksternFagsakId}")
                 .encode()
                 .toUriString()
-        return postForEntity<OpprettRevurderingResponse>(
+        return restTemplate.postForEntity<OpprettRevurderingResponse>(
             uri,
             emptyMap<String, String>(),
             uriVariables = mapOf("fagsystemEksternFagsakId" to fagsystemEksternFagsakId),
@@ -62,20 +63,21 @@ class TilleggsstonaderSakClient(
     }
 
     fun sjekkTilgangTilPerson(ident: String): Tilgang =
-        postForEntity<Tilgang>(
+        restTemplate.postForEntity<Tilgang>(
             URI.create("$sakUri/api/tilgang/person").toString(),
             IdentRequest(ident),
         )
 
     fun sjekkTilgangTilPerson(identStønadstype: IdentStønadstype): Tilgang =
-        postForEntity<Tilgang>(
+        restTemplate.postForEntity<Tilgang>(
             URI.create("$sakUri/api/tilgang/person-stonad").toString(),
             identStønadstype,
         )
 
     fun erEgenAnsatt(ident: String): Boolean =
-        postForEntity<EgenAnsattResponse>(
-            URI.create("$sakUri/api/tilgang/person/erEgenAnsatt").toString(),
-            EgenAnsattRequest(ident),
-        ).erEgenAnsatt
+        restTemplate
+            .postForEntity<EgenAnsattResponse>(
+                URI.create("$sakUri/api/tilgang/person/erEgenAnsatt").toString(),
+                EgenAnsattRequest(ident),
+            ).erEgenAnsatt
 }

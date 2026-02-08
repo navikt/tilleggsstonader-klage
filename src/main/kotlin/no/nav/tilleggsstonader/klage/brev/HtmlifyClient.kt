@@ -2,7 +2,7 @@ package no.nav.tilleggsstonader.klage.brev
 
 import no.nav.tilleggsstonader.klage.blankett.BlankettPdfRequest
 import no.nav.tilleggsstonader.klage.brev.dto.FritekstBrevRequestDto
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -15,8 +15,8 @@ class HtmlifyClient(
     @Value("\${TILLEGGSSTONADER_HTMLIFY_URL}")
     private val uri: URI,
     @Qualifier("utenAuth")
-    restTemplate: RestTemplate,
-) : AbstractRestClient(restTemplate) {
+    private val restTemplate: RestTemplate,
+) {
     private val interntVedtakUri = URI.create("$uri/api/klage/internt-vedtak").toString()
     private val fritekstBrevUri = URI.create("$uri/api/klage/fritekst-brev").toString()
 
@@ -25,7 +25,7 @@ class HtmlifyClient(
         saksbehandlerNavn: String,
         enhet: String,
     ): String =
-        postForEntity(
+        restTemplate.postForEntity(
             fritekstBrevUri,
             FritekstBrevRequestMedSignatur(
                 fritekstBrev,
@@ -35,7 +35,8 @@ class HtmlifyClient(
             HttpHeaders(),
         )
 
-    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): String = postForEntity(interntVedtakUri, blankettPdfRequest, HttpHeaders())
+    fun genererBlankett(blankettPdfRequest: BlankettPdfRequest): String =
+        restTemplate.postForEntity(interntVedtakUri, blankettPdfRequest, HttpHeaders())
 }
 
 data class FritekstBrevRequestMedSignatur(

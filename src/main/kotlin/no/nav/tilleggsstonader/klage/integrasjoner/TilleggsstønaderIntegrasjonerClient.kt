@@ -8,7 +8,8 @@ import no.nav.tilleggsstonader.kontrakter.dokdist.DistribuerJournalpostRequest
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
 import no.nav.tilleggsstonader.kontrakter.journalpost.Journalpost
 import no.nav.tilleggsstonader.kontrakter.journalpost.JournalposterForBrukerRequest
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.getForEntity
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import no.nav.tilleggsstonader.libs.log.NavHttpHeaders
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,11 +23,11 @@ import java.net.URI
 
 @Component
 class TilleggsstønaderIntegrasjonerClient(
-    @Qualifier("azure") restTemplate: RestTemplate,
+    @Qualifier("azure") private val restTemplate: RestTemplate,
     @Value("\${TILLEGGSSTONADER_INTEGRASJONER_URL}")
     private val integrasjonUri: URI,
     private val integrasjonerConfig: IntegrasjonerConfig,
-) : AbstractRestClient(restTemplate) {
+) {
     val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     private val dokArkivUri =
@@ -42,7 +43,7 @@ class TilleggsstønaderIntegrasjonerClient(
         arkiverDokumentRequest: ArkiverDokumentRequest,
         saksbehandler: String?,
     ): ArkiverDokumentResponse =
-        postForEntity<ArkiverDokumentResponse>(
+        restTemplate.postForEntity<ArkiverDokumentResponse>(
             dokArkivUri,
             arkiverDokumentRequest,
             headerMedSaksbehandler(saksbehandler),
@@ -52,14 +53,14 @@ class TilleggsstønaderIntegrasjonerClient(
         request: DistribuerJournalpostRequest,
         saksbehandler: String? = null,
     ): String =
-        postForEntity<String>(
+        restTemplate.postForEntity<String>(
             uri = integrasjonerConfig.distribuerDokumentUri.toString(),
             payload = request,
             httpHeaders = headerMedSaksbehandler(saksbehandler),
         )
 
     fun finnJournalposter(journalposterForBrukerRequest: JournalposterForBrukerRequest): List<Journalpost> =
-        postForEntity<List<Journalpost>>(journalpostURI.toString(), journalposterForBrukerRequest)
+        restTemplate.postForEntity<List<Journalpost>>(journalpostURI.toString(), journalposterForBrukerRequest)
 
     fun hentSaksbehandlerInfo(navIdent: String): Saksbehandler {
         val uri =
@@ -68,7 +69,7 @@ class TilleggsstønaderIntegrasjonerClient(
                 .pathSegment("{navIdent}")
                 .encode()
                 .toUriString()
-        return getForEntity<Saksbehandler>(
+        return restTemplate.getForEntity<Saksbehandler>(
             uri,
             HttpHeaders().medContentTypeJsonUTF8(),
             mapOf("navIdent" to navIdent),

@@ -1,6 +1,6 @@
 package no.nav.tilleggsstonader.klage.brev
 
-import no.nav.tilleggsstonader.libs.http.client.AbstractRestClient
+import no.nav.tilleggsstonader.libs.http.client.postForEntity
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -14,12 +14,12 @@ class FamilieDokumentClient(
     @Value("\${FAMILIE_DOKUMENT_URL}")
     private val familieDokumentUrl: String,
     @Qualifier("utenAuth")
-    restTemplate: RestTemplate,
-) : AbstractRestClient(restTemplate) {
+    private val restTemplate: RestTemplate,
+) {
     fun genererPdfFraHtml(html: String): ByteArray {
         val htmlTilPdfURI = URI.create("$familieDokumentUrl/$HTML_TIL_PDF").toString()
 
-        return postForEntity(
+        return restTemplate.postForEntity(
             uri = htmlTilPdfURI,
             payload = html.encodeToByteArray(),
             httpHeaders =
