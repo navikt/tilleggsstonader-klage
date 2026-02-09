@@ -26,6 +26,7 @@ class BrevsignaturService {
             Enhet.NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD -> SIGNATUR_NAY
             Enhet.NAV_TILTAK_OSLO -> SIGNATUR_TILTAKSENHETEN
             Enhet.VIKAFOSSEN -> SIGNATUR_VIKAFOSSEN
+            Enhet.NAV_EGNE_ANSATTE_OSLO -> error("Har ikke signatur for $this")
             Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE -> error("Har ikke signatur for $this")
         }
 
