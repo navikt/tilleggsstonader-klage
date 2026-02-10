@@ -88,5 +88,7 @@ enum class Hjemmel(
             TSO,
             TSR,
         }
+
+        fun hjemlerRelevantFor(tema: Hjemmeltema) = Hjemmel.entries.filter { tema in it.relevantForTemaer }
     }
 }
