@@ -12,6 +12,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilHjemler
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -60,7 +61,7 @@ class VurderingService(
                 vedtak = vurdering.vedtak,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemler = vurdering.hjemler?.let { Hjemler(it) },
+                hjemler = vurdering.hjemler?.let { Hjemler(it.tilHjemler()) },
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 interntNotat = vurdering.interntNotat,
             ),
@@ -76,7 +77,7 @@ class VurderingService(
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemler = vurdering.hjemler?.let { Hjemler(it) },
+                hjemler = vurdering.hjemler?.let { Hjemler(it.tilHjemler()) },
                 interntNotat = vurdering.interntNotat,
             ),
         )
