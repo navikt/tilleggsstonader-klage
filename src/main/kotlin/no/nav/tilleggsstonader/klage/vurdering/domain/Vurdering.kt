@@ -3,6 +3,8 @@ package no.nav.tilleggsstonader.klage.vurdering.domain
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.felles.domain.Sporbar
 import no.nav.tilleggsstonader.klage.kabal.domain.KabalHjemmel
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSO
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSR
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.springframework.data.annotation.Id
@@ -42,41 +44,49 @@ data class Hjemler(
 
 enum class Hjemmel(
     val kabalHjemmel: KabalHjemmel,
-    val kanBrukesForTso: Boolean,
-    val kanBrukesForTsr: Boolean,
+    val relevantForTemaer: Set<Hjemmeltema>,
 ) {
-    ARBML_13(KabalHjemmel.ARBML_13, true, true),
-    ARBML_17(KabalHjemmel.ARBML_17, true, true),
-    ARBML_22(KabalHjemmel.ARBML_22, true, true),
+    ARBML_13(KabalHjemmel.ARBML_13, setOf(TSO, TSR)),
+    ARBML_17(KabalHjemmel.ARBML_17, setOf(TSO, TSR)),
+    ARBML_22(KabalHjemmel.ARBML_22, setOf(TSO, TSR)),
 
-    FTRL_11_A_3(KabalHjemmel.FTRL_11_A_3, true, false),
-    FTRL_11_A_4(KabalHjemmel.FTRL_11_A_4, true, false),
-    FTRL_11_A_4_3(KabalHjemmel.FTRL_11_A_4_3, true, false),
-    FTRL_15_11(KabalHjemmel.FTRL_15_11, true, false),
-    FTRL_17_10(KabalHjemmel.FTRL_17_10, true, false),
-    FTRL_17_15(KabalHjemmel.FTRL_17_15, true, false),
-    FTRL_21_12(KabalHjemmel.FTRL_21_12, true, false),
-    FTRL_22_13(KabalHjemmel.FTRL_22_13, true, false),
-    FTRL_22_15(KabalHjemmel.FTRL_22_15, true, false),
-    FTRL_22_17A(KabalHjemmel.FTRL_22_17A, true, false),
+    FTRL_11_A_3(KabalHjemmel.FTRL_11_A_3, setOf(TSO)),
+    FTRL_11_A_4(KabalHjemmel.FTRL_11_A_4, setOf(TSO)),
+    FTRL_11_A_4_3(KabalHjemmel.FTRL_11_A_4_3, setOf(TSO)),
+    FTRL_15_11(KabalHjemmel.FTRL_15_11, setOf(TSO)),
+    FTRL_17_10(KabalHjemmel.FTRL_17_10, setOf(TSO)),
+    FTRL_17_15(KabalHjemmel.FTRL_17_15, setOf(TSO)),
+    FTRL_21_12(KabalHjemmel.FTRL_21_12, setOf(TSO)),
+    FTRL_22_13(KabalHjemmel.FTRL_22_13, setOf(TSO)),
+    FTRL_22_15(KabalHjemmel.FTRL_22_15, setOf(TSO)),
+    FTRL_22_17A(KabalHjemmel.FTRL_22_17A, setOf(TSO)),
 
-    FS_TILL_ST_1_3_MOBILITET(KabalHjemmel.FS_TILL_ST_1_3_MOBILITET, true, true),
-    FS_TILL_ST_3_REISE(KabalHjemmel.FS_TILL_ST_3_REISE, true, true),
-    FS_TILL_ST_5(KabalHjemmel.FS_TILL_ST_5, false, true),
-    FS_TILL_ST_6_FLYTTING(KabalHjemmel.FS_TILL_ST_6_FLYTTING, true, true),
-    FS_TILL_ST_8_BOLIG(KabalHjemmel.FS_TILL_ST_8_BOLIG, true, false),
-    FS_TILL_ST_10_TILSYN(KabalHjemmel.FS_TILL_ST_10_TILSYN, true, false),
-    FS_TILL_ST_12_LAEREMIDLER(KabalHjemmel.FS_TILL_ST_12_LAEREMIDLER, true, false),
-    FS_TILL_ST_15_2(KabalHjemmel.FS_TILL_ST_15_2, true, true),
-    FS_TILL_ST_15_3(KabalHjemmel.FS_TILL_ST_15_3, true, true),
+    FS_TILL_ST_1_3_MOBILITET(KabalHjemmel.FS_TILL_ST_1_3_MOBILITET, setOf(TSO, TSR)),
+    FS_TILL_ST_3_REISE(KabalHjemmel.FS_TILL_ST_3_REISE, setOf(TSO, TSR)),
+    FS_TILL_ST_5(KabalHjemmel.FS_TILL_ST_5, setOf(TSR)),
+    FS_TILL_ST_6_FLYTTING(KabalHjemmel.FS_TILL_ST_6_FLYTTING, setOf(TSO, TSR)),
+    FS_TILL_ST_8_BOLIG(KabalHjemmel.FS_TILL_ST_8_BOLIG, setOf(TSO)),
+    FS_TILL_ST_10_TILSYN(KabalHjemmel.FS_TILL_ST_10_TILSYN, setOf(TSO)),
+    FS_TILL_ST_12_LAEREMIDLER(KabalHjemmel.FS_TILL_ST_12_LAEREMIDLER, setOf(TSO)),
+    FS_TILL_ST_15_2(KabalHjemmel.FS_TILL_ST_15_2, setOf(TSO, TSR)),
+    FS_TILL_ST_15_3(KabalHjemmel.FS_TILL_ST_15_3, setOf(TSO, TSR)),
 
-    FL_2_3(KabalHjemmel.FL_2_3, true, true),
-    FL_10(KabalHjemmel.FL_10, true, true),
+    FL_2_3(KabalHjemmel.FL_2_3, setOf(TSO, TSR)),
+    FL_10(KabalHjemmel.FL_10, setOf(TSO, TSR)),
 
-    FVL_11(KabalHjemmel.FVL_11, true, true),
-    FVL_17(KabalHjemmel.FVL_17, true, true),
-    FVL_18_19(KabalHjemmel.FVL_18_19, true, true),
-    FVL_35(KabalHjemmel.FVL_35, true, true),
-    FVL_41(KabalHjemmel.FVL_41, true, true),
-    FVL_42(KabalHjemmel.FVL_42, true, true),
+    FVL_11(KabalHjemmel.FVL_11, setOf(TSO, TSR)),
+    FVL_17(KabalHjemmel.FVL_17, setOf(TSO, TSR)),
+    FVL_18_19(KabalHjemmel.FVL_18_19, setOf(TSO, TSR)),
+    FVL_35(KabalHjemmel.FVL_35, setOf(TSO, TSR)),
+    FVL_41(KabalHjemmel.FVL_41, setOf(TSO, TSR)),
+    FVL_42(KabalHjemmel.FVL_42, setOf(TSO, TSR)),
+
+    ;
+
+    companion object {
+        enum class Hjemmeltema {
+            TSO,
+            TSR,
+        }
+    }
 }

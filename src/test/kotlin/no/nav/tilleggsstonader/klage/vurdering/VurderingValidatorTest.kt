@@ -136,7 +136,9 @@ internal class VurderingValidatorTest {
                         ),
                     stønadstype = Stønadstype.BARNETILSYN,
                 )
-            }.hasMessage("En eller flere hjemler kan ikke brukes når behandlende enhet er Nav Arbeid og Ytelser: FS_TILL_ST_5")
+            }.hasMessage(
+                "En eller flere hjemler kan ikke brukes når behandlende enhet er NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD: FS_TILL_ST_5",
+            )
         }
 
         @Test
@@ -151,7 +153,7 @@ internal class VurderingValidatorTest {
                         ),
                     stønadstype = Stønadstype.DAGLIG_REISE_TSR,
                 )
-            }.hasMessage("En eller flere hjemler kan ikke brukes når behandlende enhet er Nav Tiltak Oslo: FTRL_21_12")
+            }.hasMessage("En eller flere hjemler kan ikke brukes når behandlende enhet er NAV_TILTAK_OSLO: FTRL_21_12")
         }
     }
 }

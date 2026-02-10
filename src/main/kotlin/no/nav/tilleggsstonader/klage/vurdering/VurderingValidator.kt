@@ -1,6 +1,8 @@
 package no.nav.tilleggsstonader.klage.vurdering
 
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.feilHvis
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSO
+import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSR
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import no.nav.tilleggsstonader.kontrakter.felles.Enhet
@@ -51,26 +53,22 @@ object VurderingValidator {
         vurdering: VurderingDto,
         stønadstype: Stønadstype,
     ) {
-        when (val behandlendeEnhet = stønadstype.behandlendeEnhet()) {
-            Enhet.NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD ->
-                vurdering.hjemler?.let { hjemler ->
-                    feilHvis(hjemler.any { !it.kanBrukesForTso }) {
-                        "En eller flere hjemler kan ikke brukes når behandlende enhet er Nav Arbeid og Ytelser: ${hjemler.joinToString()}"
-                    }
-                }
+        val behandlendeEnhet = stønadstype.behandlendeEnhet()
+        val relevantTema =
+            when (behandlendeEnhet) {
+                Enhet.NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD -> TSO
+                Enhet.NAV_TILTAK_OSLO -> TSR
 
-            Enhet.NAV_TILTAK_OSLO -> {
-                vurdering.hjemler?.let { hjemler ->
-                    feilHvis(hjemler.any { !it.kanBrukesForTsr }) {
-                        "En eller flere hjemler kan ikke brukes når behandlende enhet er Nav Tiltak Oslo: ${hjemler.joinToString()}"
-                    }
-                }
+                Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE,
+                Enhet.NAV_EGNE_ANSATTE_OSLO,
+                Enhet.VIKAFOSSEN,
+                -> error("Enhet $behandlendeEnhet har ikke støtte for å behandle klage i denne løsningen enda. Kontakt utviklerteamet.")
             }
 
-            Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE,
-            Enhet.NAV_EGNE_ANSATTE_OSLO,
-            Enhet.VIKAFOSSEN,
-            -> error("Kann ikke behandle klage når behandlende enhet er : $behandlendeEnhet")
+        vurdering.hjemler?.let { hjemler ->
+            feilHvis(hjemler.any { relevantTema !in it.relevantForTemaer }) {
+                "En eller flere hjemler kan ikke brukes når behandlende enhet er $behandlendeEnhet: ${hjemler.joinToString()}"
+            }
         }
     }
 }
