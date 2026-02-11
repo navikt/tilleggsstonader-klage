@@ -15,7 +15,7 @@ data class VurderingDto(
     val interntNotat: String?,
 )
 
-fun Vurdering.tilDto(): VurderingDto =
+fun Vurdering.tilDomene(): VurderingDto =
     VurderingDto(
         behandlingId = this.behandlingId,
         vedtak = this.vedtak,

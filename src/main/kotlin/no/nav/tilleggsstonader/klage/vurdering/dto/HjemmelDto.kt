@@ -7,4 +7,4 @@ data class HjemmelDto(
     val visningstekst: String,
 )
 
-fun List<HjemmelDto>.tilHjemler() = map { it.hjemmel }
+fun List<HjemmelDto>.tilDomene() = map { it.hjemmel }

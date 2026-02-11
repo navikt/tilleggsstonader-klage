@@ -5,7 +5,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmelt
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSR
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
-import no.nav.tilleggsstonader.klage.vurdering.dto.tilHjemler
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilDomene
 import no.nav.tilleggsstonader.kontrakter.felles.Enhet
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
 import no.nav.tilleggsstonader.kontrakter.felles.behandlendeEnhet
@@ -66,7 +66,7 @@ object VurderingValidator {
                 -> error("Enhet $behandlendeEnhet har ikke støtte for å behandle klage i denne løsningen enda. Kontakt utviklerteamet.")
             }
 
-        vurdering.hjemler?.tilHjemler()?.let { hjemler ->
+        vurdering.hjemler?.tilDomene()?.let { hjemler ->
             feilHvis(hjemler.any { relevantTema !in it.relevantForTemaer }) {
                 "En eller flere hjemler kan ikke brukes når behandlende enhet er $behandlendeEnhet: ${hjemler.joinToString()}"
             }
