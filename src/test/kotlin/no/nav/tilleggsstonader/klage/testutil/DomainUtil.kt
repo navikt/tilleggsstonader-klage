@@ -27,6 +27,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
+import no.nav.tilleggsstonader.klage.vurdering.domain.tilDto
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Stønadstype
@@ -133,7 +134,7 @@ object DomainUtil {
         vedtak = vedtak,
         årsak = årsak,
         begrunnelseOmgjøring = begrunnelseOmgjøring,
-        hjemler = hjemler,
+        hjemler = hjemler?.tilDto(),
         innstillingKlageinstans = innstillingKlageinstans,
         interntNotat = interntNotat,
     )

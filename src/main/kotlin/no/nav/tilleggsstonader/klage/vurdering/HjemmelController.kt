@@ -3,10 +3,10 @@ package no.nav.tilleggsstonader.klage.vurdering
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
-import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSO
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.Hjemmeltema.TSR
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel.Companion.hjemlerRelevantFor
+import no.nav.tilleggsstonader.klage.vurdering.dto.HjemmelDto
 import no.nav.tilleggsstonader.kontrakter.felles.Enhet
 import no.nav.tilleggsstonader.kontrakter.felles.behandlendeEnhet
 import org.springframework.validation.annotation.Validated
@@ -25,16 +25,16 @@ class HjemmelController(
     @GetMapping("tilgjenglige-hjemler/{behandlingId}")
     fun hentRelevanteHjemlerForBehandling(
         @PathVariable behandlingId: BehandlingId,
-    ): List<Hjemmel> {
+    ): List<HjemmelDto> {
         val fagsak = fagsakService.hentFagsakForBehandling(behandlingId)
         return when (val behandlendeEnhet = fagsak.stønadstype.behandlendeEnhet()) {
             Enhet.NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD,
             Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE,
-            -> hjemlerRelevantFor(TSO)
+            -> hjemlerRelevantFor(TSO).map { it.tilDto() }
 
             Enhet.NAV_TILTAK_OSLO,
             Enhet.NAV_EGNE_ANSATTE_OSLO,
-            -> hjemlerRelevantFor(TSR)
+            -> hjemlerRelevantFor(TSR).map { it.tilDto() }
 
             Enhet.VIKAFOSSEN,
             -> error("Kjenner ikke til hjemler for enhet: $behandlendeEnhet")

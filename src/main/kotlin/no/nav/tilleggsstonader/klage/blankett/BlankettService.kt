@@ -12,6 +12,7 @@ import no.nav.tilleggsstonader.klage.formkrav.dto.FormkravDto
 import no.nav.tilleggsstonader.klage.personopplysninger.PersonopplysningerService
 import no.nav.tilleggsstonader.klage.vurdering.VurderingService
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilDomene
 import org.springframework.stereotype.Service
 
 @Service
@@ -64,7 +65,7 @@ class BlankettService(
                 vedtak = it.vedtak,
                 årsak = it.årsak,
                 begrunnelseOmgjøring = it.begrunnelseOmgjøring,
-                hjemler = it.hjemler,
+                hjemler = it.hjemler?.tilDomene(),
                 innstillingKlageinstans = it.innstillingKlageinstans,
                 interntNotat = it.interntNotat,
             )

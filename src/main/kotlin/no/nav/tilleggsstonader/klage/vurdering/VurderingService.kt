@@ -11,7 +11,7 @@ import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemler
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vurdering
 import no.nav.tilleggsstonader.klage.vurdering.dto.VurderingDto
-import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilDomene
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,7 +26,7 @@ class VurderingService(
 ) {
     fun hentVurdering(behandlingId: BehandlingId): Vurdering? = vurderingRepository.findByIdOrNull(behandlingId)
 
-    fun hentVurderingDto(behandlingId: BehandlingId): VurderingDto? = hentVurdering(behandlingId)?.tilDto()
+    fun hentVurderingDto(behandlingId: BehandlingId): VurderingDto? = hentVurdering(behandlingId)?.tilDomene()
 
     @Transactional
     fun opprettEllerOppdaterVurdering(vurdering: VurderingDto): VurderingDto {
@@ -43,9 +43,9 @@ class VurderingService(
 
         val eksisterendeVurdering = vurderingRepository.findByIdOrNull(vurdering.behandlingId)
         return if (eksisterendeVurdering != null) {
-            oppdaterVurdering(vurdering, eksisterendeVurdering).tilDto()
+            oppdaterVurdering(vurdering, eksisterendeVurdering).tilDomene()
         } else {
-            opprettNyVurdering(vurdering).tilDto()
+            opprettNyVurdering(vurdering).tilDomene()
         }
     }
 
@@ -60,7 +60,7 @@ class VurderingService(
                 vedtak = vurdering.vedtak,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemler = vurdering.hjemler?.let { Hjemler(it) },
+                hjemler = vurdering.hjemler?.let { Hjemler(it.tilDomene()) },
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 interntNotat = vurdering.interntNotat,
             ),
@@ -76,7 +76,7 @@ class VurderingService(
                 innstillingKlageinstans = vurdering.innstillingKlageinstans,
                 årsak = vurdering.årsak,
                 begrunnelseOmgjøring = vurdering.begrunnelseOmgjøring,
-                hjemler = vurdering.hjemler?.let { Hjemler(it) },
+                hjemler = vurdering.hjemler?.let { Hjemler(it.tilDomene()) },
                 interntNotat = vurdering.interntNotat,
             ),
         )

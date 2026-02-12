@@ -15,7 +15,7 @@ import no.nav.tilleggsstonader.klage.testutil.DomainUtil.tilFagsak
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.vurdering
 import no.nav.tilleggsstonader.klage.vurdering.domain.Hjemmel
 import no.nav.tilleggsstonader.klage.vurdering.domain.Vedtak
-import no.nav.tilleggsstonader.klage.vurdering.dto.tilDto
+import no.nav.tilleggsstonader.klage.vurdering.dto.tilDomene
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.Årsak
 import org.junit.jupiter.api.BeforeEach
@@ -68,25 +68,25 @@ class VurderingServiceTest {
 
     @Test
     internal fun `skal slette brev ved omgjøring`() {
-        vurderingService.opprettEllerOppdaterVurdering(omgjørVedtakVurdering.tilDto())
+        vurderingService.opprettEllerOppdaterVurdering(omgjørVedtakVurdering.tilDomene())
         verify(exactly = 1) { brevRepository.deleteById(any()) }
     }
 
     @Test
     internal fun `skal ikke slette brev ved opprettholdelse`() {
-        vurderingService.opprettEllerOppdaterVurdering(opprettholdVedtakVurdering.tilDto())
+        vurderingService.opprettEllerOppdaterVurdering(opprettholdVedtakVurdering.tilDomene())
         verify(exactly = 0) { brevRepository.deleteById(any()) }
     }
 
     @Test
     fun `skal oppdatere steg ved omgjøring`() {
-        vurderingService.opprettEllerOppdaterVurdering(omgjørVedtakVurdering.tilDto())
+        vurderingService.opprettEllerOppdaterVurdering(omgjørVedtakVurdering.tilDomene())
         verify(exactly = 1) { stegService.oppdaterSteg(any(), any(), StegType.BREV) }
     }
 
     @Test
     fun `skal oppdatere steg ved opprettholdelse av klage`() {
-        vurderingService.opprettEllerOppdaterVurdering(opprettholdVedtakVurdering.tilDto())
+        vurderingService.opprettEllerOppdaterVurdering(opprettholdVedtakVurdering.tilDomene())
         verify(exactly = 1) { stegService.oppdaterSteg(any(), any(), StegType.BREV) }
     }
 }
