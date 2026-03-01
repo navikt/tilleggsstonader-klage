@@ -5,7 +5,7 @@ val javaVersion = 21
 val familieProsesseringVersion = "2.20260120121808_b5446a9"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.02.09-09.29.75e18e2b8973"
-val tokenSupportVersion = "6.0.2"
+val tokenSupportVersion = "6.0.3"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.9"
 val testcontainerVersion = "1.21.4"
@@ -24,7 +24,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "4.0.2"
+    id("org.springframework.boot") version "4.0.3"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
