@@ -220,10 +220,6 @@ class SettPåVentService(
             return KanTaAvVent.Nei(årsak = Årsak.ErIkkePåVent)
         }
 
-        if (detFinnesAndreAktiveBehandlingerPåFagsaken(behandling)) {
-            return KanTaAvVent.Nei(årsak = Årsak.AnnenAktivBehandlingPåFagsaken)
-        }
-
         return if (detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling)) {
             KanTaAvVent
                 .Ja(påkrevdHandling = PåkrevdHandling.MåHåndtereNyttVedtakPåFagsaken)
