@@ -19,11 +19,11 @@ fun main(args: Array<String>) {
             "mock-pdl",
             "mock-fullmakt",
             "mock-htmlify",
-            "mock-tilleggsstonader-sak",
+            // "mock-tilleggsstonader-sak",
             "mock-dokument",
             "mock-kabal",
             "mock-ereg",
-            // "mock-oppgave",
+            "mock-oppgave",
             "bruk-sak-oppgave",
             "mock-kafka",
         ).run(*args)

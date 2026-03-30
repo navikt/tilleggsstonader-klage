@@ -353,7 +353,7 @@ class SettPåVentServiceTest : IntegrationTest() {
             testoppsettService.lagreBehandling(aktivBehandling)
 
             val res = settPåVentService.kanTaAvVent(behandling.id)
-            assertThat(res).isEqualTo(KanTaAvVentDto(resultat = KanTaAvVentStatus.ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN))
+            assertThat(res).isEqualTo(KanTaAvVentDto(resultat = KanTaAvVentStatus.OK))
         }
     }
 

@@ -220,10 +220,6 @@ class SettPåVentService(
             return KanTaAvVent.Nei(årsak = Årsak.ErIkkePåVent)
         }
 
-        if (detFinnesAndreAktiveBehandlingerPåFagsaken(behandling)) {
-            return KanTaAvVent.Nei(årsak = Årsak.AnnenAktivBehandlingPåFagsaken)
-        }
-
         return if (detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling)) {
             KanTaAvVent
                 .Ja(påkrevdHandling = PåkrevdHandling.MåHåndtereNyttVedtakPåFagsaken)
@@ -232,12 +228,6 @@ class SettPåVentService(
                 .Ja(påkrevdHandling = PåkrevdHandling.Ingen)
         }
     }
-
-    private fun detFinnesAndreAktiveBehandlingerPåFagsaken(behandling: Behandling): Boolean =
-        behandlingService
-            .hentBehandlinger(behandling.fagsakId)
-            .filter { it.id != behandling.id }
-            .any { it.erAktiv() }
 
     private fun detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling: Behandling): Boolean {
         val sisteVedtakstidspunktPåFagsaken =
@@ -292,8 +282,6 @@ sealed class KanTaAvVent {
     ) : KanTaAvVent() {
         sealed class Årsak {
             data object ErIkkePåVent : Årsak()
-
-            data object AnnenAktivBehandlingPåFagsaken : Årsak()
         }
     }
 }

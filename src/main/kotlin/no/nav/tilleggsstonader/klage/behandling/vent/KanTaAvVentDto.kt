@@ -20,7 +20,6 @@ data class KanTaAvVentDto(
 
                         is KanTaAvVent.Nei -> {
                             when (kanTaAvVent.årsak) {
-                                Årsak.AnnenAktivBehandlingPåFagsaken -> KanTaAvVentStatus.ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN
                                 Årsak.ErIkkePåVent -> KanTaAvVentStatus.ER_IKKE_PÅ_VENT
                             }
                         }
@@ -32,6 +31,5 @@ data class KanTaAvVentDto(
 enum class KanTaAvVentStatus {
     OK,
     MÅ_NULLSTILLE_BEHANDLING,
-    ANNEN_AKTIV_BEHANDLING_PÅ_FAGSAKEN,
     ER_IKKE_PÅ_VENT,
 }
