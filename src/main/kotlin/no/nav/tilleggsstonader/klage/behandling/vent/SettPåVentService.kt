@@ -229,12 +229,6 @@ class SettPåVentService(
         }
     }
 
-    private fun detFinnesAndreAktiveBehandlingerPåFagsaken(behandling: Behandling): Boolean =
-        behandlingService
-            .hentBehandlinger(behandling.fagsakId)
-            .filter { it.id != behandling.id }
-            .any { it.erAktiv() }
-
     private fun detHarBlittFattetVedtakPåFagsakenIMellomtiden(behandling: Behandling): Boolean {
         val sisteVedtakstidspunktPåFagsaken =
             behandlingService.finnSisteBehandlingSomHarVedtakPåFagsaken(behandling.fagsakId)?.vedtakDato
@@ -288,8 +282,6 @@ sealed class KanTaAvVent {
     ) : KanTaAvVent() {
         sealed class Årsak {
             data object ErIkkePåVent : Årsak()
-
-            data object AnnenAktivBehandlingPåFagsaken : Årsak()
         }
     }
 }
