@@ -41,6 +41,7 @@ class FormService(
         val oppdaterteFormkrav =
             formRepository.findByIdOrThrow(behandlingId).copy(
                 klagePart = formkrav.klagePart,
+                klagersRettsligInteresse = formkrav.klagersRettsligInteresse,
                 klagefristOverholdt = formkrav.klagefristOverholdt,
                 klagefristOverholdtUnntak = formkrav.klagefristOverholdtUnntak,
                 klageKonkret = formkrav.klageKonkret,

@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 data class FormkravDto(
     val behandlingId: BehandlingId,
     val klagePart: FormVilkår,
+    val klagersRettsligInteresse: FormVilkår,
     val klageKonkret: FormVilkår,
     val klagefristOverholdt: FormVilkår,
     val klagefristOverholdtUnntak: FormkravFristUnntak,
@@ -24,6 +25,7 @@ fun Form.tilDto(påklagetVedtak: PåklagetVedtakDto): FormkravDto =
     FormkravDto(
         behandlingId = this.behandlingId,
         klagePart = this.klagePart,
+        klagersRettsligInteresse = this.klagersRettsligInteresse,
         klageKonkret = this.klageKonkret,
         klagefristOverholdt = this.klagefristOverholdt,
         klagefristOverholdtUnntak = this.klagefristOverholdtUnntak,

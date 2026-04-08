@@ -9,6 +9,7 @@ data class Form(
     @Id
     val behandlingId: BehandlingId,
     val klagePart: FormVilkår = FormVilkår.IKKE_SATT,
+    val klagersRettsligInteresse: FormVilkår = FormVilkår.IKKE_SATT,
     val klagefristOverholdt: FormVilkår = FormVilkår.IKKE_SATT,
     val klagefristOverholdtUnntak: FormkravFristUnntak = FormkravFristUnntak.IKKE_SATT,
     val klageKonkret: FormVilkår = FormVilkår.IKKE_SATT,

@@ -161,6 +161,7 @@ private object BlankettTestData {
     private val formkrav =
         BlankettFormDto(
             klagePart = FormVilkår.OPPFYLT,
+            klagersRettsligInteresse = FormVilkår.OPPFYLT,
             klageKonkret = FormVilkår.IKKE_SATT,
             klagefristOverholdt = FormVilkår.IKKE_OPPFYLT,
             klagefristOverholdtUnntak = FormkravFristUnntak.IKKE_UNNTAK,
