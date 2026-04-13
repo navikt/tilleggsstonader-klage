@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
+val tomcatVersion = "11.0.21"
 val familieProsesseringVersion = "2.20260331095424_89d92d2"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.02.09-09.29.75e18e2b8973"
@@ -44,6 +45,8 @@ spotless {
         ktlint("1.8.0")
     }
 }
+
+ext["tomcat.version"] = tomcatVersion
 
 configurations.all {
     resolutionStrategy {
