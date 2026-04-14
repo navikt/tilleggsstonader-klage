@@ -143,6 +143,7 @@ object DomainUtil {
         Form(
             behandlingId = behandlingId,
             klagePart = FormVilkår.OPPFYLT,
+            klagersRettsligInteresse = FormVilkår.OPPFYLT,
             klagefristOverholdt = FormVilkår.OPPFYLT,
             klagefristOverholdtUnntak = FormkravFristUnntak.IKKE_SATT,
             klageKonkret = FormVilkår.OPPFYLT,
