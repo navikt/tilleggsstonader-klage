@@ -1,1 +1,1 @@
-alter table form add column klagers_rettslig_interesse varchar NOT NULL;
+alter table form add column klagers_rettslig_interesse varchar NOT NULL default 'IKKE_SATT';
