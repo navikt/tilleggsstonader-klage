@@ -63,11 +63,7 @@ object FormBrevUtil {
     ) {
         KLAGE_KONKRET("du ikke har sagt hva du klager på", emptySet(), setOf("32", "33")),
         KLAGE_PART("du har klaget på et vedtak som ikke gjelder deg", emptySet(), setOf("28", "33")),
-        KLAGERS_RETTSLIG_INTERESSE(
-            "Etter at du sendte inn klagen, har du fått innvilget og utbetalt [tilleggsstønad] for samme periode som klagen gjelder. Klagebehandlingen kan derfor ikke føre til et annet resultat for deg. Fordi du ikke lenger har et reelt behov for å få klagen behandlet, har du ikke rettslig klageinteresse, som er et vilkår for å få klagen behandlet. Klagen blir derfor avvist.",
-            emptySet(),
-            setOf("28 ", "34"),
-        ),
+        KLAGERS_RETTSLIG_INTERESSE("", emptySet(), setOf("28 ", "34")),
         KLAGE_SIGNERT("du ikke har underskrevet den", emptySet(), setOf("31", "33")),
         KLAGEFRIST_OVERHOLDT("du har klaget for sent", setOf("21-12"), setOf("31", "33")),
     }

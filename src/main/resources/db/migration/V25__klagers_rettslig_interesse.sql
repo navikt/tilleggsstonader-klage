@@ -1,0 +1,1 @@
+alter table form add column klagers_rettslig_interesse varchar NOT NULL;
