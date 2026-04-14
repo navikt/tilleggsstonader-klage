@@ -2,10 +2,11 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val familieProsesseringVersion = "2.20260306133947_d473c40"
+val tomcatVersion = "11.0.21"
+val familieProsesseringVersion = "2.20260331095424_89d92d2"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.02.09-09.29.75e18e2b8973"
-val tokenSupportVersion = "6.0.3"
+val tokenSupportVersion = "6.0.4"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.9"
 val testcontainerVersion = "1.21.4"
@@ -20,11 +21,11 @@ plugins {
     kotlin("jvm") version "2.2.21"
     kotlin("plugin.spring") version "2.2.21"
 
-    id("com.diffplug.spotless") version "8.3.0"
+    id("com.diffplug.spotless") version "8.4.0"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "4.0.3"
+    id("org.springframework.boot") version "4.0.5"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -44,6 +45,8 @@ spotless {
         ktlint("1.8.0")
     }
 }
+
+ext["tomcat.version"] = tomcatVersion
 
 configurations.all {
     resolutionStrategy {
