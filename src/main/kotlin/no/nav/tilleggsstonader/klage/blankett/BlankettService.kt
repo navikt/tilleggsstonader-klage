@@ -74,6 +74,7 @@ class BlankettService(
     private fun mapFormkrav(formkrav: FormkravDto) =
         BlankettFormDto(
             klagePart = formkrav.klagePart,
+            klagersRettsligInteresse = formkrav.klagersRettsligInteresse,
             klageKonkret = formkrav.klageKonkret,
             klagefristOverholdt = formkrav.klagefristOverholdt,
             klagefristOverholdtUnntak = formkrav.klagefristOverholdtUnntak,

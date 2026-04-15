@@ -16,6 +16,7 @@
   },
   "formkrav" : {
     "klagePart" : "OPPFYLT",
+    "klagersRettsligInteresse" : "OPPFYLT",
     "klageKonkret" : "OPPFYLT",
     "klagefristOverholdt" : "OPPFYLT",
     "klagefristOverholdtUnntak" : "IKKE_SATT",

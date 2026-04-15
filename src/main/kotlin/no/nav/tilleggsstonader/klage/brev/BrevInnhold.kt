@@ -61,35 +61,69 @@ object BrevInnhold {
     ): FritekstBrevRequestDto {
         val ikkeOppfylteFormkrav = utledIkkeOppfylteFormkrav(formkrav)
         val brevtekstFraSaksbehandler =
-            formkrav.brevtekst ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
+            formkrav.brevtekst
+                ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
 
-        return FritekstBrevRequestDto(
-            overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn}",
-            personIdent = ident,
-            navn = navn,
-            avsnitt =
-                listOf(
-                    AvsnittDto(
-                        deloverskrift = "",
-                        innhold = utledÅrsakTilAvvisningstekst(ikkeOppfylteFormkrav),
+        if (ikkeOppfylteFormkrav.contains(FormBrevUtil.FormkravVilkår.KLAGERS_RETTSLIG_INTERESSE)) {
+            return FritekstBrevRequestDto(
+                overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn}",
+                personIdent = ident,
+                navn = navn,
+                avsnitt =
+                    listOf(
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold =
+                                "Etter at du sendte inn klagen, har du fått innvilget og utbetalt ${stønadstype.visningsnavn} " +
+                                    "for samme periode som klagen gjelder. " +
+                                    "Klagebehandlingen kan derfor ikke føre til et annet resultat for deg. " +
+                                    "Fordi du ikke lenger har et reelt behov for å få klagen behandlet, har du ikke rettslig klageinteresse, som er et vilkår for å få klagen behandlet. Klagen blir derfor avvist.",
+                        ),
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold = brevtekstFraSaksbehandler,
+                        ),
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold = utledLovtekst(setOf(FormBrevUtil.FormkravVilkår.KLAGERS_RETTSLIG_INTERESSE)),
+                        ),
+                        duHarRettTilÅKlageAvsnitt(stønadstype),
+                        AvsnittDto(
+                            deloverskrift = "Du har rett til innsyn",
+                            innhold = "På nav.no/dittnav kan du se dokumentene i saken din.",
+                        ),
+                        harDuSpørsmålAvsnitt(stønadstype),
                     ),
-                    AvsnittDto(
-                        deloverskrift = "",
-                        innhold = brevtekstFraSaksbehandler,
+            )
+        } else {
+            return FritekstBrevRequestDto(
+                overskrift = "Vi har avvist klagen din på vedtaket om ${stønadstype.visningsnavn}",
+                personIdent = ident,
+                navn = navn,
+                avsnitt =
+                    listOf(
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold = utledÅrsakTilAvvisningstekst(ikkeOppfylteFormkrav),
+                        ),
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold = brevtekstFraSaksbehandler,
+                        ),
+                        AvsnittDto(
+                            deloverskrift = "",
+                            innhold = utledLovtekst(ikkeOppfylteFormkrav),
+                        ),
+                        duHarRettTilÅKlageAvsnitt(stønadstype),
+                        AvsnittDto(
+                            deloverskrift = "Du har rett til innsyn",
+                            innhold =
+                                "På nav.no/dittnav kan du se dokumentene i saken din.",
+                        ),
+                        harDuSpørsmålAvsnitt(stønadstype),
                     ),
-                    AvsnittDto(
-                        deloverskrift = "",
-                        innhold = utledLovtekst(ikkeOppfylteFormkrav),
-                    ),
-                    duHarRettTilÅKlageAvsnitt(stønadstype),
-                    AvsnittDto(
-                        deloverskrift = "Du har rett til innsyn",
-                        innhold =
-                            "På nav.no/dittnav kan du se dokumentene i saken din.",
-                    ),
-                    harDuSpørsmålAvsnitt(stønadstype),
-                ),
-        )
+            )
+        }
     }
 
     fun lagFormkravAvvistBrevIkkePåklagetVedtak(
@@ -99,7 +133,8 @@ object BrevInnhold {
         stønadstype: Stønadstype,
     ): FritekstBrevRequestDto {
         val brevtekstFraSaksbehandler =
-            formkrav.brevtekst ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
+            formkrav.brevtekst
+                ?: error("Må ha brevtekst fra saksbehandler for å generere brev ved formkrav ikke oppfylt")
 
         return FritekstBrevRequestDto(
             overskrift = "Vi har avvist klagen din",

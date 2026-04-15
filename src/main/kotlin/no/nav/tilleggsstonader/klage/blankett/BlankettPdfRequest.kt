@@ -38,6 +38,7 @@ data class PersonopplysningerDto(
 
 data class BlankettFormDto(
     val klagePart: FormVilkår,
+    val klagersRettsligInteresse: FormVilkår,
     val klageKonkret: FormVilkår,
     val klagefristOverholdt: FormVilkår,
     val klagefristOverholdtUnntak: FormkravFristUnntak?,
