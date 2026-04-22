@@ -10,5 +10,6 @@ fun Stønadstype.tilFagsystem(): Fagsystem =
         Stønadstype.BOUTGIFTER,
         Stønadstype.DAGLIG_REISE_TSO,
         Stønadstype.DAGLIG_REISE_TSR,
+        Stønadstype.REISE_TIL_SAMLING_TSO,
         -> Fagsystem.TILLEGGSSTONADER
     }
