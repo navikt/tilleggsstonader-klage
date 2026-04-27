@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingResultat
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.BehandlingKlageDvh
 import no.nav.tilleggsstonader.kontrakter.saksstatistikk.SakYtelseDvh
+import no.nav.tilleggsstonader.libs.log.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -67,8 +68,8 @@ class BehandlingsstatistikkService(
         val påklagetVedtakDetaljer = behandling.påklagetVedtak.påklagetVedtakDetaljer
 
         return BehandlingKlageDvh(
-            behandlingId = behandling.eksternBehandlingId.toString(),
-            behandlingUuid = behandling.eksternBehandlingId.toString(),
+            behandlingId = behandling.eksternBehandlingId.toString(), // TODO UUID
+            behandlingUuid = behandling.eksternBehandlingId.toString(), // TODO UUID disse er de samme
             saksnummer = fagsak.eksternId,
             sakId = fagsak.eksternId,
             aktorId = fagsak.hentAktivIdent(),
@@ -77,7 +78,7 @@ class BehandlingsstatistikkService(
             tekniskTid = LocalDateTime.now(),
             behandlingType = "KLAGE",
             sakYtelse = SakYtelseDvh.fraStønadstype(fagsak.stønadstype),
-            relatertEksternBehandlingId = påklagetVedtakDetaljer?.eksternFagsystemBehandlingId,
+            relatertEksternBehandlingId = påklagetVedtakDetaljer?.eksternFagsystemBehandlingId, // TODO dette de vil ha
             relatertFagsystemType = påklagetVedtakDetaljer?.fagsystemType?.name,
             behandlingStatus = hendelse.name,
             opprettetAv = maskerVerdiHvisStrengtFortrolig(erStrengtFortrolig, behandling.sporbar.opprettetAv),
@@ -99,7 +100,14 @@ class BehandlingsstatistikkService(
                 ),
             avsender = "Tilleggsstonader Klage",
             versjon = null,
-        )
+        ).also {
+            logger.info(
+                "Sender behandlingsstatistikk med behandlingStatus=${it.behandlingStatus}, " +
+                    "behandlingId=${it.behandlingId}, " +
+                    "behandlingUuid=${it.behandlingUuid}, " +
+                    "relatertEksternBehandlingId=${it.relatertEksternBehandlingId}",
+            )
+        }
     }
 
     private fun resultatBegrunnelse(
