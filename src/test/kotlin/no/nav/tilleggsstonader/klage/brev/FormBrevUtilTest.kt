@@ -2,6 +2,7 @@ package no.nav.tilleggsstonader.klage.brev
 
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGEFRIST_OVERHOLDT
+import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGERS_RETTSLIG_INTERESSE
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGE_KONKRET
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGE_PART
 import no.nav.tilleggsstonader.klage.brev.FormBrevUtil.FormkravVilkår.KLAGE_SIGNERT
@@ -20,11 +21,13 @@ internal class FormBrevUtilTest {
     @Test
     internal fun `et formkrav ikke oppfylt`() {
         val klagePart = oppfyltForm(BehandlingId.random()).copy(klagePart = IKKE_OPPFYLT)
+        val klagersRettsligInteresse = oppfyltForm(BehandlingId.random()).copy(klagersRettsligInteresse = IKKE_OPPFYLT)
         val klageKonkret = oppfyltForm(BehandlingId.random()).copy(klageKonkret = IKKE_OPPFYLT)
         val klageSignert = oppfyltForm(BehandlingId.random()).copy(klageSignert = IKKE_OPPFYLT)
         val klagefristOverholdt = oppfyltForm(BehandlingId.random()).copy(klagefristOverholdt = IKKE_OPPFYLT)
 
         assertThat(utledIkkeOppfylteFormkrav(klagePart)).isEqualTo(setOf(KLAGE_PART))
+        assertThat(utledIkkeOppfylteFormkrav(klagersRettsligInteresse)).isEqualTo(setOf(KLAGERS_RETTSLIG_INTERESSE))
         assertThat(utledIkkeOppfylteFormkrav(klageKonkret)).isEqualTo(setOf(KLAGE_KONKRET))
         assertThat(utledIkkeOppfylteFormkrav(klageSignert)).isEqualTo(setOf(KLAGE_SIGNERT))
         assertThat(utledIkkeOppfylteFormkrav(klagefristOverholdt)).isEqualTo(setOf(KLAGEFRIST_OVERHOLDT))
@@ -32,17 +35,18 @@ internal class FormBrevUtilTest {
 
     @Test
     internal fun `ingen formkrav oppfylt`() {
-        val formkravFireIkkeOppfylt =
+        val alleFormkravIkkeOppfylt =
             oppfyltForm(BehandlingId.random()).copy(
                 klagePart = IKKE_OPPFYLT,
+                klagersRettsligInteresse = IKKE_OPPFYLT,
                 klageSignert = IKKE_OPPFYLT,
                 klageKonkret = IKKE_OPPFYLT,
                 klagefristOverholdt = IKKE_OPPFYLT,
             )
 
         assertThat(
-            utledIkkeOppfylteFormkrav(formkravFireIkkeOppfylt),
-        ).isEqualTo(setOf(KLAGE_PART, KLAGE_SIGNERT, KLAGE_KONKRET, KLAGEFRIST_OVERHOLDT))
+            utledIkkeOppfylteFormkrav(alleFormkravIkkeOppfylt),
+        ).isEqualTo(setOf(KLAGE_PART, KLAGERS_RETTSLIG_INTERESSE, KLAGE_SIGNERT, KLAGE_KONKRET, KLAGEFRIST_OVERHOLDT))
     }
 
     @Test
@@ -86,6 +90,14 @@ internal class FormBrevUtilTest {
         assertThat(klagePartLovtekst).doesNotContain("31")
         assertThat(klagePartLovtekst).doesNotContain("32")
         assertThat(klagePartLovtekst).doesNotContain("21-12")
+
+        val klagersRettsligInteresse = utledLovtekst(klagersRettsligInteresse)
+        assertThat(klagersRettsligInteresse).contains(forvaltningslovPrefix)
+        assertThat(klagersRettsligInteresse).contains("28")
+        assertThat(klagersRettsligInteresse).contains("34")
+        assertThat(klagersRettsligInteresse).doesNotContain("31")
+        assertThat(klagersRettsligInteresse).doesNotContain("32")
+        assertThat(klagersRettsligInteresse).doesNotContain("21-12")
 
         val klageKonkretLovtekst = utledLovtekst(klageKonkret)
         assertThat(klageKonkretLovtekst).contains(forvaltningslovPrefix)
@@ -136,6 +148,7 @@ internal class FormBrevUtilTest {
 
     val tomIkkeOppfylteFormkrav = emptySet<FormkravVilkår>()
     val klagePart = setOf(KLAGE_PART)
+    val klagersRettsligInteresse = setOf(KLAGERS_RETTSLIG_INTERESSE)
     val klageKonkret = setOf(KLAGE_KONKRET)
     val klageSignert = setOf(KLAGE_SIGNERT)
     val klagefristOverholdt = setOf(KLAGEFRIST_OVERHOLDT)

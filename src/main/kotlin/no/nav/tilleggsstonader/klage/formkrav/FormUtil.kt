@@ -60,6 +60,7 @@ object FormUtil {
         setOf(
             klageKonkret,
             klagePart,
+            klagersRettsligInteresse,
             klageSignert,
         )
 
@@ -67,6 +68,7 @@ object FormUtil {
         setOf(
             klageKonkret,
             klagePart,
+            klagersRettsligInteresse,
             klageSignert,
             klagefristOverholdt,
         )
