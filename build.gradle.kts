@@ -3,10 +3,10 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
 val tomcatVersion = "11.0.21"
-val familieProsesseringVersion = "2.20260331095424_89d92d2"
+val familieProsesseringVersion = "2.20260420122910_8bfca04"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.04.22-09.43.b90e3c437eb6"
-val tokenSupportVersion = "6.0.5"
+val tokenSupportVersion = "6.0.6"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.9"
 val testcontainerVersion = "1.21.4"
@@ -22,10 +22,10 @@ plugins {
     kotlin("plugin.spring") version "2.2.21"
 
     id("com.diffplug.spotless") version "8.4.0"
-    id("com.github.ben-manes.versions") version "0.53.0"
+    id("com.github.ben-manes.versions") version "0.54.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "4.0.5"
+    id("org.springframework.boot") version "4.0.6"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
