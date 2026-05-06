@@ -76,6 +76,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
 
     implementation("no.nav.familie:prosessering-core:$familieProsesseringVersion")
+    implementation("no.nav.familie:prosessering-web-nav-token-support:$familieProsesseringVersion")
 
     implementation("no.nav.tilleggsstonader-libs:util:$tilleggsstønaderLibsVersion")
     implementation("no.nav.tilleggsstonader-libs:log:$tilleggsstønaderLibsVersion")
