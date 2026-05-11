@@ -1,6 +1,11 @@
 ---
 name: ktor-scaffold
 description: Scaffold eit nytt Ktor-prosjekt med Kotliquery, Flyway, Koin og Nais-konfigurasjon
+license: MIT
+compatibility: Kotlin with Ktor on Nais
+metadata:
+  domain: backend
+  tags: kotlin ktor scaffold nais kotliquery
 ---
 
 # Ktor Project Scaffold

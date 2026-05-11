@@ -1,6 +1,11 @@
 ---
 name: java-to-kotlin
 description: Trinnvis Java-til-Kotlin-migrering med rammeverk-bevisste transformasjoner for Spring, Ktor og Nav-mønstre
+license: MIT
+compatibility: Java project migrating to Kotlin
+metadata:
+  domain: backend
+  tags: kotlin java migration refactoring ktor spring
 ---
 
 # Java to Kotlin Migration
