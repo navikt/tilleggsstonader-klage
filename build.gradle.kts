@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
-val tomcatVersion = "11.0.21"
+val tomcatVersion = "11.0.22"
 val familieProsesseringVersion = "2.20260420122910_8bfca04"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.04.22-09.43.b90e3c437eb6"
