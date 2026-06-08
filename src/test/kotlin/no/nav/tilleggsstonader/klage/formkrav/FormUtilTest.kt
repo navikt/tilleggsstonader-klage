@@ -72,6 +72,30 @@ internal class FormUtilTest {
         }
 
         @Test
+        internal fun `GAMMEL_MANGLER_DATA på klagersRettsligInteresse skal behandles som oppfylt`() {
+            val gammelForm = oppfyltForm.copy(klagersRettsligInteresse = FormVilkår.GAMMEL_MANGLER_DATA)
+            assertThat(alleVilkårOppfylt(gammelForm)).isTrue
+        }
+
+        @Test
+        internal fun `GAMMEL_MANGLER_DATA kombinert med ikke overholdt frist og unntak skal behandles som oppfylt`() {
+            val gammelForm =
+                oppfyltForm.copy(
+                    klagersRettsligInteresse = FormVilkår.GAMMEL_MANGLER_DATA,
+                    klagefristOverholdt = FormVilkår.IKKE_OPPFYLT,
+                    klagefristOverholdtUnntak = FormkravFristUnntak.UNNTAK_SÆRLIG_GRUNN,
+                )
+            assertThat(alleVilkårOppfylt(gammelForm)).isTrue
+        }
+
+        @Test
+        internal fun `GAMMEL_MANGLER_DATA på andre vilkår enn klagersRettsligInteresse skal behandles som oppfylt`() {
+            assertThat(alleVilkårOppfylt(oppfyltForm.copy(klagePart = FormVilkår.GAMMEL_MANGLER_DATA))).isTrue
+            assertThat(alleVilkårOppfylt(oppfyltForm.copy(klageKonkret = FormVilkår.GAMMEL_MANGLER_DATA))).isTrue
+            assertThat(alleVilkårOppfylt(oppfyltForm.copy(klageSignert = FormVilkår.GAMMEL_MANGLER_DATA))).isTrue
+        }
+
+        @Test
         internal fun `formkrav om overholdt frist er ikke oppfylt`() {
             val ikkeOppfyltFrist = oppfyltForm.copy(klagefristOverholdt = FormVilkår.IKKE_OPPFYLT)
             val toFormKravIkkeOppfylt = ikkeOppfyltFrist.copy(klageKonkret = FormVilkår.IKKE_OPPFYLT)

@@ -64,6 +64,9 @@ class FormService(
                 vurderingService.slettVurderingForBehandling(behandlingId)
                 stegService.oppdaterSteg(behandlingId, StegType.FORMKRAV, StegType.FORMKRAV)
             }
+            FormVilkår.GAMMEL_MANGLER_DATA -> {
+                stegService.oppdaterSteg(behandlingId, StegType.FORMKRAV, StegType.FORMKRAV)
+            }
         }
 
         opprettBehandlingsstatistikk(behandlingId)

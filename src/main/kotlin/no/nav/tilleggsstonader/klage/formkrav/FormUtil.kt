@@ -25,11 +25,13 @@ object FormUtil {
     }
 
     fun alleVilkårOppfylt(formkrav: Form): Boolean =
-        formkrav.alleSvar().all { it == FormVilkår.OPPFYLT } ||
+        formkrav.alleSvar().all { it.erOppfyltEllerGammel() } ||
             (alleVilkårOppfyltUntattKlagefrist(formkrav) && klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak))
 
     private fun alleVilkårOppfyltUntattKlagefrist(formkrav: Form) =
-        formkrav.alleSvarBortsettFraFrist().all { it == FormVilkår.OPPFYLT } && formkrav.klagefristOverholdt == FormVilkår.IKKE_OPPFYLT
+        formkrav.alleSvarBortsettFraFrist().all { it.erOppfyltEllerGammel() } && formkrav.klagefristOverholdt == FormVilkår.IKKE_OPPFYLT
+
+    private fun FormVilkår.erOppfyltEllerGammel() = this == FormVilkår.OPPFYLT || this == FormVilkår.GAMMEL_MANGLER_DATA
 
     private fun klagefristUnntakOppfylt(unntak: FormkravFristUnntak) =
         when (unntak) {
