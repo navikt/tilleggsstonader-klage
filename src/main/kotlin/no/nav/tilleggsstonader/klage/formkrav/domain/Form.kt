@@ -31,4 +31,5 @@ enum class FormVilkår {
     OPPFYLT,
     IKKE_OPPFYLT,
     IKKE_SATT,
+    GAMMEL_MANGLER_DATA,
 }
