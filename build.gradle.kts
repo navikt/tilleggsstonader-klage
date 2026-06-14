@@ -18,8 +18,8 @@ version = "1.0.0"
 plugins {
     application
 
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
+    kotlin("jvm") version "2.4.0"
+    kotlin("plugin.spring") version "2.4.0"
 
     id("com.diffplug.spotless") version "8.6.0"
     id("com.github.ben-manes.versions") version "0.54.0"
