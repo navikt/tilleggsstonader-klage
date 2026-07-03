@@ -76,9 +76,11 @@ data class KabalBehandlingEvent(
             BehandlingEventType.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET_AVSLUTTET ->
                 detaljer.behandlingEtterTrygderettenOpphevetAvsluttet?.avsluttet ?: throw Feil(feilmelding)
 
-            BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET ->
+            BehandlingEventType.OMGJOERINGSKRAVBEHANDLING_AVSLUTTET,
+            BehandlingEventType.GJENOPPTAKSBEHANDLING_AVSLUTTET,
+            ->
                 detaljer.omgjoeringskravbehandlingAvsluttet?.avsluttet
-                    ?: throw Feil("Ikke implementert for OMGJOERINGSKRAVBEHANDLING_AVSLUTTET")
+                    ?: throw Feil("Ikke implementert for $type")
         }
     }
 
