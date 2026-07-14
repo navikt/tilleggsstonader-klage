@@ -87,7 +87,7 @@ enum class Hjemmel(
     OVERGANGSFORSKRIFTEN_9(
         KabalHjemmel.OVERGANGSFORSKRIFTEN_9,
         setOf(TSO, TSR),
-        "Forskrift om overgangsregler (fra 01.07.2026)"
+        "Forskrift om overgangsregler (fra 01.07.2026)",
     ),
     ;
 

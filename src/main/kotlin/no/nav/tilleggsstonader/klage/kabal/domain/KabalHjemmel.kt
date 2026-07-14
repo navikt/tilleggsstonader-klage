@@ -24,7 +24,7 @@ enum class KabalHjemmel(
     FS_TILL_ST_1_3_MOBILITET(
         "FS_TILL_ST_1_3_MOBILITET",
         LovKilde.TILLEGGSSTØNADSFORSKRIFTEN,
-        "§ 1 tredje ledd - mobilitet"
+        "§ 1 tredje ledd - mobilitet",
     ),
     FS_TILL_ST_3_REISE("FS_TILL_ST_3_REISE", LovKilde.TILLEGGSSTØNADSFORSKRIFTEN, "§ 3 - reise"),
     FS_TILL_ST_5("FS_TILL_ST_5", LovKilde.TILLEGGSSTØNADSFORSKRIFTEN, "§ 5"),
