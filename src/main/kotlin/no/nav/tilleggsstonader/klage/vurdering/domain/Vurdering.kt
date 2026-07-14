@@ -55,8 +55,9 @@ enum class Hjemmel(
     FTRL_11_A_3(KabalHjemmel.FTRL_11_A_3, setOf(TSO), "Ftrl. § 11 A-3"),
     FTRL_11_A_4(KabalHjemmel.FTRL_11_A_4, setOf(TSO), "Ftrl. § 11 A-4"),
     FTRL_11_A_4_3(KabalHjemmel.FTRL_11_A_4_3, setOf(TSO), "Ftrl. § 11 A-4 3. ledd"),
-    FTRL_15_11(KabalHjemmel.FTRL_15_11, setOf(TSO), "Ftrl. § 15-11"),
-    FTRL_17_10(KabalHjemmel.FTRL_17_10, setOf(TSO), "Ftrl. § 17-10"),
+    FTRL_15_11(KabalHjemmel.FTRL_15_11, setOf(TSO), "Ftrl. § 15-11 (til 30.06.2026)"),
+    FTRL_17_10(KabalHjemmel.FTRL_17_10, setOf(TSO), "Ftrl. § 17-10 (til 30.06.2026)"),
+    FTRL_17_10_A(KabalHjemmel.FTRL_17_10_A, setOf(TSO), "Ftrl. § 17-10 a (fra 01.07.2026)"),
     FTRL_17_15(KabalHjemmel.FTRL_17_15, setOf(TSO), "Ftrl. § 17-15"),
     FTRL_21_12(KabalHjemmel.FTRL_21_12, setOf(TSO), "Ftrl. § 21-12"),
     FTRL_22_13(KabalHjemmel.FTRL_22_13, setOf(TSO), "Ftrl. § 22-13"),
@@ -83,6 +84,11 @@ enum class Hjemmel(
     FVL_41(KabalHjemmel.FVL_41, setOf(TSO, TSR), "Fvl. § 41 "),
     FVL_42(KabalHjemmel.FVL_42, setOf(TSO, TSR), "Fvl. § 42"),
 
+    OVERGANGSFORSKRIFTEN_9(
+        KabalHjemmel.OVERGANGSFORSKRIFTEN_9,
+        setOf(TSO, TSR),
+        "Forskrift om overgangsregler (fra 01.07.2026)",
+    ),
     ;
 
     fun tilDto() = HjemmelDto(hjemmel = this, visningstekst = this.visningstekst)

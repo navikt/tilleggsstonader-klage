@@ -195,6 +195,10 @@ enum class LovKilde(
     ),
     HOVEDNUMMER_42_TRYGDEAVTALER("58", "Hovednummer 42 - Trygdeavtaler", "Hnr. 42"),
     DEKNINGSLOVEN("59", "Dekningsloven", "Dekningsloven"),
-
+    OVERGANGSFORSKRIFTEN(
+        "60",
+        "Overgangsforskriften",
+        "Lov om endringer i folketrygdloven (delvis avvikling av stønad til enslig mor eller far)",
+    ),
     UKJENT("999", "Ukjent", "Ukjent"),
 }
