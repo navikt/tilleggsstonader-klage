@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val javaVersion = 21
 val tomcatVersion = "11.0.22"
-val familieProsesseringVersion = "2.20260526102747_ed05f71"
+val familieProsesseringVersion = "2.20260713101404_6072da6"
 val tilleggsstønaderLibsVersion = "2026.02.08-22.17.8810439febce"
 val tilleggsstønaderKontrakterVersion = "2026.07.03-14.17.e524fb736164"
 val tokenSupportVersion = "6.0.11"
@@ -103,8 +103,8 @@ dependencies {
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
     // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
-    testImplementation("org.bouncycastle:bcutil-jdk18on:1.84")
-    testImplementation("org.bouncycastle:bcprov-jdk18on:1.84")
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.85")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.85")
 }
 
 application {
