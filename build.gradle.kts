@@ -10,7 +10,7 @@ val tokenSupportVersion = "6.0.11"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.11"
 val testcontainerVersion = "1.21.4"
-val springDocVersion = "3.0.3"
+val springDocVersion = "3.1.0"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -21,7 +21,7 @@ plugins {
     kotlin("jvm") version "2.3.21"
     kotlin("plugin.spring") version "2.3.21"
 
-    id("com.diffplug.spotless") version "8.8.0"
+    id("com.diffplug.spotless") version "8.9.0"
     id("io.github.ben-manes.versions") version "0.59.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
