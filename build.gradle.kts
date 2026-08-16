@@ -22,7 +22,7 @@ plugins {
     kotlin("plugin.spring") version "2.3.21"
 
     id("com.diffplug.spotless") version "8.9.0"
-    id("io.github.ben-manes.versions") version "0.59.0"
+    id("io.github.ben-manes.versions") version "0.60.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
     id("org.springframework.boot") version "4.1.0"
@@ -103,8 +103,8 @@ dependencies {
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
     // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
-    testImplementation("org.bouncycastle:bcutil-jdk18on:1.85")
-    testImplementation("org.bouncycastle:bcprov-jdk18on:1.85")
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.85.2")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.85.2")
 }
 
 application {
