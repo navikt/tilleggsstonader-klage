@@ -28,6 +28,7 @@ class BrevsignaturService {
             Enhet.VIKAFOSSEN -> SIGNATUR_VIKAFOSSEN
             Enhet.NAV_EGNE_ANSATTE_OSLO -> error("Har ikke signatur for $this")
             Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE -> error("Har ikke signatur for $this")
+            Enhet.NAV_ARBEID_OG_YTELSER_ROMERIKE -> error("Har ikke signatur for $this")
         }
 
     companion object {

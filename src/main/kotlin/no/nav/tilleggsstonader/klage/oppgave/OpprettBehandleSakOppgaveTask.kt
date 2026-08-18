@@ -11,11 +11,10 @@ import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
-import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
-import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.PersonIdent
 import org.springframework.stereotype.Service
 
 @Service
@@ -35,7 +34,7 @@ class OpprettBehandleSakOppgaveTask(
 
         val oppgaveRequest =
             OpprettOppgaveRequest(
-                ident = OppgaveIdentV2(ident = fagsak.hentAktivIdent(), gruppe = IdentGruppe.FOLKEREGISTERIDENT),
+                personident = PersonIdent(fagsak.hentAktivIdent()),
                 saksreferanse = fagsak.eksternId, // fagsakId fra fagsystem
                 tema = fagsak.stønadstype.tilTema(),
                 oppgavetype = Oppgavetype.BehandleSak,

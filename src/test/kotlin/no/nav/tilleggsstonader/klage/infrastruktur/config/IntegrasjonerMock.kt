@@ -112,7 +112,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Søknad om overgangsstønad - dokument 1",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -128,7 +128,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Søknad om barnetilsyn - dokument 1",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -140,7 +140,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Samboeravtale",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -152,7 +152,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Manuelt skannet dokument",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -175,7 +175,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "EtFrykteligLangtDokumentNavnSomTroligIkkeBrekkerOgØdeleggerGUI",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -187,7 +187,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Søknad om overgangsstønad - dokument 2",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -199,7 +199,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Søknad om overgangsstønad - dokument 3",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(
@@ -227,7 +227,7 @@ class IntegrasjonerMock(
                         DokumentInfo(
                             dokumentInfoId = "12345",
                             tittel = "Søknad om overgangsstønad - dokument 1",
-                            brevkode = DokumentBrevkode.BARNETILSYN.verdi,
+                            brevkode = DokumentBrevkode.PASS_AV_BARN.verdi,
                             dokumentvarianter =
                                 listOf(
                                     Dokumentvariant(

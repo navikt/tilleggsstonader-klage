@@ -49,7 +49,7 @@ class SettPåVentService(
             endretAv = endret?.endretAv,
             endretTid = endret?.endretTid,
             frist = oppgave.fristFerdigstillelse,
-            oppgaveVersjon = oppgave.versjonEllerFeil(),
+            oppgaveVersjon = oppgave.versjon,
         )
     }
 

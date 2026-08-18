@@ -13,11 +13,10 @@ import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
-import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
-import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgavePrioritet
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.PersonIdent
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import tools.jackson.module.kotlin.readValue
@@ -52,7 +51,7 @@ class OpprettOppgaveForKlagehendelseTask(
 
         val opprettVurderKonsekvensForYtelseOppgaveRequest =
             OpprettOppgaveRequest(
-                ident = OppgaveIdentV2(ident = aktivIdent, gruppe = IdentGruppe.FOLKEREGISTERIDENT),
+                personident = PersonIdent(aktivIdent),
                 saksreferanse = fagsakDomain.eksternId,
                 tema = fagsakDomain.stønadstype.tilTema(),
                 oppgavetype = Oppgavetype.VurderKonsekvensForYtelse,
@@ -64,7 +63,8 @@ class OpprettOppgaveForKlagehendelseTask(
                 prioritet = prioritet,
             )
 
-        val oppgaveId = oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettVurderKonsekvensForYtelseOppgaveRequest)
+        val oppgaveId =
+            oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettVurderKonsekvensForYtelseOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
 

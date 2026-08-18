@@ -12,6 +12,8 @@ import no.nav.tilleggsstonader.kontrakter.oppgave.FinnMappeResponseDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveBruker
+import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveBrukerType
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
@@ -192,7 +194,7 @@ class OppgaveClientConfig {
                 id = ++maxOppgaveId,
                 versjon = 1,
                 status = StatusEnum.OPPRETTET,
-                identer = oppgaveDto.ident!!.let { listOf(OppgaveIdentV2(it.ident!!, it.gruppe!!)) },
+                bruker = OppgaveBruker(oppgaveDto.personident?.ident, type = OppgaveBrukerType.PERSON),
                 tildeltEnhetsnr = oppgaveDto.enhetsnummer,
                 saksreferanse = null,
                 journalpostId = oppgaveDto.journalpostId,
@@ -201,7 +203,7 @@ class OppgaveClientConfig {
                 behandlingstema = oppgaveDto.behandlingstema,
                 tilordnetRessurs = oppgaveDto.tilordnetRessurs,
                 fristFerdigstillelse = oppgaveDto.fristFerdigstillelse,
-                aktivDato = oppgaveDto.aktivFra,
+                aktivDato = oppgaveDto.aktivDato,
                 beskrivelse = oppgaveDto.beskrivelse,
                 prioritet = oppgaveDto.prioritet,
                 behandlingstype = oppgaveDto.behandlingstype,
