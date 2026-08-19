@@ -67,6 +67,9 @@ dependencies {
     implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    // Pga transitive avhengigheter som bruker jackson2. Får en del WARN-logger uten denne
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.postgresql:postgresql")
     implementation("org.flywaydb:flyway-database-postgresql")
 
