@@ -88,6 +88,12 @@ dependencies {
 
     implementation("no.nav.tilleggsstonader.kontrakter:kontrakter-felles:$tilleggsstønaderKontrakterVersion")
 
+    // Token-support
+    implementation("no.nav.security:token-validation-spring:${tokenSupportVersion}")
+    implementation("no.nav.security:token-validation-core:${tokenSupportVersion}")
+    implementation("no.nav.security:token-client-core:${tokenSupportVersion}")
+    implementation("no.nav.security:token-client-spring:${tokenSupportVersion}")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core")
