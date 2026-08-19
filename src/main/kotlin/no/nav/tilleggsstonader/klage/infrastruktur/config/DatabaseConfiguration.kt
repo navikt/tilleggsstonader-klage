@@ -196,7 +196,14 @@ class DatabaseConfiguration : AbstractJdbcConfiguration() {
 
     @ReadingConverter
     class PGobjectTilJsonWrapperConverter : Converter<PGobject, JsonWrapper?> {
-        override fun convert(pGobject: PGobject): JsonWrapper? = pGobject.value?.let { JsonWrapper(it) }
+        override fun convert(pGobject: PGobject): JsonWrapper? {
+            val pGobjectValue = pGobject.value
+            return if (pGobjectValue == null) {
+                null
+            } else {
+                JsonWrapper(pGobjectValue)
+            }
+        }
     }
 
     @WritingConverter
