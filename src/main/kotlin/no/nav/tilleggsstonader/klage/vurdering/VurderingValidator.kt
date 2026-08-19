@@ -63,6 +63,7 @@ object VurderingValidator {
                 Enhet.NAV_ARBEID_OG_YTELSER_EGNE_ANSATTE,
                 Enhet.NAV_EGNE_ANSATTE_OSLO,
                 Enhet.VIKAFOSSEN,
+                Enhet.NAV_ARBEID_OG_YTELSER_ROMERIKE,
                 -> error("Enhet $behandlendeEnhet har ikke støtte for å behandle klage i denne løsningen enda. Kontakt utviklerteamet.")
             }
 

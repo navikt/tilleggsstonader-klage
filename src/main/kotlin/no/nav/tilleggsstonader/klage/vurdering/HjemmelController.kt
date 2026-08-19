@@ -37,6 +37,7 @@ class HjemmelController(
             -> hjemlerRelevantFor(TSR).map { it.tilDto() }
 
             Enhet.VIKAFOSSEN,
+            Enhet.NAV_ARBEID_OG_YTELSER_ROMERIKE,
             -> error("Kjenner ikke til hjemler for enhet: $behandlendeEnhet")
         }
     }
