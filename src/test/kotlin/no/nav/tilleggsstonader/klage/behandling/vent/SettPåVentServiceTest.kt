@@ -17,10 +17,9 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil.testWithBrukerCo
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil.behandling
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
-import no.nav.tilleggsstonader.kontrakter.oppgave.IdentGruppe
-import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveIdentV2
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
+import no.nav.tilleggsstonader.kontrakter.oppgave.PersonIdent
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
@@ -77,7 +76,7 @@ class SettPåVentServiceTest : IntegrationTest() {
             oppgaveService.opprettOppgave(
                 behandling.id,
                 OpprettOppgaveRequest(
-                    ident = OppgaveIdentV2(ident = "123456789012", gruppe = IdentGruppe.AKTOERID),
+                    personident = PersonIdent("123456789012"),
                     fristFerdigstillelse = LocalDate.now().plusDays(3),
                     behandlingstema = "behandlingstema",
                     enhetsnummer = "enhetsnummer",
@@ -113,7 +112,9 @@ class SettPåVentServiceTest : IntegrationTest() {
                     assertThat(mappeId?.getOrNull()).isEqualTo(MAPPE_ID_PÅ_VENT)
                 }
 
-                with(behandlingshistorikkService.hentBehandlingshistorikk(behandling.id).maxByOrNull { it.endretTid }!!) {
+                with(
+                    behandlingshistorikkService.hentBehandlingshistorikk(behandling.id).maxByOrNull { it.endretTid }!!,
+                ) {
                     assertThat(utfall).isEqualTo(StegUtfall.SATT_PÅ_VENT)
                     assertThat(metadata).isNotNull()
                 }
