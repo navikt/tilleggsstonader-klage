@@ -3,3 +3,6 @@
  */
 
 rootProject.name = "tilleggsstonader-klage"
+
+// Avkommenter hvis du vl bruke en lokal versjon av kontrakter
+// includeBuild("../tilleggsstonader-kontrakter")
