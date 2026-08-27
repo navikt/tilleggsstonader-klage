@@ -14,5 +14,7 @@ fun Stønadstype.tilFagsystem(): Fagsystem =
         Stønadstype.REISE_TIL_SAMLING_TSR,
         Stønadstype.FLYTTING_TSR,
         Stønadstype.FLYTTING_TSO,
+        Stønadstype.STØTTE_TIL_REISE_OPPSTART_AVSLUTNING_HJEMREISE_TSO,
+        Stønadstype.STØTTE_TIL_REISE_OPPSTART_AVSLUTNING_HJEMREISE_TSR,
         -> Fagsystem.TILLEGGSSTONADER
     }
