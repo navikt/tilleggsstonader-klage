@@ -14,13 +14,16 @@ sette opp følgende miljø-variabler:
 * `AZURE_APP_CLIENT_ID` (fra secret)
 * `AZURE_APP_CLIENT_SECRET` (fra secret)
 
-Secret kan hentes fra cluster med
+Nødvendige secrets kan hentes fra cluster:
 
-```
-kubectl -n tilleggsstonader get secret azuread-tilleggsstonader-klage-lokal -o json | jq '.data | map_values(@base64d)'
-```
+1. `gcloud auth login`
+2. `brew install jq` hvis du mangler det.
+3. Hent AZURE_APP_CLIENT_ID og AZURE_APP_CLIENT_SECRET
+   `nais secret get azuread-tilleggsstonader-klage-lokal -e dev-gcp -t tilleggsstonader --with-values --reason "Lokal utvikling" --output json | jq '.[]'`
+5. Legg til en .env-fil i prosjektet med innholdet `AZURE_APP_CLIENT_ID={secret}` og `AZURE_APP_CLIENT_SECRET={secret}`.
 
-Variablene legges inn under ApplicationLocal -> Edit Configurations -> Environment Variables.
+Variablene legges inn under ApplicationLocal -> Edit Configurations -> Environment Variables. Hvis du har lagd en .env
+fil kan du velge denne filen i configurationen din.
 
 ### Kjøring med in-memory-database
 
@@ -30,7 +33,8 @@ Appen starter da opp med en in memory-database og er da tilgjengelig under `loca
 Databasen kan aksesseres på `localhost:8093/h2-console`. Log på jdbc url `jdbc:h2:mem:testdb` med bruker `sa` og blankt
 passord.
 
-* Hvis man ønsker å bruke samme oppgaver som brukes i tilleggsstonader-sak så kan man kalle på sak for å hente/opprette oppgaver
+* Hvis man ønsker å bruke samme oppgaver som brukes i tilleggsstonader-sak så kan man kalle på sak for å hente/opprette
+  oppgaver
     * Kommenter ut `mock-oppgave`
     * Kommenter inn `bruk-sak-oppgave`
 
@@ -70,7 +74,8 @@ Testbrukeren som opprettes i IDA må ha minst en av følgende roller:
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan opprettes under [Issues](https://github.com/navikt/tilleggsstonader-klage/issues) her på
+Spørsmål knyttet til koden eller prosjektet kan opprettes
+under [Issues](https://github.com/navikt/tilleggsstonader-klage/issues) her på
 GitHub.
 
 ## For NAV-ansatte
