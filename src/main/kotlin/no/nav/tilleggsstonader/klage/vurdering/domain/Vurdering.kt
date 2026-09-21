@@ -66,11 +66,31 @@ enum class Hjemmel(
 
     FS_TILL_ST_1_3_MOBILITET(KabalHjemmel.FS_TILL_ST_1_3_MOBILITET, setOf(TSO, TSR), "Til.st.forskr. § 1 3. ledd"),
     FS_TILL_ST_3_REISE(KabalHjemmel.FS_TILL_ST_3_REISE, setOf(TSO, TSR), "Til.st.forskr § 3"),
-    FS_TILL_ST_5(KabalHjemmel.FS_TILL_ST_5, setOf(TSR), "Til.st.forskr § 5"),
+    FS_TILL_ST_5(KabalHjemmel.FS_TILL_ST_5, setOf(TSO, TSR), "Til.st.forskr § 5"),
     FS_TILL_ST_6_FLYTTING(KabalHjemmel.FS_TILL_ST_6_FLYTTING, setOf(TSO, TSR), "Til.st.forskr. § 6"),
+    FS_TILL_ST_7_BEREGNING_FLYTTING(
+        KabalHjemmel.FS_TILL_ST_7_BEREGNING_FLYTTING,
+        setOf(TSO, TSR),
+        "Til.st.forskr. § 7",
+    ),
     FS_TILL_ST_8_BOLIG(KabalHjemmel.FS_TILL_ST_8_BOLIG, setOf(TSO), "Til.st.forskr. § 8"),
+    FS_TILL_ST_9_BEREGNING_BOUTGIFTER(
+        KabalHjemmel.FS_TILL_ST_9_BEREGNING_BOUTGIFTER,
+        setOf(TSO),
+        "Til.st.forskr. § 9",
+    ),
     FS_TILL_ST_10_TILSYN(KabalHjemmel.FS_TILL_ST_10_TILSYN, setOf(TSO), "Til.st.forskr. § 10"),
+    FS_TILL_ST_11_BEREGNING_TILSYN(
+        KabalHjemmel.FS_TILL_ST_11_BEREGNING_TILSYN,
+        setOf(TSO),
+        "Til.st.forskr. § 11",
+    ),
     FS_TILL_ST_12_LAEREMIDLER(KabalHjemmel.FS_TILL_ST_12_LAEREMIDLER, setOf(TSO), "Til.st.forskr. § 12"),
+    FS_TILL_ST_13_BEREGNING_LAEREMIDLER(
+        KabalHjemmel.FS_TILL_ST_13_BEREGNING_LAEREMIDLER,
+        setOf(TSO),
+        "Til.st.forskr. § 13",
+    ),
     FS_TILL_ST_15_2(KabalHjemmel.FS_TILL_ST_15_2, setOf(TSO, TSR), "Til.st.forskr § 15 2. ledd"),
     FS_TILL_ST_15_3(KabalHjemmel.FS_TILL_ST_15_3, setOf(TSO, TSR), "Til.st.forskr. § 15 3. ledd"),
 
