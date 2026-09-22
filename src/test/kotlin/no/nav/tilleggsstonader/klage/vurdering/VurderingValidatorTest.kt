@@ -125,19 +125,16 @@ internal class VurderingValidatorTest {
         }
 
         @Test
-        internal fun `skal feile hvis nay bruker hjemmel som kun er godtkjent for tiltaksenheten`() {
-            assertThatThrownBy {
-                validerVurdering(
-                    vurdering =
-                        vurderingDto(
-                            vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
-                            hjemler = listOf(Hjemmel.FS_TILL_ST_5),
-                            begrunnelseOmgjøring = null,
-                        ),
-                    stønadstype = Stønadstype.BARNETILSYN,
-                )
-            }.hasMessage(
-                "En eller flere hjemler kan ikke brukes når behandlende enhet er NAV_ARBEID_OG_YTELSER_TILLEGGSSTØNAD: FS_TILL_ST_5",
+        internal fun `skal ikke feile når nay bruker en hjemmel som gjelder både nay og tiltaksenheten`() {
+            // FS_TILL_ST_5 gjelder nå både TSO og TSR, så den skal aksepteres for NAY-enheten.
+            validerVurdering(
+                vurdering =
+                    vurderingDto(
+                        vedtak = Vedtak.OPPRETTHOLD_VEDTAK,
+                        hjemler = listOf(Hjemmel.FS_TILL_ST_5),
+                        begrunnelseOmgjøring = null,
+                    ),
+                stønadstype = Stønadstype.BARNETILSYN,
             )
         }
 
