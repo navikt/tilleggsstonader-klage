@@ -10,7 +10,7 @@ val tokenSupportVersion = "6.0.12"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.11"
 val testcontainerVersion = "1.21.4"
-val springDocVersion = "3.1.0"
+val springDocVersion = "3.1.1"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -19,10 +19,10 @@ plugins {
     application
 
     kotlin("jvm") version "2.4.10"
-    kotlin("plugin.spring") version "2.4.10"
+    kotlin("plugin.spring") version "2.4.20"
 
     id("com.diffplug.spotless") version "8.10.2"
-    id("io.github.ben-manes.versions") version "0.61.0"
+    id("io.github.ben-manes.versions") version "0.64.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
     id("org.springframework.boot") version "4.1.1"
@@ -112,8 +112,8 @@ dependencies {
     testImplementation("no.nav.tilleggsstonader-libs:test-util:$tilleggsstønaderLibsVersion")
 
     // Transitiv avhengighet fra mock-oauth2-server -> bcpix. Disse under er definert som dynamisk versjon, noe bygget vårt ikke vil ha noe av
-    testImplementation("org.bouncycastle:bcutil-jdk18on:1.85")
-    testImplementation("org.bouncycastle:bcprov-jdk18on:1.85")
+    testImplementation("org.bouncycastle:bcutil-jdk18on:1.86")
+    testImplementation("org.bouncycastle:bcprov-jdk18on:1.86")
 }
 
 application {
