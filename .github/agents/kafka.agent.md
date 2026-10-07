@@ -1,24 +1,24 @@
 ---
 name: kafka-agent
 description: Rapids & Rivers, eventdrevet arkitektur, Kafka-mønstre og schema-design
-model: GPT-5.3-Codex
+model: GPT-6 Luna
 tools:
   - execute
   - read
   - edit
-  - search
-  - web
+  - grep
+  - glob
+  - web_fetch
   - todo
-  - ms-vscode.vscode-websearchforcopilot/websearch
-  - io.github.navikt/github-mcp/get_file_contents
-  - io.github.navikt/github-mcp/search_code
-  - io.github.navikt/github-mcp/search_repositories
-  - io.github.navikt/github-mcp/list_commits
-  - io.github.navikt/github-mcp/issue_read
-  - io.github.navikt/github-mcp/list_issues
-  - io.github.navikt/github-mcp/search_issues
-  - io.github.navikt/github-mcp/pull_request_read
-  - io.github.navikt/github-mcp/search_pull_requests
+  - github/get_file_contents
+  - github/search_code
+  - github/search_repositories
+  - github/list_commits
+  - github/issue_read
+  - github/list_issues
+  - github/search_issues
+  - github/pull_request_read
+  - github/search_pull_requests
 ---
 
 # Kafka Events Agent
@@ -46,12 +46,12 @@ kubectl logs -n <namespace> <pod> --tail=50 | grep -i "event\|kafka\|river"
 
 **Search tools**: Use `grep_search` to find River implementations, `semantic_search` for event patterns.
 
-## Related Agents
+## Related agents and skills
 
-| Agent | Use For |
+| Agent / skill | Use For |
 |-------|---------||
-| `@nais-agent` | Kafka pool configuration in Nais manifest |
-| `@observability-agent` | Consumer lag monitoring, event metrics |
+| `$nais` | Kafka pool configuration in Nais manifest |
+| `$observability-setup` | Consumer lag monitoring, event metrics |
 | `@security-champion-agent` | Event data privacy, audit logging |
 
 ## Rapids & Rivers Pattern
