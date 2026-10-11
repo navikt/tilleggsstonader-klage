@@ -1,8 +1,8 @@
 {
   "collection": "nav-pilot",
-  "version": "2026.10.08-225212-8936779",
+  "version": "2026.10.10-231728-7f8baad",
   "scope": "repo",
-  "source_sha": "f1f3393973e26deb7dd16dace4be655f8400800c",
+  "source_sha": "8d2b7ebd224442c243d70848eeabbd0fe459c74a",
   "installed_at": "2026-04-14T13:20:47Z",
   "files": [
     {
@@ -190,7 +190,8 @@
     },
     {
       "path": ".github/skills/deliberate-ai-use/",
-      "hash": "7c195e344bca6924"
+      "hash": "81fe98e25424c81c",
+      "revision": "8d2b7ebd224442c243d70848eeabbd0fe459c74a"
     },
     {
       "path": ".github/skills/flyway-migration/",
