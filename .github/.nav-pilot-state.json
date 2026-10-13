@@ -1,8 +1,8 @@
 {
   "collection": "nav-pilot",
-  "version": "2026.10.08-225212-8936779",
+  "version": "2026.10.13-045847-ab98b0f",
   "scope": "repo",
-  "source_sha": "f1f3393973e26deb7dd16dace4be655f8400800c",
+  "source_sha": "7038a3477687a48f4ad24a38a6e2ca6330b87f98",
   "installed_at": "2026-04-14T13:20:47Z",
   "files": [
     {
@@ -37,8 +37,8 @@
     },
     {
       "path": ".github/agents/nav-pilot.agent.md",
-      "hash": "8c6cbe9101b541c5",
-      "revision": "f1f3393973e26deb7dd16dace4be655f8400800c"
+      "hash": "018471685b00d5b7",
+      "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
     },
     {
       "path": ".github/agents/nav-pilot.metadata.json",
@@ -89,7 +89,8 @@
     },
     {
       "path": ".github/instructions/deliberate-ai-use.instructions.md",
-      "hash": "5e2d7a2f23285de8"
+      "hash": "c323e57324694374",
+      "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
     },
     {
       "path": ".github/instructions/docker.instructions.md",
@@ -190,7 +191,8 @@
     },
     {
       "path": ".github/skills/deliberate-ai-use/",
-      "hash": "7c195e344bca6924"
+      "hash": "c329412b61d8f8c1",
+      "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
     },
     {
       "path": ".github/skills/flyway-migration/",
@@ -211,7 +213,8 @@
     },
     {
       "path": ".github/skills/klarsprak/",
-      "hash": "28545e8d5ed779fe"
+      "hash": "d7e22a0fab7b9388",
+      "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
     },
     {
       "path": ".github/skills/kotlin-app-config/",
