@@ -1,8 +1,8 @@
 {
   "collection": "nav-pilot",
-  "version": "2026.10.14-155622-7fb753c",
+  "version": "2026.10.15-160300-d35826b",
   "scope": "repo",
-  "source_sha": "fa4193be71196c74b093e9ca67dc3ad50bf551b0",
+  "source_sha": "d787cdbc897e5fa5e6992861826c230dfc45b096",
   "installed_at": "2026-04-14T13:20:47Z",
   "files": [
     {
@@ -37,8 +37,8 @@
     },
     {
       "path": ".github/agents/nav-pilot.agent.md",
-      "hash": "2339a650aeb79e66",
-      "revision": "fa4193be71196c74b093e9ca67dc3ad50bf551b0"
+      "hash": "71e46ac2868cbf2e",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/agents/nav-pilot.metadata.json",
@@ -64,20 +64,23 @@
     },
     {
       "path": ".github/agents/worker.agent.md",
-      "hash": "30566b7b3fbd4e84",
-      "revision": "fa4193be71196c74b093e9ca67dc3ad50bf551b0"
+      "hash": "8ca54845d3fa2a73",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/hooks/ask-first-aria.py",
-      "hash": "41be8eec026b7bb1"
+      "hash": "fc5c399249a5d7b2",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/hooks/gh-poll-gate.py",
-      "hash": "7b144af18aef7c2f"
+      "hash": "72b72d28f9ec16bf",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/hooks/klarsprak-gate.py",
-      "hash": "ecc2bc6b2d637131"
+      "hash": "c2155ad041f460fd",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/instructions/accessibility.instructions.md",
@@ -201,6 +204,10 @@
       "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
     },
     {
+      "path": ".github/skills/dependency-upgrade/",
+      "hash": "03b9bf451939b567"
+    },
+    {
       "path": ".github/skills/flyway-migration/",
       "hash": "ebb952121b180fac"
     },
@@ -219,8 +226,8 @@
     },
     {
       "path": ".github/skills/klarsprak/",
-      "hash": "d7e22a0fab7b9388",
-      "revision": "7038a3477687a48f4ad24a38a6e2ca6330b87f98"
+      "hash": "618a0dbf98be8b11",
+      "revision": "d787cdbc897e5fa5e6992861826c230dfc45b096"
     },
     {
       "path": ".github/skills/kotlin-app-config/",
