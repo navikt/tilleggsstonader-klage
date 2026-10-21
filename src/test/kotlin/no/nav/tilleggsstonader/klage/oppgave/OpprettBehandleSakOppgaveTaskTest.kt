@@ -14,6 +14,7 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
@@ -102,6 +103,18 @@ internal class OpprettBehandleSakOppgaveTaskTest {
             opprettBehandleSakOppgaveTask.doTask(behandleSakOppgaveTask)
 
             assertThat(oppgaveSlot.captured.behandlingstema).isEqualTo("ab0300")
+        }
+
+        @Test
+        internal fun `skal bruke behandlingstype aktivitetspenger klage når klagen gjelder aktivitetspenger`() {
+            val aktivitetspengerBehandling = behandling.copy(gjelderAktivitetspenger = true)
+            every { behandlingService.hentBehandling(behandling.id) } returns aktivitetspengerBehandling
+
+            opprettBehandleSakOppgaveTask.doTask(
+                Task(type = OpprettBehandleSakOppgaveTask.TYPE, payload = behandling.id.toString()),
+            )
+
+            assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo(Behandlingstype.AktivitetspengerKlage.value)
         }
     }
 }

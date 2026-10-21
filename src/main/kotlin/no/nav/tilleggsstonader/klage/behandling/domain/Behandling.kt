@@ -8,6 +8,7 @@ import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
 import no.nav.tilleggsstonader.kontrakter.klage.FagsystemType
 import no.nav.tilleggsstonader.kontrakter.klage.HenlagtÅrsak
 import no.nav.tilleggsstonader.kontrakter.klage.Regelverk
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Embedded
@@ -34,8 +35,12 @@ data class Behandling(
     val henlagtÅrsak: HenlagtÅrsak? = null,
     val henlagtBegrunnelse: String? = null,
     val fagsystemRevurdering: FagsystemRevurdering? = null,
+    val gjelderAktivitetspenger: Boolean = false,
 ) {
     fun erFerdigstilt(): Boolean = status == BehandlingStatus.FERDIGSTILT
+
+    fun klageBehandlingstype(): Behandlingstype =
+        if (gjelderAktivitetspenger) Behandlingstype.AktivitetspengerKlage else Behandlingstype.Klage
 
     fun erHenlagt(): Boolean = resultat == BehandlingResultat.HENLAGT
 

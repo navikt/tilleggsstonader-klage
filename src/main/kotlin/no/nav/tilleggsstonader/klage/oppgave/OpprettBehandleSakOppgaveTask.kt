@@ -10,7 +10,6 @@ import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_META
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
-import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
@@ -45,7 +44,7 @@ class OpprettBehandleSakOppgaveTask(
                     ),
                 beskrivelse = "Klagebehandling i ny løsning",
                 enhetsnummer = behandling.behandlendeEnhet,
-                behandlingstype = Behandlingstype.Klage.value,
+                behandlingstype = behandling.klageBehandlingstype().value,
                 behandlesAvApplikasjon = "tilleggsstonader-klage",
                 tilordnetRessurs = task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
                 behandlingstema = fagsak.stønadstype.tilBehandlingstema().value,

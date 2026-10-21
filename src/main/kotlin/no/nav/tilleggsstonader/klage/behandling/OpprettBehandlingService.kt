@@ -58,6 +58,7 @@ class OpprettBehandlingService(
                             ),
                         klageMottatt = klageMottatt,
                         behandlendeEnhet = opprettKlagebehandlingRequest.behandlendeEnhet,
+                        gjelderAktivitetspenger = opprettKlagebehandlingRequest.gjelderAktivitetspenger,
                     ),
                 ).id
 
