@@ -11,6 +11,7 @@ import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import org.springframework.stereotype.Service
 
 @Service
@@ -53,7 +54,7 @@ class KabalBehandlingFeilregistrertTask(
                 oppgaveTekst = lagOppgavebeskrivelse(årsakFeilregistrert),
                 fagsystem = fagsak.fagsystem,
                 klageinstansUtfall = null,
-                behandlingstype = behandling.klageBehandlingstype().value,
+                behandlingstype = Behandlingstype.Klage.value,
             ),
         )
     }
