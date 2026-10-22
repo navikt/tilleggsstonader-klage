@@ -7,6 +7,7 @@ import io.mockk.slot
 import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.GJELDER_AKTIVITETSPENGER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.KLAGE_GJELDER_TILBAKEKREVING_METADATA_KEY
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.infrastruktur.mocks.OppgaveClientConfig.Companion.MAPPE_ID_KLAR
@@ -14,6 +15,7 @@ import no.nav.tilleggsstonader.klage.testutil.BrukerContextUtil
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
@@ -103,5 +105,36 @@ internal class OpprettBehandleSakOppgaveTaskTest {
 
             assertThat(oppgaveSlot.captured.behandlingstema).isEqualTo("ab0300")
         }
+
+        @Test
+        internal fun `skal bruke behandlingstype aktivitetspenger klage når klagen gjelder aktivitetspenger`() {
+            opprettBehandleSakOppgaveTask.doTask(lagTask(gjelderAktivitetspenger = "true"))
+
+            assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo(Behandlingstype.AktivitetspengerKlage.value)
+        }
+
+        @Test
+        internal fun `skal bruke behandlingstype klage når klagen ikke gjelder aktivitetspenger`() {
+            opprettBehandleSakOppgaveTask.doTask(lagTask(gjelderAktivitetspenger = "false"))
+
+            assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo(Behandlingstype.Klage.value)
+        }
+
+        @Test
+        internal fun `skal bruke behandlingstype klage når task mangler aktivitetspenger-metadata`() {
+            opprettBehandleSakOppgaveTask.doTask(lagTask(gjelderAktivitetspenger = null))
+
+            assertThat(oppgaveSlot.captured.behandlingstype).isEqualTo(Behandlingstype.Klage.value)
+        }
+
+        private fun lagTask(gjelderAktivitetspenger: String?) =
+            Task(
+                type = OpprettBehandleSakOppgaveTask.TYPE,
+                payload = behandling.id.toString(),
+                properties =
+                    Properties().apply {
+                        gjelderAktivitetspenger?.let { this[GJELDER_AKTIVITETSPENGER_METADATA_KEY] = it }
+                    },
+            )
     }
 }

@@ -4,6 +4,7 @@ import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.behandling.domain.erUnderArbeidAvSaksbehandler
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.MappeDto
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgave
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgaveMappe
@@ -16,6 +17,7 @@ import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import no.nav.tilleggsstonader.libs.spring.cache.getValue
 import org.slf4j.LoggerFactory
 import org.springframework.cache.CacheManager
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -69,6 +71,14 @@ class OppgaveService(
 
     fun hentOppgaveIdForBehandling(behandlingId: BehandlingId): BehandleSakOppgave =
         behandleSakOppgaveRepository.findByBehandlingId(behandlingId)
+
+    /**
+     * Markeringen på behandle sak-oppgaven i Gosys er sannheten for om klagen gjelder aktivitetspenger.
+     */
+    fun behandleSakOppgaveGjelderAktivitetspenger(behandlingId: BehandlingId): Boolean {
+        val behandleSakOppgave = behandleSakOppgaveRepository.findByIdOrNull(behandlingId) ?: return false
+        return hentOppgave(behandleSakOppgave.oppgaveId).behandlingstype == Behandlingstype.AktivitetspengerKlage.value
+    }
 
     fun finnMappe(
         enhet: String,

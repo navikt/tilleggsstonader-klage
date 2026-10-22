@@ -13,6 +13,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgavePrioritet
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
@@ -59,7 +60,12 @@ class OpprettOppgaveForKlagehendelseTask(
                 beskrivelse = opprettOppgavePayload.oppgaveTekst,
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstema = opprettOppgavePayload.behandlingstema?.value,
-                behandlingstype = opprettOppgavePayload.behandlingstype,
+                behandlingstype =
+                    if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandling.id)) {
+                        Behandlingstype.AktivitetspengerKlage.value
+                    } else {
+                        opprettOppgavePayload.behandlingstype
+                    },
                 prioritet = prioritet,
             )
 

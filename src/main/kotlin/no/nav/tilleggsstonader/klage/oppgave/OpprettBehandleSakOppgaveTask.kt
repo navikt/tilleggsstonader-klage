@@ -6,6 +6,7 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingService
 import no.nav.tilleggsstonader.klage.fagsak.FagsakService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.GJELDER_AKTIVITETSPENGER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.fristBehandleSakOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
@@ -45,7 +46,7 @@ class OpprettBehandleSakOppgaveTask(
                     ),
                 beskrivelse = "Klagebehandling i ny løsning",
                 enhetsnummer = behandling.behandlendeEnhet,
-                behandlingstype = Behandlingstype.Klage.value,
+                behandlingstype = utledBehandlingstype(task).value,
                 behandlesAvApplikasjon = "tilleggsstonader-klage",
                 tilordnetRessurs = task.metadata.getProperty(SAKSBEHANDLER_METADATA_KEY),
                 behandlingstema = fagsak.stønadstype.tilBehandlingstema().value,
@@ -53,6 +54,11 @@ class OpprettBehandleSakOppgaveTask(
             )
 
         oppgaveService.opprettOppgave(behandlingId, opprettOppgaveRequest = oppgaveRequest)
+    }
+
+    private fun utledBehandlingstype(task: Task): Behandlingstype {
+        val gjelderAktivitetspenger = task.metadata.getProperty(GJELDER_AKTIVITETSPENGER_METADATA_KEY).toBoolean()
+        return if (gjelderAktivitetspenger) Behandlingstype.AktivitetspengerKlage else Behandlingstype.Klage
     }
 
     companion object {
