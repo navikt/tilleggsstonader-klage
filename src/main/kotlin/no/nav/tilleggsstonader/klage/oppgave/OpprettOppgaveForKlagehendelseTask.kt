@@ -6,6 +6,7 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
@@ -13,6 +14,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.JsonMapperProvider.jsonMapper
 import no.nav.tilleggsstonader.kontrakter.felles.tilTema
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgavePrioritet
 import no.nav.tilleggsstonader.kontrakter.oppgave.Oppgavetype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
@@ -59,7 +61,7 @@ class OpprettOppgaveForKlagehendelseTask(
                 beskrivelse = opprettOppgavePayload.oppgaveTekst,
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstema = opprettOppgavePayload.behandlingstema?.value,
-                behandlingstype = opprettOppgavePayload.behandlingstype,
+                behandlingstype = utledBehandlingstype(behandling.id, opprettOppgavePayload.behandlingstype),
                 prioritet = prioritet,
             )
 
@@ -67,6 +69,16 @@ class OpprettOppgaveForKlagehendelseTask(
             oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettVurderKonsekvensForYtelseOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
+
+    private fun utledBehandlingstype(
+        behandlingId: BehandlingId,
+        defaultBehandlingstype: String?,
+    ): String? =
+        if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
+            Behandlingstype.AktivitetspengerKlage.value
+        } else {
+            defaultBehandlingstype
+        }
 
     companion object {
         const val TYPE = "opprettOppgaveForKlagehendelse"

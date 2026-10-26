@@ -65,7 +65,10 @@ class OpprettBehandlingService(
 
         formService.opprettInitielleFormkrav(behandlingId)
 
-        oppgaveTaskService.opprettBehandleSakOppgave(behandlingId)
+        oppgaveTaskService.opprettBehandleSakOppgave(
+            behandlingId = behandlingId,
+            gjelderAktivitetspenger = opprettKlagebehandlingRequest.gjelderAktivitetspenger,
+        )
 
         taskService.save(
             BehandlingsstatistikkTask.opprettMottattTask(behandlingId = behandlingId),

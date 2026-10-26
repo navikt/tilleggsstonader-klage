@@ -13,11 +13,13 @@ import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingEvent
 import no.nav.tilleggsstonader.klage.kabal.KabalBehandlingFeilregistrertTask
 import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgavePayload
 import no.nav.tilleggsstonader.kontrakter.felles.tilBehandlingstema
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingEventType
 import no.nav.tilleggsstonader.kontrakter.klage.BehandlingStatus
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.libs.http.client.ProblemDetailException
 import no.nav.tilleggsstonader.libs.log.SecureLogger.secureLogger
 import org.slf4j.LoggerFactory
@@ -33,6 +35,7 @@ class KabalBehandlingEventService(
     private val klageresultatRepository: KlageresultatRepository,
     private val stegService: StegService,
     private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
+    private val oppgaveService: OppgaveService,
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -140,10 +143,18 @@ class KabalBehandlingEventService(
                 fagsystem = fagsakDomain.fagsystem,
                 klageinstansUtfall = kabalBehandlingEvent.utfall(),
                 behandlingstema = fagsakDomain.stønadstype.tilBehandlingstema(),
+                behandlingstype = utledBehandlingstype(behandling.id),
             )
         val opprettOppgaveTask = OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
     }
+
+    private fun utledBehandlingstype(behandlingId: BehandlingId): String? =
+        if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
+            Behandlingstype.Aktivitetspenger.value
+        } else {
+            null
+        }
 
     private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =
         try {

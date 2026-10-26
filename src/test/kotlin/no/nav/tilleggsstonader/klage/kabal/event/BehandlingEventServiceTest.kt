@@ -23,6 +23,7 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.OmgjoeringskravbehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
@@ -42,6 +43,7 @@ internal class BehandlingEventServiceTest {
     private val stegService = mockk<StegService>(relaxed = true)
     private val klageresultatRepository = mockk<KlageresultatRepository>(relaxed = true)
     private val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>(relaxed = true)
+    private val oppgaveService = mockk<OppgaveService>(relaxed = true)
 
     val kabalBehandlingEventService =
         KabalBehandlingEventService(
@@ -51,6 +53,7 @@ internal class BehandlingEventServiceTest {
             taskService = taskService,
             klageresultatRepository = klageresultatRepository,
             integrasjonerClient = integrasjonerClient,
+            oppgaveService = oppgaveService,
         )
 
     val behandlingMedStatusVenter = DomainUtil.behandling(status = BehandlingStatus.VENTER)

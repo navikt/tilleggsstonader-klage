@@ -3,6 +3,7 @@ package no.nav.tilleggsstonader.klage.oppgave
 import no.nav.familie.prosessering.domene.Task
 import no.nav.familie.prosessering.internal.TaskService
 import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
+import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.GJELDER_AKTIVITETSPENGER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.felles.util.TaskMetadata.SAKSBEHANDLER_METADATA_KEY
 import no.nav.tilleggsstonader.klage.infrastruktur.sikkerhet.SikkerhetContext
 import org.springframework.stereotype.Service
@@ -12,7 +13,10 @@ import java.util.Properties
 class OppgaveTaskService(
     private val taskService: TaskService,
 ) {
-    fun opprettBehandleSakOppgave(behandlingId: BehandlingId) {
+    fun opprettBehandleSakOppgave(
+        behandlingId: BehandlingId,
+        gjelderAktivitetspenger: Boolean,
+    ) {
         val behandleSakOppgaveTask =
             Task(
                 type = OpprettBehandleSakOppgaveTask.TYPE,
@@ -20,6 +24,7 @@ class OppgaveTaskService(
                 properties =
                     Properties().apply {
                         this[SAKSBEHANDLER_METADATA_KEY] = SikkerhetContext.hentSaksbehandler(strict = true)
+                        this[GJELDER_AKTIVITETSPENGER_METADATA_KEY] = gjelderAktivitetspenger.toString()
                     },
             )
         taskService.save(behandleSakOppgaveTask)

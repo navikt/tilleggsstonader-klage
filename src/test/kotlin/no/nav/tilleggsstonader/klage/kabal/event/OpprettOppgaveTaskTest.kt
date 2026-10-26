@@ -19,6 +19,7 @@ import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
 import no.nav.tilleggsstonader.kontrakter.felles.Fagsystem
 import no.nav.tilleggsstonader.kontrakter.felles.Tema
 import no.nav.tilleggsstonader.kontrakter.klage.KlageinstansUtfall
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 import no.nav.tilleggsstonader.kontrakter.oppgave.OppgavePrioritet
 import no.nav.tilleggsstonader.kontrakter.oppgave.OpprettOppgaveRequest
 import org.assertj.core.api.Assertions.assertThat
@@ -52,6 +53,7 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
         opprettOppgaveTask =
             OpprettOppgaveForKlagehendelseTask(fagsakRepository, behandlingRepository, personRepository, oppgaveService)
         every { oppgaveService.opprettOppgaveUtenÅLagreIRepository(capture(opprettOppgaveRequestSlot)) } answers { 9L }
+        every { oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(any()) } returns false
 
         fagsak =
             testoppsettService.lagreFagsak(
@@ -120,4 +122,32 @@ class OpprettOppgaveTaskTest : IntegrationTest() {
 
         assertThat(opprettOppgaveRequestSlot.captured.prioritet).isEqualTo(OppgavePrioritet.NORM)
     }
+
+    @Test
+    fun `skal bruke behandlingstype aktivitetspenger klage når behandle sak-oppgaven gjelder aktivitetspenger`() {
+        every { oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandling.id) } returns true
+
+        opprettOppgaveTask.doTask(lagTask(behandlingstype = Behandlingstype.Klage.value))
+
+        assertThat(opprettOppgaveRequestSlot.captured.behandlingstype)
+            .isEqualTo(Behandlingstype.AktivitetspengerKlage.value)
+    }
+
+    @Test
+    fun `skal bruke behandlingstype fra payload når behandle sak-oppgaven ikke gjelder aktivitetspenger`() {
+        opprettOppgaveTask.doTask(lagTask(behandlingstype = Behandlingstype.Klage.value))
+
+        assertThat(opprettOppgaveRequestSlot.captured.behandlingstype).isEqualTo(Behandlingstype.Klage.value)
+    }
+
+    private fun lagTask(behandlingstype: String?) =
+        OpprettOppgaveForKlagehendelseTask.opprettTask(
+            OpprettOppgavePayload(
+                behandling.eksternBehandlingId,
+                "tekst",
+                Fagsystem.TILLEGGSSTONADER,
+                null,
+                behandlingstype = behandlingstype,
+            ),
+        )
 }
