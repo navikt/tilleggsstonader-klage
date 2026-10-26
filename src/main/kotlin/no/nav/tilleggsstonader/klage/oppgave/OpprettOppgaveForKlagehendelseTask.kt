@@ -6,6 +6,7 @@ import no.nav.familie.prosessering.domene.Task
 import no.nav.tilleggsstonader.klage.behandling.BehandlingRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakPersonRepository
 import no.nav.tilleggsstonader.klage.fagsak.FagsakRepository
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 import no.nav.tilleggsstonader.klage.infrastruktur.exception.Feil
 import no.nav.tilleggsstonader.klage.oppgave.OppgaveUtil.lagFristForOppgave
 import no.nav.tilleggsstonader.kontrakter.felles.Behandlingstema
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service
 import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.UUID
-import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 
 @Service
 @TaskStepBeskrivelse(
@@ -70,13 +70,15 @@ class OpprettOppgaveForKlagehendelseTask(
         logger.info("Oppgave opprettet med id $oppgaveId")
     }
 
-    private fun utledBehandlingstype (behandlingId: BehandlingId, defaultBehandlingstype: String?): String? {
-        return if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
+    private fun utledBehandlingstype(
+        behandlingId: BehandlingId,
+        defaultBehandlingstype: String?,
+    ): String? =
+        if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
             Behandlingstype.AktivitetspengerKlage.value
         } else {
             defaultBehandlingstype
         }
-    }
 
     companion object {
         const val TYPE = "opprettOppgaveForKlagehendelse"

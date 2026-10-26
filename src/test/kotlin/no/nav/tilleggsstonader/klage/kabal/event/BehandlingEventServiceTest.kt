@@ -23,6 +23,7 @@ import no.nav.tilleggsstonader.klage.kabal.KlageresultatRepository
 import no.nav.tilleggsstonader.klage.kabal.OmgjoeringskravbehandlingAvsluttetDetaljer
 import no.nav.tilleggsstonader.klage.kabal.domain.KlageinstansResultat
 import no.nav.tilleggsstonader.klage.kabal.domain.Type
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 import no.nav.tilleggsstonader.klage.oppgave.OpprettOppgaveForKlagehendelseTask
 import no.nav.tilleggsstonader.klage.testutil.DomainUtil
 import no.nav.tilleggsstonader.kontrakter.felles.Saksbehandler
@@ -34,7 +35,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.util.UUID
-import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 
 internal class BehandlingEventServiceTest {
     private val behandlingRepository = mockk<BehandlingRepository>(relaxed = true)
@@ -53,7 +53,7 @@ internal class BehandlingEventServiceTest {
             taskService = taskService,
             klageresultatRepository = klageresultatRepository,
             integrasjonerClient = integrasjonerClient,
-            oppgaveService = oppgaveService
+            oppgaveService = oppgaveService,
         )
 
     val behandlingMedStatusVenter = DomainUtil.behandling(status = BehandlingStatus.VENTER)
