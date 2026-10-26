@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
+import no.nav.tilleggsstonader.kontrakter.oppgave.Behandlingstype
 
 @Service
 class KabalBehandlingEventService(
@@ -33,6 +35,7 @@ class KabalBehandlingEventService(
     private val klageresultatRepository: KlageresultatRepository,
     private val stegService: StegService,
     private val integrasjonerClient: TilleggsstønaderIntegrasjonerClient,
+    private val oppgaveService: OppgaveService
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -140,9 +143,18 @@ class KabalBehandlingEventService(
                 fagsystem = fagsakDomain.fagsystem,
                 klageinstansUtfall = kabalBehandlingEvent.utfall(),
                 behandlingstema = fagsakDomain.stønadstype.tilBehandlingstema(),
+                behandlingstype = utledBehandlingstype(behandling.id)
             )
         val opprettOppgaveTask = OpprettOppgaveForKlagehendelseTask.opprettTask(opprettOppgavePayload)
         taskService.save(opprettOppgaveTask)
+    }
+
+    private fun utledBehandlingstype (behandlingId: BehandlingId): String? {
+        return if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
+            Behandlingstype.Aktivitetspenger.value
+        } else {
+            null
+        }
     }
 
     private fun utledSaksbehandlerEnhet(saksbehandlerIdent: String) =

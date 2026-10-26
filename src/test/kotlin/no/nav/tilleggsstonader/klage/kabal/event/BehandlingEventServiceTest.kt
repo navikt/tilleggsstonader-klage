@@ -34,6 +34,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.util.UUID
+import no.nav.tilleggsstonader.klage.oppgave.OppgaveService
 
 internal class BehandlingEventServiceTest {
     private val behandlingRepository = mockk<BehandlingRepository>(relaxed = true)
@@ -42,6 +43,7 @@ internal class BehandlingEventServiceTest {
     private val stegService = mockk<StegService>(relaxed = true)
     private val klageresultatRepository = mockk<KlageresultatRepository>(relaxed = true)
     private val integrasjonerClient = mockk<TilleggsstønaderIntegrasjonerClient>(relaxed = true)
+    private val oppgaveService = mockk<OppgaveService>(relaxed = true)
 
     val kabalBehandlingEventService =
         KabalBehandlingEventService(
@@ -51,6 +53,7 @@ internal class BehandlingEventServiceTest {
             taskService = taskService,
             klageresultatRepository = klageresultatRepository,
             integrasjonerClient = integrasjonerClient,
+            oppgaveService = oppgaveService
         )
 
     val behandlingMedStatusVenter = DomainUtil.behandling(status = BehandlingStatus.VENTER)

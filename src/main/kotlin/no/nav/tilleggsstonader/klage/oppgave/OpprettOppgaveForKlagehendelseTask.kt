@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service
 import tools.jackson.module.kotlin.readValue
 import java.time.LocalDateTime
 import java.util.UUID
+import no.nav.tilleggsstonader.klage.felles.domain.BehandlingId
 
 @Service
 @TaskStepBeskrivelse(
@@ -60,18 +61,21 @@ class OpprettOppgaveForKlagehendelseTask(
                 beskrivelse = opprettOppgavePayload.oppgaveTekst,
                 enhetsnummer = behandling.behandlendeEnhet,
                 behandlingstema = opprettOppgavePayload.behandlingstema?.value,
-                behandlingstype =
-                    if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandling.id)) {
-                        Behandlingstype.AktivitetspengerKlage.value
-                    } else {
-                        opprettOppgavePayload.behandlingstype
-                    },
+                behandlingstype = utledBehandlingstype(behandling.id, opprettOppgavePayload.behandlingstype),
                 prioritet = prioritet,
             )
 
         val oppgaveId =
             oppgaveService.opprettOppgaveUtenÅLagreIRepository(opprettVurderKonsekvensForYtelseOppgaveRequest)
         logger.info("Oppgave opprettet med id $oppgaveId")
+    }
+
+    private fun utledBehandlingstype (behandlingId: BehandlingId, defaultBehandlingstype: String?): String? {
+        return if (oppgaveService.behandleSakOppgaveGjelderAktivitetspenger(behandlingId)) {
+            Behandlingstype.AktivitetspengerKlage.value
+        } else {
+            defaultBehandlingstype
+        }
     }
 
     companion object {
