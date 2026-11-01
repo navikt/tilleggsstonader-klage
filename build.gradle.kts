@@ -10,7 +10,7 @@ val tokenSupportVersion = "6.0.13"
 val wiremockVersion = "3.13.2"
 val mockkVersion = "1.14.11"
 val testcontainerVersion = "1.21.4"
-val springDocVersion = "3.1.1"
+val springDocVersion = "3.2.0"
 
 group = "no.nav.tilleggsstonader.klage"
 version = "1.0.0"
@@ -25,7 +25,7 @@ plugins {
     id("io.github.ben-manes.versions") version "0.66.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
 
-    id("org.springframework.boot") version "4.1.1"
+    id("org.springframework.boot") version "4.1.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
