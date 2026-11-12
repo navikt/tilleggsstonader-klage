@@ -4,7 +4,7 @@ App for behandling av klager relatert til tilleggsstønader
 
 ## Kjøre opp appen lokalt
 
-Appen kjører på JRE 21. Bygging gjøres ved å kjøre `./gradlew clean install`
+Appen kjører på JRE 25. Bygging gjøres ved å kjøre `./gradlew clean install`
 
 ### Autentisering lokalt
 
