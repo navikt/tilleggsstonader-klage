@@ -8,7 +8,7 @@ val tilleggsstønaderLibsVersion = "2026.08.12-21.36.b496b5f97061"
 val tilleggsstønaderKontrakterVersion = "2026.10.22-09.39.7898ab13ce6a"
 val tokenSupportVersion = "7.0.1"
 val wiremockVersion = "3.13.2"
-val mockkVersion = "1.14.11"
+val mockkVersion = "1.14.12"
 val testcontainerVersion = "1.21.4"
 val springDocVersion = "3.2.0"
 
