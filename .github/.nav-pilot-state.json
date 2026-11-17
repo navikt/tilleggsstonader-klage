@@ -1,8 +1,8 @@
 {
   "collection": "nav-pilot",
-  "version": "2026.11.11-094753-968a115",
+  "version": "2026.11.16-215520-53c47ec",
   "scope": "repo",
-  "source_sha": "e493cefdc144fb09b1824dc56fcfbc28130c2c9a",
+  "source_sha": "53c47ecce625aa125daef8710870685263f6bb98",
   "installed_at": "2026-04-14T13:20:47Z",
   "files": [
     {
@@ -284,8 +284,8 @@
     },
     {
       "path": ".github/skills/observability-debugging/",
-      "hash": "d09dd467d7ce45a7",
-      "revision": "8ceea96d7adebdb4218496f71bf5f0cb6b43a183"
+      "hash": "b68cd05f7cf865e7",
+      "revision": "53c47ecce625aa125daef8710870685263f6bb98"
     },
     {
       "path": ".github/skills/observability-setup/",
@@ -307,6 +307,10 @@
       "revision": "83fb61c2b2973b845655224d72a950d1347cfaeb"
     },
     {
+      "path": ".github/skills/repo-baseline-audit/",
+      "hash": "f45887dfe8b2f49c"
+    },
+    {
       "path": ".github/skills/repo-pii-audit/",
       "hash": "6e3eb9adae55c238"
     },
@@ -316,8 +320,8 @@
     },
     {
       "path": ".github/skills/security-owasp/",
-      "hash": "6c2dc64c5fe6b81e",
-      "revision": "83fb61c2b2973b845655224d72a950d1347cfaeb"
+      "hash": "c020e45389dad61d",
+      "revision": "53c47ecce625aa125daef8710870685263f6bb98"
     },
     {
       "path": ".github/skills/security-review/",
